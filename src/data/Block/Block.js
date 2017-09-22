@@ -7,9 +7,15 @@
 import Immutable from "immutable";
 import Color from "../Color";
 
-const Block = Immutable.Record({
+const BlockRecord = Immutable.Record({
   occupied: false,
   color   : Color.TRANSPARENT,
 });
+
+class Block extends BlockRecord {
+  toggleOccupied() {
+    return this.set("occupied", !this.get("occupied"));
+  }
+}
 
 export default Block;

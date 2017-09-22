@@ -11,11 +11,14 @@ export default class GridView extends Component {
         <a onClick={this.props.onClick}>click me</a>
         {this.props.grid.map((row, i) => (
           <div className="grid-row" key={i}>
-            {row.map((block, j) => (
+            {row.map((block, j) => {
+
+              block = block;
+              return (
               <span key={j}
                     className={`grid-cell ${block.occupied ? "occupied" : ""} grid-cell-color-${block.color}`}
               />
-            ))}
+            )})}
           </div>
         ))}
       </div>
