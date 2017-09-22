@@ -1,0 +1,22 @@
+@import "./lib/base.scss";
+
+.grid-container {
+  .grid-view {
+    $grid-cell-size: 20px;
+
+    .grid-row {
+      display: flex;
+      flex-direction: row;
+      
+      .grid-cell {
+        width: $grid-cell-size;
+        height: $grid-cell-size;
+        display: block;
+
+        &.grid-cell-solid {
+          background-color: $blue;
+        }
+      }
+    }
+  }
+}
