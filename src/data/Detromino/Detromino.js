@@ -46,14 +46,19 @@ class Detromino extends DetrominoRecord {
     shape = rotateBlock(shape, rotation);
 
     // Generate blocks
-    let blocks = [];
+    let map = Immutable.Map();
     let x = this.get("x");
     let y = this.get("y");
-    id = this.get("id");
+    let detrominoId = this.get("id");
     for (let dx = 0; dx < shape.length; ++dx) {
       for (let dy = 0; dy < shape[dx].length; ++dy) {
-        blocks.push(new Block({
-          id      : `${id}-${shape[dx][dy]}`,
+        if (!shape[dx][dy]) {
+          continue;
+        }
+
+        let id = `${detrominoId}-${shape[dx][dy]}`;
+        map = map.set(id, new Block({
+          id,
           occupied: true,
           type    : BlockType.DETROMINO,
           color,
@@ -63,8 +68,8 @@ class Detromino extends DetrominoRecord {
       }
     }
 
-    return blocks;
+    return map;
   }
 }
 
-export default new Detromino();
+export default Detromino;

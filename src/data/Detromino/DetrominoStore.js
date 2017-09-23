@@ -2,29 +2,26 @@
  * Created by Anoxic on 9/21/2017.
  */
 
-import Immutable from "immutable";
 import {ReduceStore} from "flux/utils";
 
+import GridDispatcher from "../Grid/GridDispatcher";
+
 import DetrominoActionTypes from "./DetrominoActionTypes";
-import DetrominoDispatcher from "./DetrominoDispatcher";
 import DetrominoContext from "./DetrominoContext";
 import Detromino from "./Detromino";
 
-import Block from "../Block/Block";
-import Color from "../Color";
-
 class DetrominoStore extends ReduceStore {
   constructor() {
-    super(DetrominoDispatcher);
+    super(GridDispatcher);
   }
 
   getInitialState() {
-    return new Detromino();
+    return null;
   }
 
   reduce(state, action) {
     switch (action.type) {
-      case DetrominoActionTypes.INIT:
+      case DetrominoActionTypes.INIT_GRID:
         return DetrominoStore.initState(action);
       case DetrominoActionTypes.ROTATE:
         return DetrominoStore.rotate(state, action);
@@ -33,9 +30,9 @@ class DetrominoStore extends ReduceStore {
       case DetrominoActionTypes.RIGHT:
         return DetrominoStore.move(state, action.grid, {x: 1});
       case DetrominoActionTypes.UP:
-        return DetrominoStore.move(state, action.grid, {y: -1});
-      case DetrominoActionTypes.DOWN:
         return DetrominoStore.move(state, action.grid, {y: 1});
+      case DetrominoActionTypes.DOWN:
+        return DetrominoStore.move(state, action.grid, {y: -1});
       case DetrominoActionTypes.DROP:
         return DetrominoStore.drop(state, action.grid);
       default:
@@ -44,11 +41,13 @@ class DetrominoStore extends ReduceStore {
   }
 
   static initState(action) {
-    let {detrominoType, grid} = action;
+    let {detrominoType = DetrominoContext.Type.DEFAULT, grid} = action;
     // todo: place the detromino in the middle and only show the bottom line
     return new Detromino({
       id  : new Date().getTime(),
       type: detrominoType,
+      x   : 0,
+      y   : 0,
     });
   }
 
@@ -85,8 +84,10 @@ class DetrominoStore extends ReduceStore {
   static move(state, grid, delta) {
     let {x = 0, y = 0} = delta;
 
-    // todo implement this
-    return state;
+    // todo: handle the case where the detromino is going to hit the edge
+
+    return state.set("x", state.get("x") + x)
+      .set("y", state.get("y") + y);
   }
 
   /**

@@ -7,8 +7,6 @@ import {ReduceStore} from "flux/utils";
 
 import GridActionTypes from "./GridActionTypes";
 import GridDispatcher from "./GridDispatcher";
-import Block from "../Block/Block";
-import Color from "../Color";
 
 class GridStore extends ReduceStore {
   constructor() {
@@ -16,12 +14,12 @@ class GridStore extends ReduceStore {
   }
 
   getInitialState() {
-    return Immutable.List();
+    return Immutable.Map();
   }
 
   reduce(state, action) {
     switch (action.type) {
-      case GridActionTypes.INIT:
+      case GridActionTypes.INIT_GRID:
         return this.initState(action);
       case GridActionTypes.APPLY_DETROMINO:
         return GridStore.applyDetromino(state, action.detromino);
@@ -36,10 +34,8 @@ class GridStore extends ReduceStore {
   static applyDetromino(state, detromino) {
     let {x, y} = detromino;
     let shape = detromino.getRotatedBlocks();
-
-    // todo: apply shape to `state`
-
-    return state;
+    // todo: handle the case if there is a conflict
+    return state.merge(shape);
   }
 
   initState(action) {

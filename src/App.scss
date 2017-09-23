@@ -6,7 +6,11 @@
     $grid-height: 20;
     $grid-cell-size: 15px;
 
-    position: relative;
+    .grid-cells {
+      position: relative;
+      height: $grid-height * $grid-cell-size;
+      width: $grid-width * $grid-cell-size;
+    }
 
     .grid-cell {
       width: $grid-cell-size;
@@ -15,6 +19,8 @@
       position: absolute;
       left: -1000px; // hidden by default
       bottom: -1000px; // hidden by default
+      overflow: hidden;
+      transition: left .2s ease, bottom .2s ease;
 
       &.grid-cell-color-solid {
         background-color: black;

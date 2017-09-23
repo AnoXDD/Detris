@@ -6,7 +6,7 @@
 
 const ActionTypes = {
   // Initialize the detromino
-  INIT: "INIT",
+  INIT_GRID: "INIT_GRID",
 
   ROTATE   : "ROTATE",
 

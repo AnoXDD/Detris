@@ -6,7 +6,7 @@
 
 const ActionTypes = {
   // Initialize the grid
-  INIT           : "INIT",
+  INIT_GRID      : "INIT_GRID",
   // Drop a detromino in the grid
   APPLY_DETROMINO: "APPLY_DETROMINO",
 };

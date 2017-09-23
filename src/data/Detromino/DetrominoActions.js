@@ -4,48 +4,49 @@
  * The list of actions that can be dispatched
  */
 
+import GridDispatcher from "../Grid/GridDispatcher";
+
 import DetrominoActionTypes from "./DetrominoActionTypes";
-import DetrominoDispatcher from "./DetrominoDispatcher";
 
 const Actions = {
   init(grid, detrominoType) {
-    DetrominoDispatcher.dispatch({
-      type: DetrominoActionTypes.INIT,
+    GridDispatcher.dispatch({
+      type: DetrominoActionTypes.INIT_GRID,
       detrominoType,
       grid,
     });
   },
 
   moveLeft(grid) {
-    DetrominoDispatcher.dispatch({
+    GridDispatcher.dispatch({
       type: DetrominoActionTypes.LEFT,
       grid,
     });
   },
 
   moveRight(grid) {
-    DetrominoDispatcher.dispatch({
+    GridDispatcher.dispatch({
       type: DetrominoActionTypes.RIGHT,
       grid,
     });
   },
 
   moveUp(grid) {
-    DetrominoDispatcher.dispatch({
+    GridDispatcher.dispatch({
       type: DetrominoActionTypes.UP,
       grid,
     });
   },
 
   moveDown(grid) {
-    DetrominoDispatcher.dispatch({
+    GridDispatcher.dispatch({
       type: DetrominoActionTypes.DOWN,
       grid,
     });
   },
 
   dropDown(grid) {
-    DetrominoDispatcher.dispatch({
+    GridDispatcher.dispatch({
       type: DetrominoActionTypes.DROP,
       grid,
     })

@@ -6,7 +6,7 @@
 
 const DetrominoContext = {
   "Type"    : {
-    DEFAULT: "?",
+    DEFAULT: "DEFAULT",
     I      : "I",
     O      : "O",
     T      : "T",
@@ -23,8 +23,8 @@ const DetrominoContext = {
     DEG_270: 270,
   },
   "Shape"   : {
-    DEFAULT: [1],
-    I      : [1, 1, 1, 1],
+    DEFAULT: [[1]],
+    I      : [[1, 1, 1, 1]],
     O      : [[1, 1], [1, 1]],
     T      : [[0, 1, 0], [1, 1, 1]],
     S      : [[0, 1, 1], [1, 1, 0]],
