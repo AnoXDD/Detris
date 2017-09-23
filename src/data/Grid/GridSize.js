@@ -4,9 +4,9 @@
  * A class to hold the properties with grid
  */
 
-const GridContext = {
+const GridSize = {
   WIDTH : 10,
   HEIGHT: 20,
 };
 
-export default GridContext;
+export default GridSize;

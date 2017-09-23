@@ -4,22 +4,25 @@
 
 import Immutable from "immutable";
 
-import DetrominoContext from "./DetrominoContext";
 import Color from "../Color";
+import Rotation from "../Rotation";
+
 import Block from "../Block/Block";
 import BlockType from "../Block/BlockType";
+import DetrominoType from "./DetrominoType";
+import DetrominoShape from "./DetrominoShape";
 
 const DetrominoRecord = Immutable.Record({
   id      : -1, // Used to help generate correct id
-  type    : DetrominoContext.Type.DEFAULT,
-  rotation: DetrominoContext.Rotation.NONE,
+  type    : DetrominoType.DEFAULT,
+  rotation: Rotation.NONE,
   x       : 0, // The width position of top left pixel on grid
   y       : 0, // The height position of top left pixel on grid
 });
 
 function rotateBlock(blocks, rotation) {
   // todo: implement this
-  if (rotation === DetrominoContext.Rotation.NONE) {
+  if (rotation === Rotation.NONE) {
     return blocks;
   }
 }
@@ -31,7 +34,7 @@ class Detromino extends DetrominoRecord {
    * @param color
    */
   getRotatedBlocks(color = Color.SOLID) {
-    let shape = DetrominoContext.Shape[this.get("type")]
+    let shape = DetrominoShape[this.get("type")]
       .map(arr => arr.slice());
     let rotation = this.get("rotation");
 

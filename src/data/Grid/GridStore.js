@@ -5,11 +5,15 @@
 import Immutable from "immutable";
 import {ReduceStore} from "flux/utils";
 
+import Rotation from "../Rotation";
+
 import GridActionTypes from "./GridActionTypes";
 import GridDispatcher from "./GridDispatcher";
 
-import DetrominoContext from "../Detromino/DetrominoContext";
 import Detromino from "../Detromino/Detromino";
+import DetrominoType from "../Detromino/DetrominoType";
+import DetrominoShape from "../Detromino/DetrominoShape";
+import GridSize from "./GridSize";
 
 class GridStore extends ReduceStore {
   constructor() {
@@ -18,7 +22,9 @@ class GridStore extends ReduceStore {
 
   getInitialState() {
     let map = Immutable.Map();
-    return map.set("grid", Immutable.Map()).set("detromino", null);
+    return map
+      .set("grid", Immutable.Map())
+      .set("detromino", new Detromino());
   }
 
   reduce(state, action) {
@@ -45,8 +51,8 @@ class GridStore extends ReduceStore {
   }
 
   static newDetromino(state, action) {
-    let {detrominoType = DetrominoContext.Type.DEFAULT} = action;
-    // todo: place the detromino in the middle and only show the bottom line
+    let {detrominoType = DetrominoType.DEFAULT} = action;
+    // todo: place the detromino in the middle
     state = state.set("detromino", new Detromino({
       id  : new Date().getTime(),
       type: detrominoType,
@@ -62,17 +68,17 @@ class GridStore extends ReduceStore {
     let rotation = detromino.get("rotation");
 
     switch (rotation) {
-      case DetrominoContext.rotation.NONE:
-        rotation = DetrominoContext.rotation.DEG_90;
+      case Rotation.NONE:
+        rotation = Rotation.DEG_90;
         break;
-      case DetrominoContext.rotation.DEG_90:
-        rotation = DetrominoContext.rotation.DEG_180;
+      case Rotation.DEG_90:
+        rotation = Rotation.DEG_180;
         break;
-      case DetrominoContext.rotation.DEG_180:
-        rotation = DetrominoContext.rotation.DEG_270;
+      case Rotation.DEG_180:
+        rotation = Rotation.DEG_270;
         break;
-      case DetrominoContext.rotation.DEG_270:
-        rotation = DetrominoContext.rotation.NONE;
+      case Rotation.DEG_270:
+        rotation = Rotation.NONE;
         break;
       default:
     }
@@ -89,9 +95,39 @@ class GridStore extends ReduceStore {
   static move(state, delta) {
     let {x = 0, y = 0} = delta;
     let detromino = state.get("detromino");
-    // todo: handle the case where the detromino is going to hit the edge
 
-    detromino = detromino.set("x", detromino.get("x") + x)
+    // todo: Handle when the detromino is crossing the edge
+    let targetX = detromino.get("x") + x;
+    let targetY = detromino.get("y") + y;
+
+    // Tests if it hits the left or upper edge
+    if (targetX < 0 || targetY < 0) {
+      return state;
+    }
+
+    let {type, rotation} = detromino;
+    if (type === DetrominoType.DEFAULT) {
+      return state;
+    }
+
+    let shape = DetrominoShape[type];
+    let width = shape.length;
+    let height = shape[0].length;
+
+    // Swap width and height if shape is rotated
+    if (rotation === Rotation.DEG_90 || rotation === Rotation.DEG_270) {
+      let tmp = width;
+      width = height;
+      height = tmp;
+    }
+
+    // Tests if it hits the lower or right edge
+    if (targetX + width > GridSize.WIDTH || targetY + height > GridSize.HEIGHT) {
+      return state;
+    }
+
+    detromino = detromino
+      .set("x", detromino.get("x") + x)
       .set("y", detromino.get("y") + y);
 
     return GridStore.applyDetromino(state.set("detromino", detromino));

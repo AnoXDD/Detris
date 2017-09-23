@@ -5,8 +5,8 @@
  */
 
 import Immutable from "immutable";
-import BlockType from "../Detromino/DetrominoContext";
 import Color from "../Color";
+import BlockType from "./BlockType";
 
 const BlockRecord = Immutable.Record({
   id      : -1,

@@ -4,12 +4,13 @@
  * An enum class to list the kind of actions grid will execute
  */
 
-const ActionTypes = {
+const GridActionTypes = {
   // Initialize the grid
   INIT_GRID: "INIT_GRID",
 
   // Detrominos
-  NEW_DETROMINO: "NEW_DETROMINO",
+  NEW_DETROMINO       : "NEW_DETROMINO",
+  NEW_RANDOM_DETROMINO: "NEW_RANDOM_DETROMINO",
 
   ROTATE: "ROTATE",
 
@@ -21,4 +22,4 @@ const ActionTypes = {
   DROP : "MOVE_ALL_WAY_DOWN",
 };
 
-export default ActionTypes;
+export default GridActionTypes;

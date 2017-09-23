@@ -6,8 +6,9 @@
 
 import GridActionTypes from "./GridActionTypes";
 import GridDispatcher from "./GridDispatcher";
+import DetrominoType from "../Detromino/DetrominoType";
 
-const Actions = {
+const GridActions = {
   init(width, height) {
     GridDispatcher.dispatch({
       type: GridActionTypes.INIT_GRID,
@@ -16,11 +17,22 @@ const Actions = {
     });
   },
 
-  newDetromino(detrominoType) {
+  newDetromino(detrominoType = DetrominoType.T) {
     GridDispatcher.dispatch({
       type: GridActionTypes.NEW_DETROMINO,
       detrominoType,
     });
+  },
+
+  // Debug only
+  newRandomDetromino() {
+    let shapes = Object.keys(DetrominoType).slice(1);
+    let detrominoType = shapes[parseInt(Math.random() * shapes.length, 10)];
+
+    GridDispatcher.dispatch({
+      type: GridActionTypes.NEW_DETROMINO,
+      detrominoType,
+    })
   },
 
   moveLeft() {
@@ -54,4 +66,4 @@ const Actions = {
   },
 };
 
-export default Actions;
+export default GridActions;

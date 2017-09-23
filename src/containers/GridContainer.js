@@ -6,9 +6,8 @@ import {Container} from "flux/utils";
 import React, {Component} from "react";
 
 import GridStore from "../data/Grid/GridStore";
-import GridContext from "../data/Grid/GridContext";
+import GridContext from "../data/Grid/GridSize";
 import GridActions from "../data/Grid/GridActions";
-import DetrominoContext from "../data/Detromino/DetrominoContext";
 
 import GridView from "../views/GridView";
 
@@ -32,7 +31,6 @@ class GridContainer extends Component {
     return {
       grid: {
         grid,
-        init     : () => GridActions.newDetromino(DetrominoContext.Type.T),
         moveUp   : GridActions.moveUp,
         moveDown : GridActions.moveDown,
         moveLeft : GridActions.moveLeft,
