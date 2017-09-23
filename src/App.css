@@ -331,81 +331,115 @@ img.center {
 .grid-container .grid-view .grid-cells {
   position: relative;
   height: 300px;
-  width: 150px; }
+  width: 150px;
+  border: 1px solid grey;
+  overflow: hidden; }
 .grid-container .grid-view .grid-cell {
   width: 15px;
   height: 15px;
   display: block;
   position: absolute;
-  left: -1000px;
-  bottom: -1000px;
-  overflow: hidden;
-  transition: left .2s ease, bottom .2s ease; }
+  opacity: 0;
+  transition: left .2s linear, top .2s linear;
+  box-sizing: border-box;
+  border: 1px solid white; }
   .grid-container .grid-view .grid-cell.grid-cell-color-solid {
     background-color: black; }
   .grid-container .grid-view .grid-cell.grid-cell-x-0 {
-    left: 15px; }
+    left: 0px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-x-1 {
-    left: 30px; }
+    left: 15px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-x-2 {
-    left: 45px; }
+    left: 30px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-x-3 {
-    left: 60px; }
+    left: 45px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-x-4 {
-    left: 75px; }
+    left: 60px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-x-5 {
-    left: 90px; }
+    left: 75px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-x-6 {
-    left: 105px; }
+    left: 90px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-x-7 {
-    left: 120px; }
+    left: 105px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-x-8 {
-    left: 135px; }
+    left: 120px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-x-9 {
-    left: 150px; }
+    left: 135px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-x-10 {
-    left: 165px; }
+    left: 150px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-0 {
-    bottom: 15px; }
+    top: 0px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-1 {
-    bottom: 30px; }
+    top: 15px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-2 {
-    bottom: 45px; }
+    top: 30px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-3 {
-    bottom: 60px; }
+    top: 45px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-4 {
-    bottom: 75px; }
+    top: 60px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-5 {
-    bottom: 90px; }
+    top: 75px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-6 {
-    bottom: 105px; }
+    top: 90px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-7 {
-    bottom: 120px; }
+    top: 105px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-8 {
-    bottom: 135px; }
+    top: 120px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-9 {
-    bottom: 150px; }
+    top: 135px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-10 {
-    bottom: 165px; }
+    top: 150px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-11 {
-    bottom: 180px; }
+    top: 165px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-12 {
-    bottom: 195px; }
+    top: 180px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-13 {
-    bottom: 210px; }
+    top: 195px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-14 {
-    bottom: 225px; }
+    top: 210px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-15 {
-    bottom: 240px; }
+    top: 225px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-16 {
-    bottom: 255px; }
+    top: 240px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-17 {
-    bottom: 270px; }
+    top: 255px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-18 {
-    bottom: 285px; }
+    top: 270px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-19 {
-    bottom: 300px; }
+    top: 285px;
+    opacity: 1; }
   .grid-container .grid-view .grid-cell.grid-cell-y-20 {
-    bottom: 315px; }
+    top: 300px;
+    opacity: 1; }
 
 /*# sourceMappingURL=App.css.map */

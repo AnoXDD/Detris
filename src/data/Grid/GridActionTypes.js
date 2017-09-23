@@ -6,9 +6,19 @@
 
 const ActionTypes = {
   // Initialize the grid
-  INIT_GRID      : "INIT_GRID",
-  // Drop a detromino in the grid
-  APPLY_DETROMINO: "APPLY_DETROMINO",
+  INIT_GRID: "INIT_GRID",
+
+  // Detrominos
+  NEW_DETROMINO: "NEW_DETROMINO",
+
+  ROTATE: "ROTATE",
+
+  // Directions
+  LEFT : "MOVE_LEFT",
+  RIGHT: "MOVE_RIGHT",
+  UP   : "MOVE_UP",
+  DOWN : "MOVE_DOWN",
+  DROP : "MOVE_ALL_WAY_DOWN",
 };
 
 export default ActionTypes;

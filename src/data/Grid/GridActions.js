@@ -16,10 +16,40 @@ const Actions = {
     });
   },
 
-  applyDetrominos(detromino) {
+  newDetromino(detrominoType) {
     GridDispatcher.dispatch({
-      type: GridActionTypes.APPLY_DETROMINO,
-      detromino,
+      type: GridActionTypes.NEW_DETROMINO,
+      detrominoType,
+    });
+  },
+
+  moveLeft() {
+    GridDispatcher.dispatch({
+      type: GridActionTypes.LEFT,
+    });
+  },
+
+  moveRight() {
+    GridDispatcher.dispatch({
+      type: GridActionTypes.RIGHT,
+    });
+  },
+
+  moveUp() {
+    GridDispatcher.dispatch({
+      type: GridActionTypes.UP,
+    });
+  },
+
+  moveDown() {
+    GridDispatcher.dispatch({
+      type: GridActionTypes.DOWN,
+    });
+  },
+
+  dropDown() {
+    GridDispatcher.dispatch({
+      type: GridActionTypes.DROP,
     })
   },
 };

@@ -10,6 +10,8 @@
       position: relative;
       height: $grid-height * $grid-cell-size;
       width: $grid-width * $grid-cell-size;
+      border: 1px solid grey;
+      overflow: hidden;
     }
 
     .grid-cell {
@@ -17,10 +19,10 @@
       height: $grid-cell-size;
       display: block;
       position: absolute;
-      left: -1000px; // hidden by default
-      bottom: -1000px; // hidden by default
-      overflow: hidden;
-      transition: left .2s ease, bottom .2s ease;
+      opacity: 0;
+      transition: left .2s linear, top .2s linear;
+      box-sizing: border-box;
+      border: 1px solid white;
 
       &.grid-cell-color-solid {
         background-color: black;
@@ -28,12 +30,14 @@
 
       @for $x from 0 through $grid-width {
         &.grid-cell-x-#{$x} {
-          left: (1 + $x) * $grid-cell-size;
+          left: $x * $grid-cell-size;
+          opacity: 1;
         }
       }
       @for $y from 0 through $grid-height {
         &.grid-cell-y-#{$y} {
-          bottom: (1 + $y) * $grid-cell-size;
+          top: $y * $grid-cell-size;
+          opacity: 1;
         }
       }
     }
