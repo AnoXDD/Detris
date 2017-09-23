@@ -328,16 +328,80 @@ img.center {
     box-sizing: border-box;
     padding: 20px 50px 25px; }
 
-.grid-container .grid-view .grid-row {
-  display: flex;
-  flex-direction: row; }
-  .grid-container .grid-view .grid-row .grid-cell {
+.grid-container .grid-view {
+  position: relative; }
+  .grid-container .grid-view .grid-cell {
     width: 15px;
     height: 15px;
     display: block;
-    background-color: #eeeced;
-    margin: 1px; }
-    .grid-container .grid-view .grid-row .grid-cell.grid-cell-color-solid {
+    position: absolute;
+    left: -1000px;
+    bottom: -1000px; }
+    .grid-container .grid-view .grid-cell.grid-cell-color-solid {
       background-color: black; }
+    .grid-container .grid-view .grid-cell.grid-cell-x-0 {
+      left: 15px; }
+    .grid-container .grid-view .grid-cell.grid-cell-x-1 {
+      left: 30px; }
+    .grid-container .grid-view .grid-cell.grid-cell-x-2 {
+      left: 45px; }
+    .grid-container .grid-view .grid-cell.grid-cell-x-3 {
+      left: 60px; }
+    .grid-container .grid-view .grid-cell.grid-cell-x-4 {
+      left: 75px; }
+    .grid-container .grid-view .grid-cell.grid-cell-x-5 {
+      left: 90px; }
+    .grid-container .grid-view .grid-cell.grid-cell-x-6 {
+      left: 105px; }
+    .grid-container .grid-view .grid-cell.grid-cell-x-7 {
+      left: 120px; }
+    .grid-container .grid-view .grid-cell.grid-cell-x-8 {
+      left: 135px; }
+    .grid-container .grid-view .grid-cell.grid-cell-x-9 {
+      left: 150px; }
+    .grid-container .grid-view .grid-cell.grid-cell-x-10 {
+      left: 165px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-0 {
+      bottom: 15px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-1 {
+      bottom: 30px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-2 {
+      bottom: 45px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-3 {
+      bottom: 60px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-4 {
+      bottom: 75px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-5 {
+      bottom: 90px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-6 {
+      bottom: 105px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-7 {
+      bottom: 120px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-8 {
+      bottom: 135px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-9 {
+      bottom: 150px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-10 {
+      bottom: 165px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-11 {
+      bottom: 180px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-12 {
+      bottom: 195px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-13 {
+      bottom: 210px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-14 {
+      bottom: 225px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-15 {
+      bottom: 240px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-16 {
+      bottom: 255px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-17 {
+      bottom: 270px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-18 {
+      bottom: 285px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-19 {
+      bottom: 300px; }
+    .grid-container .grid-view .grid-cell.grid-cell-y-20 {
+      bottom: 315px; }
 
 /*# sourceMappingURL=App.css.map */

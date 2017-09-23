@@ -9,9 +9,12 @@ import BlockType from "../Detromino/DetrominoContext";
 import Color from "../Color";
 
 const BlockRecord = Immutable.Record({
+  id      : -1,
   occupied: false,
   type    : BlockType.NONE,
   color   : Color.TRANSPARENT,
+  x       : 0,
+  y       : 0,
 });
 
 class Block extends BlockRecord {

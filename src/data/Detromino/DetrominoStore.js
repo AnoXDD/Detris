@@ -47,6 +47,7 @@ class DetrominoStore extends ReduceStore {
     let {detrominoType, grid} = action;
     // todo: place the detromino in the middle and only show the bottom line
     return new Detromino({
+      id  : new Date().getTime(),
       type: detrominoType,
     });
   }

@@ -2,22 +2,32 @@
 
 .grid-container {
   .grid-view {
+    $grid-width: 10;
+    $grid-height: 20;
     $grid-cell-size: 15px;
-    $grid-cell-margin: 1px;
 
-    .grid-row {
-      display: flex;
-      flex-direction: row;
+    position: relative;
 
-      .grid-cell {
-        width: $grid-cell-size;
-        height: $grid-cell-size;
-        display: block;
-        background-color: $bg-grey;
-        margin: $grid-cell-margin;
+    .grid-cell {
+      width: $grid-cell-size;
+      height: $grid-cell-size;
+      display: block;
+      position: absolute;
+      left: -1000px; // hidden by default
+      bottom: -1000px; // hidden by default
 
-        &.grid-cell-color-solid {
-          background-color: black;
+      &.grid-cell-color-solid {
+        background-color: black;
+      }
+
+      @for $x from 0 through $grid-width {
+        &.grid-cell-x-#{$x} {
+          left: (1 + $x) * $grid-cell-size;
+        }
+      }
+      @for $y from 0 through $grid-height {
+        &.grid-cell-y-#{$y} {
+          bottom: (1 + $y) * $grid-cell-size;
         }
       }
     }
