@@ -5,16 +5,22 @@
  */
 
 import Immutable from "immutable";
+import BlockType from "../Detromino/DetrominoContext";
 import Color from "../Color";
 
 const BlockRecord = Immutable.Record({
   occupied: false,
+  type    : BlockType.NONE,
   color   : Color.TRANSPARENT,
 });
 
 class Block extends BlockRecord {
   toggleOccupied() {
     return this.set("occupied", !this.get("occupied"));
+  }
+
+  isOccupied() {
+    return this.get("occupied");
   }
 }
 

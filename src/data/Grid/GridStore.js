@@ -23,8 +23,8 @@ class GridStore extends ReduceStore {
     switch (action.type) {
       case GridActionTypes.INIT:
         return GridStore.initState(action);
-      case GridActionTypes.DROP_DETROMINO:
-        return GridStore.applyDropDetrominos(state, action);
+      case GridActionTypes.APPLY_DETROMINO:
+        return GridStore.applyDetromino(state, action.detromino);
       default:
         return state;
     }
@@ -38,27 +38,15 @@ class GridStore extends ReduceStore {
   }
 
   /**
-   * Apples the block from `action` to current grid state
-   * @param state - current grid state
-   * @param action - the object that has `pos` and the type of `detrominos`.
-   *     `pos` specifies the upper right position of the detrominos.
-   * @return the state
+   * Apples the detromino to current grid state
    */
-  static applyDropDetrominos(state, action) {
-    let {pos, detrominos} = action;
-    let {x, y} = pos;
+  static applyDetromino(state, detromino) {
+    let {x, y} = detromino;
     // todo implement this
 
-    let block = state.get(x).get(y);
-    block = block.toggleOccupied()
-      .set("color",
-        block.get("color") === Color.TRANSPARENT ? Color.SOLID : Color.TRANSPARENT);
+    let shape = detromino.getRotatedShape();
 
-    state = this.set(state, x, y, block);
-
-    // state[x][y].occupied = !state[x][y].occupied;
-    // state[x][y].color = state[x][y].color === Color.TRANSPARENT ?
-    // Color.SOLID : Color.TRANSPARENT;
+    // todo: apply shape to `state`
 
     return state;
   }
@@ -67,9 +55,9 @@ class GridStore extends ReduceStore {
     let {width, height} = action;
     let state = [];
 
-    for (let i = 0; i < width; ++i) {
+    for (let i = 0; i < height; ++i) {
       let row = [];
-      for (let j = 0; j < height; ++j) {
+      for (let j = 0; j < width; ++j) {
         row.push(new Block());
       }
       state.push(row);

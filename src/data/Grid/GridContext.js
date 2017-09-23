@@ -6,7 +6,7 @@
 
 const GridContext = {
   WIDTH : 10,
-  HEIGHT: 10,
+  HEIGHT: 20,
 };
 
 export default GridContext;

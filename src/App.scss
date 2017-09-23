@@ -2,19 +2,22 @@
 
 .grid-container {
   .grid-view {
-    $grid-cell-size: 20px;
+    $grid-cell-size: 15px;
+    $grid-cell-margin: 1px;
 
     .grid-row {
       display: flex;
       flex-direction: row;
-      
+
       .grid-cell {
         width: $grid-cell-size;
         height: $grid-cell-size;
         display: block;
+        background-color: $bg-grey;
+        margin: $grid-cell-margin;
 
         &.grid-cell-color-solid {
-          background-color: $blue;
+          background-color: black;
         }
       }
     }

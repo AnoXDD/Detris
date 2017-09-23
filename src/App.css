@@ -332,10 +332,12 @@ img.center {
   display: flex;
   flex-direction: row; }
   .grid-container .grid-view .grid-row .grid-cell {
-    width: 20px;
-    height: 20px;
-    display: block; }
+    width: 15px;
+    height: 15px;
+    display: block;
+    background-color: #eeeced;
+    margin: 1px; }
     .grid-container .grid-view .grid-row .grid-cell.grid-cell-color-solid {
-      background-color: #448AFF; }
+      background-color: black; }
 
 /*# sourceMappingURL=App.css.map */

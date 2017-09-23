@@ -6,9 +6,10 @@ import {Container} from "flux/utils";
 import React, {Component} from "react";
 
 import GridStore from "../data/Grid/GridStore";
-import GridView from "../views/GridView";
 import GridContext from "../data/Grid/GridContext";
 import GridActions from "../data/Grid/GridActions";
+
+import GridView from "../views/GridView";
 
 class GridContainer extends Component {
 

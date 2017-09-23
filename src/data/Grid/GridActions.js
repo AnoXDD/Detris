@@ -16,11 +16,10 @@ const Actions = {
     });
   },
 
-  dropDetrominos(detrominos, pos) {
+  dropDetrominos(detromino) {
     GridDispatcher.dispatch({
-      type: GridActionTypes.DROP_DETROMINO,
-      detrominos,
-      pos,
+      type: GridActionTypes.APPLY_DETROMINO,
+      detromino,
     })
   },
 
@@ -30,7 +29,7 @@ const Actions = {
 
     console.log(`x:${x}, y:${y}`);
     GridDispatcher.dispatch({
-      type: GridActionTypes.DROP_DETROMINO,
+      type: GridActionTypes.APPLY_DETROMINO,
       pos : {x: x, y: y},
     })
   },
