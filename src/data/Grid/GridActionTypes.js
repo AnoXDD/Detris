@@ -9,7 +9,7 @@ const GridActionTypes = {
   INIT_GRID: "INIT_GRID",
 
   // Detrominos
-  NEW_DETROMINO       : "NEW_DETROMINO",
+  NEXT_DETROMINO      : "NEXT_DETROMINO",
   NEW_RANDOM_DETROMINO: "NEW_RANDOM_DETROMINO",
 
   ROTATE: "ROTATE",
@@ -20,6 +20,10 @@ const GridActionTypes = {
   UP   : "MOVE_UP",
   DOWN : "MOVE_DOWN",
   DROP : "MOVE_ALL_WAY_DOWN",
+
+  // Block manipulation
+  SINK_TARGET_BLOCK  : "SINK_TARGET_BLOCK",
+  SINK_FLOATING_BLOCK: "SINK_FLOATING_BLOCK",
 };
 
 export default GridActionTypes;

@@ -6,6 +6,8 @@ import Immutable from "immutable";
 import {ReduceStore} from "flux/utils";
 
 import Rotation from "../Rotation";
+import GridSize from "./GridSize";
+import BlockType from "../Block/BlockType";
 
 import GridActionTypes from "./GridActionTypes";
 import GridDispatcher from "./GridDispatcher";
@@ -13,7 +15,7 @@ import GridDispatcher from "./GridDispatcher";
 import Detromino from "../Detromino/Detromino";
 import DetrominoType from "../Detromino/DetrominoType";
 import DetrominoShape from "../Detromino/DetrominoShape";
-import GridSize from "./GridSize";
+import Algorithm from "../Algorithm";
 
 class GridStore extends ReduceStore {
   constructor() {
@@ -30,11 +32,11 @@ class GridStore extends ReduceStore {
   reduce(state, action) {
     switch (action.type) {
       case GridActionTypes.INIT_GRID:
-        return this.initState(action);
-      case GridActionTypes.NEW_DETROMINO:
+        return this.initState();
+      case GridActionTypes.NEXT_DETROMINO:
         return GridStore.newDetromino(state, action);
       case GridActionTypes.ROTATE:
-        return GridStore.rotate(state, action);
+        return GridStore.rotate(state);
       case GridActionTypes.LEFT:
         return GridStore.move(state, {x: -1});
       case GridActionTypes.RIGHT:
@@ -45,6 +47,10 @@ class GridStore extends ReduceStore {
         return GridStore.move(state, {y: 1});
       case GridActionTypes.DROP:
         return GridStore.drop(state);
+      case GridActionTypes.SINK_FLOATING_BLOCK:
+        return GridStore.sinkFloatingBlocks(state);
+      case GridActionTypes.SINK_TARGET_BLOCK:
+        return GridStore.sinkTargetBlocks(state);
       default:
         return state;
     }
@@ -63,8 +69,8 @@ class GridStore extends ReduceStore {
     return GridStore.applyDetromino(state);
   }
 
-  static rotate(state, action) {
-    let {detromino} = action;
+  static rotate(state) {
+    let {detromino} = state;
     let rotation = detromino.get("rotation");
 
     switch (rotation) {
@@ -83,7 +89,9 @@ class GridStore extends ReduceStore {
       default:
     }
 
-    return state.set("rotation", rotation);
+    state = state.set("detromino", detromino.set("rotation", rotation));
+
+    return GridStore.applyDetromino(state);
   }
 
   /**
@@ -116,9 +124,7 @@ class GridStore extends ReduceStore {
 
     // Swap width and height if shape is rotated
     if (rotation === Rotation.DEG_90 || rotation === Rotation.DEG_270) {
-      let tmp = width;
-      width = height;
-      height = tmp;
+      [width, height] = [height, width];
     }
 
     // Tests if it hits the lower or right edge
@@ -146,17 +152,29 @@ class GridStore extends ReduceStore {
    * Apples the detromino to current grid state. This function must be called
    * every time the detromino is changed
    */
-  static applyDetromino(state) {
+  static applyDetromino(state, blockType = BlockType.DETROMINO) {
     // Process the raw detromino in the state
     let detromino = state.get("detromino");
-    let shape = detromino.getRotatedBlocks();
+    let shape = detromino.getRotatedBlocks(blockType);
 
     // Apply the processed detromino to the grid
     // todo: handle the case if there is a conflict
     return state.set("grid", state.get("grid").merge(shape));
   }
 
-  initState(action) {
+  static sinkFloatingBlocks(state) {
+    let grid = state.get("grid");
+
+    return state.set("grid", Algorithm.sinkFloatingBlocks(grid));
+  }
+
+  static sinkTargetBlocks(state) {
+    let grid = state.get("grid");
+
+    return state.set("grid", Algorithm.sinkTargetBlocks(grid));
+  }
+
+  initState() {
     return this.getInitialState();
   }
 }

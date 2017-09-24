@@ -27,6 +27,7 @@ function onKeyDown(e) {
 
   switch (action) {
     case GridActionTypes.NEW_RANDOM_DETROMINO:
+      GridActions.sinkTargetBlocks();
       GridActions.newRandomDetromino();
       break;
     case GridActionTypes.LEFT:
@@ -40,6 +41,9 @@ function onKeyDown(e) {
       break;
     case GridActionTypes.DOWN:
       GridActions.moveDown();
+      break;
+    case GridActionTypes.ROTATE:
+      GridActions.rotate();
       break;
     default:
       break;

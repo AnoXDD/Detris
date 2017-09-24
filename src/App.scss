@@ -28,6 +28,11 @@
         background-color: black;
       }
 
+      &.detromino {
+        background-color: $blue;
+        z-index: 10;
+      }
+
       @for $x from 0 through $grid-width {
         &.grid-cell-x-#{$x} {
           left: $x * $grid-cell-size;

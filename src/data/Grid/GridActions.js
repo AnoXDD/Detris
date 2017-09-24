@@ -19,7 +19,7 @@ const GridActions = {
 
   newDetromino(detrominoType = DetrominoType.T) {
     GridDispatcher.dispatch({
-      type: GridActionTypes.NEW_DETROMINO,
+      type: GridActionTypes.NEXT_DETROMINO,
       detrominoType,
     });
   },
@@ -30,7 +30,7 @@ const GridActions = {
     let detrominoType = shapes[parseInt(Math.random() * shapes.length, 10)];
 
     GridDispatcher.dispatch({
-      type: GridActionTypes.NEW_DETROMINO,
+      type: GridActionTypes.NEXT_DETROMINO,
       detrominoType,
     })
   },
@@ -63,6 +63,24 @@ const GridActions = {
     GridDispatcher.dispatch({
       type: GridActionTypes.DROP,
     })
+  },
+
+  rotate() {
+    GridDispatcher.dispatch({
+      type: GridActionTypes.ROTATE,
+    });
+  },
+
+  sinkFloatingBlocks() {
+    GridDispatcher.dispatch({
+      type: GridActionTypes.SINK_FLOATING_BLOCK,
+    });
+  },
+
+  sinkTargetBlocks() {
+    GridDispatcher.dispatch({
+      type: GridActionTypes.SINK_TARGET_BLOCK,
+    });
   },
 };
 

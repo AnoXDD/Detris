@@ -16,7 +16,7 @@ export default class GridView extends Component {
         <div className="grid-cells">
           {this.props.grid.map(block =>
             <span key={block.id}
-                  className={`grid-cell grid-cell-x-${block.x} grid-cell-y-${block.y} ${block.occupied ? "occupied" : ""} grid-cell-color-${block.color}`}
+                  className={`grid-cell grid-cell-x-${block.x} grid-cell-y-${block.y} ${block.type} ${block.occupied ? "occupied" : ""} grid-cell-color-${block.color}`}
             />
           )}
         </div>

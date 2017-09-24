@@ -11,6 +11,7 @@ import Block from "../Block/Block";
 import BlockType from "../Block/BlockType";
 import DetrominoType from "./DetrominoType";
 import DetrominoShape from "./DetrominoShape";
+import Algorithm from "../Algorithm";
 
 const DetrominoRecord = Immutable.Record({
   id      : -1, // Used to help generate correct id
@@ -20,20 +21,12 @@ const DetrominoRecord = Immutable.Record({
   y       : 0, // The height position of top left pixel on grid
 });
 
-function rotateBlock(blocks, rotation) {
-  // todo: implement this
-  if (rotation === Rotation.NONE) {
-    return blocks;
-  }
-}
-
 class Detromino extends DetrominoRecord {
   /**
    * Returns a vector of Block.
    * This function assumes that the positions of blocks are valid
-   * @param color
    */
-  getRotatedBlocks(color = Color.SOLID) {
+  getRotatedBlocks(type = BlockType.DETROMINO, color = Color.SOLID) {
     let shape = DetrominoShape[this.get("type")]
       .map(arr => arr.slice());
     let rotation = this.get("rotation");
@@ -46,7 +39,7 @@ class Detromino extends DetrominoRecord {
       }
     }
 
-    shape = rotateBlock(shape, rotation);
+    shape = Algorithm.rotate(shape, rotation);
 
     // Generate blocks
     let map = Immutable.Map();
@@ -63,7 +56,7 @@ class Detromino extends DetrominoRecord {
         map = map.set(id, new Block({
           id,
           occupied: true,
-          type    : BlockType.DETROMINO,
+          type,
           color,
           x       : x + dx,
           y       : y + dy,

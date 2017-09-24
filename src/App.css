@@ -345,6 +345,9 @@ img.center {
   border: 1px solid white; }
   .grid-container .grid-view .grid-cell.grid-cell-color-solid {
     background-color: black; }
+  .grid-container .grid-view .grid-cell.detromino {
+    background-color: #448AFF;
+    z-index: 10; }
   .grid-container .grid-view .grid-cell.grid-cell-x-0 {
     left: 0px;
     opacity: 1; }
