@@ -72,6 +72,16 @@ const Algorithm = {
   },
 
   /**
+   * Returns if grid and detromino is overlapping each other
+   * @param grid {Immutable.Map}
+   * @param detromino {Immutable.Map}
+   */
+  isOverlapping(grid, detromino) {
+    // todo implement this
+    return false;
+  },
+
+  /**
    * Rotates a shape
    * @param shape - a native JavaScript 2d array
    * @param degree - an enum defined in Rotation.js

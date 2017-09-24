@@ -5,10 +5,6 @@
  */
 
 import {Dispatcher} from "flux";
-import GridActionTypes from "./GridActionTypes";
-
-let anyPayloadToken = null;
-let nextDetrominoToken = null;
 
 const GridDispatcher = new Dispatcher();
 

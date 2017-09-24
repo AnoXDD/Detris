@@ -5,49 +5,30 @@
  */
 
 import Immutable from "immutable";
-import GridActionTypes from "./Grid/GridActionTypes";
 import GridActions from "./Grid/GridActions";
 
 const keyMap = Immutable.Map({
-  "ArrowLeft" : GridActionTypes.LEFT,
-  "ArrowUp"   : GridActionTypes.UP,
-  "ArrowRight": GridActionTypes.RIGHT,
-  "ArrowDown" : GridActionTypes.DOWN,
-  " "         : GridActionTypes.NEW_RANDOM_DETROMINO,
+  "ArrowLeft" : GridActions.moveLeft,
+  "ArrowUp"   : GridActions.moveUp,
+  "ArrowRight": GridActions.moveRight,
+  "ArrowDown" : GridActions.moveDown,
+  "Shift"     : GridActions.rotate,
+  " "         : () => {
+    GridActions.sinkFloatingBlocks();
+    GridActions.sinkTargetBlocks();
+    GridActions.newRandomDetromino();
+  },
 });
 
 function onKeyDown(e) {
   let {key} = e;
   if (!keyMap.has(key)) {
-    // console.log(`Key not registered: ${key}`);
+    console.log(`Key not registered: ${key}`);
     return;
   }
 
   let action = keyMap.get(key);
-
-  switch (action) {
-    case GridActionTypes.NEW_RANDOM_DETROMINO:
-      GridActions.sinkTargetBlocks();
-      GridActions.newRandomDetromino();
-      break;
-    case GridActionTypes.LEFT:
-      GridActions.moveLeft();
-      break;
-    case GridActionTypes.UP:
-      GridActions.moveUp();
-      break;
-    case GridActionTypes.RIGHT:
-      GridActions.moveRight();
-      break;
-    case GridActionTypes.DOWN:
-      GridActions.moveDown();
-      break;
-    case GridActionTypes.ROTATE:
-      GridActions.rotate();
-      break;
-    default:
-      break;
-  }
+  action();
 }
 
 document.addEventListener("keydown", onKeyDown, true);

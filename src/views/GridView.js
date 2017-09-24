@@ -8,11 +8,11 @@ export default class GridView extends Component {
   render() {
     return (
       <div className="grid-view">
-        <div onClick={this.props.init}>init</div>
-        <div onClick={this.props.moveUp}>up</div>
-        <div onClick={this.props.moveLeft}>left</div>
-        <div onClick={this.props.moveRight}>right</div>
-        <div onClick={this.props.moveDown}>down</div>
+        {/*<div onClick={this.props.init}>init</div>*/}
+        {/*<div onClick={this.props.moveUp}>up</div>*/}
+        {/*<div onClick={this.props.moveLeft}>left</div>*/}
+        {/*<div onClick={this.props.moveRight}>right</div>*/}
+        {/*<div onClick={this.props.moveDown}>down</div>*/}
         <div className="grid-cells">
           {this.props.grid.map(block =>
             <span key={block.id}

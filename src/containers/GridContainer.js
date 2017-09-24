@@ -41,10 +41,6 @@ class GridContainer extends Component {
     return {
       grid: {
         grid,
-        moveUp   : GridActions.moveUp,
-        moveDown : GridActions.moveDown,
-        moveLeft : GridActions.moveLeft,
-        moveRight: GridActions.moveRight,
       },
     };
   }

@@ -70,7 +70,7 @@ class GridStore extends ReduceStore {
   }
 
   static rotate(state) {
-    let {detromino} = state;
+    let detromino = state.get("detromino");
     let rotation = detromino.get("rotation");
 
     switch (rotation) {
@@ -104,7 +104,6 @@ class GridStore extends ReduceStore {
     let {x = 0, y = 0} = delta;
     let detromino = state.get("detromino");
 
-    // todo: Handle when the detromino is crossing the edge
     let targetX = detromino.get("x") + x;
     let targetY = detromino.get("y") + y;
 
@@ -136,6 +135,11 @@ class GridStore extends ReduceStore {
       .set("x", detromino.get("x") + x)
       .set("y", detromino.get("y") + y);
 
+    // Tests if the detromino is running into target blocks
+    if (Algorithm.isOverlapping(state.get("grid"), detromino)) {
+      return false;
+    }
+
     return GridStore.applyDetromino(state.set("detromino", detromino));
   }
 
@@ -158,7 +162,6 @@ class GridStore extends ReduceStore {
     let shape = detromino.getRotatedBlocks(blockType);
 
     // Apply the processed detromino to the grid
-    // todo: handle the case if there is a conflict
     return state.set("grid", state.get("grid").merge(shape));
   }
 
