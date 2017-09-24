@@ -5,21 +5,24 @@
 import Immutable from "immutable";
 import {ReduceStore} from "flux/utils";
 
+import Algorithm from "../Algorithm";
+
 import Rotation from "../Rotation";
 import GridSize from "./GridSize";
 import BlockType from "../Block/BlockType";
+import Block from "../Block/Block";
 
-import GridActionTypes from "./GridActionTypes";
-import GridDispatcher from "./GridDispatcher";
+import ActionTypes from "../ActionTypes";
+import Dispatcher from "../Dispatcher";
 
 import Detromino from "../Detromino/Detromino";
 import DetrominoType from "../Detromino/DetrominoType";
 import DetrominoShape from "../Detromino/DetrominoShape";
-import Algorithm from "../Algorithm";
+
 
 class GridStore extends ReduceStore {
   constructor() {
-    super(GridDispatcher);
+    super(Dispatcher);
   }
 
   getInitialState() {
@@ -31,31 +34,39 @@ class GridStore extends ReduceStore {
 
   reduce(state, action) {
     switch (action.type) {
-      case GridActionTypes.INIT_GRID:
+      case ActionTypes.INIT_GRID:
         return this.initState();
-      case GridActionTypes.NEXT_DETROMINO:
+      case ActionTypes.APPLY_DATA:
+        return GridStore.applyData(state, action);
+      case ActionTypes.NEXT_DETROMINO:
         return GridStore.newDetromino(state, action);
-      case GridActionTypes.ROTATE:
+      case ActionTypes.ROTATE:
         return GridStore.rotate(state);
-      case GridActionTypes.LEFT:
+      case ActionTypes.LEFT:
         return GridStore.move(state, {x: -1});
-      case GridActionTypes.RIGHT:
+      case ActionTypes.RIGHT:
         return GridStore.move(state, {x: 1});
-      case GridActionTypes.UP:
+      case ActionTypes.UP:
         return GridStore.move(state, {y: -1});
-      case GridActionTypes.DOWN:
+      case ActionTypes.DOWN:
         return GridStore.move(state, {y: 1});
-      case GridActionTypes.DROP:
+      case ActionTypes.DROP:
         return GridStore.drop(state);
-      case GridActionTypes.REMOVE_DETROMINO:
+      case ActionTypes.REMOVE_DETROMINO:
         return GridStore.removeDetromino(state);
-      case GridActionTypes.SINK_FLOATING_BLOCK:
+      case ActionTypes.SINK_FLOATING_BLOCK:
         return GridStore.sinkFloatingBlocks(state);
-      case GridActionTypes.SINK_TARGET_BLOCK:
+      case ActionTypes.SINK_TARGET_BLOCK:
         return GridStore.sinkTargetBlocks(state);
       default:
         return state;
     }
+  }
+
+  static applyData(state, action) {
+    let {blockList} = action;
+
+    return state.set("grid", blockList.map(block => new Block(block)));
   }
 
   static newDetromino(state, action) {

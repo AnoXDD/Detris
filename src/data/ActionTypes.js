@@ -4,9 +4,12 @@
  * An enum class to list the kind of actions grid will execute
  */
 
-const GridActionTypes = {
+const ActionTypes = {
   // Initialize the grid
   INIT_GRID: "INIT_GRID",
+
+  // Game
+  APPLY_DATA: "APPLY_DATA",
 
   // Detrominos
   NEXT_DETROMINO      : "NEXT_DETROMINO",
@@ -22,9 +25,9 @@ const GridActionTypes = {
   DROP : "MOVE_ALL_WAY_DOWN",
 
   // Block manipulation
-  REMOVE_DETROMINO: "REMOVE_DETROMINO",
+  REMOVE_DETROMINO   : "REMOVE_DETROMINO",
   SINK_TARGET_BLOCK  : "SINK_TARGET_BLOCK",
   SINK_FLOATING_BLOCK: "SINK_FLOATING_BLOCK",
 };
 
-export default GridActionTypes;
+export default ActionTypes;

@@ -6,6 +6,6 @@
 
 import {Dispatcher} from "flux";
 
-const GridDispatcher = new Dispatcher();
+const DetrisDispatcher = new Dispatcher();
 
-export default GridDispatcher;
+export default DetrisDispatcher;

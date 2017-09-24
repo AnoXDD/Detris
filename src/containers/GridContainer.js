@@ -4,36 +4,34 @@
 
 import {Container} from "flux/utils";
 import React, {Component} from "react";
-
-import BlockType from "../data/Block/BlockType";
-import Algorithm from "../data/Algorithm";
+import Actions from "../data/Actions";
 
 import GridStore from "../data/Grid/GridStore";
-import GridContext from "../data/Grid/GridSize";
-import GridActions from "../data/Grid/GridActions";
+import GridSize from "../data/Grid/GridSize";
+
+import QueueStore from "../data/Queue/QueueStore";
 
 import GridView from "../views/GridView";
-import DetrominoView from "../views/DetrominoView";
-import DetrominoType from "../data/Detromino/DetrominoType";
 
 class GridContainer extends Component {
 
   constructor() {
     super();
 
-    GridActions.init(GridContext.WIDTH, GridContext.HEIGHT);
+    Actions.init(GridSize.WIDTH, GridSize.HEIGHT);
   }
 
   // componentDidUpdate(prevState) {
   // Check for any need for animation update
   // if (Algorithm.hasBlockOfType(this.state.grid.grid, BlockType.FLOATING)) {
-  //   GridActions.sinkTargetBlocks();
+  //   Actions.sinkTargetBlocks();
   // }
   // }
 
   static getStores() {
     return [
       GridStore,
+      QueueStore,
     ];
   }
 

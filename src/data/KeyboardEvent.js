@@ -5,20 +5,16 @@
  */
 
 import Immutable from "immutable";
-import GridActions from "./Grid/GridActions";
+import Actions from "./Actions";
 
 const keyMap = Immutable.Map({
-  "ArrowLeft" : GridActions.moveLeft,
-  "ArrowUp"   : GridActions.moveUp,
-  "ArrowRight": GridActions.moveRight,
-  "ArrowDown" : GridActions.moveDown,
-  "Shift"     : GridActions.rotate,
-  "Delete"    : GridActions.removeDetromino,
-  " "         : () => {
-    GridActions.sinkFloatingBlocks();
-    GridActions.sinkTargetBlocks();
-    GridActions.newRandomDetromino();
-  },
+  "ArrowLeft" : Actions.moveLeft,
+  "ArrowUp"   : Actions.moveUp,
+  "ArrowRight": Actions.moveRight,
+  "ArrowDown" : Actions.moveDown,
+  "Shift"     : Actions.rotate,
+  "Delete"    : Actions.removeDetromino,
+  " "         : Actions.newRandomDetromino,
 });
 
 function onKeyDown(e) {
