@@ -13,6 +13,8 @@ import GridContext from "../data/Grid/GridSize";
 import GridActions from "../data/Grid/GridActions";
 
 import GridView from "../views/GridView";
+import DetrominoView from "../views/DetrominoView";
+import DetrominoType from "../data/Detromino/DetrominoType";
 
 class GridContainer extends Component {
 
@@ -23,10 +25,10 @@ class GridContainer extends Component {
   }
 
   // componentDidUpdate(prevState) {
-    // Check for any need for animation update
-    // if (Algorithm.hasBlockOfType(this.state.grid.grid, BlockType.FLOATING)) {
-    //   GridActions.sinkTargetBlocks();
-    // }
+  // Check for any need for animation update
+  // if (Algorithm.hasBlockOfType(this.state.grid.grid, BlockType.FLOATING)) {
+  //   GridActions.sinkTargetBlocks();
+  // }
   // }
 
   static getStores() {

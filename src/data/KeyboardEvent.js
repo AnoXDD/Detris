@@ -13,6 +13,7 @@ const keyMap = Immutable.Map({
   "ArrowRight": GridActions.moveRight,
   "ArrowDown" : GridActions.moveDown,
   "Shift"     : GridActions.rotate,
+  "Delete"    : GridActions.removeDetromino,
   " "         : () => {
     GridActions.sinkFloatingBlocks();
     GridActions.sinkTargetBlocks();

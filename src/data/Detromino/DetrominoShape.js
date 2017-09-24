@@ -5,7 +5,7 @@
 // Note that on the grid, the actual size will be rotated 90 deg cw
 const DetrominoShape = {
   DEFAULT: [[]],
-  I      : [[1, 1, 1, 1]],
+  I      : [[1], [1], [1], [1]],
   O      : [[1, 1], [1, 1]],
   T      : [[0, 1], [1, 1], [0, 1]],
   S      : [[1, 0], [1, 1], [0, 1]],

@@ -1,11 +1,11 @@
 @import "./lib/base.scss";
 
 .grid-container {
-  .grid-view {
-    $grid-width: 10;
-    $grid-height: 20;
-    $grid-cell-size: 15px;
+  $grid-width: 10;
+  $grid-height: 20;
+  $grid-cell-size: 15px;
 
+  .grid-view {
     .grid-cells {
       position: relative;
       height: $grid-height * $grid-cell-size;
@@ -13,38 +13,48 @@
       border: 1px solid grey;
       overflow: hidden;
     }
+  }
 
-    .grid-cell {
-      width: $grid-cell-size;
-      height: $grid-cell-size;
-      display: block;
-      position: absolute;
-      opacity: 0;
-      transition: left .2s linear, top .2s linear;
-      box-sizing: border-box;
-      border: 1px solid white;
+  .grid-cell {
+    width: $grid-cell-size;
+    height: $grid-cell-size;
+    display: block;
+    position: absolute;
+    opacity: 0;
+    transition: left .2s linear, top .2s linear;
+    box-sizing: border-box;
+    border: 1px solid white;
 
-      &.grid-cell-color-solid {
-        background-color: black;
-      }
+    &.grid-cell-color-solid {
+      background-color: black;
+    }
 
-      &.detromino {
-        background-color: $blue;
-        z-index: 10;
-      }
+    &.detromino {
+      background-color: $blue;
+      z-index: 10;
+    }
 
-      @for $x from 0 through $grid-width {
-        &.grid-cell-x-#{$x} {
-          left: $x * $grid-cell-size;
-          opacity: 1;
-        }
-      }
-      @for $y from 0 through $grid-height {
-        &.grid-cell-y-#{$y} {
-          top: $y * $grid-cell-size;
-          opacity: 1;
-        }
+    @for $x from 0 through $grid-width {
+      &.grid-cell-x-#{$x} {
+        left: $x * $grid-cell-size;
+        opacity: 1;
       }
     }
+    @for $y from 0 through $grid-height {
+      &.grid-cell-y-#{$y} {
+        top: $y * $grid-cell-size;
+        opacity: 1;
+      }
+    }
+
+    &.grid-cell-preview {
+      background-color: $lightgreen;
+    }
+  }
+
+  .detromino-preview {
+    width: 4 * $grid-cell-size;
+    height: 2 * $grid-cell-size;
+    position: relative;
   }
 }

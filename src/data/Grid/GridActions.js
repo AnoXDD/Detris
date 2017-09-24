@@ -71,6 +71,13 @@ const GridActions = {
     });
   },
 
+  // Remove the current detromino block from the grid
+  removeDetromino() {
+    GridDispatcher.dispatch({
+      type: GridActionTypes.REMOVE_DETROMINO,
+    });
+  },
+
   sinkFloatingBlocks() {
     GridDispatcher.dispatch({
       type: GridActionTypes.SINK_FLOATING_BLOCK,

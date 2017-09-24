@@ -334,7 +334,7 @@ img.center {
   width: 150px;
   border: 1px solid grey;
   overflow: hidden; }
-.grid-container .grid-view .grid-cell {
+.grid-container .grid-cell {
   width: 15px;
   height: 15px;
   display: block;
@@ -343,106 +343,112 @@ img.center {
   transition: left .2s linear, top .2s linear;
   box-sizing: border-box;
   border: 1px solid white; }
-  .grid-container .grid-view .grid-cell.grid-cell-color-solid {
+  .grid-container .grid-cell.grid-cell-color-solid {
     background-color: black; }
-  .grid-container .grid-view .grid-cell.detromino {
+  .grid-container .grid-cell.detromino {
     background-color: #448AFF;
     z-index: 10; }
-  .grid-container .grid-view .grid-cell.grid-cell-x-0 {
+  .grid-container .grid-cell.grid-cell-x-0 {
     left: 0px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-x-1 {
+  .grid-container .grid-cell.grid-cell-x-1 {
     left: 15px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-x-2 {
+  .grid-container .grid-cell.grid-cell-x-2 {
     left: 30px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-x-3 {
+  .grid-container .grid-cell.grid-cell-x-3 {
     left: 45px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-x-4 {
+  .grid-container .grid-cell.grid-cell-x-4 {
     left: 60px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-x-5 {
+  .grid-container .grid-cell.grid-cell-x-5 {
     left: 75px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-x-6 {
+  .grid-container .grid-cell.grid-cell-x-6 {
     left: 90px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-x-7 {
+  .grid-container .grid-cell.grid-cell-x-7 {
     left: 105px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-x-8 {
+  .grid-container .grid-cell.grid-cell-x-8 {
     left: 120px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-x-9 {
+  .grid-container .grid-cell.grid-cell-x-9 {
     left: 135px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-x-10 {
+  .grid-container .grid-cell.grid-cell-x-10 {
     left: 150px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-0 {
+  .grid-container .grid-cell.grid-cell-y-0 {
     top: 0px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-1 {
+  .grid-container .grid-cell.grid-cell-y-1 {
     top: 15px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-2 {
+  .grid-container .grid-cell.grid-cell-y-2 {
     top: 30px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-3 {
+  .grid-container .grid-cell.grid-cell-y-3 {
     top: 45px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-4 {
+  .grid-container .grid-cell.grid-cell-y-4 {
     top: 60px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-5 {
+  .grid-container .grid-cell.grid-cell-y-5 {
     top: 75px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-6 {
+  .grid-container .grid-cell.grid-cell-y-6 {
     top: 90px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-7 {
+  .grid-container .grid-cell.grid-cell-y-7 {
     top: 105px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-8 {
+  .grid-container .grid-cell.grid-cell-y-8 {
     top: 120px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-9 {
+  .grid-container .grid-cell.grid-cell-y-9 {
     top: 135px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-10 {
+  .grid-container .grid-cell.grid-cell-y-10 {
     top: 150px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-11 {
+  .grid-container .grid-cell.grid-cell-y-11 {
     top: 165px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-12 {
+  .grid-container .grid-cell.grid-cell-y-12 {
     top: 180px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-13 {
+  .grid-container .grid-cell.grid-cell-y-13 {
     top: 195px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-14 {
+  .grid-container .grid-cell.grid-cell-y-14 {
     top: 210px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-15 {
+  .grid-container .grid-cell.grid-cell-y-15 {
     top: 225px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-16 {
+  .grid-container .grid-cell.grid-cell-y-16 {
     top: 240px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-17 {
+  .grid-container .grid-cell.grid-cell-y-17 {
     top: 255px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-18 {
+  .grid-container .grid-cell.grid-cell-y-18 {
     top: 270px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-19 {
+  .grid-container .grid-cell.grid-cell-y-19 {
     top: 285px;
     opacity: 1; }
-  .grid-container .grid-view .grid-cell.grid-cell-y-20 {
+  .grid-container .grid-cell.grid-cell-y-20 {
     top: 300px;
     opacity: 1; }
+  .grid-container .grid-cell.grid-cell-preview {
+    background-color: #8BC34A; }
+.grid-container .detromino-preview {
+  width: 60px;
+  height: 30px;
+  position: relative; }
 
 /*# sourceMappingURL=App.css.map */

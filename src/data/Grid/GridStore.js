@@ -47,6 +47,8 @@ class GridStore extends ReduceStore {
         return GridStore.move(state, {y: 1});
       case GridActionTypes.DROP:
         return GridStore.drop(state);
+      case GridActionTypes.REMOVE_DETROMINO:
+        return GridStore.removeDetromino(state);
       case GridActionTypes.SINK_FLOATING_BLOCK:
         return GridStore.sinkFloatingBlocks(state);
       case GridActionTypes.SINK_TARGET_BLOCK:
@@ -163,6 +165,10 @@ class GridStore extends ReduceStore {
 
     // Apply the processed detromino to the grid
     return state.set("grid", state.get("grid").merge(shape));
+  }
+
+  static removeDetromino(state) {
+    return GridStore.applyDetromino(state, BlockType.NONE);
   }
 
   static sinkFloatingBlocks(state) {
