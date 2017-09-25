@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 
 import GridContainer from "./containers/GridContainer";
-import "./data/KeyboardEvent";
 
+// Global js
+import "./data/KeyboardEvent";
+import "./data/localStorage/LocalStorageSaver";
 
 import "./App.css";
 

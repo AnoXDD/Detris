@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from "react";
-import DetrominoShape from "../data/Detromino/DetrominoShape";
+import DetrominoShape from "../data/detromino/DetrominoShape";
 
 export default class DetrominoView extends Component {
   shouldComponentUpdate(nextProps) {

@@ -7,8 +7,8 @@ import Immutable from "immutable";
 import Color from "../Color";
 import Rotation from "../Rotation";
 
-import Block from "../Block/Block";
-import BlockType from "../Block/BlockType";
+import Block from "../block/Block";
+import BlockType from "../block/BlockType";
 import DetrominoType from "./DetrominoType";
 import DetrominoShape from "./DetrominoShape";
 import Algorithm from "../Algorithm";

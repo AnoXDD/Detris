@@ -9,10 +9,9 @@ import Immutable from "immutable";
 import {ReduceStore} from "flux/utils";
 
 import Dispatcher from "../Dispatcher";
+import LocalStorageLoader from "../localStorage/LocalStorageLoader";
 
 import ActionTypes from "../ActionTypes";
-
-import DetrominoType from "../Detromino/DetrominoType";
 
 class QueueStore extends ReduceStore {
   constructor() {
@@ -20,7 +19,7 @@ class QueueStore extends ReduceStore {
   }
 
   getInitialState() {
-    return Immutable.List([DetrominoType.T, DetrominoType.I, DetrominoType.S, DetrominoType.Z]);
+    return LocalStorageLoader.loadQueueFromLocalStorage() || Immutable.List();
   }
 
   reduce(state, action) {

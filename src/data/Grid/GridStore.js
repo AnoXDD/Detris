@@ -9,15 +9,16 @@ import Algorithm from "../Algorithm";
 
 import Rotation from "../Rotation";
 import GridSize from "./GridSize";
-import BlockType from "../Block/BlockType";
-import Block from "../Block/Block";
+import BlockType from "../block/BlockType";
+import Block from "../block/Block";
 
 import ActionTypes from "../ActionTypes";
 import Dispatcher from "../Dispatcher";
+import LocalStorageLoader from "../localStorage/LocalStorageLoader";
 
-import Detromino from "../Detromino/Detromino";
-import DetrominoType from "../Detromino/DetrominoType";
-import DetrominoShape from "../Detromino/DetrominoShape";
+import Detromino from "../detromino/Detromino";
+import DetrominoType from "../detromino/DetrominoType";
+import DetrominoShape from "../detromino/DetrominoShape";
 
 
 class GridStore extends ReduceStore {
@@ -26,6 +27,11 @@ class GridStore extends ReduceStore {
   }
 
   getInitialState() {
+    let savedState = LocalStorageLoader.loadGridFromLocalStorage();
+    if (savedState) {
+      return savedState;
+    }
+
     let map = Immutable.Map();
     return map
       .set("grid", Immutable.Map())

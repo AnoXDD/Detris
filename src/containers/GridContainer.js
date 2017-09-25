@@ -6,10 +6,10 @@ import {Container} from "flux/utils";
 import React, {Component} from "react";
 import Actions from "../data/Actions";
 
-import GridStore from "../data/Grid/GridStore";
-import GridSize from "../data/Grid/GridSize";
+import GridStore from "../data/grid/GridStore";
+import GridSize from "../data/grid/GridSize";
 
-import QueueStore from "../data/Queue/QueueStore";
+import QueueStore from "../data/queue/QueueStore";
 
 import GridView from "../views/GridView";
 import QueueView from "../views/QueueView";

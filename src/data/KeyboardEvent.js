@@ -6,6 +6,7 @@
 
 import Immutable from "immutable";
 import Actions from "./Actions";
+import GridSize from "./grid/GridSize";
 
 const keyMap = Immutable.Map({
   "ArrowLeft" : Actions.moveLeft,
@@ -17,6 +18,7 @@ const keyMap = Immutable.Map({
   " "         : Actions.nextDetromino,
 
   "=": Actions.debug__addDetrominoToQueue,
+  "-": () => Actions.init(GridSize.WIDTH, GridSize.HEIGHT),
 });
 
 function onKeyDown(e) {

@@ -4,9 +4,9 @@
  * The list of actions that can be dispatched
  */
 
-import GridSize from "./Grid/GridSize";
-import BlockType from "./Block/BlockType";
-import DetrominoType from "./Detromino/DetrominoType";
+import GridSize from "./grid/GridSize";
+import BlockType from "./block/BlockType";
+import DetrominoType from "./detromino/DetrominoType";
 
 function gridMapToArray(grid) {
   let matrix = [...new Array(GridSize.HEIGHT).keys()].map(

@@ -7,7 +7,7 @@
 import ActionTypes from "./ActionTypes";
 import Algorithm from "./Algorithm";
 import Dispatcher from "./Dispatcher";
-import QueueStore from "./Queue/QueueStore";
+import QueueStore from "./queue/QueueStore";
 
 const Actions = {
   init(width, height) {
