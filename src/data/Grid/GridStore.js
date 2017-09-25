@@ -26,22 +26,28 @@ class GridStore extends ReduceStore {
     super(Dispatcher);
   }
 
-  getInitialState() {
-    let savedState = LocalStorageLoader.loadGridFromLocalStorage();
-    if (savedState) {
-      return savedState;
-    }
-
+  static reset() {
     let map = Immutable.Map();
     return map
       .set("grid", Immutable.Map())
       .set("detromino", new Detromino());
   }
 
+  getInitialState() {
+    let savedState = LocalStorageLoader.loadGridFromLocalStorage();
+    if (savedState) {
+      return savedState;
+    }
+
+    return GridStore.reset();
+  }
+
   reduce(state, action) {
     switch (action.type) {
       case ActionTypes.INIT_GRID:
         return this.initState();
+      case ActionTypes.RESET_GRID:
+        return GridStore.reset();
       case ActionTypes.APPLY_DATA:
         return GridStore.applyData(state, action);
       case ActionTypes.NEXT_DETROMINO:

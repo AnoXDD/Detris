@@ -69,10 +69,10 @@
     margin-left: 10px;
     border: 1px solid black;
     padding: 10px;
-    width: 4 * $grid-cell-size + 20px;
+    width: 4 * $grid-cell-size + 22px;
     display: flex;
     box-sizing: border-box;
-    overflow: scroll;
+    overflow: auto;
 
     .detromino-view-wrapper {
       padding: $detromino-view-wrapper-padding;

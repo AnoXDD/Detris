@@ -18,12 +18,18 @@ class QueueStore extends ReduceStore {
     super(Dispatcher);
   }
 
+  static reset() {
+    return Immutable.List();
+  }
+
   getInitialState() {
-    return LocalStorageLoader.loadQueueFromLocalStorage() || Immutable.List();
+    return LocalStorageLoader.loadQueueFromLocalStorage() || QueueStore.reset();
   }
 
   reduce(state, action) {
     switch (action.type) {
+      case ActionTypes.RESET_GRID:
+        return QueueStore.reset();
       case ActionTypes.APPLY_DATA:
         return QueueStore.applyData(state, action);
       case ActionTypes.NEXT_DETROMINO:

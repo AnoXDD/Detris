@@ -18,6 +18,12 @@ const Actions = {
     });
   },
 
+  resetGrid() {
+    Dispatcher.dispatch({
+      type: ActionTypes.RESET_GRID,
+    });
+  },
+
   /**
    * Starts a new game with grid width, height and queue, grid
    * @param width - the grid width

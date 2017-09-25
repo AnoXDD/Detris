@@ -6,7 +6,8 @@
 
 const ActionTypes = {
   // Initialize the grid
-  INIT_GRID: "INIT_GRID",
+  INIT_GRID : "INIT_GRID",
+  RESET_GRID: "RESET_GRID",
 
   // Game
   APPLY_DATA: "APPLY_DATA",
