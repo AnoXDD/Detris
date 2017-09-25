@@ -5,9 +5,9 @@
  */
 
 import ActionTypes from "./ActionTypes";
-import Algorithm from "./Algorithm";
-import Dispatcher from "./Dispatcher";
-import QueueStore from "./queue/QueueStore";
+import Algorithm from "../Algorithm";
+import Dispatcher from "../Dispatcher";
+import QueueStore from "../queue/QueueStore";
 
 const Actions = {
   init(width, height) {

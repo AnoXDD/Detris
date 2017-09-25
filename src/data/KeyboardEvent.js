@@ -5,7 +5,7 @@
  */
 
 import Immutable from "immutable";
-import Actions from "./Actions";
+import Actions from "./enum/Actions";
 
 const keyMap = Immutable.Map({
   "ArrowLeft" : Actions.moveLeft,

@@ -5,7 +5,7 @@
  */
 
 import Immutable from "immutable";
-import Color from "../Color";
+import Color from "../enum/Color";
 import BlockType from "./BlockType";
 
 const BlockRecord = Immutable.Record({

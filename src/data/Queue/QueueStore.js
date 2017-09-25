@@ -11,7 +11,7 @@ import {ReduceStore} from "flux/utils";
 import Dispatcher from "../Dispatcher";
 import LocalStorageLoader from "../localStorage/LocalStorageLoader";
 
-import ActionTypes from "../ActionTypes";
+import ActionTypes from "../enum/ActionTypes";
 
 class QueueStore extends ReduceStore {
   constructor() {

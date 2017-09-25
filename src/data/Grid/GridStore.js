@@ -7,12 +7,12 @@ import {ReduceStore} from "flux/utils";
 
 import Algorithm from "../Algorithm";
 
-import Rotation from "../Rotation";
+import Rotation from "../enum/Rotation";
 import GridSize from "./GridSize";
 import BlockType from "../block/BlockType";
 import Block from "../block/Block";
 
-import ActionTypes from "../ActionTypes";
+import ActionTypes from "../enum/ActionTypes";
 import Dispatcher from "../Dispatcher";
 import LocalStorageLoader from "../localStorage/LocalStorageLoader";
 

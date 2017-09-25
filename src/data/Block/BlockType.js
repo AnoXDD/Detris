@@ -5,9 +5,9 @@
 const BlockType = {
   NONE     : "none", // air
   DETROMINO: "detromino", // The detromino controlled by the player
-  FLOATING : "floating", // The blocks just released by the player
+  // FLOATING : "floating", // The blocks just released by the player
   TARGET   : "target", // The blocks to be eliminated
-  FADING   : "fading", // The blocks to be disappeared
+  STALE    : "stale", // The blocks to be disappeared
 };
 
 export default BlockType;

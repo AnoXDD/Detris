@@ -4,8 +4,8 @@
 
 import Immutable from "immutable";
 
-import Color from "../Color";
-import Rotation from "../Rotation";
+import Color from "../enum/Color";
+import Rotation from "../enum/Rotation";
 
 import Block from "../block/Block";
 import BlockType from "../block/BlockType";

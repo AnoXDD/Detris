@@ -34,18 +34,62 @@ const Algorithm = {
    * Sinks the floating blocks whose type is FLOATING to make it not floating
    * anymore. A floating block is defined as a block whose adjacent block below
    * is neither the edge of the grid nor another block another grid
-   * @param grid
+   * @param grid - Immutable map of blocks
    */
   sinkFloatingBlocks(grid) {
+    let matrix = gridMapToArray(grid);
     // todo implement this
+
+    // Dummy implementation: remove the following snippet after this function
+    // is actually implemented
+    const b = GridSize.HEIGHT - 1;
+    for (let x = 0; x < GridSize.WIDTH; ++x) {
+      for (let y = 0; y < GridSize.HEIGHT; ++y) {
+        if (!matrix[y][x] || matrix[y][x].get("type") !== BlockType.DETROMINO) {
+          continue;
+        }
+
+        if (matrix[b][x]) {
+          // Mark the block as stale
+          matrix[y][x] = matrix[y][x]
+            .set("y", b)
+            .set("type", BlockType.STALE);
+
+          // Remove the block
+          let id = matrix[b][x].get("id");
+          grid = grid.delete(id);
+          matrix[b][x] = null;
+        }
+        break;
+      }
+    }
+
+    return grid;
+  },
+
+  /**
+   * Removes stale blocks
+   * @param grid - Immutable map of blocks
+   */
+  removeStaleBlocks(grid) {
+    let blocks = grid.valueSeq().toArray();
+
+    for (let block of blocks) {
+      if (block.type === BlockType.STALE) {
+        grid = grid.delete(block.get("id"));
+      }
+    }
+
     return grid;
   },
 
   /**
    * Sinks target blocks to eliminate the gaps between them
-   * @param grid
+   * @param grid - Immutable map of blocks
    */
   sinkTargetBlocks(grid) {
+    grid = Algorithm.removeStaleBlocks(grid);
+
     let matrix = gridMapToArray(grid);
 
     for (let x = 0; x < GridSize.WIDTH; ++x) {
