@@ -463,31 +463,57 @@ img.center {
     top: 300px;
     opacity: 1; }
   .grid-container .grid-cell.grid-cell-preview {
-    background-color: #8BC34A; }
+    background-color: #8BC34A;
+    transition: background-color .2s linear; }
 .grid-container .queue-view {
   margin-left: 10px;
-  border: 1px solid black;
-  padding: 10px;
   width: 82px;
   display: flex;
+  flex-direction: column;
   box-sizing: border-box;
-  overflow: auto; }
+  overflow: hidden; }
+  .grid-container .queue-view .next {
+    flex-shrink: 0; }
+    .grid-container .queue-view .next .next-inner {
+      height: 40px; }
+    .grid-container .queue-view .next .detromino-view-wrapper {
+      position: absolute; }
+    .grid-container .queue-view .next .detromino-animation-leave, .grid-container .queue-view .next .detromino-animation-enter.detromino-animation-enter-active {
+      opacity: 1;
+      transform: scale(1);
+      padding: 5px 0;
+      transition: .2s ease; }
+    .grid-container .queue-view .next .detromino-animation-leave.detromino-animation-leave-active, .grid-container .queue-view .next .detromino-animation-enter {
+      opacity: 0;
+      transform: scale(0.2);
+      padding: 0;
+      transition: .2s ease; }
+  .grid-container .queue-view .queue {
+    flex: 1 1 auto;
+    overflow: hidden;
+    position: relative; }
+    .grid-container .queue-view .queue .queue-flex-inner-extend-wrapper {
+      height: 100%;
+      width: 100%; }
+    .grid-container .queue-view .queue .queue-inner {
+      height: 100%;
+      overflow: auto; }
+    .grid-container .queue-view .queue .detromino-animation-leave, .grid-container .queue-view .queue .detromino-animation-enter.detromino-animation-enter-active {
+      opacity: 1;
+      height: 30px;
+      padding: 5px 0;
+      transition: .2s ease; }
+    .grid-container .queue-view .queue .detromino-animation-leave.detromino-animation-leave-active, .grid-container .queue-view .queue .detromino-animation-enter {
+      opacity: 0;
+      height: 0;
+      padding: 0;
+      transition: .2s ease; }
   .grid-container .queue-view .detromino-view-wrapper {
     padding: 5px 0;
     width: 60px;
     display: flex;
     flex-direction: column;
     align-items: center; }
-  .grid-container .queue-view .detromino-animation-leave, .grid-container .queue-view .detromino-animation-enter.detromino-animation-enter-active {
-    opacity: 1;
-    height: 30px;
-    padding: 5px 0;
-    transition: .2s ease; }
-  .grid-container .queue-view .detromino-animation-leave.detromino-animation-leave-active, .grid-container .queue-view .detromino-animation-enter {
-    opacity: 0;
-    height: 0;
-    padding: 0;
-    transition: .2s ease; }
 .grid-container .detromino-preview {
   width: 45px;
   height: 30px;
@@ -498,5 +524,27 @@ img.center {
     top: 7.5px; }
   .grid-container .detromino-preview.detromino-preview-O {
     width: 30px; }
+
+.title-box-view {
+  padding: 10px 5px 5px;
+  position: relative;
+  height: 100%;
+  box-sizing: border-box; }
+  .title-box-view .title-box-view-title {
+    content: "dummy";
+    text-transform: uppercase;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: white;
+    z-index: 10;
+    line-height: 20px;
+    font-size: 13px;
+    padding-right: 2px; }
+  .title-box-view .title-box-view-actual {
+    border: 1px solid black;
+    padding: 10px 5px 5px;
+    height: 100%;
+    box-sizing: border-box; }
 
 /*# sourceMappingURL=App.css.map */

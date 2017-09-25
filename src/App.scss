@@ -77,40 +77,82 @@
 
     &.grid-cell-preview {
       background-color: $lightgreen;
+      transition: background-color .2s linear;
     }
   }
 
   .queue-view {
-    $detromino-view-wrapper-padding: 5px 0;
+    $detromino-view-wrapper-padding: 5px;
 
     margin-left: 10px;
-    border: 1px solid black;
-    padding: 10px;
     width: 4 * $grid-cell-size + 22px;
     display: flex;
+    flex-direction: column;
     box-sizing: border-box;
-    overflow: auto;
+    overflow: hidden;
+
+    .next {
+      flex-shrink: 0;
+
+      .next-inner {
+        height: 2 * ($grid-cell-size + $detromino-view-wrapper-padding);
+      }
+
+      .detromino-view-wrapper {
+        position: absolute;
+      }
+
+      .detromino-animation-leave, .detromino-animation-enter.detromino-animation-enter-active {
+        opacity: 1;
+        transform: scale(1);
+        padding: $detromino-view-wrapper-padding 0;
+        transition: .2s ease;
+      }
+
+      .detromino-animation-leave.detromino-animation-leave-active, .detromino-animation-enter {
+        opacity: 0;
+        transform: scale(0.2);
+        padding: 0;
+        transition: .2s ease;
+      }
+    }
+
+    .queue {
+      flex: 1 1 auto;
+      overflow: hidden;
+      position: relative;
+
+      .queue-flex-inner-extend-wrapper {
+        height: 100%;
+        width: 100%;
+      }
+
+      .queue-inner {
+        height: 100%;
+        overflow: auto;
+      }
+
+      .detromino-animation-leave, .detromino-animation-enter.detromino-animation-enter-active {
+        opacity: 1;
+        height: 2 * $grid-cell-size;
+        padding: $detromino-view-wrapper-padding 0;
+        transition: .2s ease;
+      }
+
+      .detromino-animation-leave.detromino-animation-leave-active, .detromino-animation-enter {
+        opacity: 0;
+        height: 0;
+        padding: 0;
+        transition: .2s ease;
+      }
+    }
 
     .detromino-view-wrapper {
-      padding: $detromino-view-wrapper-padding;
+      padding: $detromino-view-wrapper-padding 0;
       width: 4 * $grid-cell-size;
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
-
-    .detromino-animation-leave, .detromino-animation-enter.detromino-animation-enter-active {
-      opacity: 1;
-      height: 2 * $grid-cell-size;
-      padding: $detromino-view-wrapper-padding;
-      transition: .2s ease;
-    }
-
-    .detromino-animation-leave.detromino-animation-leave-active, .detromino-animation-enter {
-      opacity: 0;
-      height: 0;
-      padding: 0;
-      transition: .2s ease;
     }
   }
 
@@ -129,5 +171,34 @@
     &.detromino-preview-O {
       width: 2 * $grid-cell-size;
     }
+  }
+}
+
+.title-box-view {
+  $padding: 10px 5px 5px;
+
+  padding: $padding;
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+
+  .title-box-view-title {
+    content: "dummy";
+    text-transform: uppercase;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: white;
+    z-index: 10;
+    line-height: 20px;
+    font-size: 13px;
+    padding-right: 2px;
+  }
+
+  .title-box-view-actual {
+    border: 1px solid black;
+    padding: $padding;
+    height: 100%;
+    box-sizing: border-box;
   }
 }
