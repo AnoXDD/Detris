@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "flux": "latest",
+    "immutable": "latest",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "flux": "latest",
-    "immutable": "latest"
+    "react-transition-group": "^1.2.0"
   },
   "devDependencies": {
     "react-scripts": "1.0.13"

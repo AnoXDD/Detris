@@ -12,6 +12,7 @@ import GridSize from "../data/Grid/GridSize";
 import QueueStore from "../data/Queue/QueueStore";
 
 import GridView from "../views/GridView";
+import QueueView from "../views/QueueView";
 
 class GridContainer extends Component {
 
@@ -20,13 +21,6 @@ class GridContainer extends Component {
 
     Actions.init(GridSize.WIDTH, GridSize.HEIGHT);
   }
-
-  // componentDidUpdate(prevState) {
-  // Check for any need for animation update
-  // if (Algorithm.hasBlockOfType(this.state.grid.grid, BlockType.FLOATING)) {
-  //   Actions.sinkTargetBlocks();
-  // }
-  // }
 
   static getStores() {
     return [
@@ -42,13 +36,19 @@ class GridContainer extends Component {
       grid: {
         grid,
       },
+      queue: {
+        queue: QueueStore.getState()
+      },
     };
   }
 
   render() {
     return (
       <div className="grid-container">
-        <GridView {...this.state.grid}/>
+        <div className="grid-queue">
+          <GridView {...this.state.grid}/>
+          <QueueView {...this.state.queue}/>
+        </div>
       </div>
     );
   }

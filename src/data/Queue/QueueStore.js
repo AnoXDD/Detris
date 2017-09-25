@@ -7,7 +7,12 @@
 
 import Immutable from "immutable";
 import {ReduceStore} from "flux/utils";
+
 import Dispatcher from "../Dispatcher";
+
+import ActionTypes from "../ActionTypes";
+
+import DetrominoType from "../Detromino/DetrominoType";
 
 class QueueStore extends ReduceStore {
   constructor() {
@@ -15,11 +20,24 @@ class QueueStore extends ReduceStore {
   }
 
   getInitialState() {
-    return Immutable.List();
+    return Immutable.List([DetrominoType.T, DetrominoType.I, DetrominoType.S, DetrominoType.Z]);
   }
 
   reduce(state, action) {
+    switch (action.type) {
+      case ActionTypes.APPLY_DATA:
+        return QueueStore.applyData(state, action);
+      case ActionTypes.NEXT_DETROMINO:
+        return state.pop();
+      default:
+        return state;
+    }
+  }
 
+  static applyData(state, action) {
+    let {detrominoList} = action;
+
+    return detrominoList;
   }
 }
 

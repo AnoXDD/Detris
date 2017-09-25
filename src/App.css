@@ -328,6 +328,9 @@ img.center {
     box-sizing: border-box;
     padding: 20px 50px 25px; }
 
+.grid-container .grid-queue {
+  display: flex;
+  justify-content: center; }
 .grid-container .grid-view .grid-cells {
   position: relative;
   height: 300px;
@@ -446,6 +449,22 @@ img.center {
     opacity: 1; }
   .grid-container .grid-cell.grid-cell-preview {
     background-color: #8BC34A; }
+.grid-container .queue-view {
+  margin-left: 10px;
+  border: 1px solid black;
+  padding: 10px;
+  width: 60px;
+  display: flex; }
+  .grid-container .queue-view .detromino-view-wrapper {
+    padding: 5px 0; }
+  .grid-container .queue-view .detromino-animation-leave {
+    opacity: 1;
+    height: 30px; }
+    .grid-container .queue-view .detromino-animation-leave.detromino-animation-leave-active {
+      opacity: 0;
+      height: 0;
+      padding: 0px;
+      transition: .2s ease; }
 .grid-container .detromino-preview {
   width: 60px;
   height: 30px;

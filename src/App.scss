@@ -5,6 +5,11 @@
   $grid-height: 20;
   $grid-cell-size: 15px;
 
+  .grid-queue {
+    display: flex;
+    justify-content: center;
+  }
+
   .grid-view {
     .grid-cells {
       position: relative;
@@ -49,6 +54,30 @@
 
     &.grid-cell-preview {
       background-color: $lightgreen;
+    }
+  }
+
+  .queue-view {
+    margin-left: 10px;
+    border: 1px solid black;
+    padding: 10px;
+    width: 4 * $grid-cell-size;
+    display: flex;
+
+    .detromino-view-wrapper {
+      padding: 5px 0;
+    }
+
+    .detromino-animation-leave {
+      opacity: 1;
+      height: 2 * $grid-cell-size;
+
+      &.detromino-animation-leave-active {
+        opacity: 0;
+        height: 0;
+        padding: 0;
+        transition: .2s ease;
+      }
     }
   }
 

@@ -7,6 +7,7 @@
 import ActionTypes from "./ActionTypes";
 import Dispatcher from "./Dispatcher";
 import DetrominoType from "./Detromino/DetrominoType";
+import QueueStore from "./Queue/QueueStore";
 
 const Actions = {
   init(width, height) {
@@ -21,8 +22,10 @@ const Actions = {
    * Starts a new game with grid width, height and queue, grid
    * @param width - the grid width
    * @param height - the grid height
-   * @param detrominoList - the queue represented by a native list of objects that can be converted to Detromino
-   * @param blockList - the grid represented by a native list of objects that can be converted to Block
+   * @param detrominoList - the queue represented by a native list of objects
+   *   that can be converted to Detromino
+   * @param blockList - the grid represented by a native list of objects that
+   *   can be converted to Block
    */
   apply(width, height, detrominoList, blockList) {
     Actions.init(width, height);
@@ -34,7 +37,12 @@ const Actions = {
     })
   },
 
-  newDetromino(detrominoType = DetrominoType.T) {
+  nextDetromino() {
+    Actions.sinkFloatingBlocks();
+    Actions.sinkTargetBlocks();
+
+    let detrominoType = QueueStore.getState().last();
+
     Dispatcher.dispatch({
       type: ActionTypes.NEXT_DETROMINO,
       detrominoType,
@@ -42,7 +50,7 @@ const Actions = {
   },
 
   // Debug only
-  newRandomDetromino() {
+  debug__newRandomDetromino() {
     Actions.sinkFloatingBlocks();
     Actions.sinkTargetBlocks();
 
