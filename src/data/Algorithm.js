@@ -6,6 +6,7 @@
 
 import GridSize from "./Grid/GridSize";
 import BlockType from "./Block/BlockType";
+import DetrominoType from "./Detromino/DetrominoType";
 
 function gridMapToArray(grid) {
   let matrix = [...new Array(GridSize.HEIGHT).keys()].map(
@@ -89,6 +90,11 @@ const Algorithm = {
   rotate(shape, degree) {
     // todo implement this
     return shape;
+  },
+
+  generateRandomDetrominoType() {
+    let shapes = Object.keys(DetrominoType).slice(1);
+    return shapes[parseInt(Math.random() * shapes.length, 10)];
   }
 };
 

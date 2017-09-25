@@ -15,6 +15,8 @@ const keyMap = Immutable.Map({
   "Shift"     : Actions.rotate,
   "Delete"    : Actions.removeDetromino,
   " "         : Actions.nextDetromino,
+
+  "=": Actions.debug__addDetrominoToQueue,
 });
 
 function onKeyDown(e) {

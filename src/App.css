@@ -331,12 +331,16 @@ img.center {
 .grid-container .grid-queue {
   display: flex;
   justify-content: center; }
-.grid-container .grid-view .grid-cells {
-  position: relative;
-  height: 300px;
-  width: 150px;
-  border: 1px solid grey;
-  overflow: hidden; }
+.grid-container .grid-view, .grid-container .queue-view {
+  height: 302px; }
+.grid-container .grid-view {
+  height: 300px; }
+  .grid-container .grid-view .grid-cells {
+    position: relative;
+    height: 300px;
+    width: 150px;
+    border: 1px solid grey;
+    overflow: hidden; }
 .grid-container .grid-cell {
   width: 15px;
   height: 15px;
@@ -453,21 +457,35 @@ img.center {
   margin-left: 10px;
   border: 1px solid black;
   padding: 10px;
-  width: 60px;
-  display: flex; }
+  width: 80px;
+  display: flex;
+  box-sizing: border-box;
+  overflow: scroll; }
   .grid-container .queue-view .detromino-view-wrapper {
-    padding: 5px 0; }
-  .grid-container .queue-view .detromino-animation-leave {
+    padding: 5px 0;
+    width: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+  .grid-container .queue-view .detromino-animation-leave, .grid-container .queue-view .detromino-animation-enter.detromino-animation-enter-active {
     opacity: 1;
-    height: 30px; }
-    .grid-container .queue-view .detromino-animation-leave.detromino-animation-leave-active {
-      opacity: 0;
-      height: 0;
-      padding: 0px;
-      transition: .2s ease; }
+    height: 30px;
+    padding: 5px 0;
+    transition: .2s ease; }
+  .grid-container .queue-view .detromino-animation-leave.detromino-animation-leave-active, .grid-container .queue-view .detromino-animation-enter {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    transition: .2s ease; }
 .grid-container .detromino-preview {
-  width: 60px;
+  width: 45px;
   height: 30px;
   position: relative; }
+  .grid-container .detromino-preview.detromino-preview-I {
+    width: 60px;
+    position: relative;
+    top: 7.5px; }
+  .grid-container .detromino-preview.detromino-preview-O {
+    width: 30px; }
 
 /*# sourceMappingURL=App.css.map */

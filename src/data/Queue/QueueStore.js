@@ -29,6 +29,8 @@ class QueueStore extends ReduceStore {
         return QueueStore.applyData(state, action);
       case ActionTypes.NEXT_DETROMINO:
         return state.pop();
+      case ActionTypes.ADD_DETROMINO_TO_QUEUE:
+        return state.push(action.detrominoType);
       default:
         return state;
     }

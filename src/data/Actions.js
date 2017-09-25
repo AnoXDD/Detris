@@ -5,8 +5,8 @@
  */
 
 import ActionTypes from "./ActionTypes";
+import Algorithm from "./Algorithm";
 import Dispatcher from "./Dispatcher";
-import DetrominoType from "./Detromino/DetrominoType";
 import QueueStore from "./Queue/QueueStore";
 
 const Actions = {
@@ -54,13 +54,19 @@ const Actions = {
     Actions.sinkFloatingBlocks();
     Actions.sinkTargetBlocks();
 
-    let shapes = Object.keys(DetrominoType).slice(1);
-    let detrominoType = shapes[parseInt(Math.random() * shapes.length, 10)];
+    let detrominoType = Algorithm.generateRandomDetrominoType();
 
     Dispatcher.dispatch({
       type: ActionTypes.NEXT_DETROMINO,
       detrominoType,
     })
+  },
+
+  debug__addDetrominoToQueue(detrominoType = Algorithm.generateRandomDetrominoType()) {
+    Dispatcher.dispatch({
+      type: ActionTypes.ADD_DETROMINO_TO_QUEUE,
+      detrominoType,
+    });
   },
 
   moveLeft() {

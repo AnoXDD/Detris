@@ -10,7 +10,13 @@
     justify-content: center;
   }
 
+  .grid-view, .queue-view {
+    height: $grid-height * $grid-cell-size + 2px;
+  }
+
   .grid-view {
+    height: $grid-height * $grid-cell-size;
+
     .grid-cells {
       position: relative;
       height: $grid-height * $grid-cell-size;
@@ -58,32 +64,53 @@
   }
 
   .queue-view {
+    $detromino-view-wrapper-padding: 5px 0;
+
     margin-left: 10px;
     border: 1px solid black;
     padding: 10px;
-    width: 4 * $grid-cell-size;
+    width: 4 * $grid-cell-size + 20px;
     display: flex;
+    box-sizing: border-box;
+    overflow: scroll;
 
     .detromino-view-wrapper {
-      padding: 5px 0;
+      padding: $detromino-view-wrapper-padding;
+      width: 4 * $grid-cell-size;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .detromino-animation-leave {
+    .detromino-animation-leave, .detromino-animation-enter.detromino-animation-enter-active {
       opacity: 1;
       height: 2 * $grid-cell-size;
+      padding: $detromino-view-wrapper-padding;
+      transition: .2s ease;
+    }
 
-      &.detromino-animation-leave-active {
-        opacity: 0;
-        height: 0;
-        padding: 0;
-        transition: .2s ease;
-      }
+    .detromino-animation-leave.detromino-animation-leave-active, .detromino-animation-enter {
+      opacity: 0;
+      height: 0;
+      padding: 0;
+      transition: .2s ease;
     }
   }
 
   .detromino-preview {
-    width: 4 * $grid-cell-size;
+    width: 3 * $grid-cell-size;
     height: 2 * $grid-cell-size;
     position: relative;
+
+    &.detromino-preview-I {
+      width: 4 * $grid-cell-size;
+      // Kinda hacky to place it at the right position
+      position: relative;
+      top: 0.5 * $grid-cell-size;
+    }
+
+    &.detromino-preview-O {
+      width: 2 * $grid-cell-size;
+    }
   }
 }

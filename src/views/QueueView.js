@@ -24,8 +24,8 @@ export default class QueueView extends Component {
       <div className="queue-view">
         <CSSTransitionGroup
           transitionName="detromino-animation"
-          transitionEnterTimeout={0}
-          transitionLeaveTimeout={300}
+          transitionEnterTimeout={200}
+          transitionLeaveTimeout={200}
         >
           {this.props.queue.reverse().map((detromino, i) =>
             <div key={size - i} className="detromino-view-wrapper">
