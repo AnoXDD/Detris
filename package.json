@@ -8,7 +8,8 @@
     "immutable": "latest",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-transition-group": "^1.2.0"
+    "react-transition-group": "^1.2.0",
+    "zlib": "latest"
   },
   "devDependencies": {
     "react-scripts": "1.0.13"

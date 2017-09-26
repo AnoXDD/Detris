@@ -5,10 +5,9 @@
  */
 
 import Immutable from "immutable";
-import Detromino from "../detromino/Detromino";
-import Block from "../block/Block";
+import Grid from "../grid/Grid";
 
-const LocalStorageManager = {
+const LocalStorageLoader = {
   loadQueueFromLocalStorage() {
     if (!localStorage["queue"]) {
       return null;
@@ -22,20 +21,16 @@ const LocalStorageManager = {
       return null;
     }
 
-    try {
-      let state = JSON.parse(localStorage["grid"]);
-      state.detromino = new Detromino(state.detromino);
-      let ids = Object.keys(state.grid);
-      for (let id of ids) {
-        state.grid[id] = new Block(state.grid[id]);
-      }
+    return Grid.fromCompressed(localStorage["grid"]);
+  },
 
-      return Immutable.fromJS(state);
-    } catch (e) {
-      console.error("Unable to load grid information from localStorage");
+  loadGameStateFromLocalStorage() {
+    if (!localStorage["gameState"]) {
       return null;
     }
+
+    return Immutable.fromJS(JSON.parse(localStorage["gameState"]));
   }
 };
 
-export default LocalStorageManager;
+export default LocalStorageLoader;

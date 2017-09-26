@@ -2,7 +2,6 @@
  * Created by Anoxic on 9/21/2017.
  */
 
-import Immutable from "immutable";
 import {ReduceStore} from "flux/utils";
 
 import Algorithm from "../Algorithm";
@@ -19,6 +18,7 @@ import LocalStorageLoader from "../localStorage/LocalStorageLoader";
 import Detromino from "../detromino/Detromino";
 import DetrominoType from "../detromino/DetrominoType";
 import DetrominoShape from "../detromino/DetrominoShape";
+import Grid from "./Grid";
 
 
 class GridStore extends ReduceStore {
@@ -27,10 +27,7 @@ class GridStore extends ReduceStore {
   }
 
   static reset() {
-    let map = Immutable.Map();
-    return map
-      .set("grid", Immutable.Map())
-      .set("detromino", new Detromino());
+    return new Grid();
   }
 
   getInitialState() {

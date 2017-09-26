@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 
-import GridContainer from "./containers/GridContainer";
-
 // Global js
 import "./data/KeyboardEvent";
 import "./data/localStorage/LocalStorageSaver";
 
+import GameContainer from "./containers/GameContainer";
+
 import "./App.css";
 
-ReactDOM.render(<GridContainer/>, document.getElementById('root'));
+ReactDOM.render(<GameContainer/>, document.getElementById('root'));
 registerServiceWorker();

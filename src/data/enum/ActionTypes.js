@@ -10,6 +10,10 @@ const ActionTypes = {
   RESET_GRID: "RESET_GRID",
 
   // Game
+  SET_GAME_STATE: "STATE_GAME_STATE",
+  START_LEVEL   : "START_LEVEL",
+
+  // Grid
   APPLY_DATA: "APPLY_DATA",
 
   // Detrominos

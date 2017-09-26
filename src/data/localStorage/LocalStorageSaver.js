@@ -6,6 +6,8 @@
 
 import QueueStore from "../queue/QueueStore";
 import GridStore from "../grid/GridStore";
+import Grid from "../grid/Grid";
+import GameStateStore from "../game/GameStateStore";
 
 function onQueueStoreChanged() {
   let store = QueueStore.getState();
@@ -16,8 +18,15 @@ function onQueueStoreChanged() {
 function onGridStoreChanged() {
   let store = GridStore.getState();
 
-  localStorage["grid"] = JSON.stringify(store.toJS());
+  localStorage["grid"] = Grid.toCompressed(store);
+}
+
+function onGameStateChanged() {
+  let store = GameStateStore.getState();
+
+  localStorage["gameState"] = JSON.stringify(store.toJS());
 }
 
 QueueStore.addListener(onQueueStoreChanged);
 GridStore.addListener(onGridStoreChanged);
+GameStateStore.addListener(onGameStateChanged());

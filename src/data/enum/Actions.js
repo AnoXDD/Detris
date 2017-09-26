@@ -27,6 +27,15 @@ const Actions = {
     });
   },
 
+  setGameState(gameState) {
+    Dispatcher.clearAllFuturePayloads();
+
+    Dispatcher.dispatch({
+      type: ActionTypes.SET_GAME_STATE,
+      gameState,
+    });
+  },
+
   /**
    * Starts a new game with grid width, height and queue, grid
    * @param width - the grid width
@@ -53,6 +62,7 @@ const Actions = {
       return;
     }
 
+    // todo optimization: just drop it if it won't break anything
     Dispatcher.dispatch({
       type: ActionTypes.SINK_FLOATING_BLOCK,
     });
@@ -64,7 +74,7 @@ const Actions = {
     Dispatcher.dispatch({
       type: ActionTypes.NEXT_DETROMINO,
       detrominoType,
-    }, DELAY * 3);
+    }, DELAY * 2);
   },
 
   // Debug only
