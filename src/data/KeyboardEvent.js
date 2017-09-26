@@ -6,12 +6,13 @@
 
 import Immutable from "immutable";
 import Actions from "./enum/Actions";
+import Direction from "./enum/Direction";
 
 const keyMap = Immutable.Map({
-  "ArrowLeft" : Actions.moveLeft,
-  "ArrowUp"   : Actions.moveUp,
-  "ArrowRight": Actions.moveRight,
-  "ArrowDown" : Actions.moveDown,
+  "ArrowLeft" : () => Actions.move(Direction.LEFT),
+  "ArrowUp"   : () => Actions.move(Direction.UP),
+  "ArrowRight": () => Actions.move(Direction.RIGHT),
+  "ArrowDown" : () => Actions.move(Direction.DOWN),
   "Shift"     : Actions.rotate,
   "Delete"    : Actions.removeDetromino,
   " "         : Actions.nextDetromino,

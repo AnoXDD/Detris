@@ -4,7 +4,7 @@
  * A dispatcher for grid actions
  */
 
-import {Dispatcher} from "flux";
+import Dispatcher from "flux-delay-dispatcher";
 
 const DetrisDispatcher = new Dispatcher();
 

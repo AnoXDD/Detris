@@ -54,13 +54,13 @@ class GridStore extends ReduceStore {
         return GridStore.newDetromino(state, action);
       case ActionTypes.ROTATE:
         return GridStore.rotate(state);
-      case ActionTypes.LEFT:
+      case ActionTypes.MOVE_LEFT:
         return GridStore.move(state, {x: -1});
-      case ActionTypes.RIGHT:
+      case ActionTypes.MOVE_RIGHT:
         return GridStore.move(state, {x: 1});
-      case ActionTypes.UP:
+      case ActionTypes.MOVE_UP:
         return GridStore.move(state, {y: -1});
-      case ActionTypes.DOWN:
+      case ActionTypes.MOVE_DOWN:
         return GridStore.move(state, {y: 1});
       case ActionTypes.DROP:
         return GridStore.drop(state);

@@ -17,11 +17,11 @@ const ActionTypes = {
   ROTATE        : "ROTATE",
 
   // Directions
-  LEFT : "MOVE_LEFT",
-  RIGHT: "MOVE_RIGHT",
-  UP   : "MOVE_UP",
-  DOWN : "MOVE_DOWN",
-  DROP : "MOVE_ALL_WAY_DOWN",
+  MOVE_LEFT : "MOVE_LEFT",
+  MOVE_RIGHT: "MOVE_RIGHT",
+  MOVE_UP   : "MOVE_UP",
+  MOVE_DOWN : "MOVE_DOWN",
+  DROP      : "MOVE_ALL_WAY_DOWN",
 
   // Block manipulation
   REMOVE_DETROMINO   : "REMOVE_DETROMINO",

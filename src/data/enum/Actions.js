@@ -8,6 +8,9 @@ import ActionTypes from "./ActionTypes";
 import Algorithm from "../Algorithm";
 import Dispatcher from "../Dispatcher";
 import QueueStore from "../queue/QueueStore";
+import Direction from "./Direction";
+
+const DELAY = 500;
 
 const Actions = {
   init(width, height) {
@@ -34,6 +37,8 @@ const Actions = {
    *   can be converted to Block
    */
   apply(width, height, detrominoList, blockList) {
+    Dispatcher.clearAllFuturePayloads();
+
     Actions.init(width, height);
 
     Dispatcher.dispatch({
@@ -44,15 +49,22 @@ const Actions = {
   },
 
   nextDetromino() {
-    Actions.sinkFloatingBlocks();
-    Actions.sinkTargetBlocks();
+    if (Dispatcher.willBeDispatching()) {
+      return;
+    }
+
+    Dispatcher.dispatch({
+      type: ActionTypes.SINK_FLOATING_BLOCK,
+    });
+    Dispatcher.dispatch({
+      type: ActionTypes.SINK_TARGET_BLOCK,
+    }, DELAY);
 
     let detrominoType = QueueStore.getState().last();
-
     Dispatcher.dispatch({
       type: ActionTypes.NEXT_DETROMINO,
       detrominoType,
-    });
+    }, DELAY * 3);
   },
 
   // Debug only
@@ -75,32 +87,37 @@ const Actions = {
     });
   },
 
-  moveLeft() {
-    Dispatcher.dispatch({
-      type: ActionTypes.LEFT,
-    });
-  },
+  move(direction) {
+    let type = null;
 
-  moveRight() {
-    Dispatcher.dispatch({
-      type: ActionTypes.RIGHT,
-    });
-  },
+    switch (direction) {
+      case Direction.UP:
+        type = ActionTypes.MOVE_UP;
+        break;
+      case Direction.DOWN:
+        type = ActionTypes.MOVE_DOWN;
+        break;
+      case Direction.LEFT:
+        type = ActionTypes.MOVE_LEFT;
+        break;
+      case Direction.RIGHT:
+        type = ActionTypes.MOVE_RIGHT;
+        break;
+      default:
+    }
 
-  moveUp() {
-    Dispatcher.dispatch({
-      type: ActionTypes.UP,
-    });
-  },
+    if (!type) {
+      console.error(`${direction} is not a valid direction`);
+      return;
+    }
 
-  moveDown() {
-    Dispatcher.dispatch({
-      type: ActionTypes.DOWN,
+    Dispatcher.dispatchOnlyIfClear({
+      type,
     });
   },
 
   dropDown() {
-    Dispatcher.dispatch({
+    Dispatcher.dispatchOnlyIfClear({
       type: ActionTypes.DROP,
     })
   },

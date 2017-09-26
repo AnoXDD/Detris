@@ -51,9 +51,10 @@ const Algorithm = {
 
         if (matrix[b][x]) {
           // Mark the block as stale
-          matrix[y][x] = matrix[y][x]
-            .set("y", b)
-            .set("type", BlockType.STALE);
+          grid = grid.set(matrix[y][x].id,
+            matrix[y][x] = matrix[y][x]
+              .set("y", b)
+              .set("type", BlockType.STALE));
 
           // Remove the block
           let id = matrix[b][x].get("id");

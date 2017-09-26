@@ -42,23 +42,42 @@
 
     &.detromino {
       background-color: $blue;
-      z-index: 10;
+
+      &.grid-cell-animation-enter {
+        transform: scale(0.5);
+        opacity: 0;
+        transition: .2s linear;
+
+        &.grid-cell-animation-enter-active {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
     }
 
     &.stale {
       background-color: $red;
+      z-index: 10;
+
+      &.grid-cell-animation-leave {
+        opacity: 1;
+        transform: scale(1);
+        transition: 1s linear;
+        z-index: 10;
+
+        &.grid-cell-animation-leave-active {
+          opacity: 0;
+          transform: scale(2);
+        }
+      }
     }
 
     &.grid-cell-animation-leave {
-      background-color: $red;
       opacity: 1;
-      transform: scale(1);
-      transition: 1s linear;
-      z-index: 10;
+      transition: opacity 1s linear;
 
       &.grid-cell-animation-leave-active {
         opacity: 0;
-        transform: scale(2);
       }
     }
 

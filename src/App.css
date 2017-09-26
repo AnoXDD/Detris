@@ -353,19 +353,30 @@ img.center {
   .grid-container .grid-cell.grid-cell-color-solid {
     background-color: black; }
   .grid-container .grid-cell.detromino {
-    background-color: #448AFF;
-    z-index: 10; }
-  .grid-container .grid-cell.stale {
-    background-color: #F44336; }
-  .grid-container .grid-cell.grid-cell-animation-leave {
-    background-color: #F44336;
-    opacity: 1;
-    transform: scale(1);
-    transition: 1s linear;
-    z-index: 10; }
-    .grid-container .grid-cell.grid-cell-animation-leave.grid-cell-animation-leave-active {
+    background-color: #448AFF; }
+    .grid-container .grid-cell.detromino.grid-cell-animation-enter {
+      transform: scale(0.5);
       opacity: 0;
-      transform: scale(2); }
+      transition: .2s linear; }
+      .grid-container .grid-cell.detromino.grid-cell-animation-enter.grid-cell-animation-enter-active {
+        transform: scale(1);
+        opacity: 1; }
+  .grid-container .grid-cell.stale {
+    background-color: #F44336;
+    z-index: 10; }
+    .grid-container .grid-cell.stale.grid-cell-animation-leave {
+      opacity: 1;
+      transform: scale(1);
+      transition: 1s linear;
+      z-index: 10; }
+      .grid-container .grid-cell.stale.grid-cell-animation-leave.grid-cell-animation-leave-active {
+        opacity: 0;
+        transform: scale(2); }
+  .grid-container .grid-cell.grid-cell-animation-leave {
+    opacity: 1;
+    transition: opacity 1s linear; }
+    .grid-container .grid-cell.grid-cell-animation-leave.grid-cell-animation-leave-active {
+      opacity: 0; }
   .grid-container .grid-cell.grid-cell-x-0 {
     left: 0px;
     opacity: 1; }
