@@ -193,6 +193,30 @@
   }
 }
 
+.level-view {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .level-view-unit-wrapper {
+    width: 25%;
+    position: relative;
+    text-align: center;
+    padding: 20px 0;
+
+    .title-box-view {
+      display: inline-block;
+    }
+  }
+
+  .level-view-unit {
+    width: 20px;
+    line-height: 20px;
+    text-align: center;
+    padding: 0 5px 5px;
+  }
+}
+
 .title-box-view {
   $padding: 10px 5px 5px;
 

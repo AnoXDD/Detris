@@ -4,10 +4,10 @@
  * A class for holding the actual data for each level
  */
 
-const LevelData = {
-  level: {
+import Immutable from "immutable";
 
-  }
-};
+const LevelData = Immutable.fromJS({
+  level: {},
+});
 
 export default LevelData;

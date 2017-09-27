@@ -536,6 +536,23 @@ img.center {
   .grid-container .detromino-preview.detromino-preview-O {
     width: 30px; }
 
+.level-view {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; }
+  .level-view .level-view-unit-wrapper {
+    width: 25%;
+    position: relative;
+    text-align: center;
+    padding: 20px 0; }
+    .level-view .level-view-unit-wrapper .title-box-view {
+      display: inline-block; }
+  .level-view .level-view-unit {
+    width: 20px;
+    line-height: 20px;
+    text-align: center;
+    padding: 0 5px 5px; }
+
 .title-box-view {
   padding: 10px 5px 5px;
   position: relative;

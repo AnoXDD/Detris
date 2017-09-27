@@ -5,16 +5,13 @@
 import {ReduceStore} from "flux/utils";
 
 import Algorithm from "../Algorithm";
-
 import Rotation from "../enum/Rotation";
 import GridSize from "./GridSize";
 import BlockType from "../block/BlockType";
 import Block from "../block/Block";
-
 import ActionTypes from "../enum/ActionTypes";
 import Dispatcher from "../Dispatcher";
 import LocalStorageLoader from "../localStorage/LocalStorageLoader";
-
 import Detromino from "../detromino/Detromino";
 import DetrominoType from "../detromino/DetrominoType";
 import DetrominoShape from "../detromino/DetrominoShape";

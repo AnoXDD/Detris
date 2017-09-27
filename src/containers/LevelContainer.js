@@ -5,9 +5,8 @@
 import {Container} from "flux/utils";
 import React, {Component} from "react";
 import GameStateStore from "../data/game/GameStateStore";
-
-import GridContainer from "./GridContainer";
 import LevelView from "../views/LevelView";
+import LevelStateStore from "../data/game/level/LevelStateStore";
 
 class LevelContainer extends Component {
 
@@ -18,18 +17,20 @@ class LevelContainer extends Component {
   static getStores() {
     return [
       GameStateStore,
+      LevelStateStore,
     ];
   }
 
   static calculateState(prevState) {
     return {
-      gameState: GameStateStore.getState(),
+      gameState : GameStateStore.getState(),
+      levelState: LevelStateStore.getState(),
     };
   }
 
   render() {
     return (
-      <LevelView {...this.state.gameState}/>
+      <LevelView {...this.state.levelState.toJS()}/>
     );
   }
 }

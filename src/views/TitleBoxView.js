@@ -14,7 +14,7 @@ export default class TitleBoxView extends Component {
     return (
       <div className="title-box-view">
         <div className="title-box-view-title">
-          <span>{this.props.title || "dummy"}</span>
+          <span>{this.props.title || ""}</span>
         </div>
         <div className="title-box-view-actual">
           {this.props.children}
