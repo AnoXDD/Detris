@@ -7,7 +7,11 @@
 import Immutable from "immutable";
 
 const LevelData = Immutable.fromJS({
-  level: {},
+  // key is id of `LevelViewUnit`
+  // string is compressed string of grid
+  level: {
+
+  },
 });
 
 export default LevelData;

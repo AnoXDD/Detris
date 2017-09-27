@@ -30,7 +30,7 @@ class GridStore extends ReduceStore {
   getInitialState() {
     let savedState = LocalStorageLoader.loadGridFromLocalStorage();
     if (savedState) {
-      return savedState;
+      return GridStore.applyDetromino(savedState);
     }
 
     return GridStore.reset();

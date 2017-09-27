@@ -5,7 +5,7 @@
  */
 
 import Immutable from "immutable";
-import LevelViewUnit from "./LevelViewUnit";
+import LevelViewUnit from "../level/LevelViewUnit";
 
 const LevelPage = Immutable.Record({
   id    : -1,

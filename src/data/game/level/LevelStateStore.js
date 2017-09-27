@@ -10,7 +10,7 @@ import Immutable from "immutable";
 
 import Dispatcher from "../../Dispatcher";
 import LevelData from "../static/LevelData";
-import LevelViewData from "./LevelViewData";
+import LevelViewData from "../static/LevelViewData";
 
 class LevelStateStore extends ReduceStore {
   constructor() {

@@ -140,7 +140,7 @@ const Algorithm = {
   generateRandomDetrominoType() {
     let shapes = Object.keys(DetrominoType).slice(1);
     return shapes[parseInt(Math.random() * shapes.length, 10)];
-  }
+  },
 };
 
 export default Algorithm;
