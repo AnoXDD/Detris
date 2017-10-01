@@ -17,7 +17,7 @@ export default class LevelView extends Component {
     return (
       <div className="level-view">
         {this.props.view.levels.map(level =>
-          <div className="level-view-unit-wrapper">
+          <div key={level.id} className="level-view-unit-wrapper">
             <TitleBoxView>
               <div className="level-view-unit">
                 {level.levelNumber}

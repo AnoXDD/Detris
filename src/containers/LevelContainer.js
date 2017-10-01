@@ -7,6 +7,8 @@ import React, {Component} from "react";
 import GameStateStore from "../data/game/GameStateStore";
 import LevelView from "../views/LevelView";
 import LevelStateStore from "../data/game/level/LevelStateStore";
+import PageControlView from "../views/PageControlView";
+import Actions from "../data/enum/Actions";
 
 class LevelContainer extends Component {
 
@@ -24,13 +26,20 @@ class LevelContainer extends Component {
   static calculateState(prevState) {
     return {
       gameState : GameStateStore.getState(),
-      levelState: LevelStateStore.getState(),
+      levelState: {
+        prevPage: Actions.levelPagePrev,
+        nextPage: Actions.levelPageNext,
+        ...LevelStateStore.getState().toJS()
+      },
     };
   }
 
   render() {
     return (
-      <LevelView {...this.state.levelState.toJS()}/>
+      <div className="level-container flex-center">
+        <LevelView {...this.state.levelState}/>
+        <PageControlView {...this.state.levelState}/>
+      </div>
     );
   }
 }

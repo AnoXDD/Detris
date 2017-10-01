@@ -11,6 +11,7 @@ import Immutable from "immutable";
 import Dispatcher from "../../Dispatcher";
 import LevelData from "../static/LevelData";
 import LevelViewData from "../static/LevelViewData";
+import ActionTypes from "../../enum/ActionTypes";
 
 class LevelStateStore extends ReduceStore {
   constructor() {
@@ -24,14 +25,50 @@ class LevelStateStore extends ReduceStore {
       view        : LevelViewData.get(0),
       // The actual level data
       data        : LevelData,
+      isFirstPage : true,
+      isLastPage  : false,
     });
   }
 
   reduce(state, action) {
     switch (action.type) {
+      case (ActionTypes.LEVEL_NEXT_PAGE):
+        return LevelStateStore.nextPage(state);
+      case (ActionTypes.LEVEL_PREV_PAGE):
+        return LevelStateStore.prevPage(state);
       default:
         return state;
     }
+  }
+
+  static nextPage(state) {
+    if (state.get("isLastPage")) {
+      return state;
+    }
+
+    let newCurrentPage = state.get("currentPage") + 1;
+    return LevelStateStore.setPage(state, newCurrentPage);
+  }
+
+  static prevPage(state) {
+    if (state.get("isFirstPage")) {
+      return state;
+    }
+
+    let newCurrentPage = state.get("currentPage") - 1;
+    return LevelStateStore.setPage(state, newCurrentPage);
+  }
+
+  /**
+   * Updates `isFirstPage` and `isLastPage` from `state`
+   * @param state
+   */
+  static setPage(state, newPage) {
+    return state
+      .set("currentPage", newPage)
+      .set("view", LevelViewData.get(newPage))
+      .set("isFirstPage", newPage === 0)
+      .set("isLastPage", newPage === LevelViewData.size - 1);
   }
 }
 

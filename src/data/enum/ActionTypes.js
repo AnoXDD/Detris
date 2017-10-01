@@ -13,6 +13,10 @@ const ActionTypes = {
   SET_GAME_STATE: "STATE_GAME_STATE",
   START_LEVEL   : "START_LEVEL",
 
+  // Level navigation
+  LEVEL_NEXT_PAGE: "LEVEL_NEXT_PAGE",
+  LEVEL_PREV_PAGE: "LEVEL_PREV_PAGE",
+
   // Grid
   APPLY_DATA: "APPLY_DATA",
 

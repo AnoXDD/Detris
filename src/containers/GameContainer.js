@@ -6,6 +6,7 @@ import {Container} from "flux/utils";
 import React, {Component} from "react";
 import GameStateStore from "../data/game/GameStateStore";
 import GridContainer from "./GridContainer";
+import LevelContainer from "./LevelContainer";
 
 class GameContainer extends Component {
 
@@ -23,7 +24,7 @@ class GameContainer extends Component {
 
   render() {
     return (
-      <GridContainer/>
+      <LevelContainer/>
     );
   }
 }

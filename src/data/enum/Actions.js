@@ -36,6 +36,18 @@ const Actions = {
     });
   },
 
+  levelPageNext() {
+    Dispatcher.dispatch({
+      type: ActionTypes.LEVEL_NEXT_PAGE,
+    });
+  },
+
+  levelPagePrev() {
+    Dispatcher.dispatch({
+      type: ActionTypes.LEVEL_PREV_PAGE,
+    });
+  },
+
   /**
    * Starts a new game with grid width, height and queue, grid
    * @param width - the grid width
