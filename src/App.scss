@@ -252,22 +252,18 @@ html, body, #root {
 
     &.level-view-animation-enter {
       transition: .2s linear;
-      //transform: scale(0.7);
       opacity: 0;
 
       &.level-view-animation-enter-active {
-        //transform: scale(1);
         opacity: 1;
       }
     }
 
     &.level-view-animation-leave {
       transition: .2s linear;
-      //transform: scale(1);
       opacity: 1;
 
       &.level-view-animation-leave-active {
-        //transform: scale(0.5);
         opacity: 0;
       }
     }

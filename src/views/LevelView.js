@@ -27,7 +27,10 @@ export default class LevelView extends Component {
           {this.props.view.levels.map(level =>
             <div key={level.id} className="level-view-unit-wrapper">
               <TitleBoxView>
-                <div className="level-view-unit">
+                <div
+                  className="level-view-unit"
+                  onClick={() => this.props.startNewLevel(level.levelNumber)}
+                >
                   {level.levelNumber}
                 </div>
               </TitleBoxView>

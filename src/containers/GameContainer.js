@@ -24,7 +24,10 @@ class GameContainer extends Component {
 
   render() {
     return (
-      <LevelContainer/>
+      <div className="">
+        <LevelContainer/>
+        <GridContainer/>
+      </div>
     );
   }
 }

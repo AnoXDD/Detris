@@ -9,6 +9,7 @@ import Algorithm from "../Algorithm";
 import Dispatcher from "../Dispatcher";
 import QueueStore from "../queue/QueueStore";
 import Direction from "./Direction";
+import LevelData from "../game/static/LevelData";
 
 const DELAY = 500;
 
@@ -48,16 +49,29 @@ const Actions = {
     });
   },
 
+  startNewLevel(currentLevel) {
+    Dispatcher.dispatch({
+      type: ActionTypes.START_LEVEL,
+      currentLevel,
+    });
+
+    LevelData.getLevel(currentLevel);
+    let parameters = LevelData.getLevel(currentLevel);
+    Actions.apply(parameters);
+  },
+
   /**
    * Starts a new game with grid width, height and queue, grid
-   * @param width - the grid width
-   * @param height - the grid height
-   * @param detrominoList - the queue represented by a native list of objects
+   * @param parameters - an object with:
+   *    width - the grid width
+   *    height - the grid height
+   *    detrominoList - the queue represented by an Immutable list of objects
    *   that can be converted to Detromino
-   * @param blockList - the grid represented by a native list of objects that
+   *    blockList - the grid represented by an Immutable Map of objects that
    *   can be converted to Block
    */
-  apply(width, height, detrominoList, blockList) {
+  apply(parameters) {
+    let {width, height, queueList, blockList} = parameters;
     Dispatcher.clearAllFuturePayloads();
 
     Actions.init(width, height);
@@ -65,7 +79,7 @@ const Actions = {
     Dispatcher.dispatch({
       type: ActionTypes.APPLY_DATA,
       blockList,
-      detrominoList,
+      queueList,
     })
   },
 

@@ -9,7 +9,6 @@ import {ReduceStore} from "flux/utils";
 import Immutable from "immutable";
 
 import Dispatcher from "../../Dispatcher";
-import LevelData from "../static/LevelData";
 import LevelViewData from "../static/LevelViewData";
 import ActionTypes from "../../enum/ActionTypes";
 
@@ -23,8 +22,6 @@ class LevelStateStore extends ReduceStore {
       currentLevel: -1,
       currentPage : 0,
       view        : LevelViewData.get(0),
-      // The actual level data
-      data        : LevelData,
       isFirstPage : true,
       isLastPage  : false,
     });
@@ -36,6 +33,8 @@ class LevelStateStore extends ReduceStore {
         return LevelStateStore.nextPage(state);
       case (ActionTypes.LEVEL_PREV_PAGE):
         return LevelStateStore.prevPage(state);
+      case (ActionTypes.START_LEVEL):
+        return state.set("currentLevel", action.currentLevel);
       default:
         return state;
     }

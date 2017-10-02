@@ -42,9 +42,9 @@ class QueueStore extends ReduceStore {
   }
 
   static applyData(state, action) {
-    let {detrominoList} = action;
+    let {queueList} = action;
 
-    return detrominoList;
+    return queueList;
   }
 }
 

@@ -29,6 +29,7 @@ class LevelContainer extends Component {
       levelState: {
         prevPage: Actions.levelPagePrev,
         nextPage: Actions.levelPageNext,
+        startNewLevel: Actions.startNewLevel,
         ...LevelStateStore.getState().toJS()
       },
     };

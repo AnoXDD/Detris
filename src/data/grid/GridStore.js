@@ -72,7 +72,9 @@ class GridStore extends ReduceStore {
   static applyData(state, action) {
     let {blockList} = action;
 
-    return state.set("grid", blockList.map(block => new Block(block)));
+    return state
+      .set("detromino", null)
+      .set("grid", blockList.map(block => new Block(block)));
   }
 
   static newDetromino(state, action) {
