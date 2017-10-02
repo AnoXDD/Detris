@@ -209,7 +209,7 @@ html, body, #root {
 
   .btns {
     width: 100%;
-    justify-content: space-between;
+    justify-content: space-around;
   }
 
   .btn[disabled], .btn.disabled, .toggle[disabled], .toggle.disabled {
@@ -218,28 +218,59 @@ html, body, #root {
 }
 
 .level-view {
-  $row-padding: 20px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: $row-padding 0;
+  height: 330px;
+  width: 100%;
+  position: relative;
 
-  .level-view-unit-wrapper {
-    width: 25%;
-    position: relative;
-    text-align: center;
-    padding: $row-padding 0;
+  .level-view-inner {
+    $row-padding: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: absolute;
+    width: 100%;
+    height: 100%;
 
-    .title-box-view {
-      display: inline-block;
+    .level-view-unit-wrapper {
+      width: 25%;
+      position: relative;
+      text-align: center;
+      padding: $row-padding 0;
+
+      .title-box-view {
+        display: inline-block;
+        height: auto;
+      }
     }
-  }
 
-  .level-view-unit {
-    width: 20px;
-    line-height: 20px;
-    text-align: center;
-    padding: 0 5px 5px;
+    .level-view-unit {
+      width: 20px;
+      line-height: 20px;
+      text-align: center;
+      padding: 0 5px 5px;
+    }
+
+    &.level-view-animation-enter {
+      transition: .2s linear;
+      //transform: scale(0.7);
+      opacity: 0;
+
+      &.level-view-animation-enter-active {
+        //transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    &.level-view-animation-leave {
+      transition: .2s linear;
+      //transform: scale(1);
+      opacity: 1;
+
+      &.level-view-animation-leave-active {
+        //transform: scale(0.5);
+        opacity: 0;
+      }
+    }
   }
 }
 
