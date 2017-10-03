@@ -354,7 +354,7 @@ html, body, #root {
   display: block;
   position: absolute;
   opacity: 0;
-  transition: left .2s linear, top .2s linear;
+  transition: left .5s ease, top .5s ease;
   box-sizing: border-box;
   border: 1px solid white; }
   .grid-container .grid-cell.grid-cell-color-solid {
@@ -364,7 +364,7 @@ html, body, #root {
     .grid-container .grid-cell.detromino.grid-cell-animation-enter {
       transform: scale(0.5);
       opacity: 0;
-      transition: .2s linear; }
+      transition: .5s ease; }
       .grid-container .grid-cell.detromino.grid-cell-animation-enter.grid-cell-animation-enter-active {
         transform: scale(1);
         opacity: 1; }
@@ -374,14 +374,14 @@ html, body, #root {
     .grid-container .grid-cell.stale.grid-cell-animation-leave {
       opacity: 1;
       transform: scale(1);
-      transition: 1s linear;
+      transition: 1s ease;
       z-index: 10; }
       .grid-container .grid-cell.stale.grid-cell-animation-leave.grid-cell-animation-leave-active {
         opacity: 0;
         transform: scale(2); }
   .grid-container .grid-cell.grid-cell-animation-leave {
     opacity: 1;
-    transition: opacity 1s linear; }
+    transition: opacity 1s ease; }
     .grid-container .grid-cell.grid-cell-animation-leave.grid-cell-animation-leave-active {
       opacity: 0; }
   .grid-container .grid-cell.grid-cell-x-0 {
@@ -482,7 +482,7 @@ html, body, #root {
     opacity: 1; }
   .grid-container .grid-cell.grid-cell-preview {
     background-color: #8BC34A;
-    transition: background-color .2s linear; }
+    transition: background-color .5s ease; }
 .grid-container .queue-view {
   margin-left: 10px;
   width: 82px;
@@ -500,12 +500,12 @@ html, body, #root {
       opacity: 1;
       transform: scale(1);
       padding: 5px 0;
-      transition: .2s ease; }
+      transition: .5s ease; }
     .grid-container .queue-view .next .detromino-animation-leave.detromino-animation-leave-active, .grid-container .queue-view .next .detromino-animation-enter {
       opacity: 0;
       transform: scale(0.2);
       padding: 0;
-      transition: .2s ease; }
+      transition: .5s ease; }
   .grid-container .queue-view .queue {
     flex: 1 1 auto;
     overflow: hidden;
@@ -520,12 +520,12 @@ html, body, #root {
       opacity: 1;
       height: 30px;
       padding: 5px 0;
-      transition: .2s ease; }
+      transition: .5s ease; }
     .grid-container .queue-view .queue .detromino-animation-leave.detromino-animation-leave-active, .grid-container .queue-view .queue .detromino-animation-enter {
       opacity: 0;
       height: 0;
       padding: 0;
-      transition: .2s ease; }
+      transition: .5s ease; }
   .grid-container .queue-view .detromino-view-wrapper {
     padding: 5px 0;
     width: 60px;
@@ -579,14 +579,18 @@ html, body, #root {
       text-align: center;
       padding: 0 5px 5px; }
     .level-view .level-view-inner.level-view-animation-enter {
-      transition: .2s linear;
+      transition: 1s ease;
+      transform: scale(0.7);
       opacity: 0; }
       .level-view .level-view-inner.level-view-animation-enter.level-view-animation-enter-active {
-        opacity: 1; }
+        opacity: 1;
+        transform: scale(1); }
     .level-view .level-view-inner.level-view-animation-leave {
-      transition: .2s linear;
-      opacity: 1; }
+      transition: 1s ease;
+      transform: scale(1);
+      opacity: .5; }
       .level-view .level-view-inner.level-view-animation-leave.level-view-animation-leave-active {
+        transform: scale(1.5);
         opacity: 0; }
 
 .title-box-view {

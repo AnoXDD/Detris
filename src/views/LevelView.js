@@ -20,8 +20,8 @@ export default class LevelView extends Component {
       <CSSTransitionGroup
         className="level-view"
         transitionName="level-view-animation"
-        transitionEnterTimeout={200}
-        transitionLeaveTimeout={200}
+        transitionEnterTimeout={1000}
+        transitionLeaveTimeout={1000}
       >
         <div key={new Date().getTime()} className="level-view-inner">
           {this.props.view.levels.map(level =>

@@ -29,4 +29,4 @@ function onGameStateChanged() {
 
 QueueStore.addListener(onQueueStoreChanged);
 GridStore.addListener(onGridStoreChanged);
-GameStateStore.addListener(onGameStateChanged);
+// GameStateStore.addListener(onGameStateChanged);

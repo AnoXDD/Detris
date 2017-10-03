@@ -12,14 +12,14 @@ export default class GridView extends Component {
         <div className="grid-cells">
           <CSSTransitionGroup
             transitionName="grid-cell-animation"
-            transitionEnterTimeout={200}
+            transitionEnterTimeout={500}
             transitionLeaveTimeout={1000}
           >
-          {this.props.grid.map(block =>
-            <span key={block.id}
-                  className={`grid-cell grid-cell-x-${block.x} grid-cell-y-${block.y} ${block.type} ${block.occupied ? "occupied" : ""} grid-cell-color-${block.color}`}
-            />
-          )}
+            {this.props.grid.map(block =>
+              <span key={block.id}
+                    className={`grid-cell grid-cell-x-${block.x} grid-cell-y-${block.y} ${block.type} ${block.occupied ? "occupied" : ""} grid-cell-color-${block.color}`}
+              />
+            )}
           </CSSTransitionGroup>
         </div>
       </div>

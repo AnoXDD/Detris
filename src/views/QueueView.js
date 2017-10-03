@@ -28,8 +28,8 @@ export default class QueueView extends Component {
             <div className="next-inner">
               <CSSTransitionGroup
                 transitionName="detromino-animation"
-                transitionEnterTimeout={200}
-                transitionLeaveTimeout={200}
+                transitionEnterTimeout={500}
+                transitionLeaveTimeout={500}
               >
                 <div key={new Date().getTime()}
                      className="detromino-view-wrapper">
@@ -46,8 +46,8 @@ export default class QueueView extends Component {
                 <div className="queue-inner">
                   <CSSTransitionGroup
                     transitionName="detromino-animation"
-                    transitionEnterTimeout={200}
-                    transitionLeaveTimeout={200}
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={500}
                   >
                     {this.props.queue.reverse().map((detromino, i) =>
                       i > 0 ?
