@@ -13,6 +13,8 @@ import QueueStore from "../data/queue/QueueStore";
 
 import GridView from "../views/GridView";
 import QueueView from "../views/QueueView";
+import GridControlView from "../views/GridControlView";
+import Direction from "../data/enum/Direction";
 
 class GridContainer extends Component {
 
@@ -33,12 +35,20 @@ class GridContainer extends Component {
     let grid = GridStore.getState().get("grid").valueSeq();
 
     return {
-      grid: {
+      grid   : {
         grid,
       },
-      queue: {
+      queue  : {
         queue: QueueStore.getState()
       },
+      control: {
+        rotate: Actions.rotate,
+        done  : Actions.nextDetromino,
+        left  : () => Actions.move(Direction.LEFT),
+        up    : () => Actions.move(Direction.UP),
+        right : () => Actions.move(Direction.RIGHT),
+        down  : () => Actions.move(Direction.DOWN),
+      }
     };
   }
 
@@ -49,7 +59,7 @@ class GridContainer extends Component {
           <GridView {...this.state.grid}/>
           <QueueView {...this.state.queue}/>
         </div>
-        <div className="control"></div>
+        <GridControlView {...this.state.control}/>
       </div>
     );
   }

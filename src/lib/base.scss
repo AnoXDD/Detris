@@ -314,6 +314,10 @@ img.center {
     width: $button-width * 4;
   }
 
+  &.widest {
+    width: 100%;
+  }
+
   &:after {
     pointer-events: none;
     content: "";

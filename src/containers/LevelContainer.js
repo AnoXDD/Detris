@@ -12,10 +12,6 @@ import Actions from "../data/enum/Actions";
 
 class LevelContainer extends Component {
 
-  constructor() {
-    super();
-  }
-
   static getStores() {
     return [
       GameStateStore,

@@ -40,11 +40,12 @@ class GameContainer extends Component {
       case GameState.SHOW_GRID:
         container = <GridContainer key={this.id++}/>;
         break;
+      default:
+        container = null;
     }
 
     return (
       <CSSTransitionGroup
-
         transitionName="zoom-out-animation"
         transitionEnterTimeout={1000}
         transitionLeaveTimeout={1000}

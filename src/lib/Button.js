@@ -16,7 +16,7 @@ export default class Button extends Component {
 
         return (
             <a className={`btn ${this.props.loading ? "loading" : ""} ${this.props.text ? "text": ""} ${this.props.className || ""}`}
-               onClick={this.props.onClick || void(0)}
+               onClick={this.props.onClick}
                {...disabled}>
                 <Ink />
                 <div
