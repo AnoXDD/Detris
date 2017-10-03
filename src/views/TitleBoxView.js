@@ -12,7 +12,7 @@ export default class TitleBoxView extends Component {
 
   render() {
     return (
-      <div className="title-box-view">
+      <div className="title-box-view" onClick={this.props.onClick}>
         <div className="title-box-view-title">
           <span>{this.props.title || ""}</span>
         </div>

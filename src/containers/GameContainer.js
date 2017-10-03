@@ -7,8 +7,13 @@ import React, {Component} from "react";
 import GameStateStore from "../data/game/GameStateStore";
 import GridContainer from "./GridContainer";
 import LevelContainer from "./LevelContainer";
+import GameState from "../data/enum/GameState";
 
 class GameContainer extends Component {
+
+  shouldComponentUpdate(prevProps, prevState) {
+    return this.state.gameState.gameState !== prevState.gameState.gameState;
+  }
 
   static getStores() {
     return [
@@ -18,17 +23,23 @@ class GameContainer extends Component {
 
   static calculateState(prevState) {
     return {
-      gameState: GameStateStore.getState(),
+      gameState: GameStateStore.getState().toJS(),
     };
   }
 
   render() {
-    return (
-      <div className="">
-        <LevelContainer/>
-        <GridContainer/>
-      </div>
-    );
+    let container = null;
+
+    switch (this.state.gameState.gameState) {
+      case GameState.SELECT_LEVEL:
+        container = <LevelContainer/>;
+        break;
+      case GameState.SHOW_GRID:
+        container = <GridContainer/>;
+        break;
+    }
+
+    return container;
   }
 }
 

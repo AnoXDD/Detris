@@ -18,7 +18,7 @@ class GameStateStore extends ReduceStore {
   }
 
   static reset() {
-    return Immutable.Map({gameState: GameState.WELCOME});
+    return Immutable.Map({gameState: GameState.SELECT_LEVEL});
   }
 
   getInitialState() {
@@ -27,6 +27,8 @@ class GameStateStore extends ReduceStore {
 
   reduce(state, action) {
     switch (action.type) {
+      case ActionTypes.START_LEVEL:
+        return state.set("gameState", GameState.SHOW_GRID);
       case ActionTypes.SET_GAME_STATE:
         return state.set("gameState", action.gameState);
       default:
