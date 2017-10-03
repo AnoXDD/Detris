@@ -37,7 +37,7 @@ class LevelContainer extends Component {
 
   render() {
     return (
-      <div className="level-container flex-center">
+      <div className="container level-container flex-center">
         <LevelView {...this.state.levelState}/>
         <PageControlView {...this.state.levelState}/>
       </div>

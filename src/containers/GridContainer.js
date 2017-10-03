@@ -44,11 +44,12 @@ class GridContainer extends Component {
 
   render() {
     return (
-      <div className="grid-container">
+      <div className="container grid-container">
         <div className="grid-queue">
           <GridView {...this.state.grid}/>
           <QueueView {...this.state.queue}/>
         </div>
+        <div className="control"></div>
       </div>
     );
   }

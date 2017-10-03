@@ -8,6 +8,14 @@ html, body, #root {
   padding: 0;
 }
 
+.container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .grid-container {
   $grid-width: 10;
   $grid-height: 20;
@@ -249,28 +257,6 @@ html, body, #root {
       text-align: center;
       padding: 0 5px 5px;
     }
-
-    &.level-view-animation-enter {
-      transition: 1s ease;
-      transform: scale(.7);
-      opacity: 0;
-
-      &.level-view-animation-enter-active {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    &.level-view-animation-leave {
-      transition: 1s ease;
-      transform: scale(1);
-      opacity: .5;
-
-      &.level-view-animation-leave-active {
-        transform: scale(1.5);
-        opacity: 0;
-      }
-    }
   }
 }
 
@@ -316,5 +302,30 @@ html, body, #root {
     &.current-page {
       background: $darkgrey-l;
     }
+  }
+}
+
+// animation
+
+.zoom-out-animation-enter {
+  transition: 1s ease;
+  transform: scale(.7);
+  opacity: 0;
+
+  // Don't apply animation to embedded zoom
+  &.zoom-out-animation-enter-active {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.zoom-out-animation-leave {
+  transition: 1s ease;
+  transform: scale(1);
+  opacity: .5;
+
+  &.zoom-out-animation-leave-active {
+    transform: scale(1.5);
+    opacity: 0;
   }
 }

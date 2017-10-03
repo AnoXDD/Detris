@@ -12,14 +12,14 @@ import TitleBoxView from "./TitleBoxView";
 export default class LevelView extends Component {
 
   shouldComponentUpdate(prevProps) {
-    return this.props.id === prevProps.id;
+    return this.props.currentPage !== prevProps.currentPage;
   }
 
   render() {
     return (
       <CSSTransitionGroup
         className="level-view"
-        transitionName="level-view-animation"
+        transitionName="zoom-out-animation"
         transitionEnterTimeout={1000}
         transitionLeaveTimeout={1000}
       >

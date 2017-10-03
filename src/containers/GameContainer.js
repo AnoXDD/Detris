@@ -8,8 +8,11 @@ import GameStateStore from "../data/game/GameStateStore";
 import GridContainer from "./GridContainer";
 import LevelContainer from "./LevelContainer";
 import GameState from "../data/enum/GameState";
+import {CSSTransitionGroup} from "react-transition-group";
 
 class GameContainer extends Component {
+
+  id = 0;
 
   shouldComponentUpdate(prevProps, prevState) {
     return this.state.gameState.gameState !== prevState.gameState.gameState;
@@ -32,14 +35,23 @@ class GameContainer extends Component {
 
     switch (this.state.gameState.gameState) {
       case GameState.SELECT_LEVEL:
-        container = <LevelContainer/>;
+        container = <LevelContainer key={this.id++}/>;
         break;
       case GameState.SHOW_GRID:
-        container = <GridContainer/>;
+        container = <GridContainer key={this.id++}/>;
         break;
     }
 
-    return container;
+    return (
+      <CSSTransitionGroup
+
+        transitionName="zoom-out-animation"
+        transitionEnterTimeout={1000}
+        transitionLeaveTimeout={1000}
+      >
+        {container}
+      </CSSTransitionGroup>
+    );
   }
 }
 
