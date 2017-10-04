@@ -9,7 +9,7 @@ import {CSSTransitionGroup} from "react-transition-group";
 import GameStateStore from "../data/game/GameStateStore";
 import GridContainer from "./GridContainer";
 import LevelContainer from "./LevelContainer";
-import GameState from "../data/enum/GameState";
+import GameUiState from "../data/enum/GameUiState";
 import TopBarView from "../views/TopBarView";
 import PauseMenuView from "../views/PauseMenuView";
 
@@ -18,12 +18,12 @@ class GameContainer extends Component {
   id = 0;
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.state.gameState.gameState !== nextState.gameState.gameState || this.state.gameState.paused !== nextState.gameState.paused;
+    return this.state.gameState.uiState !== nextState.gameState.uiState || this.state.gameState.paused !== nextState.gameState.paused;
   }
 
   componentWillUpdate(nextProps, nextState) {
     // Check if the pause status is changed
-    if (this.state.gameState.gameState !== nextState.gameState.gameState) {
+    if (this.state.gameState.uiState !== nextState.gameState.uiState) {
       // We only change the id if ui state is changed
       ++this.id;
     }
@@ -44,11 +44,11 @@ class GameContainer extends Component {
   render() {
     let container = null;
 
-    switch (this.state.gameState.gameState) {
-      case GameState.SELECT_LEVEL:
+    switch (this.state.gameState.uiState) {
+      case GameUiState.SELECT_LEVEL:
         container = <LevelContainer/>;
         break;
-      case GameState.SHOW_GRID:
+      case GameUiState.SHOW_GRID:
         container = <GridContainer/>;
         break;
       default:

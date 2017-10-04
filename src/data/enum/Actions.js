@@ -28,12 +28,12 @@ const Actions = {
     });
   },
 
-  setGameState(gameState) {
+  setUiState(uiState) {
     Dispatcher.clearAllFuturePayloads();
 
     Dispatcher.dispatch({
-      type: ActionTypes.SET_GAME_STATE,
-      gameState,
+      type: ActionTypes.SET_GAME_UI_STATE,
+      uiState,
     });
   },
 

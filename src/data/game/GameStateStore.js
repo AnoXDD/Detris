@@ -10,7 +10,7 @@ import Dispatcher from "../Dispatcher";
 import LocalStorageLoader from "../localStorage/LocalStorageLoader";
 
 import ActionTypes from "../enum/ActionTypes";
-import GameState from "../enum/GameState";
+import GameUiState from "../enum/GameUiState";
 import TopBarState from "./TopBarState";
 import Actions from "../enum/Actions";
 
@@ -21,7 +21,7 @@ class GameStateStore extends ReduceStore {
 
   static reset() {
     return Immutable.Map({
-      gameState: GameState.SELECT_LEVEL,
+      uiState: GameUiState.SELECT_LEVEL,
       topBar   : new TopBarState(),
       paused   : false,
 
@@ -37,11 +37,11 @@ class GameStateStore extends ReduceStore {
   reduce(state, action) {
     switch (action.type) {
       case ActionTypes.START_LEVEL:
-        return GameStateStore.applyTopBarState(state.set("gameState",
-          GameState.SHOW_GRID));
-      case ActionTypes.SET_GAME_STATE:
-        return GameStateStore.applyTopBarState(state.set("gameState",
-          action.gameState));
+        return GameStateStore.applyTopBarState(state.set("uiState",
+          GameUiState.SHOW_GRID));
+      case ActionTypes.SET_GAME_UI_STATE:
+        return GameStateStore.applyTopBarState(state.set("uiState",
+          action.uiState));
       case ActionTypes.RESUME:
         return state
           .set("paused", false)
@@ -62,18 +62,18 @@ class GameStateStore extends ReduceStore {
   static applyTopBarState(state) {
     let topBar = state.get("topBar");
 
-    switch (state.get("gameState")) {
-      case GameState.WELCOME:
+    switch (state.get("uiState")) {
+      case GameUiState.WELCOME:
         topBar = topBar
           .set("pause", false)
           .set("back", false);
         break;
-      case GameState.SELECT_LEVEL:
+      case GameUiState.SELECT_LEVEL:
         topBar = topBar
           .set("pause", false)
           .set("back", true);
         break;
-      case GameState.SHOW_GRID:
+      case GameUiState.SHOW_GRID:
         topBar = topBar
           .set("pause", true)
           .set("back", false);

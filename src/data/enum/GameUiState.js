@@ -4,10 +4,10 @@
  * An enum class to describe current game state
  */
 
-const GameState = {
+const GameUiState = {
   WELCOME     : "WELCOME",
   SHOW_GRID   : "SHOW_GRID",
   SELECT_LEVEL: "SELECT_LEVEL",
 };
 
-export default GameState;
+export default GameUiState;

@@ -10,10 +10,10 @@ const ActionTypes = {
   RESET_GRID: "RESET_GRID",
 
   // Game
-  SET_GAME_STATE: "STATE_GAME_STATE",
-  START_LEVEL   : "START_LEVEL",
-  PAUSE         : "PAUSE",
-  RESUME        : "RESUME",
+  SET_GAME_UI_STATE: "STATE_GAME_STATE",
+  START_LEVEL      : "START_LEVEL",
+  PAUSE            : "PAUSE",
+  RESUME           : "RESUME",
 
   // Level navigation
   LEVEL_NEXT_PAGE: "LEVEL_NEXT_PAGE",
