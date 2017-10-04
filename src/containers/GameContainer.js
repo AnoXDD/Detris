@@ -18,12 +18,12 @@ class GameContainer extends Component {
   id = 0;
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.state.gameState.uiState !== nextState.gameState.uiState || this.state.gameState.paused !== nextState.gameState.paused;
+    return this.state.uiState !== nextState.uiState || this.state.paused !== nextState.paused;
   }
 
   componentWillUpdate(nextProps, nextState) {
     // Check if the pause status is changed
-    if (this.state.gameState.uiState !== nextState.gameState.uiState) {
+    if (this.state.uiState !== nextState.uiState) {
       // We only change the id if ui state is changed
       ++this.id;
     }
@@ -36,15 +36,13 @@ class GameContainer extends Component {
   }
 
   static calculateState(prevState) {
-    return {
-      gameState: GameStateStore.getState().toJS(),
-    };
+    return GameStateStore.getState().toJS();
   }
 
   render() {
     let container = null;
 
-    switch (this.state.gameState.uiState) {
+    switch (this.state.uiState) {
       case GameUiState.SELECT_LEVEL:
         container = <LevelContainer/>;
         break;
@@ -58,8 +56,8 @@ class GameContainer extends Component {
     return (
       <div className="game-frame">
         <TopBarView
-          className={this.state.gameState.paused ? "paused" : ""}
-          {...this.state.gameState}/>
+          className={this.state.paused ? "paused" : ""}
+          {...this.state}/>
         <CSSTransitionGroup
           className="container-wrapper"
           transitionName="zoom-out-animation"
@@ -67,11 +65,11 @@ class GameContainer extends Component {
           transitionLeaveTimeout={1000}
         >
           <div key={this.id}
-               className={`flex-inner-extend container-wrapper-extend ${this.state.gameState.paused ? "paused" : ""}`}>
+               className={`flex-inner-extend container-wrapper-extend ${this.state.paused ? "paused" : ""}`}>
             {container}
           </div>
-          {this.state.gameState.paused ?
-            <PauseMenuView key="pause" {...this.state.gameState}/> : null}
+          {this.state.paused ?
+            <PauseMenuView key="pause" {...this.state}/> : null}
         </CSSTransitionGroup>
       </div>
     );

@@ -17,13 +17,17 @@ export default class PauseMenuView extends Component {
         <div className="pause-menu-actual-wrapper flex-center">
           <div className="pause-menu-actual">
             <TitleBoxView title="paused">
-              <Button>replay</Button>
-              <Button>list</Button>
-              <Button>settings</Button>
-              <Button
-                text="resume"
-                onClick={this.props.onPause}
-              >play_arrow</Button>
+              <div className="btns">
+                <Button>replay</Button>
+                <Button>list</Button>
+                <Button>settings</Button>
+              </div>
+              <div className="btns">
+                <Button
+                  text="resume"
+                  onClick={this.props.onPause}
+                >play_arrow</Button>
+              </div>
             </TitleBoxView>
           </div>
         </div>
