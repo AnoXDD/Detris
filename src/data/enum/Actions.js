@@ -37,6 +37,18 @@ const Actions = {
     });
   },
 
+  pause() {
+    Dispatcher.dispatch({
+      type: ActionTypes.PAUSE,
+    });
+  },
+
+  resume() {
+    Dispatcher.dispatch({
+      type: ActionTypes.RESUME,
+    });
+  },
+
   levelPageNext() {
     Dispatcher.dispatch({
       type: ActionTypes.LEVEL_NEXT_PAGE,

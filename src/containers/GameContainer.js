@@ -11,13 +11,22 @@ import GridContainer from "./GridContainer";
 import LevelContainer from "./LevelContainer";
 import GameState from "../data/enum/GameState";
 import TopBarView from "../views/TopBarView";
+import PauseMenuView from "../views/PauseMenuView";
 
 class GameContainer extends Component {
 
   id = 0;
 
-  shouldComponentUpdate(nextProps, prevState) {
-    return this.state.gameState.gameState !== prevState.gameState.gameState;
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state.gameState.gameState !== nextState.gameState.gameState || this.state.gameState.paused !== nextState.gameState.paused;
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    // Check if the pause status is changed
+    if (this.state.gameState.gameState !== nextState.gameState.gameState) {
+      // We only change the id if ui state is changed
+      ++this.id;
+    }
   }
 
   static getStores() {
@@ -55,9 +64,11 @@ class GameContainer extends Component {
           transitionEnterTimeout={1000}
           transitionLeaveTimeout={1000}
         >
-          <div key={this.id++} className="flex-inner-extend">
+          <div key={this.id} className="flex-inner-extend">
             {container}
           </div>
+          {this.state.gameState.paused ?
+            <PauseMenuView key="pause"/> : null}
         </CSSTransitionGroup>
       </div>
     );

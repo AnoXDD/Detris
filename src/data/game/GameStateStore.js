@@ -12,6 +12,7 @@ import LocalStorageLoader from "../localStorage/LocalStorageLoader";
 import ActionTypes from "../enum/ActionTypes";
 import GameState from "../enum/GameState";
 import TopBarState from "./TopBarState";
+import Actions from "../enum/Actions";
 
 class GameStateStore extends ReduceStore {
   constructor() {
@@ -21,7 +22,10 @@ class GameStateStore extends ReduceStore {
   static reset() {
     return Immutable.Map({
       gameState: GameState.SELECT_LEVEL,
-      topBar   : new TopBarState()
+      topBar   : new TopBarState(),
+      paused   : false,
+
+      onPause: Actions.pause,
     });
   }
 
@@ -38,6 +42,14 @@ class GameStateStore extends ReduceStore {
       case ActionTypes.SET_GAME_STATE:
         return GameStateStore.applyTopBarState(state.set("gameState",
           action.gameState));
+      case ActionTypes.RESUME:
+        return state
+          .set("paused", false)
+          .set("onPause", Actions.pause);
+      case ActionTypes.PAUSE:
+        return state
+          .set("paused", true)
+          .set("onPause", Actions.resume);
       default:
         return state;
     }

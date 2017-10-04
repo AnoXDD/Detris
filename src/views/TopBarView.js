@@ -8,10 +8,6 @@ import {CSSTransitionGroup} from "react-transition-group";
 
 export default class TopBarView extends Component {
 
-  shouldComponentUpdate(nextProps) {
-    return this.props.gameState !== nextProps.gameState;
-  }
-
   render() {
     let {topBar = {}} = this.props;
 
@@ -21,7 +17,11 @@ export default class TopBarView extends Component {
     }
 
     if (topBar.pause) {
-      buttons.push(<Button key="pause" className="right">pause</Button>);
+      buttons.push(
+        <Button key="pause"
+                onClick={this.props.onPause}
+                className="right">pause</Button>
+      );
     }
 
     return (
