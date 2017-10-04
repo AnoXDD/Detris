@@ -12,16 +12,19 @@ export default class TopBarView extends Component {
     let {topBar = {}} = this.props;
 
     let buttons = [];
-    if (topBar.back) {
-      buttons.push(<Button key="back">arrow_back</Button>);
-    }
 
-    if (topBar.pause) {
-      buttons.push(
-        <Button key="pause"
-                onClick={this.props.onPause}
-                className="right">pause</Button>
-      );
+    if (!this.props.paused) {
+      if (topBar.back) {
+        buttons.push(<Button key="back">arrow_back</Button>);
+      }
+
+      if (topBar.pause) {
+        buttons.push(
+          <Button key="pause"
+                  onClick={this.props.onPause}
+                  className="right">pause</Button>
+        );
+      }
     }
 
     return (

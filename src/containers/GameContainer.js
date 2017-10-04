@@ -57,18 +57,21 @@ class GameContainer extends Component {
 
     return (
       <div className="game-frame">
-        <TopBarView {...this.state.gameState}/>
+        <TopBarView
+          className={this.state.gameState.paused ? "paused" : ""}
+          {...this.state.gameState}/>
         <CSSTransitionGroup
           className="container-wrapper"
           transitionName="zoom-out-animation"
           transitionEnterTimeout={1000}
           transitionLeaveTimeout={1000}
         >
-          <div key={this.id} className="flex-inner-extend">
+          <div key={this.id}
+               className={`flex-inner-extend container-wrapper-extend ${this.state.gameState.paused ? "paused" : ""}`}>
             {container}
           </div>
           {this.state.gameState.paused ?
-            <PauseMenuView key="pause"/> : null}
+            <PauseMenuView key="pause" {...this.state.gameState}/> : null}
         </CSSTransitionGroup>
       </div>
     );

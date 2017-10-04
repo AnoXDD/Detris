@@ -91,6 +91,8 @@ class GridStore extends ReduceStore {
   }
 
   static rotate(state) {
+    // todo check if detromino exists
+
     let detromino = state.get("detromino");
     let rotation = detromino.get("rotation");
 

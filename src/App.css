@@ -342,6 +342,8 @@ html, body, #root {
   flex-direction: column;
   height: 100vh;
   width: 100vw; }
+  .game-frame .container-wrapper-extend.paused {
+    filter: blur(4px); }
   .game-frame .action-bar-view {
     flex: 0 0 50px; }
     .game-frame .action-bar-view .right {
@@ -358,6 +360,8 @@ html, body, #root {
       display: flex;
       flex-direction: column;
       justify-content: space-around; }
+    .game-frame .container-wrapper .pause-menu-view {
+      position: fixed; }
 
 .grid-container .grid-queue {
   display: flex;
@@ -654,6 +658,20 @@ html, body, #root {
   transition: background .4s ease; }
   .page-control-view .page-control-dot.current-page {
     background: #424242; }
+
+.pause-menu-view {
+  z-index: 999; }
+  .pause-menu-view .pause-menu-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0; }
+  .pause-menu-view .pause-menu-actual-wrapper {
+    z-index: 1; }
+  .pause-menu-view .pause-menu-actual {
+    background: white; }
 
 .zoom-out-animation-enter {
   transition: 1s ease;

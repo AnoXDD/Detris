@@ -14,6 +14,13 @@ html, body, #root {
   height: 100vh;
   width: 100vw;
 
+  .container-wrapper-extend {
+
+    &.paused {
+      filter: blur(4px);
+    }
+  }
+
   .action-bar-view {
     flex: 0 0 50px;
 
@@ -35,6 +42,10 @@ html, body, #root {
       display: flex;
       flex-direction: column;
       justify-content: space-around;
+    }
+
+    .pause-menu-view {
+      position: fixed;
     }
   }
 }
@@ -358,6 +369,28 @@ html, body, #root {
     &.current-page {
       background: $darkgrey-l;
     }
+  }
+}
+
+.pause-menu-view {
+  z-index: 999;
+
+  .pause-menu-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+
+  .pause-menu-actual-wrapper {
+    z-index: 1;
+  }
+
+  .pause-menu-actual {
+    background: white;
+
   }
 }
 
