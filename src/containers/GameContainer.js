@@ -4,11 +4,13 @@
 
 import {Container} from "flux/utils";
 import React, {Component} from "react";
+import {CSSTransitionGroup} from "react-transition-group";
+
 import GameStateStore from "../data/game/GameStateStore";
 import GridContainer from "./GridContainer";
 import LevelContainer from "./LevelContainer";
 import GameState from "../data/enum/GameState";
-import {CSSTransitionGroup} from "react-transition-group";
+import TopBarView from "../views/TopBarView";
 
 class GameContainer extends Component {
 
@@ -35,23 +37,29 @@ class GameContainer extends Component {
 
     switch (this.state.gameState.gameState) {
       case GameState.SELECT_LEVEL:
-        container = <LevelContainer key={this.id++}/>;
+        container = <LevelContainer/>;
         break;
       case GameState.SHOW_GRID:
-        container = <GridContainer key={this.id++}/>;
+        container = <GridContainer/>;
         break;
       default:
         container = null;
     }
 
     return (
-      <CSSTransitionGroup
-        transitionName="zoom-out-animation"
-        transitionEnterTimeout={1000}
-        transitionLeaveTimeout={1000}
-      >
-        {container}
-      </CSSTransitionGroup>
+      <div className="game-frame">
+        <TopBarView {...this.state.gameState}/>
+        <CSSTransitionGroup
+          className="container-wrapper"
+          transitionName="zoom-out-animation"
+          transitionEnterTimeout={1000}
+          transitionLeaveTimeout={1000}
+        >
+          <div key={this.id++} className="flex-inner-extend">
+            {container}
+          </div>
+        </CSSTransitionGroup>
+      </div>
     );
   }
 }
