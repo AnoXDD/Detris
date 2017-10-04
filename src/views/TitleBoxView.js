@@ -6,8 +6,8 @@ import React, {Component} from "react";
 
 export default class TitleBoxView extends Component {
 
-  shouldComponentUpdate(prevProps) {
-    return this.props.title !== prevProps.title || this.props.children !== prevProps.children;
+  shouldComponentUpdate(nextProps) {
+    return this.props.title !== nextProps.title || this.props.children !== nextProps.children;
   }
 
   render() {

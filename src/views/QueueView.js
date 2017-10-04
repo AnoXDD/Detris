@@ -10,8 +10,8 @@ import TitleBoxView from "./TitleBoxView";
 
 export default class QueueView extends Component {
 
-  shouldComponentUpdate(prevProps) {
-    return this.props.queue && this.props.queue !== prevProps.queue;
+  shouldComponentUpdate(nextProps) {
+    return this.props.queue && this.props.queue !== nextProps.queue;
   }
 
   render() {

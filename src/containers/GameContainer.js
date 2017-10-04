@@ -14,7 +14,7 @@ class GameContainer extends Component {
 
   id = 0;
 
-  shouldComponentUpdate(prevProps, prevState) {
+  shouldComponentUpdate(nextProps, prevState) {
     return this.state.gameState.gameState !== prevState.gameState.gameState;
   }
 

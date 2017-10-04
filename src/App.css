@@ -558,13 +558,13 @@ html, body, #root {
 .control {
   display: flex;
   flex-wrap: wrap;
-  margin: auto;
-  width: 300px;
+  margin: 0 auto;
+  width: 250px;
   height: 200px; }
   .control .rotate-wrapper {
-    flex-grow: 1; }
+    width: 25%; }
   .control .arrow-wrapper {
-    flex-grow: 4;
+    width: 75%;
     position: relative;
     min-height: 100px; }
     .control .arrow-wrapper .arrow-inner-wrapper {

@@ -11,8 +11,8 @@ import TitleBoxView from "./TitleBoxView";
 
 export default class LevelView extends Component {
 
-  shouldComponentUpdate(prevProps) {
-    return this.props.currentPage !== prevProps.currentPage;
+  shouldComponentUpdate(nextProps) {
+    return this.props.currentPage !== nextProps.currentPage;
   }
 
   render() {
