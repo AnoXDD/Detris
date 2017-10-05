@@ -343,7 +343,7 @@ html, body, #root {
   height: 100vh;
   width: 100vw; }
   .game-frame .container-wrapper-extend.paused {
-    filter: blur(4px); }
+    filter: blur(2px); }
   .game-frame .action-bar-view {
     flex: 0 0 50px; }
     .game-frame .action-bar-view .right {
@@ -659,19 +659,40 @@ html, body, #root {
   .page-control-view .page-control-dot.current-page {
     background: #424242; }
 
-.pause-menu-view {
+.fullscreen-view {
   z-index: 999; }
-  .pause-menu-view .pause-menu-background {
+  .fullscreen-view .fullscreen-menu-background {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 0; }
-  .pause-menu-view .pause-menu-actual-wrapper {
+    width: 300%;
+    height: 300%;
+    top: -100%;
+    left: -100%;
+    z-index: 0;
+    background: white;
+    opacity: .5; }
+  .fullscreen-view .fullscreen-menu-actual-wrapper {
     z-index: 1; }
-  .pause-menu-view .pause-menu-actual {
+  .fullscreen-view .fullscreen-menu-actual {
     background: white; }
+
+.btn.red {
+  background: #F44336;
+  color: white; }
+.btn.green {
+  background: #4CAF50;
+  color: white; }
+
+.dialog-view .fullscreen-menu-background {
+  opacity: .9; }
+.dialog-view .dialog-title {
+  width: 80vw;
+  min-height: 50px;
+  padding: 30px;
+  box-sizing: border-box;
+  text-align: center; }
+.dialog-view .btns {
+  justify-content: space-around;
+  margin-bottom: 10px; }
 
 .zoom-out-animation-enter {
   transition: 1s ease;

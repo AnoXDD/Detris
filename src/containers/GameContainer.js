@@ -12,13 +12,14 @@ import LevelContainer from "./LevelContainer";
 import GameUiState from "../data/enum/GameUiState";
 import TopBarView from "../views/TopBarView";
 import PauseMenuView from "../views/PauseMenuView";
+import DialogView from "../views/DialogView";
 
 class GameContainer extends Component {
 
   id = 0;
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.state.uiState !== nextState.uiState || this.state.paused !== nextState.paused;
+    return this.state.uiState !== nextState.uiState || this.state.pause.active !== nextState.pause.active;
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -56,7 +57,7 @@ class GameContainer extends Component {
     return (
       <div className="game-frame">
         <TopBarView
-          className={this.state.paused ? "paused" : ""}
+          className={this.state.pause.active ? "paused" : ""}
           {...this.state}/>
         <CSSTransitionGroup
           className="container-wrapper"
@@ -65,11 +66,13 @@ class GameContainer extends Component {
           transitionLeaveTimeout={1000}
         >
           <div key={this.id}
-               className={`flex-inner-extend container-wrapper-extend ${this.state.paused ? "paused" : ""}`}>
+               className={`flex-inner-extend container-wrapper-extend ${this.state.pause.active ? "paused" : ""}`}>
             {container}
           </div>
-          {this.state.paused ?
-            <PauseMenuView key="pause" {...this.state}/> : null}
+          {this.state.pause.active ?
+            <PauseMenuView key="pause" {...this.state.pause}/> : null}
+          { this.state.dialog.active ?
+            <DialogView key="dialog" {...this.state.dialog}/> : null}
         </CSSTransitionGroup>
       </div>
     );

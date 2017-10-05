@@ -17,7 +17,7 @@ html, body, #root {
   .container-wrapper-extend {
 
     &.paused {
-      filter: blur(4px);
+      filter: blur(2px);
     }
   }
 
@@ -372,25 +372,58 @@ html, body, #root {
   }
 }
 
-.pause-menu-view {
+.fullscreen-view {
   z-index: 999;
 
-  .pause-menu-background {
+  .fullscreen-menu-background {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
+    width: 300%;
+    height: 300%;
+    top: -100%;
+    left: -100%;
     z-index: 0;
+    background: white;
+    opacity: .5;
   }
 
-  .pause-menu-actual-wrapper {
+  .fullscreen-menu-actual-wrapper {
     z-index: 1;
   }
 
-  .pause-menu-actual {
+  .fullscreen-menu-actual {
     background: white;
+  }
+}
 
+.btn {
+  &.red {
+    background: $red;
+    color: white;
+  }
+
+  &.green {
+    background: $green;
+    color: white;
+  }
+}
+
+.dialog-view {
+
+  .fullscreen-menu-background {
+    opacity: .9;
+  }
+
+  .dialog-title {
+    width: 80vw;
+    min-height: 50px;
+    padding: 30px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .btns {
+    justify-content: space-around;
+    margin-bottom: 10px;
   }
 }
 

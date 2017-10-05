@@ -9,13 +9,13 @@ import Button from "../lib/Button";
 export default class PauseMenuView extends Component {
   render() {
     return (
-      <div className="container pause-menu-view">
+      <div className="container pause-menu-view fullscreen-view">
         <span
-          className="pause-menu-background"
+          className="fullscreen-menu-background"
           onClick={this.props.onPause}
         />
-        <div className="pause-menu-actual-wrapper flex-center">
-          <div className="pause-menu-actual">
+        <div className="fullscreen-menu-actual-wrapper flex-center">
+          <div className="fullscreen-menu-actual">
             <TitleBoxView title="paused">
               <div className="btns">
                 <Button>replay</Button>

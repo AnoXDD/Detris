@@ -13,6 +13,8 @@ import ActionTypes from "../enum/ActionTypes";
 import GameUiState from "../enum/GameUiState";
 import TopBarState from "./TopBarState";
 import Actions from "../enum/Actions";
+import PauseState from "./PauseState";
+import DialogState from "./DialogState";
 
 class GameStateStore extends ReduceStore {
   constructor() {
@@ -22,10 +24,9 @@ class GameStateStore extends ReduceStore {
   static reset() {
     return Immutable.Map({
       uiState: GameUiState.SELECT_LEVEL,
-      topBar   : new TopBarState(),
-      paused   : false,
-
-      onPause: Actions.pause,
+      topBar : new TopBarState(),
+      pause  : new PauseState(),
+      dialog : new DialogState(),
     });
   }
 
@@ -43,13 +44,15 @@ class GameStateStore extends ReduceStore {
         return GameStateStore.applyTopBarState(state.set("uiState",
           action.uiState));
       case ActionTypes.RESUME:
-        return state
-          .set("paused", false)
-          .set("onPause", Actions.pause);
+        return state.set("pause", new PauseState({
+          active : false,
+          onPause: Actions.pause,
+        }));
       case ActionTypes.PAUSE:
-        return state
-          .set("paused", true)
-          .set("onPause", Actions.resume);
+        return state.set("pause", new PauseState({
+          active : true,
+          onPause: Actions.resume,
+        }));
       default:
         return state;
     }
