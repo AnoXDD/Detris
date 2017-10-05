@@ -14,6 +14,7 @@ import LevelData from "../game/static/LevelData";
 const DELAY = 500;
 
 const Actions = {
+  //region game
   init(width, height) {
     Dispatcher.dispatch({
       type: ActionTypes.INIT_GRID,
@@ -49,6 +50,24 @@ const Actions = {
     });
   },
 
+  showDialog(onYes, onNo) {
+    Dispatcher.dispatch({
+      type: ActionTypes.SHOW_DIALOG,
+      onYes,
+      onNo,
+    });
+  },
+
+  hideDialog() {
+    Dispatcher.dispatch({
+      type: ActionTypes.HIDE_DIALOG,
+    });
+  },
+
+  // endregion
+
+  // region level navigation
+
   levelPageNext() {
     Dispatcher.dispatch({
       type: ActionTypes.LEVEL_NEXT_PAGE,
@@ -60,6 +79,8 @@ const Actions = {
       type: ActionTypes.LEVEL_PREV_PAGE,
     });
   },
+
+  // endregion
 
   startNewLevel(currentLevel) {
     Dispatcher.dispatch({

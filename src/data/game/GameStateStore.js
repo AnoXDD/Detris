@@ -53,6 +53,26 @@ class GameStateStore extends ReduceStore {
           active : true,
           onPause: Actions.resume,
         }));
+      case ActionTypes.SHOW_DIALOG:
+        let {
+          onYes = () => {
+          },
+          onNo = () => {
+          }
+        } = action;
+
+        return state.set("dialog", new DialogState({
+          active: true,
+          onYes,
+          onNo  : () => {
+            onNo();
+            Actions.hideDialog();
+          },
+        }));
+      case ActionTypes.HIDE_DIALOG:
+        return state.set("dialog", new DialogState({
+          active: false,
+        }));
       default:
         return state;
     }

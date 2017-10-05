@@ -14,6 +14,8 @@ const ActionTypes = {
   START_LEVEL      : "START_LEVEL",
   PAUSE            : "PAUSE",
   RESUME           : "RESUME",
+  SHOW_DIALOG      : "SHOW_DIALOG",
+  HIDE_DIALOG      : "HIDE_DIALOG",
 
   // Level navigation
   LEVEL_NEXT_PAGE: "LEVEL_NEXT_PAGE",
