@@ -13,6 +13,7 @@ import GameUiState from "../data/enum/GameUiState";
 import TopBarView from "../views/TopBarView";
 import PauseMenuView from "../views/PauseMenuView";
 import DialogView from "../views/DialogView";
+import WelcomeContainer from "./WelcomeContainer";
 
 class GameContainer extends Component {
 
@@ -44,6 +45,9 @@ class GameContainer extends Component {
     let container = null;
 
     switch (this.state.uiState) {
+      case GameUiState.WELCOME:
+        container = <WelcomeContainer/>;
+        break;
       case GameUiState.SELECT_LEVEL:
         container = <LevelContainer/>;
         break;

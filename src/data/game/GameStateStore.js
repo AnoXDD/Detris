@@ -23,7 +23,7 @@ class GameStateStore extends ReduceStore {
 
   static reset() {
     return Immutable.Map({
-      uiState: GameUiState.SELECT_LEVEL,
+      uiState: GameUiState.WELCOME,
       topBar : new TopBarState(),
       pause  : new PauseState(),
       dialog : new DialogState(),
