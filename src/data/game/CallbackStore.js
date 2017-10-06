@@ -10,6 +10,7 @@ import Dispatcher from "../Dispatcher";
 import ActionTypes from "../enum/ActionTypes";
 import Actions from "../enum/Actions";
 import CallbackState from "./CallbackState";
+import GameUiState from "../enum/GameUiState";
 
 class CallbackStore extends ReduceStore {
   constructor() {
@@ -31,6 +32,13 @@ class CallbackStore extends ReduceStore {
         return CallbackStore.hidePauseMenu(state);
       case ActionTypes.PAUSE:
         return state.set("onPause", Actions.resume);
+      case ActionTypes.SET_GAME_UI_STATE:
+        switch (action.uiState) {
+          case GameUiState.SELECT_LEVEL:
+            return state.set("onBack", Actions.showWelcomePage);
+          default:
+            return state;
+        }
       case ActionTypes.SHOW_DIALOG:
         let {
           onYes = () => {

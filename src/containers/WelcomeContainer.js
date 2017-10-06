@@ -27,7 +27,7 @@ class WelcomeContainer extends Component {
       <div className="container welcome-container flex-center">
         <div className="welcome-title">Detris</div>
         <div className="btns play-btns">
-          <Button onClick={Actions.selectLevel}
+          <Button onClick={Actions.showSelectLevel}
                   text="play"
                   className="accent"
           >play_arrow</Button>

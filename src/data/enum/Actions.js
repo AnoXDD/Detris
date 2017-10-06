@@ -39,7 +39,11 @@ const Actions = {
     });
   },
 
-  selectLevel() {
+  showWelcomePage() {
+    Actions.setUiState(GameUiState.WELCOME);
+  },
+
+  showSelectLevel() {
     Actions.setUiState(GameUiState.SELECT_LEVEL);
   },
 
@@ -64,8 +68,8 @@ const Actions = {
 
   showDialogForQuitToLevelSelect() {
     Actions.showDialog(
-      "Do you want to quit? Any changes will be lost.",
-      Actions.selectLevel
+      "Do you want to return to previous menu? Any changes will be lost.",
+      Actions.showSelectLevel
     );
   },
 

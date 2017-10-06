@@ -12,7 +12,6 @@ const ActionTypes = {
   // Game
   SET_GAME_UI_STATE    : "STATE_GAME_STATE",
   START_LEVEL          : "START_LEVEL",
-  SELECT_LEVEL         : "SELECT_LEVEL",
   PAUSE                : "PAUSE",
   RESUME               : "RESUME",
   SHOW_DIALOG          : "SHOW_DIALOG",
