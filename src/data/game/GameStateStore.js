@@ -12,8 +12,6 @@ import LocalStorageLoader from "../localStorage/LocalStorageLoader";
 import ActionTypes from "../enum/ActionTypes";
 import GameUiState from "../enum/GameUiState";
 import TopBarState from "./TopBarState";
-import Actions from "../enum/Actions";
-import PauseState from "./PauseState";
 import DialogState from "./DialogState";
 
 class GameStateStore extends ReduceStore {
@@ -25,7 +23,7 @@ class GameStateStore extends ReduceStore {
     return Immutable.Map({
       uiState: GameUiState.WELCOME,
       topBar : new TopBarState(),
-      pause  : new PauseState(),
+      pause  : false,
       dialog : new DialogState(),
     });
   }
@@ -46,30 +44,13 @@ class GameStateStore extends ReduceStore {
       case ActionTypes.RESUME:
         return GameStateStore.hidePauseMenu(state);
       case ActionTypes.PAUSE:
-        return state.set("pause", new PauseState({
-          active : true,
-          onPause: Actions.resume,
-        }));
+        return state.set("pause", true);
       case ActionTypes.SHOW_DIALOG:
-        let {
-          title = "",
-          onYes = () => {
-          },
-          onNo = () => {
-          }
-        } = action;
+        let {title = ""} = action;
 
         return state.set("dialog", new DialogState({
           active: true,
           title,
-          onYes : () => {
-            onYes();
-            Actions.hideFloatingWindows();
-          },
-          onNo  : () => {
-            onNo();
-            Actions.hideDialog();
-          },
         }));
       case ActionTypes.HIDE_DIALOG:
         return GameStateStore.hideDialog(state);
@@ -85,16 +66,11 @@ class GameStateStore extends ReduceStore {
   }
 
   static hideDialog(state) {
-    return state.set("dialog", new DialogState({
-      active: false,
-    }));
+    return state.set("dialog", false);
   }
 
   static hidePauseMenu(state) {
-    return state.set("pause", new PauseState({
-      active : false,
-      onPause: Actions.pause,
-    }));
+    return state.set("pause", false);
   }
 
   /**

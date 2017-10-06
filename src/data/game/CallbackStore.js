@@ -1,0 +1,65 @@
+/**
+ * Created by Anoxic on 9/26/2017.
+ * A store for the queue holding detrominos
+ */
+
+import {ReduceStore} from "flux/utils";
+
+import Dispatcher from "../Dispatcher";
+
+import ActionTypes from "../enum/ActionTypes";
+import Actions from "../enum/Actions";
+import CallbackState from "./CallbackState";
+
+class CallbackStore extends ReduceStore {
+  constructor() {
+    super(Dispatcher);
+  }
+
+  static reset() {
+    return new CallbackState();
+  }
+
+  getInitialState() {
+    return CallbackStore.reset();
+  }
+
+  reduce(state, action) {
+    switch (action.type) {
+      case ActionTypes.START_LEVEL:
+      case ActionTypes.RESUME:
+        return CallbackStore.hidePauseMenu(state);
+      case ActionTypes.PAUSE:
+        return state.set("onPause", Actions.resume);
+      case ActionTypes.SHOW_DIALOG:
+        let {
+          onYes = () => {
+          },
+          onNo = () => {
+          }
+        } = action;
+
+        return state.set("onDialogYes", () => {
+          onYes();
+          Actions.hideFloatingWindows();
+        }).set("onDialogNo", () => {
+          onNo();
+          Actions.hideDialog();
+        });
+      case ActionTypes.HIDE_FLOATING_WINDOWS:
+        return CallbackStore.hideAllFloatingWindows(state);
+      default:
+        return state;
+    }
+  }
+
+  static hideAllFloatingWindows(state) {
+    return CallbackStore.hidePauseMenu(state);
+  }
+
+  static hidePauseMenu(state) {
+    return state.set("onPause", Actions.pause);
+  }
+}
+
+export default new CallbackStore();

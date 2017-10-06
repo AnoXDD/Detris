@@ -14,6 +14,7 @@ import TopBarView from "../views/TopBarView";
 import PauseMenuView from "../views/PauseMenuView";
 import DialogView from "../views/DialogView";
 import WelcomeContainer from "./WelcomeContainer";
+import CallbackStore from "../data/game/CallbackStore";
 
 class GameContainer extends Component {
 
@@ -34,11 +35,15 @@ class GameContainer extends Component {
   static getStores() {
     return [
       GameStateStore,
+      CallbackStore,
     ];
   }
 
   static calculateState(prevState) {
-    return GameStateStore.getState().toJS();
+    return {
+      ...CallbackStore.getState().toJS(),
+      ...GameStateStore.getState().toJS(),
+    };
   }
 
   render() {
@@ -61,7 +66,7 @@ class GameContainer extends Component {
     return (
       <div className="game-frame">
         <TopBarView
-          className={this.state.pause.active ? "paused" : ""}
+          className={this.state.pause ? "paused" : ""}
           {...this.state}/>
         <CSSTransitionGroup
           className="container-wrapper"
@@ -70,13 +75,14 @@ class GameContainer extends Component {
           transitionLeaveTimeout={1000}
         >
           <div key={this.id}
-               className={`flex-inner-extend container-wrapper-extend ${this.state.pause.active ? "paused" : ""}`}>
+               className={`flex-inner-extend container-wrapper-extend ${this.state.pause ? "paused" : ""}`}>
             {container}
           </div>
-          {this.state.pause.active ?
-            <PauseMenuView key="pause" {...this.state.pause}/> : null}
+          {this.state.pause ?
+            <PauseMenuView
+              key="pause" {...this.state}/> : null}
           { this.state.dialog.active ?
-            <DialogView key="dialog" {...this.state.dialog}/> : null}
+            <DialogView key="dialog" {...this.state}/> : null}
         </CSSTransitionGroup>
       </div>
     );

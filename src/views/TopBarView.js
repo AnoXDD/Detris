@@ -21,7 +21,7 @@ export default class TopBarView extends Component {
       if (topBar.pause) {
         buttons.push(
           <Button key="pause"
-                  onClick={this.props.pause.onPause}
+                  onClick={this.props.onPause}
                   className="right">pause</Button>
         );
       }

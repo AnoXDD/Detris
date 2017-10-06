@@ -7,11 +7,6 @@ import Immutable from "immutable";
 const DialogRecord = Immutable.Record({
   active: false,
   title : "",
-
-  onYes: () => {
-  },
-  onNo : () => {
-  },
 });
 
 export default DialogRecord;

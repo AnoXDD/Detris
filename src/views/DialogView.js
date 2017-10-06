@@ -17,16 +17,16 @@ export default class DialogView extends Component {
           <div className="fullscreen-menu-actual">
             <TitleBoxView title="">
               <div className="dialog-title flex-center">
-                {this.props.title}
+                {this.props.dialog.title}
               </div>
               <div className="btns">
                 <Button
                   className="red"
-                  onClick={this.props.onNo}
+                  onClick={this.props.onDialogNo}
                 >clear</Button>
                 <Button
                   className="green"
-                  onClick={this.props.onYes}
+                  onClick={this.props.onDialogYes}
                 >done</Button>
               </div>
             </TitleBoxView>
