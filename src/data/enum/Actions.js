@@ -10,6 +10,7 @@ import Dispatcher from "../Dispatcher";
 import QueueStore from "../queue/QueueStore";
 import Direction from "./Direction";
 import LevelData from "../game/static/LevelData";
+import GameUiState from "./GameUiState";
 
 const DELAY = 500;
 
@@ -38,6 +39,10 @@ const Actions = {
     });
   },
 
+  selectLevel() {
+    Actions.setUiState(GameUiState.SELECT_LEVEL);
+  },
+
   pause() {
     Dispatcher.dispatch({
       type: ActionTypes.PAUSE,
@@ -50,9 +55,24 @@ const Actions = {
     });
   },
 
-  showDialog(onYes, onNo) {
+  showDialogForGameRestart(currentLevel) {
+    Actions.showDialog(
+      "Do you want to restart this level?",
+      () => Actions.startNewLevel(currentLevel),
+    );
+  },
+
+  showDialogForQuitToLevelSelect() {
+    Actions.showDialog(
+      "Do you want to quit? Any changes will be lost.",
+      Actions.selectLevel
+    );
+  },
+
+  showDialog(title, onYes, onNo) {
     Dispatcher.dispatch({
       type: ActionTypes.SHOW_DIALOG,
+      title,
       onYes,
       onNo,
     });
@@ -61,6 +81,12 @@ const Actions = {
   hideDialog() {
     Dispatcher.dispatch({
       type: ActionTypes.HIDE_DIALOG,
+    });
+  },
+
+  hideFloatingWindows() {
+    Dispatcher.dispatch({
+      type: ActionTypes.HIDE_FLOATING_WINDOWS,
     });
   },
 
@@ -83,6 +109,8 @@ const Actions = {
   // endregion
 
   startNewLevel(currentLevel) {
+    Dispatcher.clearAllFuturePayloads();
+
     Dispatcher.dispatch({
       type: ActionTypes.START_LEVEL,
       currentLevel,

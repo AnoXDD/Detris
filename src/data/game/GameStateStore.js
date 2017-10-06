@@ -44,10 +44,7 @@ class GameStateStore extends ReduceStore {
         return GameStateStore.applyTopBarState(state.set("uiState",
           action.uiState));
       case ActionTypes.RESUME:
-        return state.set("pause", new PauseState({
-          active : false,
-          onPause: Actions.pause,
-        }));
+        return GameStateStore.hidePauseMenu(state);
       case ActionTypes.PAUSE:
         return state.set("pause", new PauseState({
           active : true,
@@ -55,6 +52,7 @@ class GameStateStore extends ReduceStore {
         }));
       case ActionTypes.SHOW_DIALOG:
         let {
+          title = "",
           onYes = () => {
           },
           onNo = () => {
@@ -63,19 +61,40 @@ class GameStateStore extends ReduceStore {
 
         return state.set("dialog", new DialogState({
           active: true,
-          onYes,
+          title,
+          onYes : () => {
+            onYes();
+            Actions.hideFloatingWindows();
+          },
           onNo  : () => {
             onNo();
             Actions.hideDialog();
           },
         }));
       case ActionTypes.HIDE_DIALOG:
-        return state.set("dialog", new DialogState({
-          active: false,
-        }));
+        return GameStateStore.hideDialog(state);
+      case ActionTypes.HIDE_FLOATING_WINDOWS:
+        return GameStateStore.hideAllFloatingWindows(state);
       default:
         return state;
     }
+  }
+
+  static hideAllFloatingWindows(state) {
+    return GameStateStore.hidePauseMenu(GameStateStore.hideDialog(state));
+  }
+
+  static hideDialog(state) {
+    return state.set("dialog", new DialogState({
+      active: false,
+    }));
+  }
+
+  static hidePauseMenu(state) {
+    return state.set("pause", new PauseState({
+      active : false,
+      onPause: Actions.pause,
+    }));
   }
 
   /**

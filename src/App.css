@@ -360,7 +360,7 @@ html, body, #root {
       display: flex;
       flex-direction: column;
       justify-content: space-around; }
-    .game-frame .container-wrapper .pause-menu-view {
+    .game-frame .container-wrapper .fullscreen-view {
       position: fixed; }
 
 .grid-container .grid-queue {
@@ -660,6 +660,7 @@ html, body, #root {
     background: #424242; }
 
 .fullscreen-view {
+  position: fixed;
   z-index: 999; }
   .fullscreen-view .fullscreen-menu-background {
     position: absolute;

@@ -44,7 +44,7 @@ html, body, #root {
       justify-content: space-around;
     }
 
-    .pause-menu-view {
+    .fullscreen-view {
       position: fixed;
     }
   }
@@ -373,6 +373,7 @@ html, body, #root {
 }
 
 .fullscreen-view {
+  position: fixed;
   z-index: 999;
 
   .fullscreen-menu-background {

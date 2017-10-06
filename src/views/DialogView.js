@@ -20,8 +20,14 @@ export default class DialogView extends Component {
                 {this.props.title}
               </div>
               <div className="btns">
-                <Button className="red">clear</Button>
-                <Button className="green">done</Button>
+                <Button
+                  className="red"
+                  onClick={this.props.onNo}
+                >clear</Button>
+                <Button
+                  className="green"
+                  onClick={this.props.onYes}
+                >done</Button>
               </div>
             </TitleBoxView>
           </div>

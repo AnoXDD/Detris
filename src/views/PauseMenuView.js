@@ -5,6 +5,7 @@
 import React, {Component} from "react";
 import TitleBoxView from "./TitleBoxView";
 import Button from "../lib/Button";
+import Actions from "../data/enum/Actions";
 
 export default class PauseMenuView extends Component {
   render() {
@@ -18,8 +19,12 @@ export default class PauseMenuView extends Component {
           <div className="fullscreen-menu-actual">
             <TitleBoxView title="paused">
               <div className="btns">
-                <Button>replay</Button>
-                <Button>list</Button>
+                <Button
+                  onClick={Actions.showDialogForGameRestart}
+                >replay</Button>
+                <Button
+                  onClick={Actions.showDialogForQuitToLevelSelect}
+                >list</Button>
                 <Button>settings</Button>
               </div>
               <div className="btns">
