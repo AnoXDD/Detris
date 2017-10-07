@@ -10,6 +10,7 @@ export default class DialogView extends Component {
   render() {
     return (
       <FullscreenOverlayView
+        className="dialog-view"
         title=""
       >
         <div className="dialog-title flex-center">

@@ -15,6 +15,8 @@ import PauseMenuView from "../views/PauseMenuView";
 import DialogView from "../views/DialogView";
 import WelcomeContainer from "./WelcomeContainer";
 import CallbackStore from "../data/game/CallbackStore";
+import SettingsView from "../views/SettingsView";
+import AboutView from "../views/AboutView";
 
 class GameContainer extends Component {
 

@@ -35,6 +35,7 @@ class WelcomeContainer extends Component {
         <div className="btns other-btns">
           <Button>help</Button>
           <Button>settings</Button>
+          <Button>info</Button>
         </div>
       </div>
     );

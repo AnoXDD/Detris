@@ -13,7 +13,9 @@ export default class FullscreenOverlayView extends Component {
 
   render() {
     return (
-      <div className="container dialog-view fullscreen-view">
+      <div
+        className={`container fullscreen-view ${this.props.className || ""}`}
+      >
         <span
           className="fullscreen-menu-background"
           onClick={this.props.onBackgroundClick}

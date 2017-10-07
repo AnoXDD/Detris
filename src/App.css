@@ -351,17 +351,16 @@ html, body, #root {
   .game-frame .container-wrapper {
     position: relative;
     flex: 1 0 auto; }
-    .game-frame .container-wrapper .container {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around; }
-    .game-frame .container-wrapper .fullscreen-view {
-      position: fixed; }
+
+.container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around; }
 
 .grid-container .grid-queue {
   display: flex;
@@ -699,6 +698,22 @@ html, body, #root {
 .dialog-view .btns {
   justify-content: space-around;
   margin-bottom: 10px; }
+
+.about-view .title-box-view-actual {
+  max-height: 70vh;
+  padding-bottom: 20px; }
+.about-view .about-section {
+  width: 70vw;
+  padding: 10px;
+  text-align: center; }
+.about-view .title {
+  font-size: 20px;
+  margin-bottom: 15px; }
+.about-view .sub-title {
+  color: #448AFF;
+  margin: 10px; }
+.about-view p {
+  margin: 5px; }
 
 .zoom-out-animation-enter {
   transition: 1s ease;
