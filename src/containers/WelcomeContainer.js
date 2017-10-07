@@ -34,7 +34,7 @@ class WelcomeContainer extends Component {
         </div>
         <div className="btns other-btns">
           <Button>help</Button>
-          <Button>settings</Button>
+          <Button onClick={Actions.showSettings}>settings</Button>
           <Button onClick={Actions.showCredit}>info</Button>
         </div>
       </div>

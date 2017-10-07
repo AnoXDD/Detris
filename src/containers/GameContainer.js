@@ -84,6 +84,7 @@ class GameContainer extends Component {
             <PauseMenuView
               key="pause" {...this.state}/> : null}
           { this.state.credit ? <AboutView/> : null}
+          { this.state.settings ? <SettingsView/> : null}
           { this.state.dialog.active ?
             <DialogView key="dialog" {...this.state}/> : null}
         </CSSTransitionGroup>

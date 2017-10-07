@@ -59,6 +59,18 @@ const Actions = {
     });
   },
 
+  showSettings() {
+    Dispatcher.dispatch({
+      type: ActionTypes.SHOW_SETTINGS,
+    })
+  },
+
+  hideSettings() {
+    Dispatcher.dispatch({
+      type: ActionTypes.HIDE_SETTINGS,
+    });
+  },
+
   pause() {
     Dispatcher.dispatch({
       type: ActionTypes.PAUSE,

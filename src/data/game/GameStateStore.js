@@ -21,11 +21,12 @@ class GameStateStore extends ReduceStore {
 
   static reset() {
     return Immutable.Map({
-      uiState: GameUiState.WELCOME,
-      topBar : new TopBarState(),
-      pause  : false,
-      dialog : new DialogState(),
-      credit : false,
+      uiState : GameUiState.WELCOME,
+      topBar  : new TopBarState(),
+      pause   : false,
+      dialog  : new DialogState(),
+      credit  : false,
+      settings: false,
     });
   }
 
@@ -61,6 +62,10 @@ class GameStateStore extends ReduceStore {
         return state.set("credit", true);
       case ActionTypes.HIDE_CREDIT:
         return state.set("credit", false);
+      case ActionTypes.SHOW_SETTINGS:
+        return state.set("settings", true);
+      case ActionTypes.HIDE_SETTINGS:
+        return state.set("settings", false);
       default:
         return state;
     }

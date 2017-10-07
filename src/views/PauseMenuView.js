@@ -21,7 +21,9 @@ export default class PauseMenuView extends Component {
           <Button
             onClick={Actions.showDialogForQuitToLevelSelect}
           >list</Button>
-          <Button>settings</Button>
+          <Button
+            onClick={Actions.showSettings}
+          >settings</Button>
         </div>
         <div className="btns">
           <Button

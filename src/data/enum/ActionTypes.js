@@ -19,6 +19,8 @@ const ActionTypes = {
   HIDE_FLOATING_WINDOWS: "HIDE_FLOATING_WINDOWS",
   SHOW_CREDIT          : "SHOW_CREDIT",
   HIDE_CREDIT          : "HIDE_CREDIT",
+  SHOW_SETTINGS        : "SHOW_SETTINGS",
+  HIDE_SETTINGS        : "HIDE_SETTINGS",
 
   // Level navigation
   LEVEL_NEXT_PAGE: "LEVEL_NEXT_PAGE",
