@@ -4,6 +4,7 @@
 
 import React, {Component} from "react";
 import FullscreenOverlayView from "./FullscreenOverlayView";
+import Actions from "../data/enum/Actions";
 
 export default class AboutView extends Component {
   render() {
@@ -11,6 +12,7 @@ export default class AboutView extends Component {
       <FullscreenOverlayView
         className="about-view"
         title="credit"
+        onBackgroundClick={Actions.hideCredit}
       >
         <div className="about-section">
           <p className="title">Developer</p>
@@ -22,7 +24,8 @@ export default class AboutView extends Component {
           <p className="title">Open source</p>
           Original game <a href="https://github.com/AnoXDD/Detris">on Github</a>
           <p className="sub-title">Icons</p>
-          <a href="https://github.com/google/material-design-icons/">Google Material Design Icons</a>
+          <a href="https://github.com/google/material-design-icons/">Google
+            Material Design Icons</a>
         </div>
       </FullscreenOverlayView>
     );

@@ -25,6 +25,7 @@ class GameStateStore extends ReduceStore {
       topBar : new TopBarState(),
       pause  : false,
       dialog : new DialogState(),
+      credit : false,
     });
   }
 
@@ -56,6 +57,10 @@ class GameStateStore extends ReduceStore {
         return GameStateStore.hideDialog(state);
       case ActionTypes.HIDE_FLOATING_WINDOWS:
         return GameStateStore.hideAllFloatingWindows(state);
+      case ActionTypes.SHOW_CREDIT:
+        return state.set("credit", true);
+      case ActionTypes.HIDE_CREDIT:
+        return state.set("credit", false);
       default:
         return state;
     }

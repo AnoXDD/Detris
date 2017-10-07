@@ -47,6 +47,18 @@ const Actions = {
     Actions.setUiState(GameUiState.SELECT_LEVEL);
   },
 
+  showCredit() {
+    Dispatcher.dispatch({
+      type: ActionTypes.SHOW_CREDIT,
+    });
+  },
+
+  hideCredit() {
+    Dispatcher.dispatch({
+      type: ActionTypes.HIDE_CREDIT,
+    });
+  },
+
   pause() {
     Dispatcher.dispatch({
       type: ActionTypes.PAUSE,
