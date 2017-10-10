@@ -121,6 +121,30 @@ class GridStore extends ReduceStore {
   }
 
   /**
+   * Moves the block horizontally. If the operation is not doable, return the
+   * original state
+   * @param state {Grid} current state of detromino
+   * @param delta {Number} the delta of x
+   */
+  static moveX(state, delta) {
+    let detromino = state.get("detromino");
+
+    let targetX = detromino.get("x") + delta;
+
+    // Tests if it hits the left or right edge
+    if (targetX < 0 || targetX + detromino.width() > GridSize.WIDTH) {
+      return state;
+    }
+
+    let target = Algorithm.getLowestValidPosition(state.get("grid"), detromino);
+    if (!target) {
+      return state;
+    }
+
+    return GridStore.applyDetromino(state.set("detromino", target));
+  }
+
+  /**
    * Moves the block to certain position. If the operation is not doable,
    * return the original state
    * @param state - current state of detromino
