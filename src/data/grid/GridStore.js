@@ -136,19 +136,13 @@ class GridStore extends ReduceStore {
       return state;
     }
 
-    let {type, rotation} = detromino;
+    let {type} = detromino;
     if (type === DetrominoType.DEFAULT) {
       return state;
     }
 
-    let shape = DetrominoShape[type];
-    let width = shape.length;
-    let height = shape[0].length;
-
-    // Swap width and height if shape is rotated
-    if (rotation === Rotation.DEG_90 || rotation === Rotation.DEG_270) {
-      [width, height] = [height, width];
-    }
+    let width = detromino.width();
+    let height = detromino.height();
 
     // Tests if it hits the lower or right edge
     if (targetX + width > GridSize.WIDTH || targetY + height > GridSize.HEIGHT) {
