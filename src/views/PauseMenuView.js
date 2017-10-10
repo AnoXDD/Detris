@@ -16,11 +16,11 @@ export default class PauseMenuView extends Component {
       >
         <div className="btns">
           <Button
-            onClick={Actions.showDialogForGameRestart}
-          >replay</Button>
-          <Button
             onClick={Actions.showDialogForQuitToLevelSelect}
           >list</Button>
+          <Button
+            onClick={Actions.showDialogForGameRestart}
+          >replay</Button>
           <Button
             onClick={Actions.showSettings}
           >settings</Button>

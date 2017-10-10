@@ -178,6 +178,7 @@ const Actions = {
     }
 
     // todo optimization: just drop it if it won't break anything
+    // todo: just drop it if it's in edit mode
     Dispatcher.dispatch({
       type: ActionTypes.SINK_FLOATING_BLOCK,
     });
@@ -239,12 +240,6 @@ const Actions = {
     Dispatcher.dispatchOnlyIfClear({
       type,
     });
-  },
-
-  dropDown() {
-    Dispatcher.dispatchOnlyIfClear({
-      type: ActionTypes.DROP,
-    })
   },
 
   rotate() {

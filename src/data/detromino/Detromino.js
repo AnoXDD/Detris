@@ -12,6 +12,7 @@ import BlockType from "../block/BlockType";
 import DetrominoType from "./DetrominoType";
 import DetrominoShape from "./DetrominoShape";
 import Algorithm from "../Algorithm";
+import GridSize from "../grid/GridSize";
 
 const DetrominoRecord = Immutable.Record({
   id      : -1, // Used to help generate correct id
@@ -65,6 +66,18 @@ class Detromino extends DetrominoRecord {
     }
 
     return map;
+  }
+
+  /**
+   * Given the width of the grid, returns the position of this detromino's
+   * leftmost block on the grid if this detromino is to be placed in the
+   * middle. If it can't be placed exactly in the middle, shift it left by one
+   * block.
+   * @param gridWidth
+   */
+  getMiddleXPos(gridWidth = GridSize.WIDTH) {
+    // todo: implement this
+    return 0;
   }
 }
 

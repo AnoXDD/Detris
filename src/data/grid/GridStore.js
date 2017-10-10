@@ -37,6 +37,7 @@ class GridStore extends ReduceStore {
   }
 
   reduce(state, action) {
+    // todo don't do anything if current game is not using this grid
     switch (action.type) {
       case ActionTypes.INIT_GRID:
         return this.initState();
@@ -56,8 +57,6 @@ class GridStore extends ReduceStore {
         return GridStore.move(state, {y: -1});
       case ActionTypes.MOVE_DOWN:
         return GridStore.move(state, {y: 1});
-      case ActionTypes.DROP:
-        return GridStore.drop(state);
       case ActionTypes.REMOVE_DETROMINO:
         return GridStore.removeDetromino(state);
       case ActionTypes.SINK_FLOATING_BLOCK:
@@ -79,13 +78,15 @@ class GridStore extends ReduceStore {
 
   static newDetromino(state, action) {
     let {detrominoType = DetrominoType.DEFAULT} = action;
-    // todo: place the detromino in the middle
-    state = state.set("detromino", new Detromino({
+    let detromino = new Detromino({
       id  : new Date().getTime(),
       type: detrominoType,
       x   : 0,
       y   : 0,
-    }));
+    });
+
+    state = state.set("detromino",
+      detromino.set("x", detromino.getMiddleXPos()));
 
     return GridStore.applyDetromino(state);
   }
@@ -164,15 +165,6 @@ class GridStore extends ReduceStore {
     }
 
     return GridStore.applyDetromino(state.set("detromino", detromino));
-  }
-
-  /**
-   * Drop the detromino all the way down until it has the first collision with
-   * the grid
-   * @param state - current state of detromino
-   */
-  static drop(state) {
-    return state;
   }
 
   /**

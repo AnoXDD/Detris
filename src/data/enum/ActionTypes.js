@@ -38,7 +38,6 @@ const ActionTypes = {
   MOVE_RIGHT: "MOVE_RIGHT",
   MOVE_UP   : "MOVE_UP",
   MOVE_DOWN : "MOVE_DOWN",
-  DROP      : "MOVE_ALL_WAY_DOWN",
 
   // Block manipulation
   REMOVE_DETROMINO   : "REMOVE_DETROMINO",
