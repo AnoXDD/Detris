@@ -15,6 +15,7 @@ import GridView from "../views/GridView";
 import QueueView from "../views/QueueView";
 import GridControlView from "../views/GridControlView";
 import Direction from "../data/enum/Direction";
+import GridEditorStore from "../data/grid/GridEditorStore";
 
 class GridContainer extends Component {
 
@@ -26,13 +27,13 @@ class GridContainer extends Component {
 
   static getStores() {
     return [
-      GridStore,
+      GridEditorStore,
       QueueStore,
     ];
   }
 
   static calculateState(prevState) {
-    let grid = GridStore.getState().get("grid").valueSeq();
+    let grid = GridEditorStore.getState().get("grid").valueSeq();
 
     return {
       grid   : {

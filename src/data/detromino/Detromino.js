@@ -23,6 +23,48 @@ const DetrominoRecord = Immutable.Record({
 });
 
 class Detromino extends DetrominoRecord {
+
+  /**
+   * Returns the original width, regardless of its rotation
+   */
+  originalWidth() {
+    return DetrominoShape[this.get("type")][0].length;
+  }
+
+  /**
+   * Returns the original height, regardless of its height
+   */
+  originalHeight() {
+    return DetrominoShape[this.get("type")].length;
+  }
+
+  isRotated90Or270() {
+    let rotation = this.get("rotation");
+    return rotation === Rotation.DEG_90 || rotation === Rotation.DEG_270;
+  }
+
+  /**
+   * Returns the width after rotation
+   */
+  width() {
+    if (this.isRotated90Or270()) {
+      return this.originalHeight();
+    }
+
+    return this.originalWidth();
+  }
+
+  /**
+   * Returns the height after rotation
+   */
+  height() {
+    if (this.isRotated90Or270()) {
+      return this.originalWidth();
+    }
+
+    return this.originalHeight();
+  }
+
   /**
    * Returns a vector of Block.
    * This function assumes that the positions of blocks are valid

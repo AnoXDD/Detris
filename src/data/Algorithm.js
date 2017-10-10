@@ -34,7 +34,7 @@ const Algorithm = {
    * Sinks the floating blocks whose type is FLOATING to make it not floating
    * anymore. A floating block is defined as a block whose adjacent block below
    * is neither the edge of the grid nor another block another grid
-   * @param grid - Immutable map of blocks
+   * @param grid {Immutable.Map} Immutable map of blocks
    */
   sinkFloatingBlocks(grid) {
     let matrix = gridMapToArray(grid);
@@ -70,7 +70,7 @@ const Algorithm = {
 
   /**
    * Removes stale blocks
-   * @param grid - Immutable map of blocks
+   * @param grid {Immutable.Map} Immutable map of blocks
    */
   removeStaleBlocks(grid) {
     let blocks = grid.valueSeq().toArray();
@@ -86,7 +86,7 @@ const Algorithm = {
 
   /**
    * Sinks target blocks to eliminate the gaps between them
-   * @param grid - Immutable map of blocks
+   * @param grid {Immutable.Map} Immutable map of blocks
    */
   sinkTargetBlocks(grid) {
     grid = Algorithm.removeStaleBlocks(grid);
@@ -120,7 +120,7 @@ const Algorithm = {
   /**
    * Returns if grid and detromino is overlapping each other
    * @param grid {Immutable.Map}
-   * @param detromino {Immutable.Map}
+   * @param detromino {Detromino}
    */
   isOverlapping(grid, detromino) {
     // todo implement this
@@ -129,8 +129,8 @@ const Algorithm = {
 
   /**
    * Rotates a shape
-   * @param shape - a native JavaScript 2d array
-   * @param degree - an enum defined in Rotation.js
+   * @param shape {Array} a native JavaScript 2d array
+   * @param degree {Rotation} an enum defined in Rotation.js
    */
   rotate(shape, degree) {
     // todo implement this
@@ -141,6 +141,26 @@ const Algorithm = {
     let shapes = Object.keys(DetrominoType).slice(1);
     return shapes[parseInt(Math.random() * shapes.length, 10)];
   },
+
+  // region grid editor
+
+  /**
+   * Returns a detromino at the vertically lowest position on the grid. If no
+   * such detromino exists, return the passed in detromino
+   * @param grid {Immutable.Map} the grid
+   * @param detromino {Detromino} the given detromino that has `x` position on the grid
+   */
+  getLowestValidPosition(grid, detromino) {
+    for (let y = GridSize.HEIGHT - detromino.height(); y >= 0; --y) {
+      if (!Algorithm.isOverlapping(grid, detromino)) {
+        return detromino.set("y", y);
+      }
+    }
+
+    return detromino;
+  }
+
+  // endregion
 };
 
 export default Algorithm;
