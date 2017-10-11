@@ -329,7 +329,11 @@ html, body, #root {
   }
 
   .play-btns {
+    flex-direction: column;
 
+    .btn {
+      margin: 5px;
+    }
   }
 
   .other-btns {

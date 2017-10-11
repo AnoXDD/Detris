@@ -94,6 +94,7 @@ class GameStateStore extends ReduceStore {
           .set("back", true);
         break;
       case GameUiState.SHOW_GRID:
+      case GameUiState.SHOW_GRID_EDITOR:
         topBar = topBar
           .set("pause", true)
           .set("back", false);

@@ -47,6 +47,10 @@ const Actions = {
     Actions.setUiState(GameUiState.SELECT_LEVEL);
   },
 
+  showGridEditor() {
+    Actions.setUiState(GameUiState.SHOW_GRID_EDITOR);
+  },
+
   showCredit() {
     Dispatcher.dispatch({
       type: ActionTypes.SHOW_CREDIT,
@@ -94,6 +98,13 @@ const Actions = {
     Actions.showDialog(
       "Do you want to return to previous menu? Any changes will be lost.",
       Actions.showSelectLevel
+    );
+  },
+
+  showDialogForQuitToWelcome() {
+    Actions.showDialog(
+      "Do you want to return to home page? Any changes will be lost.",
+      Actions.showWelcomePage
     );
   },
 

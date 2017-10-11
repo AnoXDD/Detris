@@ -48,7 +48,7 @@ class GridContainer extends Component {
         grid,
       },
       queue  : {
-        queue: QueueStore.getState()
+        queue: QueueStore.getState(),
       },
       control: {
         isEditingGrid,

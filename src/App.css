@@ -628,6 +628,10 @@ html, body, #root {
 
 .welcome-container .welcome-title {
   font-size: 15vw; }
+.welcome-container .play-btns {
+  flex-direction: column; }
+  .welcome-container .play-btns .btn {
+    margin: 5px; }
 .welcome-container .other-btns {
   width: 50vw; }
 

@@ -16,7 +16,7 @@ export default class PauseMenuView extends Component {
       >
         <div className="btns">
           <Button
-            onClick={Actions.showDialogForQuitToLevelSelect}
+            onClick={this.props.onBack}
           >list</Button>
           <Button
             onClick={Actions.showDialogForGameRestart}
