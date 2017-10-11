@@ -54,9 +54,8 @@ export default class GridControlView extends Component {
     }
   }
 
-  // Never update since it's supposed to be steady
-  shouldComponentUpdate(nextProps, nextState) {
-    return false; //this.state.pressed !== nextState.pressed;
+  shouldComponentUpdate(nextProps) {
+    return this.props.isEditingGrid !== nextProps.isEditingGrid;
   }
 
   render() {

@@ -16,9 +16,9 @@ function onQueueStoreChanged() {
 }
 
 function onGridStoreChanged() {
-  let store = GridStore.getState();
-
-  localStorage["grid"] = Grid.toCompressed(store);
+  // let store = GridStore.getState();
+  //
+  // localStorage["grid"] = Grid.toCompressed(store);
 }
 
 function onGameStateChanged() {

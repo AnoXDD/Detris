@@ -406,6 +406,8 @@ html, body, #root {
       .grid-container .grid-cell.stale.grid-cell-animation-leave.grid-cell-animation-leave-active {
         opacity: 0;
         transform: scale(2); }
+  .grid-container .grid-cell.target {
+    background-color: #848484; }
   .grid-container .grid-cell.grid-cell-animation-leave {
     opacity: 1;
     transition: opacity 1s ease; }
@@ -722,7 +724,8 @@ html, body, #root {
 .zoom-out-animation-enter {
   transition: 1s ease;
   transform: scale(0.7);
-  opacity: 0; }
+  opacity: 0;
+  pointer-events: none; }
   .zoom-out-animation-enter.zoom-out-animation-enter-active {
     opacity: 1;
     transform: scale(1); }
@@ -730,7 +733,8 @@ html, body, #root {
 .zoom-out-animation-leave {
   transition: 1s ease;
   transform: scale(1);
-  opacity: .5; }
+  opacity: .5;
+  pointer-events: none; }
   .zoom-out-animation-leave.zoom-out-animation-leave-active {
     transform: scale(1.5);
     opacity: 0; }

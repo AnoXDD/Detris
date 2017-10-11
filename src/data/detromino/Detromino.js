@@ -28,14 +28,14 @@ class Detromino extends DetrominoRecord {
    * Returns the original width, regardless of its rotation
    */
   originalWidth() {
-    return DetrominoShape[this.get("type")][0].length;
+    return DetrominoShape[this.get("type")].length;
   }
 
   /**
    * Returns the original height, regardless of its height
    */
   originalHeight() {
-    return DetrominoShape[this.get("type")].length;
+    return DetrominoShape[this.get("type")][0].length;
   }
 
   isRotated90Or270() {

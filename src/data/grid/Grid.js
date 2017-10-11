@@ -29,19 +29,30 @@ class Grid extends GridDataRecord {
     let {grid} = data;
     let ids = Object.keys(grid);
 
-    let target = [];
+    let target = [], original = [];
     for (let id of ids) {
-      if (grid[id].type === BlockType.TARGET) {
-        let {x, y} = grid[id];
-        target[x] = target[x] || [];
-        target[x][y] = 1;
+      let {x, y} = grid[id];
+
+      switch (grid[id].type) {
+        case BlockType.TARGET:
+          target[x] = target[x] || [];
+          target[x][y] = 1;
+          break;
+        case BlockType.ORIGINAL:
+          original[x] = original[x] || [];
+          original[x][y] = 1;
+          break;
+        default:
+          break;
       }
     }
 
     // Fill undefined with 0
     target = target.map(row => row.map(a => a || 0));
+    original = original.map(row => row.map(a => a || 0));
 
     data.target = target;
+    data.original = original;
 
     delete data["grid"];
 
@@ -57,7 +68,7 @@ class Grid extends GridDataRecord {
       let state = JSON.parse(str);
       state.detromino = new Detromino(state.detromino);
 
-      let {target = []} = state;
+      let {target = [], original = []} = state;
       let grid = {};
       for (let x = 0; x < target.length; ++x) {
         if (!target[x]) {
@@ -65,12 +76,18 @@ class Grid extends GridDataRecord {
         }
 
         for (let y = 0; y < target[x].length; ++y) {
+          // Reconstruct Block object.
+          let id = `${new Date().getTime()}-${x}-${y}`;
           if (target[x][y]) {
-            // Reconstruct Block object.
-            let id = `${new Date().getTime()}-${x}-${y}`;
             grid[id] = new Block({
               id, x, y,
               type : BlockType.TARGET,
+              color: Color.SOLID,
+            });
+          } else if (original[x][y]) {
+            grid[id] = new Block({
+              id, x, y,
+              type : BlockType.ORIGINAL,
               color: Color.SOLID,
             });
           }

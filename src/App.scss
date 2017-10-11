@@ -118,6 +118,10 @@ html, body, #root {
       }
     }
 
+    &.target {
+      background-color: $grey;
+    }
+
     &.grid-cell-animation-leave {
       opacity: 1;
       transition: opacity 1s ease;
@@ -476,6 +480,7 @@ html, body, #root {
   transition: 1s ease;
   transform: scale(.7);
   opacity: 0;
+  pointer-events: none;
 
   &.zoom-out-animation-enter-active {
     opacity: 1;
@@ -487,6 +492,7 @@ html, body, #root {
   transition: 1s ease;
   transform: scale(1);
   opacity: .5;
+  pointer-events: none;
 
   &.zoom-out-animation-leave-active {
     transform: scale(1.5);
