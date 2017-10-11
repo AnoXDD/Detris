@@ -5,9 +5,10 @@
  */
 
 const GameUiState = {
-  WELCOME     : "WELCOME",
-  SHOW_GRID   : "SHOW_GRID",
-  SELECT_LEVEL: "SELECT_LEVEL",
+  WELCOME         : "WELCOME",
+  SHOW_GRID       : "SHOW_GRID",
+  SELECT_LEVEL    : "SELECT_LEVEL",
+  SHOW_GRID_EDITOR: "SHOW_GRID_EDITOR",
 };
 
 export default GameUiState;

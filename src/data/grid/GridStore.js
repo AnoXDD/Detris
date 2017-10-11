@@ -14,7 +14,6 @@ import Dispatcher from "../Dispatcher";
 import LocalStorageLoader from "../localStorage/LocalStorageLoader";
 import Detromino from "../detromino/Detromino";
 import DetrominoType from "../detromino/DetrominoType";
-import DetrominoShape from "../detromino/DetrominoShape";
 import Grid from "./Grid";
 
 

@@ -3,7 +3,6 @@
  * A store for the queue holding detrominos
  */
 
-import Immutable from "immutable";
 import {ReduceStore} from "flux/utils";
 
 import Dispatcher from "../Dispatcher";
@@ -11,8 +10,8 @@ import LocalStorageLoader from "../localStorage/LocalStorageLoader";
 
 import ActionTypes from "../enum/ActionTypes";
 import GameUiState from "../enum/GameUiState";
-import TopBarState from "./TopBarState";
 import DialogState from "./DialogState";
+import GameState from "./GameState";
 
 class GameStateStore extends ReduceStore {
   constructor() {
@@ -20,14 +19,7 @@ class GameStateStore extends ReduceStore {
   }
 
   static reset() {
-    return Immutable.Map({
-      uiState : GameUiState.WELCOME,
-      topBar  : new TopBarState(),
-      pause   : false,
-      dialog  : new DialogState(),
-      credit  : false,
-      settings: false,
-    });
+    return new GameState();
   }
 
   getInitialState() {

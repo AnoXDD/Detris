@@ -86,8 +86,7 @@ class GridStore extends ReduceStore {
     detromino = detromino.set("x", detromino.getMiddleXPos());
 
     state = state.set("detromino",
-      detromino.set("y",
-        Algorithm.getLowestValidPosition(state.get("grid"), detromino))
+      Algorithm.getLowestValidPosition(state.get("grid"), detromino)
     );
 
     return GridStore.applyDetromino(state);

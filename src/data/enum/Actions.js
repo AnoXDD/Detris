@@ -172,13 +172,22 @@ const Actions = {
     })
   },
 
-  nextDetromino() {
+  nextDetromino(inEditMode = false) {
     if (Dispatcher.willBeDispatching()) {
       return;
     }
 
+    let detrominoType = QueueStore.getState().last();
+    if (inEditMode) {
+      Dispatcher.dispatch({
+        type: ActionTypes.NEXT_DETROMINO,
+        detrominoType,
+      });
+
+      return;
+    }
+
     // todo optimization: just drop it if it won't break anything
-    // todo: just drop it if it's in edit mode
     Dispatcher.dispatch({
       type: ActionTypes.SINK_FLOATING_BLOCK,
     });
@@ -186,7 +195,6 @@ const Actions = {
       type: ActionTypes.SINK_TARGET_BLOCK,
     }, DELAY);
 
-    let detrominoType = QueueStore.getState().last();
     Dispatcher.dispatch({
       type: ActionTypes.NEXT_DETROMINO,
       detrominoType,

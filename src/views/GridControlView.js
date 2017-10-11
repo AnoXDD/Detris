@@ -35,7 +35,7 @@ export default class GridControlView extends Component {
         this.props.rotate();
         break;
       case Type.DONE:
-        this.props.done();
+        this.props.done(this.props.isEditingGrid);
         break;
       case Type.UP:
         this.props.up();

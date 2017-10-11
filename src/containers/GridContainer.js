@@ -16,6 +16,7 @@ import QueueView from "../views/QueueView";
 import GridControlView from "../views/GridControlView";
 import Direction from "../data/enum/Direction";
 import GridEditorStore from "../data/grid/GridEditorStore";
+import GameStateStore from "../data/game/GameStateStore";
 
 class GridContainer extends Component {
 
@@ -27,13 +28,20 @@ class GridContainer extends Component {
 
   static getStores() {
     return [
+      GameStateStore,
       GridEditorStore,
       QueueStore,
     ];
   }
 
   static calculateState(prevState) {
-    let grid = GridEditorStore.getState().get("grid").valueSeq();
+    let grid = null;
+    let isEditingGrid = GameStateStore.getState().isEditingGrid();
+    if (isEditingGrid) {
+      grid = GridEditorStore.getState().get("grid").valueSeq();
+    } else {
+      grid = GridStore.getState().get("grid").valueSeq();
+    }
 
     return {
       grid   : {
@@ -43,6 +51,7 @@ class GridContainer extends Component {
         queue: QueueStore.getState()
       },
       control: {
+        isEditingGrid,
         rotate: Actions.rotate,
         done  : Actions.nextDetromino,
         left  : () => Actions.move(Direction.LEFT),
