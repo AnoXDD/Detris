@@ -37,7 +37,7 @@ export default class GridControlView extends Component {
         this.props.rotate();
         break;
       case Type.DONE:
-        this.props.done(this.props.isShowingGridEditor);
+        this.props.done(this.props.isShowingLevelEditor);
         break;
       case Type.UP:
         this.props.up();
@@ -61,7 +61,7 @@ export default class GridControlView extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.props.isEditingBlock !== nextProps.isEditingBlock || this.props.isShowingGridEditor !== nextProps.isShowingGridEditor;
+    return this.props.isEditingBlock !== nextProps.isEditingBlock || this.props.isShowingLevelEditor !== nextProps.isShowingLevelEditor;
   }
 
   render() {
@@ -69,7 +69,7 @@ export default class GridControlView extends Component {
       <div className="control">
         <div className="rotate-wrapper flex-center">
           <div className="flex-inner-extend rotate-inner-wrapper flex-center">
-            {this.props.isShowingGridEditor ?
+            {this.props.isShowingLevelEditor ?
               <Toggle
                 firstIcon="grid_on"
                 secondIcon="grid_off"

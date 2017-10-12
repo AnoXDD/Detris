@@ -15,7 +15,7 @@ import GridView from "../views/GridView";
 import QueueView from "../views/QueueView";
 import GridControlView from "../views/GridControlView";
 import Direction from "../data/enum/Direction";
-import GridEditorStore from "../data/grid/GridEditorStore";
+import LevelEditorGridStore from "../data/levelEditor/LevelEditorGridStore";
 import GameStateStore from "../data/game/GameStateStore";
 
 class GridContainer extends Component {
@@ -29,29 +29,35 @@ class GridContainer extends Component {
   static getStores() {
     return [
       GameStateStore,
-      GridEditorStore,
+      LevelEditorGridStore,
       QueueStore,
     ];
   }
 
   static calculateState(prevState) {
     let grid = null;
-    let isShowingGridEditor = GameStateStore.getState().isShowingGridEditor();
-    if (isShowingGridEditor) {
-      grid = GridEditorStore.getState().get("grid").valueSeq();
+    let isShowingLevelEditor = GameStateStore.getState().isShowingLevelEditor();
+    if (isShowingLevelEditor) {
+      let state = LevelEditorGridStore.getState();
+
+      grid = {
+        grid       : {grid: state.get("data").get("grid").valueSeq()},
+        levelEditor: state.get("state").toJS(),
+      };
     } else {
-      grid = GridStore.getState().get("grid").valueSeq();
+      grid = {
+        grid       : {grid: GridStore.getState().get("grid").valueSeq()},
+        levelEditor: {},
+      };
     }
 
     return {
-      grid   : {
-        grid,
-      },
+      ...grid,
       queue  : {
         queue: QueueStore.getState(),
       },
       control: {
-        isShowingGridEditor,
+        isShowingLevelEditor,
         rotate: Actions.rotate,
         done  : Actions.nextDetromino,
         left  : () => Actions.move(Direction.LEFT),
@@ -66,10 +72,10 @@ class GridContainer extends Component {
     return (
       <div className="container grid-container">
         <div className="grid-queue">
-          <GridView {...this.state.grid}/>
+          <GridView {...this.state.grid} {...this.state.levelEditor}/>
           <QueueView {...this.state.queue}/>
         </div>
-        <GridControlView {...this.state.control}/>
+        <GridControlView {...this.state.control} {...this.state.levelEditor}/>
       </div>
     );
   }
