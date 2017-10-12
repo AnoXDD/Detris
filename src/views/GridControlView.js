@@ -38,7 +38,7 @@ export default class GridControlView extends Component {
         this.props.rotate();
         break;
       case Type.DONE:
-        this.props.done(this.props.isShowingLevelEditor);
+        this.props.done();
         break;
       case Type.UP:
         this.props.move(Direction.UP);
@@ -112,9 +112,9 @@ export default class GridControlView extends Component {
           {this.props.isEditingBlock ?
             <div className="btns grid-container">
               <Button className="grid-cell-btn narrow"
-                      text={<span className="grid-cell demo target"></span>}/>
+                      text={<span className="grid-cell demo target"/>}/>
               <Button className="grid-cell-btn narrow"
-                      text={<span className="grid-cell demo original"></span>}/>
+                      text={<span className="grid-cell demo original"/>}/>
             </div>
             :
             <Button

@@ -16,6 +16,7 @@ import QueueView from "../views/QueueView";
 import GridControlView from "../views/GridControlView";
 import LevelEditorGridStore from "../data/levelEditor/LevelEditorGridStore";
 import GameStateStore from "../data/game/GameStateStore";
+import ControlStore from "../data/control/ControlStore";
 
 class GridContainer extends Component {
 
@@ -31,13 +32,12 @@ class GridContainer extends Component {
       LevelEditorGridStore,
       QueueStore,
       GridStore,
+      ControlStore,
     ];
   }
 
   static calculateState(prevState) {
     let grid = null;
-    let moveFunction = () => {
-    };
     let isShowingLevelEditor = GameStateStore.getState().isShowingLevelEditor();
     if (isShowingLevelEditor) {
       let state = LevelEditorGridStore.getState();
@@ -47,15 +47,11 @@ class GridContainer extends Component {
         grid       : {grid: state.get("data").get("grid").valueSeq()},
         levelEditor: levelEditorState,
       };
-
-      moveFunction = levelEditorState.isEditingBlock ? Actions.moveEditingBlock : Actions.moveDetrominoInEditor;
     } else {
       grid = {
         grid       : {grid: GridStore.getState().get("grid").valueSeq()},
         levelEditor: {},
       };
-
-      moveFunction = Actions.moveDetrominoInGame;
     }
 
     return {
@@ -65,10 +61,7 @@ class GridContainer extends Component {
       },
       control: {
         isShowingLevelEditor,
-        rotate         : Actions.rotate,
-        done           : Actions.nextDetromino,
-        move           : moveFunction,
-        toggleEditBlock: Actions.toggleEditBlock,
+        ...ControlStore.getState().toJS(),
       }
     };
   }

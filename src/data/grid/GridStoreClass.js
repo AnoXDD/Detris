@@ -36,10 +36,6 @@ export default class GridStore extends ReduceStore {
   }
 
   reduce(state, action) {
-    if (action.isShowingLevelEditor) {
-      return state;
-    }
-
     switch (action.type) {
       case ActionTypes.INIT_GRID:
         return this.initState();

@@ -48,7 +48,7 @@ const Actions = {
   },
 
   showGridEditor() {
-    Actions.setUiState(GameUiState.SHOW_GRID_EDITOR);
+    Actions.setUiState(GameUiState.SHOW_LEVEL_EDITOR);
   },
 
   showCredit() {
@@ -183,21 +183,12 @@ const Actions = {
     })
   },
 
-  nextDetromino(inEditMode = false) {
+  nextDetrominoInGame() {
     if (Dispatcher.willBeDispatching()) {
       return;
     }
 
     let detrominoType = QueueStore.getState().last();
-    if (inEditMode) {
-      Dispatcher.dispatch({
-        type: ActionTypes.NEXT_DETROMINO,
-        detrominoType,
-      });
-
-      return;
-    }
-
     // todo optimization: just drop it if it won't break anything
     Dispatcher.dispatch({
       type: ActionTypes.SINK_FLOATING_BLOCK,
@@ -210,6 +201,18 @@ const Actions = {
       type: ActionTypes.NEXT_DETROMINO,
       detrominoType,
     }, DELAY * 2);
+  },
+
+  nextDetrominoInEditor() {
+    if (Dispatcher.willBeDispatching()) {
+      return;
+    }
+
+    let detrominoType = QueueStore.getState().last();
+    Dispatcher.dispatch({
+      type: ActionTypes.NEXT_DETROMINO,
+      detrominoType,
+    });
   },
 
   // Debug only
@@ -348,11 +351,17 @@ const Actions = {
     });
   },
 
-  toggleEditBlock() {
+  enableBlockEditing() {
     Dispatcher.dispatch({
-      type: ActionTypes.TOGGLE_EDIT_BLOCK,
+      type: ActionTypes.ENABLE_BLOCK_EDITING,
     });
-  }
+  },
+
+  disableBlockEditing() {
+    Dispatcher.dispatch({
+      type: ActionTypes.DISABLE_BLOCK_EDITING,
+    });
+  },
 };
 
 export default Actions;

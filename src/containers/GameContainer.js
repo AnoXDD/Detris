@@ -17,6 +17,7 @@ import WelcomeContainer from "./WelcomeContainer";
 import CallbackStore from "../data/game/CallbackStore";
 import SettingsView from "../views/SettingsView";
 import AboutView from "../views/AboutView";
+import ControlContainer from "./ControlContainer";
 
 class GameContainer extends Component {
 
@@ -59,7 +60,7 @@ class GameContainer extends Component {
         container = <LevelContainer/>;
         break;
       case GameUiState.SHOW_GRID:
-      case GameUiState.SHOW_GRID_EDITOR:
+      case GameUiState.SHOW_LEVEL_EDITOR:
         container = <GridContainer/>;
         break;
       default:
@@ -89,6 +90,7 @@ class GameContainer extends Component {
           { this.state.dialog.active ?
             <DialogView key="dialog" {...this.state}/> : null}
         </CSSTransitionGroup>
+        <ControlContainer/>
       </div>
     );
   }
