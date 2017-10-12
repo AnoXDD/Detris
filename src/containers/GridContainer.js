@@ -36,8 +36,8 @@ class GridContainer extends Component {
 
   static calculateState(prevState) {
     let grid = null;
-    let isEditingGrid = GameStateStore.getState().isEditingGrid();
-    if (isEditingGrid) {
+    let isShowingGridEditor = GameStateStore.getState().isShowingGridEditor();
+    if (isShowingGridEditor) {
       grid = GridEditorStore.getState().get("grid").valueSeq();
     } else {
       grid = GridStore.getState().get("grid").valueSeq();
@@ -51,7 +51,7 @@ class GridContainer extends Component {
         queue: QueueStore.getState(),
       },
       control: {
-        isEditingGrid,
+        isShowingGridEditor,
         rotate: Actions.rotate,
         done  : Actions.nextDetromino,
         left  : () => Actions.move(Direction.LEFT),

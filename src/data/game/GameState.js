@@ -17,7 +17,7 @@ const GameStateRecord = Immutable.Record({
 });
 
 class GameState extends GameStateRecord {
-  isEditingGrid() {
+  isShowingGridEditor() {
     return this.get("uiState") === GameUiState.SHOW_GRID_EDITOR;
   }
 }

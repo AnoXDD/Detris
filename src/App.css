@@ -408,11 +408,15 @@ html, body, #root {
         transform: scale(2); }
   .grid-container .grid-cell.target {
     background-color: #848484; }
+  .grid-container .grid-cell.original {
+    background-color: black; }
   .grid-container .grid-cell.grid-cell-animation-leave {
     opacity: 1;
     transition: opacity 1s ease; }
     .grid-container .grid-cell.grid-cell-animation-leave.grid-cell-animation-leave-active {
       opacity: 0; }
+  .grid-container .grid-cell.demo {
+    opacity: 1; }
   .grid-container .grid-cell.grid-cell-x-0 {
     left: 0px;
     opacity: 1; }
@@ -579,19 +583,20 @@ html, body, #root {
   width: 250px;
   height: 200px; }
   .control .rotate-wrapper {
-    width: 25%; }
+    width: 25%;
+    position: relative; }
   .control .arrow-wrapper {
     width: 75%;
     position: relative;
     min-height: 100px; }
-    .control .arrow-wrapper .arrow-inner-wrapper {
-      display: flex;
-      flex-direction: column; }
     .control .arrow-wrapper .arrow-up-wrapper {
       width: 100%; }
     .control .arrow-wrapper .arrow-non-up-wrapper {
       width: 100%; }
-  .control .done-wrapper {
+  .control .arrow-inner-wrapper, .control .rotate-inner-wrapper {
+    display: flex;
+    flex-direction: column; }
+  .control .action-wrapper {
     width: 100%; }
 
 .level-container {
@@ -750,5 +755,15 @@ html, body, #root {
   opacity: 1; }
   .fade-animation-leave.fade-animation-leave-active {
     opacity: 0; }
+
+.btn.grid-cell-btn.selected {
+  background: #eeeced; }
+.btn.grid-cell-btn .icon-wrapper {
+  display: none; }
+.btn.grid-cell-btn .grid-cell {
+  top: -7.5px;
+  left: 10.5px; }
+  .btn.grid-cell-btn .grid-cell.original {
+    opacity: 1; }
 
 /*# sourceMappingURL=App.css.map */
