@@ -9,10 +9,10 @@ import Actions from "./enum/Actions";
 import Direction from "./enum/Direction";
 
 const keyMap = Immutable.Map({
-  "ArrowLeft" : () => Actions.move(Direction.LEFT),
-  "ArrowUp"   : () => Actions.move(Direction.UP),
-  "ArrowRight": () => Actions.move(Direction.RIGHT),
-  "ArrowDown" : () => Actions.move(Direction.DOWN),
+  "ArrowLeft" : () => Actions.moveDetrominoInGame(Direction.LEFT),
+  "ArrowUp"   : () => Actions.moveDetrominoInGame(Direction.UP),
+  "ArrowRight": () => Actions.moveDetrominoInGame(Direction.RIGHT),
+  "ArrowDown" : () => Actions.moveDetrominoInGame(Direction.DOWN),
   "Shift"     : Actions.rotate,
   "Delete"    : Actions.removeDetromino,
   " "         : Actions.nextDetromino,

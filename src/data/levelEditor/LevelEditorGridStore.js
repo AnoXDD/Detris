@@ -34,7 +34,6 @@ class LevelEditorGridStore extends GridStore {
   }
 
   reduce(state, action) {
-    // todo don't do anything if current game is not using this grid
     switch (action.type) {
       case ActionTypes.INIT_GRID:
         return this.initState();
@@ -44,24 +43,26 @@ class LevelEditorGridStore extends GridStore {
         return LevelEditorGridStore.nextDetromino(state, action);
       case ActionTypes.ROTATE:
         return LevelEditorGridStore.rotate(state);
-      case ActionTypes.MOVE_LEFT:
+      case ActionTypes.EDITOR_DETROMINO_MOVE_LEFT:
         return LevelEditorGridStore.moveX(state, -1);
-      case ActionTypes.MOVE_RIGHT:
+      case ActionTypes.EDITOR_DETROMINO_MOVE_RIGHT:
         return LevelEditorGridStore.moveX(state, 1);
-      case ActionTypes.MOVE_UP:
-        return LevelEditorGridStore.move(state, {y: -1});
-      case ActionTypes.MOVE_DOWN:
-        return LevelEditorGridStore.move(state, {y: 1});
+      // case ActionTypes.DETROMINO_MOVE_UP:
+      //   return LevelEditorGridStore.moveDetrominoInGame(state, {y: -1});
+      // case ActionTypes.DETROMINO_MOVE_DOWN:
+      //   return LevelEditorGridStore.moveDetrominoInGame(state, {y: 1});
+      case ActionTypes.TOGGLE_EDIT_BLOCK:
+        return LevelEditorGridStore.toggleEditBlock(state);
       case ActionTypes.SET_CURRENT_BLOCK:
         return LevelEditorGridStore.setCurrentBlock(state, action);
-      case ActionTypes.GRID_EDITOR_MOVE_LEFT:
-        return LevelEditorGridStore.moveGrid(state, {x: -1});
-      case ActionTypes.GRID_EDITOR_MOVE_RIGHT:
-        return LevelEditorGridStore.moveGrid(state, {x: 1});
-      case ActionTypes.GRID_EDITOR_MOVE_UP:
-        return LevelEditorGridStore.moveGrid(state, {y: -1});
-      case ActionTypes.GRID_EDITOR_MOVE_DOWN:
-        return LevelEditorGridStore.moveGrid(state, {y: 1});
+      case ActionTypes.EDITOR_BLOCK_MOVE_LEFT:
+        return LevelEditorGridStore.moveEditingBlock(state, {x: -1});
+      case ActionTypes.EDITOR_BLOCK_MOVE_RIGHT:
+        return LevelEditorGridStore.moveEditingBlock(state, {x: 1});
+      case ActionTypes.EDITOR_BLOCK_MOVE_UP:
+        return LevelEditorGridStore.moveEditingBlock(state, {y: -1});
+      case ActionTypes.EDITOR_BLOCK_MOVE_DOWN:
+        return LevelEditorGridStore.moveEditingBlock(state, {y: 1});
       default:
         return state;
     }
@@ -131,13 +132,13 @@ class LevelEditorGridStore extends GridStore {
 
     // Tests if it hits the left or right edge
     if (targetX < 0 || targetX + detromino.width() > GridSize.WIDTH) {
-      return data;
+      return state;
     }
 
     let target = Algorithm.getLowestValidPosition(data.get("grid"),
       detromino.set("x", targetX));
     if (!target) {
-      return data;
+      return state;
     }
 
     return state.set("data",
@@ -157,14 +158,21 @@ class LevelEditorGridStore extends GridStore {
   /**
    * Moves the grid of the block target whose type is to be changed
    */
-  static moveGrid(state, delta) {
+  static moveEditingBlock(state, delta) {
     // todo implement this
+  }
+
+  static toggleEditBlock(state) {
+    let gridState = state.get("state");
+    let prevEditBlock = gridState.get("isEditingBlock");
+
+    return state.set("state", gridState.set("isEditingBlock", !prevEditBlock));
   }
 
   static setCurrentBlock(state, action) {
     let gridState = state.get("state");
 
-    return state.set("data", gridState.set("blockType", action.blockType));
+    return state.set("state", gridState.set("blockType", action.blockType));
   }
 
   initState() {

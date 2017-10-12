@@ -3,10 +3,10 @@
  */
 
 const Direction = {
-  UP   : "MOVE_UP",
-  DOWN : "MOVE_DOWN",
-  LEFT : "MOVE_LEFT",
-  RIGHT: "MOVE_RIGHT",
+  UP   : "DETROMINO_MOVE_UP",
+  DOWN : "DETROMINO_MOVE_DOWN",
+  LEFT : "DETROMINO_MOVE_LEFT",
+  RIGHT: "DETROMINO_MOVE_RIGHT",
 };
 
 export default Direction;

@@ -36,7 +36,10 @@ export default class GridStore extends ReduceStore {
   }
 
   reduce(state, action) {
-    // todo don't do anything if current game is not using this grid
+    if (action.isShowingLevelEditor) {
+      return state;
+    }
+
     switch (action.type) {
       case ActionTypes.INIT_GRID:
         return this.initState();
@@ -48,13 +51,13 @@ export default class GridStore extends ReduceStore {
         return GridStore.newDetromino(state, action);
       case ActionTypes.ROTATE:
         return GridStore.rotate(state);
-      case ActionTypes.MOVE_LEFT:
+      case ActionTypes.DETROMINO_MOVE_LEFT:
         return GridStore.move(state, {x: -1});
-      case ActionTypes.MOVE_RIGHT:
+      case ActionTypes.DETROMINO_MOVE_RIGHT:
         return GridStore.move(state, {x: 1});
-      case ActionTypes.MOVE_UP:
+      case ActionTypes.DETROMINO_MOVE_UP:
         return GridStore.move(state, {y: -1});
-      case ActionTypes.MOVE_DOWN:
+      case ActionTypes.DETROMINO_MOVE_DOWN:
         return GridStore.move(state, {y: 1});
       case ActionTypes.REMOVE_DETROMINO:
         return GridStore.removeDetromino(state);

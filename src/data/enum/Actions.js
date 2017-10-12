@@ -232,21 +232,83 @@ const Actions = {
     });
   },
 
-  move(direction) {
+  moveDetrominoInGame(direction) {
     let type = null;
 
     switch (direction) {
       case Direction.UP:
-        type = ActionTypes.MOVE_UP;
+        type = ActionTypes.DETROMINO_MOVE_UP;
         break;
       case Direction.DOWN:
-        type = ActionTypes.MOVE_DOWN;
+        type = ActionTypes.DETROMINO_MOVE_DOWN;
         break;
       case Direction.LEFT:
-        type = ActionTypes.MOVE_LEFT;
+        type = ActionTypes.DETROMINO_MOVE_LEFT;
         break;
       case Direction.RIGHT:
-        type = ActionTypes.MOVE_RIGHT;
+        type = ActionTypes.DETROMINO_MOVE_RIGHT;
+        break;
+      default:
+    }
+
+    if (!type) {
+      console.error(`${direction} is not a valid direction`);
+      return;
+    }
+
+    Dispatcher.dispatchOnlyIfClear({
+      type,
+    });
+  },
+
+  moveDetrominoInEditor(direction) {
+    let type = null;
+
+    switch (direction) {
+      case Direction.UP:
+        type = ActionTypes.EDITOR_DETROMINO_MOVE_UP;
+        break;
+      case Direction.DOWN:
+        type = ActionTypes.EDITOR_DETROMINO_MOVE_DOWN;
+        break;
+      case Direction.LEFT:
+        type = ActionTypes.EDITOR_DETROMINO_MOVE_LEFT;
+        break;
+      case Direction.RIGHT:
+        type = ActionTypes.EDITOR_DETROMINO_MOVE_RIGHT;
+        break;
+      default:
+    }
+
+    if (!type) {
+      console.error(`${direction} is not a valid direction`);
+      return;
+    }
+
+    Dispatcher.dispatchOnlyIfClear({
+      type,
+    });
+  },
+
+  /**
+   * Moves the editing block in level editor
+   * @param {Direction} direction
+   */
+  moveEditingBlock(direction) {
+    let type = null;
+
+    switch (direction) {
+      case Direction.UP:
+        type = ActionTypes.EDITOR_BLOCK_MOVE_UP;
+        break;
+      case Direction.DOWN:
+        type = ActionTypes.EDITOR_BLOCK_MOVE_DOWN;
+        break;
+      case Direction.LEFT:
+        type = ActionTypes.EDITOR_BLOCK_MOVE_LEFT;
+        break;
+      case Direction.RIGHT:
+        type = ActionTypes.EDITOR_BLOCK_MOVE_RIGHT;
         break;
       default:
     }
@@ -285,6 +347,12 @@ const Actions = {
       type: ActionTypes.SINK_TARGET_BLOCK,
     });
   },
+
+  toggleEditBlock() {
+    Dispatcher.dispatch({
+      type: ActionTypes.TOGGLE_EDIT_BLOCK,
+    });
+  }
 };
 
 export default Actions;

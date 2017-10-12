@@ -5,6 +5,7 @@
 import React, {Component} from "react";
 import Button from "../lib/Button";
 import Toggle from "../lib/Toggle";
+import Direction from "../data/enum/Direction";
 
 const Type = {
   NONE             : 0,
@@ -40,20 +41,19 @@ export default class GridControlView extends Component {
         this.props.done(this.props.isShowingLevelEditor);
         break;
       case Type.UP:
-        this.props.up();
+        this.props.move(Direction.UP);
         break;
       case Type.DOWN:
-        this.props.down();
+        this.props.move(Direction.DOWN);
         break;
       case Type.LEFT:
-        this.props.left();
+        this.props.move(Direction.LEFT);
         break;
       case Type.RIGHT:
-        this.props.right();
+        this.props.move(Direction.RIGHT);
         break;
       case Type.TOGGLE_EDIT_BLOCK:
-        // todo remove ||
-        this.props.toggleEditBlock || this.props.toggleEditBlock();
+        this.props.toggleEditBlock();
         break;
       default:
         break;
@@ -74,7 +74,7 @@ export default class GridControlView extends Component {
                 firstIcon="grid_on"
                 secondIcon="grid_off"
                 isChanging={this.props.isEditingBlock}
-                onClick={() => this.props.handleClick(Type.TOGGLE_EDIT_BLOCK)}
+                onClick={() => this.handleClick(Type.TOGGLE_EDIT_BLOCK)}
               /> : null}
             <Button
               className={`${this.state.pressed === Type.ROTATE ? "grid-control-animation" : ""} ${this.props.isEditingBlock ? "transparent" : ""}`}
