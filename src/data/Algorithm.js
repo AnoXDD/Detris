@@ -7,9 +7,15 @@
 import GridSize from "./grid/GridSize";
 import BlockType from "./block/BlockType";
 import DetrominoType from "./detromino/DetrominoType";
+import Block from "./block/Block";
 
+/**
+ * Converts a grid to an 2d array. Note the matrix is first indexed by y-axis, then x-axis
+ * @param {Immutable.Map} grid the grid in `Grid` class
+ * @returns {Array|Iterable<K, Array>}
+ */
 function gridMapToArray(grid) {
-  let matrix = [...new Array(GridSize.HEIGHT).keys()].map(
+  let matrix = new Array(GridSize.HEIGHT).fill().map(
     a => new Array(GridSize.WIDTH));
 
   let cells = grid.valueSeq().toArray();
@@ -159,7 +165,38 @@ const Algorithm = {
     }
 
     return null;
-  }
+  },
+
+
+  /**
+   * Returns the initial valid block that can be edited. This method was called
+   * when the player switches to block editing mode in the level editor.
+   * @param {LevelEditorGrid} state
+   * @return {Block} a valid editing block. `null` if no valid block
+   */
+  getInitialValidEditingBlock(state) {
+    let grid = state.get("data");
+    let detromino = grid.get("detromino");
+    let x = detromino.get("x");
+    let y = detromino.get("y");
+
+    let matrix = gridMapToArray(grid.get("grid"));
+    let blockType = BlockType.NONE;
+    for (; y < GridSize.HEIGHT; ++y) {
+      if (matrix[y][x] && matrix[y][x].get("type") !== BlockType.DETROMINO) {
+        blockType = matrix[y][x].get("type");
+        break;
+      }
+    }
+
+    if (y === -1) {
+      return null;
+    }
+
+    return new Block({
+      x, y, blockType,
+    });
+  },
 
   // endregion
 };

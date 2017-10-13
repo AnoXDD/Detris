@@ -127,6 +127,11 @@ html, body, #root {
       background-color: black;
     }
 
+    &.selected {
+      transform: scale(1.5);
+      z-index: 100;
+    }
+
     &.grid-cell-animation-leave {
       opacity: 1;
       transition: opacity 1s ease;

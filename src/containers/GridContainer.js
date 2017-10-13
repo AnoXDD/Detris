@@ -41,16 +41,16 @@ class GridContainer extends Component {
     let isShowingLevelEditor = GameStateStore.getState().isShowingLevelEditor();
     if (isShowingLevelEditor) {
       let state = LevelEditorGridStore.getState();
-      let levelEditorState = state.get("state").toJS();
+      let levelEditorState = state.get("editorState").toJS();
 
       grid = {
-        grid       : {grid: state.get("data").get("grid").valueSeq()},
-        levelEditor: levelEditorState,
+        grid       : state.get("data").get("grid").valueSeq(),
+        editorState: levelEditorState,
       };
     } else {
       grid = {
-        grid       : {grid: GridStore.getState().get("grid").valueSeq()},
-        levelEditor: {},
+        grid       : GridStore.getState().get("grid").valueSeq(),
+        editorState: {},
       };
     }
 
@@ -70,10 +70,14 @@ class GridContainer extends Component {
     return (
       <div className="container grid-container">
         <div className="grid-queue">
-          <GridView {...this.state.grid} {...this.state.levelEditor}/>
+          <GridView
+            grid={this.state.grid}
+            editorState={this.state.editorState}/>
           <QueueView {...this.state.queue}/>
         </div>
-        <GridControlView {...this.state.control} {...this.state.levelEditor}/>
+        <GridControlView
+          {...this.state.control}
+          isEditingBlock={this.state.editorState.isEditingBlock}/>
       </div>
     );
   }

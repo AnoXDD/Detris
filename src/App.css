@@ -410,6 +410,9 @@ html, body, #root {
     background-color: #848484; }
   .grid-container .grid-cell.original {
     background-color: black; }
+  .grid-container .grid-cell.selected {
+    transform: scale(1.5);
+    z-index: 100; }
   .grid-container .grid-cell.grid-cell-animation-leave {
     opacity: 1;
     transition: opacity 1s ease; }

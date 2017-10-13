@@ -10,7 +10,6 @@ import ActionTypes from "../enum/ActionTypes";
 import Dispatcher from "../Dispatcher";
 import Detromino from "../detromino/Detromino";
 import DetrominoType from "../detromino/DetrominoType";
-import DetrominoShape from "../detromino/DetrominoShape";
 import GridStore from "../grid/GridStoreClass";
 import LevelEditorGrid from "./LevelEditorGrid";
 
@@ -51,8 +50,10 @@ class LevelEditorGridStore extends GridStore {
       //   return LevelEditorGridStore.moveDetrominoInGame(state, {y: -1});
       // case ActionTypes.DETROMINO_MOVE_DOWN:
       //   return LevelEditorGridStore.moveDetrominoInGame(state, {y: 1});
-      case ActionTypes.TOGGLE_EDIT_BLOCK:
-        return LevelEditorGridStore.toggleEditBlock(state);
+      case ActionTypes.ENABLE_BLOCK_EDITING:
+        return LevelEditorGridStore.enableBlockEditing(state);
+      case ActionTypes.DISABLE_BLOCK_EDITING:
+        return LevelEditorGridStore.disableBlockEditing(state);
       case ActionTypes.SET_CURRENT_BLOCK:
         return LevelEditorGridStore.setCurrentBlock(state, action);
       case ActionTypes.EDITOR_BLOCK_MOVE_LEFT:
@@ -162,18 +163,46 @@ class LevelEditorGridStore extends GridStore {
     // todo implement this
   }
 
-  static toggleEditBlock(state) {
-    let gridState = state.get("state");
-    let prevEditBlock = gridState.get("isEditingBlock");
+  /**
+   * Sets block editing
+   * @private
+   */
+  static _setBlockEditing(state, isBlockEditing) {
+    let gridState = state.get("editorState");
 
-    return state.set("state", gridState.set("isEditingBlock", !prevEditBlock));
+    return state.set("editorState",
+      gridState.set("isEditingBlock", isBlockEditing));
+  }
+
+  static enableBlockEditing(state) {
+    let block = Algorithm.getInitialValidEditingBlock(state);
+
+    let x = block ? block.get("x") : -1;
+    let y = block ? block.get("y") : -1;
+
+    let editorState = state.get("editorState")
+      .set("x", x)
+      .set("y", y);
+
+    if (block) {
+      editorState = editorState.set("blockType", block.get("blockType"));
+    }
+
+    return LevelEditorGridStore._setBlockEditing(state.set("editorState",
+      editorState), true);
+  }
+
+  static disableBlockEditing(state) {
+    return LevelEditorGridStore._setBlockEditing(state, false);
   }
 
   static setCurrentBlock(state, action) {
-    let gridState = state.get("state");
+    let gridState = state.get("editorState");
 
-    return state.set("state", gridState.set("blockType", action.blockType));
+    return state.set("editorState",
+      gridState.set("blockType", action.blockType));
   }
+
 
   initState() {
     return this.getInitialState();

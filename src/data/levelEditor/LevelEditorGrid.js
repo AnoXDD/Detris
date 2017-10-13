@@ -13,13 +13,13 @@ const LevelEditorState = Immutable.Record({
   blockType     : BlockType.ORIGINAL,
 
   // The coordinates of the editing block
-  x: 0,
-  y: 0,
+  x: -1,
+  y: -1,
 });
 
 const LevelEditorGrid = Immutable.Record({
-  state: new LevelEditorState(),
-  data : new Grid(),
+  editorState: new LevelEditorState(),
+  data       : new Grid(),
 });
 
 export default LevelEditorGrid;
