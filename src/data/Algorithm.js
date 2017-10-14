@@ -127,8 +127,8 @@ const Algorithm = {
       let detrominoArray = detromino.getRotatedBlocks().valueSeq().toArray();
       for (let cell of detrominoArray) {
         let gridCell = gridArray[cell.get("y")][cell.get("x")];
-        if (gridCell) {
-          if (gridCell.get("type") !== BlockType.DETROMINO) return true;
+        if (gridCell && gridCell.get("type") !== BlockType.DETROMINO) {
+          return true;
         }
       }
       return false;
