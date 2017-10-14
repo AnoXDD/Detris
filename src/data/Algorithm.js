@@ -123,8 +123,15 @@ const Algorithm = {
    * @param {Detromino} detromino
    */
   isOverlapping(grid, detromino) {
-    // todo implement this
-    return false;
+      let gridArray = gridMapToArray(grid);
+      let detrominoArray = detromino.getRotatedBlocks().valueSeq().toArray();
+      for (let cell of detrominoArray) {
+        let gridCell = gridArray[cell.get("y")][cell.get("x")];
+        if (gridCell && gridCell.get("type") !== BlockType.DETROMINO) {
+          return true;
+        }
+      }
+      return false;
   },
 
   /**
@@ -134,7 +141,7 @@ const Algorithm = {
    */
   rotate(shape, degree) {
     // todo implement this
-    return shape;
+      return shape;
   },
 
   generateRandomDetrominoType() {
