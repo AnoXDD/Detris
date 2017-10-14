@@ -10,7 +10,8 @@ import DetrominoType from "./detromino/DetrominoType";
 import Block from "./block/Block";
 
 /**
- * Converts a grid to an 2d array. Note the matrix is first indexed by y-axis, then x-axis
+ * Converts a grid to an 2d array. Note the matrix is first indexed by y-axis,
+ * then x-axis
  * @param {Immutable.Map} grid the grid in `Grid` class
  * @returns {Array|Iterable<K, Array>}
  */
@@ -129,15 +130,15 @@ const Algorithm = {
    * @param {Detromino} detromino
    */
   isOverlapping(grid, detromino) {
-      let gridArray = gridMapToArray(grid);
-      let detrominoArray = detromino.getRotatedBlocks().valueSeq().toArray();
-      for (let cell of detrominoArray) {
-        let gridCell = gridArray[cell.get("y")][cell.get("x")];
-        if (gridCell && gridCell.get("type") !== BlockType.DETROMINO) {
-          return true;
-        }
+    let gridArray = gridMapToArray(grid);
+    let detrominoArray = detromino.getRotatedBlocks().valueSeq().toArray();
+    for (let cell of detrominoArray) {
+      let gridCell = gridArray[cell.get("y")][cell.get("x")];
+      if (gridCell && gridCell.get("type") !== BlockType.DETROMINO) {
+        return true;
       }
-      return false;
+    }
+    return false;
   },
 
   /**
@@ -147,7 +148,7 @@ const Algorithm = {
    */
   rotate(shape, degree) {
     // todo implement this
-      return shape;
+    return shape;
   },
 
   generateRandomDetrominoType() {
