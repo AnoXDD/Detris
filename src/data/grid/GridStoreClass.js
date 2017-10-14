@@ -153,7 +153,7 @@ export default class GridStore extends ReduceStore {
 
     // Tests if the detromino is running into target blocks
     if (Algorithm.isOverlapping(state.get("grid"), detromino)) {
-      return false;
+      return state;
     }
 
     return GridStore.applyDetromino(state.set("detromino", detromino));
