@@ -26,7 +26,7 @@ class LevelEditorGridStore extends GridStore {
   getInitialState() {
     // let savedState = LocalStorageLoader.loadGridFromLocalStorage();
     // if (savedState) {
-    //   return LevelEditorGridStore.applyDetromino(savedState);
+    //   return LevelEditorGridStore._syncData(savedState);
     // }
 
     return LevelEditorGridStore.reset();
@@ -38,7 +38,7 @@ class LevelEditorGridStore extends GridStore {
         return this.initState();
       case ActionTypes.RESET_GRID:
         return LevelEditorGridStore.reset();
-      case ActionTypes.NEXT_DETROMINO:
+      case ActionTypes.NEXT_DETROMINO_IN_EDITOR:
         return LevelEditorGridStore.nextDetromino(state, action);
       case ActionTypes.ROTATE:
         return LevelEditorGridStore.rotate(state);
@@ -72,7 +72,7 @@ class LevelEditorGridStore extends GridStore {
   static nextDetromino(state, action) {
     let {data} = state;
 
-    data = GridStore.applyDetromino(data, BlockType.ORIGINAL);
+    data = GridStore._syncData(data, true, BlockType.ORIGINAL);
 
     let {detrominoType = DetrominoType.DEFAULT} = action;
     let detromino = new Detromino({
@@ -83,10 +83,10 @@ class LevelEditorGridStore extends GridStore {
     detromino = detromino.set("x", detromino.getMiddleXPos());
 
     data = data.set("detromino",
-      Algorithm.getLowestValidPosition(data.get("grid"), detromino)
+      Algorithm.getLowestValidPosition(data.get("matrix"), detromino)
     );
 
-    return state.set("data", GridStore.applyDetromino(data));
+    return state.set("data", GridStore._syncData(data));
   }
 
   static rotate(state) {
@@ -115,7 +115,7 @@ class LevelEditorGridStore extends GridStore {
 
     data = data.set("detromino", detromino.set("rotation", rotation));
 
-    return state.set("data", GridStore.applyDetromino(data));
+    return state.set("data", GridStore._syncData(data, false));
   }
 
   /**
@@ -136,14 +136,14 @@ class LevelEditorGridStore extends GridStore {
       return state;
     }
 
-    let target = Algorithm.getLowestValidPosition(data.get("grid"),
+    let target = Algorithm.getLowestValidPosition(data.get("matrix"),
       detromino.set("x", targetX));
     if (!target) {
       return state;
     }
 
     return state.set("data",
-      GridStore.applyDetromino(data.set("detromino", target)));
+      GridStore._syncData(data.set("detromino", target), false));
   }
 
   /**

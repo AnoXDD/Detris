@@ -10,7 +10,8 @@ import DetrominoType from "./detromino/DetrominoType";
 import Block from "./block/Block";
 
 /**
- * Converts a grid to an 2d array. Note the matrix is first indexed by y-axis, then x-axis
+ * Converts a grid to an 2d array. Note the matrix is first indexed by y-axis,
+ * then x-axis
  * @param {Immutable.Map} grid the grid in `Grid` class
  * @returns {Array|Iterable<K, Array>}
  */
@@ -27,6 +28,10 @@ function gridMapToArray(grid) {
 }
 
 const Algorithm = {
+  convertGridToArray(grid) {
+    return gridMapToArray(grid);
+  },
+
   /**
    * Returns if the current grid has any blocks whose type is `type`
    */
@@ -125,19 +130,18 @@ const Algorithm = {
 
   /**
    * Returns if grid and detromino is overlapping each other
-   * @param {Grid} grid
-   * @param {Detromino} detromino
+   * @param {Array} matrix - 2d javascript native array
+   * @param {Immutable.Map<string, number>|Detromino} detromino
    */
-  isOverlapping(grid, detromino) {
-      let gridArray = gridMapToArray(grid);
-      let detrominoArray = detromino.getRotatedBlocks().valueSeq().toArray();
-      for (let cell of detrominoArray) {
-        let gridCell = gridArray[cell.get("y")][cell.get("x")];
-        if (gridCell && gridCell.get("type") !== BlockType.DETROMINO) {
-          return true;
-        }
+  isOverlapping(matrix, detromino) {
+    let detrominoArray = detromino.getRotatedBlocks().valueSeq().toArray();
+    for (let cell of detrominoArray) {
+      let gridCell = matrix[cell.get("y")][cell.get("x")];
+      if (gridCell && gridCell.get("type") !== BlockType.DETROMINO) {
+        return true;
       }
-      return false;
+    }
+    return false;
   },
 
   /**
@@ -147,7 +151,7 @@ const Algorithm = {
    */
   rotate(shape, degree) {
     // todo implement this
-      return shape;
+    return shape;
   },
 
   generateRandomDetrominoType() {
@@ -160,13 +164,13 @@ const Algorithm = {
   /**
    * Returns a detromino at the vertically lowest position on the grid. If no
    * such detromino exists, return null
-   * @param {Grid} grid the grid
-   * @param {Detromino} detromino the given detromino that has `x` position on
-   *   the grid
+   * @param {Array} matrix - a 2d JavaScript native array
+   * @param {Detromino} detromino - the given detromino that has `x` position
+   *   on the grid
    */
-  getLowestValidPosition(grid, detromino) {
+  getLowestValidPosition(matrix, detromino) {
     for (let y = GridSize.HEIGHT - detromino.height(); y >= 0; --y) {
-      if (!Algorithm.isOverlapping(grid, detromino.set("y", y))) {
+      if (!Algorithm.isOverlapping(matrix, detromino.set("y", y))) {
         return detromino.set("y", y);
       }
     }

@@ -29,10 +29,10 @@ export default class GridStore extends ReduceStore {
   getInitialState() {
     let savedState = LocalStorageLoader.loadGridFromLocalStorage();
     if (savedState) {
-      return GridStore.applyDetromino(savedState);
+      return GridStore._syncData(savedState);
     }
 
-    return GridStore.reset();
+    return GridStore._syncData(GridStore.reset());
   }
 
   reduce(state, action) {
@@ -43,7 +43,7 @@ export default class GridStore extends ReduceStore {
         return GridStore.reset();
       case ActionTypes.APPLY_DATA:
         return GridStore.applyData(state, action);
-      case ActionTypes.NEXT_DETROMINO:
+      case ActionTypes.NEXT_DETROMINO_IN_GAME:
         return GridStore.newDetromino(state, action);
       case ActionTypes.ROTATE:
         return GridStore.rotate(state);
@@ -86,7 +86,7 @@ export default class GridStore extends ReduceStore {
     state = state.set("detromino",
       detromino.set("x", detromino.getMiddleXPos()));
 
-    return GridStore.applyDetromino(state);
+    return GridStore._syncData(state);
   }
 
   static rotate(state) {
@@ -113,7 +113,7 @@ export default class GridStore extends ReduceStore {
 
     state = state.set("detromino", detromino.set("rotation", rotation));
 
-    return GridStore.applyDetromino(state);
+    return GridStore._syncData(state, false);
   }
 
   /**
@@ -152,18 +152,56 @@ export default class GridStore extends ReduceStore {
       .set("y", detromino.get("y") + y);
 
     // Tests if the detromino is running into target blocks
-    if (Algorithm.isOverlapping(state.get("grid"), detromino)) {
+    if (Algorithm.isOverlapping(state.get("matrix"), detromino)) {
       return state;
     }
 
-    return GridStore.applyDetromino(state.set("detromino", detromino));
+    return GridStore._syncData(state.set("detromino", detromino), false);
   }
 
   /**
-   * Apples the detromino to current grid state. This function must be called
-   * every time the detromino is changed
+   * Syncs the data of states. This includes:
+   *  1) Applying detromino to the state
+   *  2) Updating the read only 2d array converted from grid
+   *
+   * @param state
+   * @param {boolean} updateMatrix - should the matrix be updated. Set to false
+   *   if the grid is not changed
+   * @param {string|BlockType} blockType
+   *
+   * @private
    */
-  static applyDetromino(state, blockType = BlockType.DETROMINO) {
+  static _syncData(state,
+                   updateMatrix = true,
+                   blockType = BlockType.DETROMINO) {
+    state = GridStore._applyDetromino(state, blockType);
+
+    if (!updateMatrix) {
+      return state;
+    }
+
+    return GridStore._syncGridToMatrix(state);
+  }
+
+  /**
+   * Converts the grid to a 2d vanilla javascript array. This function should
+   * only be called when the grid is changed
+   * @param state
+   * @private
+   */
+  static _syncGridToMatrix(state) {
+    return state.set("matrix", Algorithm.convertGridToArray(state.get("grid")));
+  }
+
+  /**
+   * Applies the detromino to current grid state. This function must be called
+   * every time the detromino is changed
+   * @param state
+   * @param {string|BlockType} blockType - the block type that the detromino is
+   *   converting to
+   * @private
+   */
+  static _applyDetromino(state, blockType = BlockType.DETROMINO) {
     // Process the raw detromino in the state
     let detromino = state.get("detromino");
     let shape = detromino.getRotatedBlocks(blockType);
@@ -173,7 +211,7 @@ export default class GridStore extends ReduceStore {
   }
 
   static removeDetromino(state) {
-    return GridStore.applyDetromino(state, BlockType.NONE);
+    return GridStore._syncData(state, false, BlockType.NONE);
   }
 
   static sinkFloatingBlocks(state) {

@@ -198,7 +198,7 @@ const Actions = {
     }, DELAY);
 
     Dispatcher.dispatch({
-      type: ActionTypes.NEXT_DETROMINO,
+      type: ActionTypes.NEXT_DETROMINO_IN_GAME,
       detrominoType,
     }, DELAY * 2);
   },
@@ -210,7 +210,7 @@ const Actions = {
 
     let detrominoType = QueueStore.getState().last();
     Dispatcher.dispatch({
-      type: ActionTypes.NEXT_DETROMINO,
+      type: ActionTypes.NEXT_DETROMINO_IN_EDITOR,
       detrominoType,
     });
   },
@@ -223,7 +223,7 @@ const Actions = {
     let detrominoType = Algorithm.generateRandomDetrominoType();
 
     Dispatcher.dispatch({
-      type: ActionTypes.NEXT_DETROMINO,
+      type: ActionTypes.NEXT_DETROMINO_IN_GAME,
       detrominoType,
     })
   },
