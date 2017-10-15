@@ -163,15 +163,17 @@ const Algorithm = {
   // region grid editor
 
   /**
-   * Returns a detromino at the vertically lowest position on the grid. If no
-   * such detromino exists, return null
+   * Returns a detromino at the vertically lowest position on the grid such
+   * that there are no other original blocks above the detromino. If no such
+   * detromino exists, return null
    * @param {Array} matrix - a 2d JavaScript native array
    * @param {Detromino} detromino - the given detromino that has `x` position
    *   on the grid
    */
-  getLowestValidPosition(matrix, detromino) {
+  getLowestValidPositionInEditor(matrix, detromino) {
     for (let y = GridSize.HEIGHT - detromino.height(); y >= 0; --y) {
-      if (!Algorithm.isOverlapping(matrix, detromino.set("y", y))) {
+      if (Algorithm.isFitForNewDetrominoInEditor(matrix,
+          detromino.set("y", y))) {
         return detromino.set("y", y);
       }
     }
@@ -179,6 +181,26 @@ const Algorithm = {
     return null;
   },
 
+  /**
+   * Returns if a detromino can fit into current position, given that there are
+   * enough empty blocks between the detromino and the edge or the blocks above
+   * it, so that the player is able to place it in the gap between
+   *
+   * @param {Array} matrix
+   * @param {Immutable.Map<string, number>|Detromino} detromino
+   */
+  isFitForNewDetrominoInEditor(matrix, detromino) {
+    let height = detromino.height();
+    let y = detromino.get("y");
+
+    while (y >= 0 && height-- >= 0) {
+      if (Algorithm.isOverlapping(matrix, detromino.set("y", y--))) {
+        return false;
+      }
+    }
+
+    return true;
+  },
 
   /**
    * Returns the initial valid block that can be edited. This method was called

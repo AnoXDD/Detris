@@ -47,10 +47,10 @@ class LevelEditorGridStore extends GridStore {
         return LevelEditorGridStore.moveX(state, -1);
       case ActionTypes.EDITOR_DETROMINO_MOVE_RIGHT:
         return LevelEditorGridStore.moveX(state, 1);
-      // case ActionTypes.DETROMINO_MOVE_UP:
-      //   return LevelEditorGridStore.moveDetrominoInGame(state, {y: -1});
-      // case ActionTypes.DETROMINO_MOVE_DOWN:
-      //   return LevelEditorGridStore.moveDetrominoInGame(state, {y: 1});
+      case ActionTypes.EDITOR_DETROMINO_MOVE_UP:
+        return LevelEditorGridStore.moveY(state, -1);
+      case ActionTypes.EDITOR_DETROMINO_MOVE_DOWN:
+        return LevelEditorGridStore.moveY(state, 1);
       case ActionTypes.ENABLE_BLOCK_EDITING:
         return LevelEditorGridStore.enableBlockEditing(state, action);
       case ActionTypes.DISABLE_BLOCK_EDITING:
@@ -83,7 +83,7 @@ class LevelEditorGridStore extends GridStore {
 
     let data = state.grid();
     data = data.set("detromino",
-      Algorithm.getLowestValidPosition(data.get("matrix"), detromino)
+      Algorithm.getLowestValidPositionInEditor(data.get("matrix"), detromino)
     );
 
     return LevelEditorGridStore._syncData(state.set("data", data));
@@ -126,24 +126,50 @@ class LevelEditorGridStore extends GridStore {
    */
   static moveX(state, delta) {
     let data = state.get("data");
-
     let detromino = data.get("detromino");
+    let width = detromino.width();
 
     let targetX = detromino.get("x") + delta;
+    while (targetX >= 0 && targetX + width <= GridSize.WIDTH) {
+      let target = Algorithm.getLowestValidPositionInEditor(data.get("matrix"),
+        detromino.set("x", targetX));
 
-    // Tests if it hits the left or right edge
-    if (targetX < 0 || targetX + detromino.width() > GridSize.WIDTH) {
-      return state;
+      if (target) {
+        return LevelEditorGridStore._syncData(state.set("data",
+          data.set("detromino", target)));
+      }
+
+      targetX += delta;
     }
 
-    let target = Algorithm.getLowestValidPosition(data.get("matrix"),
-      detromino.set("x", targetX));
-    if (!target) {
-      return state;
+    return state;
+  }
+
+  /**
+   * Moves the block vertically. If the operation is not doable, return the
+   * original state
+   * @param state
+   * @param {Number} delta - the delta of y
+   */
+  static moveY(state, delta) {
+    let data = state.get("data");
+    let detromino = data.get("detromino");
+    let matrix = data.get("matrix");
+
+    let height = detromino.height();
+    let targetY = detromino.get("y") + delta;
+
+    while (targetY >= 0 && targetY + height <= GridSize.HEIGHT) {
+      detromino = detromino.set("y", targetY);
+      if (Algorithm.isFitForNewDetrominoInEditor(matrix, detromino)) {
+        return LevelEditorGridStore._syncData(state.set("data",
+          data.set("detromino", detromino)));
+      }
+
+      targetY += delta;
     }
 
-    return LevelEditorGridStore._syncData(state.set("data",
-      data.set("detromino", target)), false);
+    return state;
   }
 
   /**
