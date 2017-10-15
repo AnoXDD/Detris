@@ -5,7 +5,7 @@
  */
 
 import {Container} from "flux/utils";
-import React, {Component} from "react";
+import  {Component} from "react";
 import ControlStore from "../data/control/ControlStore";
 import Direction from "../data/enum/Direction";
 import Actions from "../data/enum/Actions";
