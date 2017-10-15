@@ -10,6 +10,28 @@ import Detromino from "../data/detromino/Detromino";
 import DetrominoType from "../data/detromino/DetrominoType";
 import Direction from "../data/enum/Direction";
 
+function toMatrix(s) {
+  return s.trim().split("\n").map((a, y) => a.trim().split("").map((a, x) => {
+      switch (a) {
+        case "1":
+          return new Block({
+            x, y,
+            type: BlockType.ORIGINAL
+          });
+
+        case "2":
+          return new Block({
+            x, y,
+            type: BlockType.DETROMINO,
+          });
+
+        default:
+          return null;
+      }
+    }
+  ));
+}
+
 describe("Test findNextEditableBlock", () => {
 
   function exp(block, x, y) {
@@ -17,45 +39,30 @@ describe("Test findNextEditableBlock", () => {
     expect(block.y()).toBe(y);
   }
 
-  const matrix = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 2, 2, 2, 2, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-    [0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0, 1, 1, 1, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
-  ].map((a, y) => a.map((a, x) => {
-    switch (a) {
-      case 1:
-        return new Block({
-          x, y,
-          type: BlockType.ORIGINAL
-        });
-
-      case 2 :
-        return new Block({
-          x, y,
-          type: BlockType.DETROMINO,
-        });
-
-      default:
-        return null;
-    }
-  }));
+  const matrix = toMatrix(
+    `
+    0000000000
+    0000000000
+    0000000000
+    0000000000
+    0000000000
+    0000000000
+    0000000000
+    0000000000
+    0000000000
+    0000000000
+    0000000000
+    0000000000
+    0002222000
+    0000010000
+    0000000100
+    0101010100
+    0000011100
+    0001000000
+    0000001000
+    0001010000
+    `
+  );
 
   const fn = Algorithm.findNextEditableBlock;
   const detromino = new Detromino({
@@ -143,5 +150,77 @@ describe("Test findNextEditableBlock", () => {
     test("Right", () => {
       expect(f(6, 16, R)).toBeNull();
     });
+  });
+});
+
+describe("Test isFitForNewDetrominoInEditor", () => {
+  const matrix = toMatrix(
+    // 0123456789
+    "  0000000000\n" //0
+    + "0000000000\n" //1
+    + "0000000000\n" //2
+    + "0000000000\n" //3
+    + "0001110000\n" //4
+    + "0011010000\n" //5
+    + "0010001100\n" //6
+    + "0010001000\n" //7
+    + "0010001000\n" //8
+    + "0011110000\n" //9
+    + "0000000000\n" //10
+    + "0000001110\n" //11
+    + "0000111-10\n" //12
+    + "00001---10\n" //13
+    + "0000111110\n" //14
+    + "0000000000\n" //15
+    + "0000000000\n" //16
+    + "0000000000\n" //17
+    + "0000000000\n" //18
+    + "0001100000\n" //19
+    // 0123456789
+  );
+
+  const f = d => Algorithm.isFitForNewDetrominoInEditor(matrix, d);
+  const d = (x, y, type) => new Detromino({x, y, type});
+
+  test("No blocks above it", () => {
+    expect(f(d(0, 18, DetrominoType.L))).toBeTruthy();
+  });
+
+  test("No blocks above it but overlapped", () => {
+    expect(f(d(0, 19, DetrominoType.I))).toBeFalsy();
+  });
+
+  test("Blocks above it with plenty of space", () => {
+    expect(f(d(5, 18, DetrominoType.O))).toBeTruthy();
+  });
+
+  test("Blocks above it with space exactly needed", () => {
+    expect(f(d(5, 17, DetrominoType.I))).toBeTruthy();
+  });
+
+  test("Blocks above it with space exactly needed for tucked in (type L)",
+    () => {
+      expect(f(d(3, 16, DetrominoType.L))).toBeTruthy();
+    });
+
+  test("Blocks above it with space exactly needed for tucked in (type J)",
+    () => {
+      expect(f(d(7, 16, DetrominoType.J))).toBeTruthy();
+    });
+
+  test("Blocks above it with one block overlapped", () => {
+    expect(f(d(8, 16, DetrominoType.O))).toBeFalsy();
+  });
+
+  test("Blocks that are overlapped already", () => {
+    expect(f(d(4, 14, DetrominoType.T))).toBeFalsy();
+  });
+
+  test("Blocks that with only one line above it empty", () => {
+    expect(f(d(3, 15, DetrominoType.L))).toBeFalsy();
+  });
+
+  test("Blocks in a cozy house", () => {
+    expect(f(d(3, 7, DetrominoType.T))).toBeTruthy();
   });
 });
