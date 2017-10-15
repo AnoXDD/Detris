@@ -8,6 +8,7 @@ import GridSize from "./grid/GridSize";
 import BlockType from "./block/BlockType";
 import DetrominoType from "./detromino/DetrominoType";
 import Block from "./block/Block";
+import Direction from "./enum/Direction";
 
 /**
  * Converts a grid to an 2d array. Note the matrix is first indexed by y-axis,
@@ -185,7 +186,7 @@ const Algorithm = {
    * @param {LevelEditorGrid} state
    * @return {Block} a valid editing block. `null` if no valid block
    */
-  getInitialValidEditingBlock(state) {
+  getInitialValidEditableBlock(state) {
     let grid = state.get("data");
     let detromino = grid.get("detromino");
     let initialX = detromino.get("x");
@@ -207,6 +208,109 @@ const Algorithm = {
     return null;
   },
 
+  /**
+   * Returns the next editable block following the direction. `null` if not
+   * found.
+   *
+   * Rules:
+   *   1) The x coordinate of the result block won't exceed the range of
+   * current detromino
+   *   2) The y coordinate of the result block won't go above the detromino
+   *   3) The block type is not DETROMINO
+   *   4) If the algorithm doesn't find any block, it will try to find the
+   * block near current row/block. It will look for the block on the left
+   * column or higher row before doing so on the right column or lower row
+   *
+   * @param {Array} matrix - 2d array of the current grid
+   * @param {Detromino} detromino
+   * @param {Number} x - x coordinate of current editing block
+   * @param {Number} y - y coordinate of current editing block
+   * @param {Direction} direction
+   * @return {Block} with x and y coordinate of the result. `null` if not
+   *   found.
+   */
+  findNextEditableBlock(matrix, detromino, x, y, direction) {
+    let detrominoX = detromino.get("x");
+    let detrominoY = detromino.get("y");
+    let width = detromino.width();
+
+    /**
+     * Returns if a given x is in valid range
+     * @param x
+     * @return {boolean}
+     */
+    function isValidX(x) {
+      return x >= detrominoX && x < detrominoX + width;
+    }
+
+    /**
+     * Returns if a given y is in valid range
+     * @param y
+     * @return {boolean}
+     */
+    function isValidY(y) {
+      return y > detrominoY && y < GridSize.HEIGHT;
+    }
+
+    /**
+     * Returns the block object if the block at the given x and y coordinate is
+     * an editable block
+     * @return {Block} a block if editable, null otherwise
+     */
+    function getEditableBlock(x, y) {
+      if (matrix[y][x] && matrix[y][x].get("type") !== BlockType.DETROMINO) {
+        return matrix[y][x];
+      }
+
+      return null;
+    }
+
+    /**
+     * Finds an editable block on the y-axis, given a starting x, y coordinate
+     */
+    function findBlockInColumn(x, y, dy) {
+      if (!isValidX(x)) {
+        return null;
+      }
+
+      while (isValidY(y)) {
+        let block = getEditableBlock(x, y);
+        if (block) {
+          return block;
+        }
+        y += dy;
+      }
+
+      return null;
+    }
+
+    let dx = 0;
+
+    switch (direction) {
+      case Direction.DOWN:
+        return findBlockInColumn(x, y + 1, 1);
+      case Direction.UP:
+        return findBlockInColumn(x, y - 1, -1);
+      case Direction.LEFT:
+        dx = -1;
+        break;
+      case Direction.RIGHT:
+        dx = 1;
+        break;
+      default:
+        break;
+    }
+
+    // eslint-disable-next-line
+    while (isValidX(x += dx)) {
+      let block = findBlockInColumn(x, y, -1) || findBlockInColumn(x, y, 1);
+      if (block) {
+        return block;
+      }
+    }
+
+    return null;
+  }
   // endregion
 };
 

@@ -353,7 +353,7 @@ const Actions = {
   },
 
   enableBlockEditing() {
-    let block = Algorithm.getInitialValidEditingBlock(LevelEditorGridStore.getState());
+    let block = Algorithm.getInitialValidEditableBlock(LevelEditorGridStore.getState());
 
     if (!block) {
       // todo prompt something telling the player that no blocks are editable

@@ -79,7 +79,7 @@ html, body, #root {
     display: block;
     position: absolute;
     opacity: 0;
-    transition: left .5s ease, top .5s ease;
+    transition: left .5s ease, top .5s ease, transform .5s ease;
     box-sizing: border-box;
     border: 1px solid white;
 

@@ -29,10 +29,10 @@ export default class GridStore extends ReduceStore {
   getInitialState() {
     let savedState = LocalStorageLoader.loadGridFromLocalStorage();
     if (savedState) {
-      return GridStore._syncData(savedState);
+      return GridStore.syncData(savedState);
     }
 
-    return GridStore._syncData(GridStore.reset());
+    return GridStore.syncData(GridStore.reset());
   }
 
   reduce(state, action) {
@@ -86,7 +86,7 @@ export default class GridStore extends ReduceStore {
     state = state.set("detromino",
       detromino.set("x", detromino.getMiddleXPos()));
 
-    return GridStore._syncData(state);
+    return GridStore.syncData(state);
   }
 
   static rotate(state) {
@@ -113,7 +113,7 @@ export default class GridStore extends ReduceStore {
 
     state = state.set("detromino", detromino.set("rotation", rotation));
 
-    return GridStore._syncData(state, false);
+    return GridStore.syncData(state, false);
   }
 
   /**
@@ -156,7 +156,7 @@ export default class GridStore extends ReduceStore {
       return state;
     }
 
-    return GridStore._syncData(state.set("detromino", detromino), false);
+    return GridStore.syncData(state.set("detromino", detromino), false);
   }
 
   /**
@@ -168,19 +168,19 @@ export default class GridStore extends ReduceStore {
    * @param {boolean} updateMatrix - should the matrix be updated. Set to false
    *   if the grid is not changed
    * @param {string|BlockType} blockType
-   *
-   * @private
    */
-  static _syncData(state,
-                   updateMatrix = true,
-                   blockType = BlockType.DETROMINO) {
+  static syncData(state,
+                  updateMatrix = true,
+                  blockType = BlockType.DETROMINO) {
     state = GridStore._applyDetromino(state, blockType);
 
     if (!updateMatrix) {
       return state;
     }
 
-    return GridStore._syncGridToMatrix(state);
+    state = GridStore._syncGridToMatrix(state);
+
+    return state;
   }
 
   /**
@@ -211,7 +211,7 @@ export default class GridStore extends ReduceStore {
   }
 
   static removeDetromino(state) {
-    return GridStore._syncData(state, false, BlockType.NONE);
+    return GridStore.syncData(state, false, BlockType.NONE);
   }
 
   static sinkFloatingBlocks(state) {

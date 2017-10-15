@@ -12,6 +12,7 @@ import Detromino from "../detromino/Detromino";
 import DetrominoType from "../detromino/DetrominoType";
 import GridStore from "../grid/GridStoreClass";
 import LevelEditorGrid from "./LevelEditorGrid";
+import Direction from "../enum/Direction";
 
 
 class LevelEditorGridStore extends GridStore {
@@ -26,7 +27,7 @@ class LevelEditorGridStore extends GridStore {
   getInitialState() {
     // let savedState = LocalStorageLoader.loadGridFromLocalStorage();
     // if (savedState) {
-    //   return LevelEditorGridStore._syncData(savedState);
+    //   return LevelEditorGridStore.syncData(savedState);
     // }
 
     return LevelEditorGridStore.reset();
@@ -57,13 +58,13 @@ class LevelEditorGridStore extends GridStore {
       case ActionTypes.SET_CURRENT_BLOCK:
         return LevelEditorGridStore.setCurrentBlock(state, action);
       case ActionTypes.EDITOR_BLOCK_MOVE_LEFT:
-        return LevelEditorGridStore.moveEditingBlock(state, {x: -1});
+        return LevelEditorGridStore.moveEditingBlock(state, Direction.LEFT);
       case ActionTypes.EDITOR_BLOCK_MOVE_RIGHT:
-        return LevelEditorGridStore.moveEditingBlock(state, {x: 1});
+        return LevelEditorGridStore.moveEditingBlock(state, Direction.RIGHT);
       case ActionTypes.EDITOR_BLOCK_MOVE_UP:
-        return LevelEditorGridStore.moveEditingBlock(state, {y: -1});
+        return LevelEditorGridStore.moveEditingBlock(state, Direction.UP);
       case ActionTypes.EDITOR_BLOCK_MOVE_DOWN:
-        return LevelEditorGridStore.moveEditingBlock(state, {y: 1});
+        return LevelEditorGridStore.moveEditingBlock(state, Direction.DOWN);
       default:
         return state;
     }
@@ -72,7 +73,7 @@ class LevelEditorGridStore extends GridStore {
   static nextDetromino(state, action) {
     let {data} = state;
 
-    data = GridStore._syncData(data, true, BlockType.ORIGINAL);
+    data = GridStore.syncData(data, true, BlockType.ORIGINAL);
 
     let {detrominoType = DetrominoType.DEFAULT} = action;
     let detromino = new Detromino({
@@ -86,7 +87,7 @@ class LevelEditorGridStore extends GridStore {
       Algorithm.getLowestValidPosition(data.get("matrix"), detromino)
     );
 
-    return state.set("data", GridStore._syncData(data));
+    return state.set("data", GridStore.syncData(data));
   }
 
   static rotate(state) {
@@ -115,7 +116,7 @@ class LevelEditorGridStore extends GridStore {
 
     data = data.set("detromino", detromino.set("rotation", rotation));
 
-    return state.set("data", GridStore._syncData(data, false));
+    return state.set("data", GridStore.syncData(data, false));
   }
 
   /**
@@ -143,7 +144,7 @@ class LevelEditorGridStore extends GridStore {
     }
 
     return state.set("data",
-      GridStore._syncData(data.set("detromino", target), false));
+      GridStore.syncData(data.set("detromino", target), false));
   }
 
   /**
@@ -158,9 +159,26 @@ class LevelEditorGridStore extends GridStore {
 
   /**
    * Moves the grid of the block target whose type is to be changed
+   * @param {LevelEditorGrid} state
+   * @param {string|Direction} direction
    */
-  static moveEditingBlock(state, delta) {
-    // todo implement this
+  static moveEditingBlock(state, direction) {
+    let grid = state.grid();
+
+    let block = Algorithm.findNextEditableBlock(grid.get("matrix"),
+      grid.get("detromino"),
+      state.x(),
+      state.y(),
+      direction);
+
+    if (!block) {
+      return state;
+    }
+
+    return state.set("editorState",
+      state.get("editorState")
+        .set("x", block.get("x"))
+        .set("y", block.get("y")));
   }
 
   /**

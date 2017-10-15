@@ -17,9 +17,33 @@ const LevelEditorState = Immutable.Record({
   y: -1,
 });
 
-const LevelEditorGrid = Immutable.Record({
+const LevelEditorGridRecord = Immutable.Record({
   editorState: new LevelEditorState(),
   data       : new Grid(),
 });
 
-export default LevelEditorGrid;
+export default class LevelEditorGrid extends LevelEditorGridRecord {
+  grid() {
+    return this.get("data");
+  }
+
+  editorState() {
+    return this.get("editorState");
+  }
+
+  x() {
+    return this.get("editorState").get("x");
+  }
+
+  y() {
+    return this.get("editorState").get("y");
+  }
+
+  isEditingBlock() {
+    return this.get("editorState").get("isEditingBlock");
+  }
+
+  blockType() {
+    return this.get("editorState").get("blockType");
+  }
+}

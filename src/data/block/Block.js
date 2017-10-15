@@ -18,6 +18,14 @@ const BlockRecord = Immutable.Record({
 });
 
 class Block extends BlockRecord {
+  x() {
+    return this.get("x");
+  }
+
+  y() {
+    return this.get("y");
+  }
+
   toggleOccupied() {
     return this.set("occupied", !this.get("occupied"));
   }
