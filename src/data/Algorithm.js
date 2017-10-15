@@ -188,25 +188,23 @@ const Algorithm = {
   getInitialValidEditingBlock(state) {
     let grid = state.get("data");
     let detromino = grid.get("detromino");
-    let x = detromino.get("x");
-    let y = detromino.get("y");
+    let initialX = detromino.get("x");
 
     let matrix = gridMapToArray(grid.get("grid"));
-    let blockType = BlockType.NONE;
-    for (; y < GridSize.HEIGHT; ++y) {
-      if (matrix[y][x] && matrix[y][x].get("type") !== BlockType.DETROMINO) {
-        blockType = matrix[y][x].get("type");
-        break;
+    let width = detromino.width();
+
+    for (let x = initialX; x < initialX + width; ++x) {
+      for (let y = detromino.get("y"); y < GridSize.HEIGHT; ++y) {
+        if (matrix[y][x] && matrix[y][x].get("type") !== BlockType.DETROMINO) {
+          let blockType = matrix[y][x].get("type");
+          return new Block({
+            x, y, blockType,
+          });
+        }
       }
     }
 
-    if (y === -1) {
-      return null;
-    }
-
-    return new Block({
-      x, y, blockType,
-    });
+    return null;
   },
 
   // endregion

@@ -11,6 +11,7 @@ import QueueStore from "../queue/QueueStore";
 import Direction from "./Direction";
 import LevelData from "../game/static/LevelData";
 import GameUiState from "./GameUiState";
+import LevelEditorGridStore from "../levelEditor/LevelEditorGridStore";
 
 const DELAY = 500;
 
@@ -352,8 +353,16 @@ const Actions = {
   },
 
   enableBlockEditing() {
+    let block = Algorithm.getInitialValidEditingBlock(LevelEditorGridStore.getState());
+
+    if (!block) {
+      // todo prompt something telling the player that no blocks are editable
+      return;
+    }
+
     Dispatcher.dispatch({
       type: ActionTypes.ENABLE_BLOCK_EDITING,
+      block,
     });
   },
 

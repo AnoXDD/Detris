@@ -51,7 +51,7 @@ class LevelEditorGridStore extends GridStore {
       // case ActionTypes.DETROMINO_MOVE_DOWN:
       //   return LevelEditorGridStore.moveDetrominoInGame(state, {y: 1});
       case ActionTypes.ENABLE_BLOCK_EDITING:
-        return LevelEditorGridStore.enableBlockEditing(state);
+        return LevelEditorGridStore.enableBlockEditing(state, action);
       case ActionTypes.DISABLE_BLOCK_EDITING:
         return LevelEditorGridStore.disableBlockEditing(state);
       case ActionTypes.SET_CURRENT_BLOCK:
@@ -174,19 +174,15 @@ class LevelEditorGridStore extends GridStore {
       gridState.set("isEditingBlock", isBlockEditing));
   }
 
-  static enableBlockEditing(state) {
-    let block = Algorithm.getInitialValidEditingBlock(state);
-
+  static enableBlockEditing(state, action) {
+    let {block} = action;
     let x = block ? block.get("x") : -1;
     let y = block ? block.get("y") : -1;
 
     let editorState = state.get("editorState")
       .set("x", x)
-      .set("y", y);
-
-    if (block) {
-      editorState = editorState.set("blockType", block.get("blockType"));
-    }
+      .set("y", y)
+      .set("blockType", block.get("blockType"));
 
     return LevelEditorGridStore._setBlockEditing(state.set("editorState",
       editorState), true);
