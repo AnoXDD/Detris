@@ -327,6 +327,13 @@ const Actions = {
     });
   },
 
+  setBlockType(blockType) {
+    Dispatcher.dispatch({
+      type: ActionTypes.SET_BLOCKTYPE,
+      blockType,
+    });
+  },
+
   rotate() {
     Dispatcher.dispatch({
       type: ActionTypes.ROTATE,

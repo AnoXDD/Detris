@@ -6,6 +6,7 @@ import React, {Component} from "react";
 import Button from "../lib/Button";
 import Toggle from "../lib/Toggle";
 import Direction from "../data/enum/Direction";
+import Actions from "../data/enum/Actions";
 
 const Type = {
   NONE             : 0,
@@ -111,10 +112,12 @@ export default class GridControlView extends Component {
         <div className="action-wrapper flex-center">
           {this.props.isEditingBlock ?
             <div className="btns grid-container">
-              <Button className="grid-cell-btn narrow"
-                      text={<span className="grid-cell demo target"/>}/>
-              <Button className="grid-cell-btn narrow"
-                      text={<span className="grid-cell demo original"/>}/>
+              {this.props.blockList.map(block =>
+                <Button className="grid-cell-btn narrow"
+                        key={block}
+                        onClick={() => Actions.setBlockType(block)}
+                        text={<span className={`grid-cell demo ${block}`}/>}/>
+              )}
             </div>
             :
             <Button

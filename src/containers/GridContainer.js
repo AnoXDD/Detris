@@ -77,6 +77,7 @@ class GridContainer extends Component {
         </div>
         <GridControlView
           {...this.state.control}
+          blockList={this.state.editorState.blockList}
           isEditingBlock={this.state.editorState.isEditingBlock}/>
       </div>
     );

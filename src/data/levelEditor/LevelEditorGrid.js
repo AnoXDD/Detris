@@ -15,6 +15,9 @@ const LevelEditorState = Immutable.Record({
   // The coordinates of the editing block
   x: -1,
   y: -1,
+
+  // The list of blocks that are editable
+  blockList  : new Immutable.List([BlockType.ORIGINAL, BlockType.TARGET]),
 });
 
 const LevelEditorGridRecord = Immutable.Record({

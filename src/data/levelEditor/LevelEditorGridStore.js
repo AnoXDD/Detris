@@ -55,7 +55,7 @@ class LevelEditorGridStore extends GridStore {
         return LevelEditorGridStore.enableBlockEditing(state, action);
       case ActionTypes.DISABLE_BLOCK_EDITING:
         return LevelEditorGridStore.disableBlockEditing(state);
-      case ActionTypes.SET_CURRENT_BLOCK:
+      case ActionTypes.SET_BLOCKTYPE:
         return LevelEditorGridStore.setCurrentBlock(state, action);
       case ActionTypes.EDITOR_BLOCK_MOVE_LEFT:
         return LevelEditorGridStore.moveEditingBlock(state, Direction.LEFT);
@@ -71,9 +71,7 @@ class LevelEditorGridStore extends GridStore {
   }
 
   static nextDetromino(state, action) {
-    let {data} = state;
-
-    data = GridStore.syncData(data, true, BlockType.ORIGINAL);
+    state = LevelEditorGridStore._syncData(state, true, BlockType.ORIGINAL);
 
     let {detrominoType = DetrominoType.DEFAULT} = action;
     let detromino = new Detromino({
@@ -83,11 +81,12 @@ class LevelEditorGridStore extends GridStore {
 
     detromino = detromino.set("x", detromino.getMiddleXPos());
 
+    let data = state.grid();
     data = data.set("detromino",
       Algorithm.getLowestValidPosition(data.get("matrix"), detromino)
     );
 
-    return state.set("data", GridStore.syncData(data));
+    return LevelEditorGridStore._syncData(state.set("data", data));
   }
 
   static rotate(state) {
@@ -116,7 +115,7 @@ class LevelEditorGridStore extends GridStore {
 
     data = data.set("detromino", detromino.set("rotation", rotation));
 
-    return state.set("data", GridStore.syncData(data, false));
+    return LevelEditorGridStore._syncData(state, false);
   }
 
   /**
@@ -143,8 +142,8 @@ class LevelEditorGridStore extends GridStore {
       return state;
     }
 
-    return state.set("data",
-      GridStore.syncData(data.set("detromino", target), false));
+    return LevelEditorGridStore._syncData(state.set("data",
+      data.set("detromino", target)), false);
   }
 
   /**
@@ -211,12 +210,36 @@ class LevelEditorGridStore extends GridStore {
   }
 
   static setCurrentBlock(state, action) {
-    let gridState = state.get("editorState");
+    // Update the block information
+    let {blockType} = action;
+    let block = state.grid()
+      .get("matrix")[state.y()][state.x()]
+      .set("type", blockType);
 
-    return state.set("editorState",
-      gridState.set("blockType", action.blockType));
+    let grid = state.grid().get("grid").set(block.get("id"), block);
+    state = state.set("data", state.grid().set("grid", grid));
+
+    // Update editor state
+    let gridState = state.get("editorState").set("blockType", action.blockType);
+
+    return LevelEditorGridStore._syncData(state.set("editorState",
+      gridState));
   }
 
+  /**
+   * A wrapper for calling the base class' syncData
+   * @param state
+   * @param {boolean} updateMatrix - should the matrix be updated. Set to false
+   *   if the grid is not changed
+   * @param {string|BlockType} blockType
+   * @private
+   */
+  static _syncData(state,
+                   updateMatrix = true,
+                   blockType = BlockType.DETROMINO) {
+    return state.set("data",
+      GridStore.syncData(state.get("data"), updateMatrix, blockType));
+  }
 
   initState() {
     return this.getInitialState();
