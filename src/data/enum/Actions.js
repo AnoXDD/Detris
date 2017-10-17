@@ -374,6 +374,11 @@ const Actions = {
   },
 
   disableBlockEditing() {
+    if (!Algorithm.isTargetDetrominosValid(LevelEditorGridStore.getState())) {
+      // todo prompt something telling the player that no blocks are editable
+      return;
+    }
+
     Dispatcher.dispatch({
       type: ActionTypes.DISABLE_BLOCK_EDITING,
     });
