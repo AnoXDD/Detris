@@ -15,6 +15,7 @@ import LocalStorageLoader from "../localStorage/LocalStorageLoader";
 import Detromino from "../detromino/Detromino";
 import DetrominoType from "../detromino/DetrominoType";
 import Grid from "./Grid";
+import Color from "../enum/Color";
 
 
 export default class GridStore extends ReduceStore {
@@ -168,17 +169,20 @@ export default class GridStore extends ReduceStore {
    * @param {boolean} updateMatrix - should the matrix be updated. Set to false
    *   if the grid is not changed
    * @param {string|BlockType} blockType
+   * @param {Immutable.Set} detrominoTargets - optional targets from level
+   *   editor to mark detromino blocks as target
    */
   static syncData(state,
                   updateMatrix = true,
-                  blockType = BlockType.DETROMINO) {
-    state = GridStore._applyDetromino(state, blockType);
+                  blockType = BlockType.DETROMINO,
+                  detrominoTargets) {
+    state = GridStore._applyDetromino(state, blockType, detrominoTargets);
 
     if (!updateMatrix) {
       return state;
     }
 
-    state = GridStore._syncGridToMatrix(state);
+    state = GridStore.syncGridToMatrix(state);
 
     return state;
   }
@@ -187,9 +191,8 @@ export default class GridStore extends ReduceStore {
    * Converts the grid to a 2d vanilla javascript array. This function should
    * only be called when the grid is changed
    * @param state
-   * @private
    */
-  static _syncGridToMatrix(state) {
+  static syncGridToMatrix(state) {
     return state.set("matrix", Algorithm.convertGridToArray(state.get("grid")));
   }
 
@@ -199,12 +202,22 @@ export default class GridStore extends ReduceStore {
    * @param state
    * @param {string|BlockType} blockType - the block type that the detromino is
    *   converting to
+   * @param {Immutable.Set} detrominoTargets - optional targets from level
+   *   editor to mark detromino blocks as target
    * @private
    */
-  static _applyDetromino(state, blockType = BlockType.DETROMINO) {
+  static _applyDetromino(state,
+                         blockType = BlockType.DETROMINO,
+                         detrominoTargets) {
     // Process the raw detromino in the state
     let detromino = state.get("detromino");
-    let shape = detromino.getRotatedBlocks(blockType);
+    if (!detromino) {
+      return state;
+    }
+
+    let shape = detromino.getRotatedBlocks(blockType,
+      Color.SOLID,
+      detrominoTargets);
 
     // Apply the processed detromino to the grid
     return state.set("grid", state.get("grid").merge(shape));

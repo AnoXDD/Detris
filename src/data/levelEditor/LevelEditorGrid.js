@@ -17,12 +17,13 @@ const LevelEditorState = Immutable.Record({
   y: -1,
 
   // The list of blocks that are editable
-  blockList  : new Immutable.List([BlockType.ORIGINAL, BlockType.TARGET]),
+  blockList: new Immutable.List([BlockType.DETROMINO, BlockType.DETROMINO_TARGET]),
 });
 
 const LevelEditorGridRecord = Immutable.Record({
-  editorState: new LevelEditorState(),
-  data       : new Grid(),
+  editorState     : new LevelEditorState(),
+  data            : new Grid(),
+  detrominoTargets: Immutable.Set(), // A set of detromino's ID
 });
 
 export default class LevelEditorGrid extends LevelEditorGridRecord {

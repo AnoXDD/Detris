@@ -396,6 +396,8 @@ html, body, #root {
       .grid-container .grid-cell.detromino.grid-cell-animation-enter.grid-cell-animation-enter-active {
         transform: scale(1);
         opacity: 1; }
+  .grid-container .grid-cell.detromino-target {
+    background: #a5bcdb; }
   .grid-container .grid-cell.stale {
     background-color: #F44336;
     z-index: 10; }

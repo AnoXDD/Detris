@@ -71,8 +71,18 @@ class LevelEditorGridStore extends GridStore {
   }
 
   static nextDetromino(state, action) {
+    // Convert the detromino to original blocks
     state = LevelEditorGridStore._syncData(state, true, BlockType.ORIGINAL);
 
+    // Remove target blocks
+    let grid = state.get("data");
+    grid = grid.set("grid", Algorithm.applyDetrominoInEditor(grid.get("grid"),
+      grid.get("matrix"),
+      grid.get("detromino")));
+
+    grid = GridStore.syncGridToMatrix(grid);
+
+    // Put new detromino
     let {detrominoType = DetrominoType.DEFAULT} = action;
     let detromino = new Detromino({
       id  : new Date().getTime(),
@@ -81,17 +91,17 @@ class LevelEditorGridStore extends GridStore {
 
     detromino = detromino.set("x", detromino.getMiddleXPos());
 
-    let data = state.grid();
-    data = data.set("detromino",
-      Algorithm.getLowestValidPositionInEditor(data.get("matrix"), detromino)
+    grid = grid.set("detromino",
+      Algorithm.getLowestValidPositionInEditor(grid.get("matrix"), detromino)
     );
 
-    return LevelEditorGridStore._syncData(state.set("data", data));
+    return LevelEditorGridStore._syncData(state.set("data", grid));
   }
 
   static rotate(state) {
     // todo check if detromino exists
     // todo change the position if rotate causes overlap
+    // todo clear detrominoTargets
     let {data} = state;
 
     let detromino = data.get("detromino");
@@ -173,16 +183,6 @@ class LevelEditorGridStore extends GridStore {
   }
 
   /**
-   * Moves the block to certain position. If the operation is not doable,
-   * return the original state
-   * @param state - current state of detromino
-   * @param delta - the position delta
-   */
-  static move(state, delta) {
-    return state;
-  }
-
-  /**
    * Moves the grid of the block target whose type is to be changed
    * @param {LevelEditorGrid} state
    * @param {string|Direction} direction
@@ -239,12 +239,23 @@ class LevelEditorGridStore extends GridStore {
     // Update the block information
     let {blockType} = action;
     let block = state.grid()
-      .get("matrix")[state.y()][state.x()]
-      .set("type", blockType);
+      .get("matrix")[state.y()][state.x()];
 
-    let grid = state.grid().get("grid").set(block.get("id"), block);
-    state = state.set("data", state.grid().set("grid", grid));
+    if (blockType === BlockType.DETROMINO) {
+      let detrominoTargets = state.get("detrominoTargets")
+        .delete(block.get("id"));
+      state = state.set("detrominoTargets", detrominoTargets);
+    } else if (blockType === BlockType.DETROMINO_TARGET) {
+      let detrominoTargets = state.get("detrominoTargets")
+        .add(block.get("id"));
+      state = state.set("detrominoTargets", detrominoTargets);
+    } else {
+      // Update the grid
+      block = block.set("type", blockType);
 
+      let grid = state.grid().get("grid").set(block.get("id"), block);
+      state = state.set("data", state.grid().set("grid", grid));
+    }
     // Update editor state
     let gridState = state.get("editorState").set("blockType", action.blockType);
 
@@ -264,7 +275,10 @@ class LevelEditorGridStore extends GridStore {
                    updateMatrix = true,
                    blockType = BlockType.DETROMINO) {
     return state.set("data",
-      GridStore.syncData(state.get("data"), updateMatrix, blockType));
+      GridStore.syncData(state.get("data"),
+        updateMatrix,
+        blockType,
+        state.get("detrominoTargets")));
   }
 
   initState() {

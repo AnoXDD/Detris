@@ -15,12 +15,12 @@ import Color from "../enum/Color";
 
 const GridDataRecord = Immutable.Record({
   grid     : Immutable.Map(),
-  detromino: new Detromino(),
+  detromino: null,
 
   /**
    * Read only matrix. Should be kept synced with `grid` by calling Algorithm.
    */
-  matrix   : [],
+  matrix: [],
 });
 
 class Grid extends GridDataRecord {

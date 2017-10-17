@@ -25,6 +25,12 @@ function toMatrix(s) {
             type: BlockType.DETROMINO,
           });
 
+        case "3":
+          return new Block({
+            x, y,
+            type: BlockType.TARGET,
+          });
+
         default:
           return null;
       }
@@ -53,14 +59,14 @@ describe("Test findNextEditableBlock", () => {
     0000000000
     0000000000
     0000000000
-    0002222000
-    0000010000
-    0000000100
-    0101010100
-    0000011100
-    0001000000
-    0000001000
-    0001010000
+    0000000000
+    0000020000
+    0000000200
+    0202020200
+    0000022200
+    0002000000
+    0000002000
+    0002020000
     `
   );
 

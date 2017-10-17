@@ -46,7 +46,7 @@ const Algorithm = {
    * Sinks the floating blocks whose type is FLOATING to make it not floating
    * anymore. A floating block is defined as a block whose adjacent block below
    * is neither the edge of the grid nor another block another grid
-   * @param {Grid} grid Immutable map of blocks
+   * @param {Immutable.Map<K, V>|Grid} grid Immutable map of blocks
    */
   sinkFloatingBlocks(grid) {
     let matrix = gridMapToArray(grid);
@@ -98,7 +98,7 @@ const Algorithm = {
 
   /**
    * Sinks target blocks to eliminate the gaps between them
-   * @param {Grid} grid Immutable map of blocks
+   * @param {Immutable.Map<K, V>|grid} grid Immutable map of blocks
    */
   sinkTargetBlocks(grid) {
     grid = Algorithm.removeStaleBlocks(grid);
@@ -164,8 +164,8 @@ const Algorithm = {
 
   /**
    * Returns a detromino at the vertically lowest position on the grid such
-   * that there are no other original blocks above the detromino. If no such
-   * detromino exists, return null
+   * that there are sufficient space above this detromino to get it removed by
+   * player (by placing a detromino). If no such detromino exists, return null
    * @param {Array} matrix - a 2d JavaScript native array
    * @param {Detromino} detromino - the given detromino that has `x` position
    *   on the grid
@@ -209,16 +209,14 @@ const Algorithm = {
    * @return {Block} a valid editing block. `null` if no valid block
    */
   getInitialValidEditableBlock(state) {
-    let grid = state.get("data");
-    let detromino = grid.get("detromino");
+    let detromino = state.get("data").get("detromino");
     let initialX = detromino.get("x");
-
-    let matrix = gridMapToArray(grid.get("grid"));
+    let matrix = state.get("data").get("matrix");
     let width = detromino.width();
 
     for (let x = initialX; x < initialX + width; ++x) {
       for (let y = detromino.get("y"); y < GridSize.HEIGHT; ++y) {
-        if (matrix[y][x] && matrix[y][x].get("type") !== BlockType.DETROMINO) {
+        if (matrix[y][x]) {
           let blockType = matrix[y][x].get("type");
           return new Block({
             x, y, blockType,
@@ -271,7 +269,7 @@ const Algorithm = {
      * @return {boolean}
      */
     function isValidY(y) {
-      return y > detrominoY && y < GridSize.HEIGHT;
+      return y >= detrominoY && y < GridSize.HEIGHT;
     }
 
     /**
@@ -280,8 +278,11 @@ const Algorithm = {
      * @return {Block} a block if editable, null otherwise
      */
     function getEditableBlock(x, y) {
-      if (matrix[y][x] && matrix[y][x].get("type") !== BlockType.DETROMINO) {
-        return matrix[y][x];
+      if (matrix[y][x]) {
+        let type = matrix[y][x].get("type");
+        if (type === BlockType.DETROMINO || type === BlockType.DETROMINO_TARGET) {
+          return matrix[y][x];
+        }
       }
 
       return null;
@@ -332,7 +333,57 @@ const Algorithm = {
     }
 
     return null;
-  }
+  },
+
+  /**
+   * Applies detromino to the grid by matching target blocks in the grid and
+   * remove both. This function assumes that there exist blocks to be matched
+   * with target blocks in the detromino
+   *
+   * @param {Immutable.Map<K, V>|Grid} grid
+   * @param {Array} matrix
+   * @param {Detromino} detromino
+   * @return {Immutable.Map<K, V>|Grid} resulting grid
+   */
+  applyDetrominoInEditor(grid, matrix, detromino) {
+    if (!grid || !matrix || !detromino) {
+      return grid;
+    }
+
+    let width = detromino.width();
+    let height = detromino.height();
+    let detrominoX = detromino.get("x");
+    let detrominoY = detromino.get("y");
+
+    // Iterate over each column of detromino
+    for (let dx = 0; dx < width; ++dx) {
+      let x = detrominoX + dx;
+      let targets = 0;
+
+      // Calculate the number of target blocks for current column
+      for (let dy = 0; dy < height; ++dy) {
+        let y = detrominoY + dy;
+
+        if (matrix[y][x] && matrix[y][x].get("type") === BlockType.DETROMINO_TARGET) {
+          grid = grid.delete(matrix[y][x].get("id"));
+          ++targets;
+        }
+      }
+
+      // Remove original blocks
+      for (let y = detrominoY + height;
+           y < GridSize.HEIGHT && targets > 0;
+           ++y) {
+        if (matrix[y][x]) {
+          grid = grid.delete(matrix[y][x].get("id"));
+          --targets;
+        }
+      }
+    }
+
+    return grid;
+  },
+
   // endregion
 };
 

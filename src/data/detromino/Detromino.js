@@ -66,23 +66,16 @@ class Detromino extends DetrominoRecord {
   }
 
   /**
-   * Returns a vector of Block.
+   * Returns an Immutable Map of Block from detromino
    * This function assumes that the positions of blocks are valid
+   * @param {BlockType|string} defaultType
+   * @param {Color|string} color
+   * @param {Immutable.Set} detrominoTargets
    */
-  getRotatedBlocks(type = BlockType.DETROMINO, color = Color.SOLID) {
-    let shape = DetrominoShape[this.get("type")]
-      .map(arr => arr.slice());
-    let rotation = this.get("rotation");
-
-    // Mark the sequence id of each block in the detromino
-    let id = 1;
-    for (let x = 0; x < shape.length; ++x) {
-      for (let y = 0; y < shape[x].length; ++y) {
-        shape[x][y] = shape[x][y] && id++;
-      }
-    }
-
-    shape = Algorithm.rotate(shape, rotation);
+  getRotatedBlocks(defaultType = BlockType.DETROMINO,
+                   color = Color.SOLID,
+                   detrominoTargets) {
+    let shape = this.getRotated2dArray(true);
 
     // Generate blocks
     let map = Immutable.Map();
@@ -96,6 +89,11 @@ class Detromino extends DetrominoRecord {
         }
 
         let id = `${detrominoId}-${shape[dx][dy]}`;
+        let type = defaultType;
+        if (detrominoTargets && detrominoTargets.has(id)) {
+          type = BlockType.DETROMINO_TARGET;
+        }
+
         map = map.set(id, new Block({
           id,
           occupied: true,
@@ -108,6 +106,30 @@ class Detromino extends DetrominoRecord {
     }
 
     return map;
+  }
+
+  /**
+   * Returns a copy of detromino shape
+   * @param markId - if each element of the shape should be unique
+   * @return {Array} a matrix where `matrix[x][y]` is the block at (x,y)
+   */
+  getRotated2dArray(markId = true) {
+    let shape = DetrominoShape[this.get("type")]
+      .map(arr => arr.slice());
+    let rotation = this.get("rotation");
+
+    if (markId) {
+      // Mark the sequence id of each block in the detromino
+      let id = 1;
+      for (let x = 0; x < shape.length; ++x) {
+        for (let y = 0; y < shape[x].length; ++y) {
+          shape[x][y] = shape[x][y] && id++;
+        }
+      }
+    }
+
+    shape = Algorithm.rotate(shape, rotation);
+    return shape;
   }
 
   /**
