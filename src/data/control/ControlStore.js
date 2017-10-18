@@ -27,14 +27,14 @@ class ControlStore extends ReduceStore {
       case ActionTypes.SET_GAME_UI_STATE:
         switch (action.uiState) {
           case GameUiState.SHOW_LEVEL_EDITOR:
-            return ControlStore.onLevelEditorMoveDetromino();
+            return ControlStore.onLevelEditorDisableBlockEditing();
           default:
             return new Control();
         }
       case ActionTypes.DISABLE_BLOCK_EDITING:
-        return ControlStore.onLevelEditorMoveDetromino();
+        return ControlStore.onLevelEditorDisableBlockEditing();
       case ActionTypes.ENABLE_BLOCK_EDITING:
-        return ControlStore.onLevelEditorMoveEditingBlock();
+        return ControlStore.onLevelEditorEnableBlockEditing();
       default:
         return state;
     }
@@ -54,7 +54,7 @@ class ControlStore extends ReduceStore {
   /**
    * Called when the player is moving detromino in the level editor
    */
-  static onLevelEditorMoveDetromino() {
+  static onLevelEditorDisableBlockEditing() {
     return new Control({
       done           : Actions.nextDetrominoInEditor,
       move           : Actions.moveDetrominoInEditor,
@@ -65,10 +65,11 @@ class ControlStore extends ReduceStore {
   /**
    * Called when the player is moving the editing block in the level editor
    */
-  static onLevelEditorMoveEditingBlock() {
+  static onLevelEditorEnableBlockEditing() {
     return new Control({
       move           : Actions.moveEditingBlock,
       toggleEditBlock: Actions.disableBlockEditing,
+      chooseEditBlock: Actions.setBlockType,
     });
   }
 }

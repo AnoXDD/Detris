@@ -41,8 +41,8 @@ class LevelEditorGridStore extends GridStore {
         return LevelEditorGridStore.reset();
       case ActionTypes.NEXT_DETROMINO_IN_EDITOR:
         return LevelEditorGridStore.nextDetromino(state, action);
-      case ActionTypes.ROTATE:
-        return LevelEditorGridStore.rotate(state);
+      // case ActionTypes.ROTATE:
+        // return LevelEditorGridStore.rotate(state);
       case ActionTypes.EDITOR_DETROMINO_MOVE_LEFT:
         return LevelEditorGridStore.moveX(state, -1);
       case ActionTypes.EDITOR_DETROMINO_MOVE_RIGHT:

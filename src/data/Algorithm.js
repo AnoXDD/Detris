@@ -155,33 +155,36 @@ const Algorithm = {
     if (degree === Rotation.NONE) {
       return shape;
     }
+
     let width = shape.length;
     let height = shape[0].length;
     if (degree === Rotation.DEG_90) {
       let newShape = Array(height).fill(0).map(x => Array(width).fill(0));
       for (let i = 0; i < width; i++) {
         for (let j = 0; j < height; j++) {
-          newShape[height-1-j][i] = shape[i][j];
-        }
-      }
-      return newShape;
-    } else if (degree === Rotation.DEG_180) {
-      let newShape = Array(width).fill(0).map(x => Array(height).fill(0));
-      for (let i = 0; i < width; i++) {
-        for (let j = 0; j < height; j++) {
-          newShape[width-1-i][height-1-j] = shape[i][j];
-        }
-      }
-      return newShape;
-    } else {
-      let newShape = Array(height).fill(0).map(x => Array(width).fill(0));
-      for (let i = 0; i < width; i++) {
-        for (let j = 0; j < height; j++) {
-          newShape[j][width-1-i] = shape[i][j];
+          newShape[height - 1 - j][i] = shape[i][j];
         }
       }
       return newShape;
     }
+
+    if (degree === Rotation.DEG_180) {
+      let newShape = Array(width).fill(0).map(x => Array(height).fill(0));
+      for (let i = 0; i < width; i++) {
+        for (let j = 0; j < height; j++) {
+          newShape[width - 1 - i][height - 1 - j] = shape[i][j];
+        }
+      }
+      return newShape;
+    }
+
+    let newShape = Array(height).fill(0).map(x => Array(width).fill(0));
+    for (let i = 0; i < width; i++) {
+      for (let j = 0; j < height; j++) {
+        newShape[j][width - 1 - i] = shape[i][j];
+      }
+    }
+    return newShape;
   },
 
   generateRandomDetrominoType() {

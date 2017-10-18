@@ -9,6 +9,7 @@ import  {Component} from "react";
 import ControlStore from "../data/control/ControlStore";
 import Direction from "../data/enum/Direction";
 import Actions from "../data/enum/Actions";
+import LevelEditorGridStore from "../data/levelEditor/LevelEditorGridStore";
 
 const keyMap = {
   "Delete": Actions.removeDetromino,
@@ -42,7 +43,12 @@ class ControlContainer extends Component {
     keyMap.ArrowRight = () => this.state.move(Direction.RIGHT);
     keyMap.ArrowDown = () => this.state.move(Direction.DOWN);
     keyMap.Shift = this.state.rotate;
+    keyMap["`"] = this.state.toggleEditBlock;
     keyMap[" "] = this.state.done;
+
+    for (let i = 1; i <= this.state.blockList.length; ++i) {
+      keyMap[`${i}`] = () => this.state.chooseEditBlock(this.state.blockList[i - 1]);
+    }
   }
 
   handleKeyDown(e) {
@@ -58,11 +64,19 @@ class ControlContainer extends Component {
   static getStores() {
     return [
       ControlStore,
+      LevelEditorGridStore,
     ];
   }
 
   static calculateState(prevState) {
-    return ControlStore.getState().toJS();
+    let state = LevelEditorGridStore.getState();
+    let levelEditorState = state.get("editorState").toJS();
+    let {blockList} = levelEditorState;
+
+    return {
+      ...ControlStore.getState().toJS(),
+      blockList,
+    };
   }
 
   render() {

@@ -11,7 +11,8 @@ const ControlRecord = Immutable.Record({
   rotate         : NoOp,
   done           : NoOp,
   move           : NoOp,
-  toggleEditBlock: NoOp
+  toggleEditBlock: NoOp,
+  chooseEditBlock: NoOp,
 });
 
 export default ControlRecord;
