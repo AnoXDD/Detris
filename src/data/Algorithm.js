@@ -9,6 +9,7 @@ import BlockType from "./block/BlockType";
 import DetrominoType from "./detromino/DetrominoType";
 import Block from "./block/Block";
 import Direction from "./enum/Direction";
+import Rotation from "./enum/Rotation";
 
 /**
  * Converts a grid to an 2d array. Note the matrix is first indexed by y-axis,
@@ -151,8 +152,36 @@ const Algorithm = {
    * @param {Rotation} degree an enum defined in Rotation.js
    */
   rotate(shape, degree) {
-    // todo implement this
-    return shape;
+    if (degree === Rotation.NONE) {
+      return shape;
+    }
+    let width = shape.length;
+    let height = shape[0].length;
+    if (degree === Rotation.DEG_90) {
+      let newShape = Array(height).fill(0).map(x => Array(width).fill(0));
+      for (let i = 0; i < width; i++) {
+        for (let j = 0; j < height; j++) {
+          newShape[height-1-j][i] = shape[i][j];
+        }
+      }
+      return newShape;
+    } else if (degree === Rotation.DEG_180) {
+      let newShape = Array(width).fill(0).map(x => Array(height).fill(0));
+      for (let i = 0; i < width; i++) {
+        for (let j = 0; j < height; j++) {
+          newShape[width-1-i][height-1-j] = shape[i][j];
+        }
+      }
+      return newShape;
+    } else {
+      let newShape = Array(height).fill(0).map(x => Array(width).fill(0));
+      for (let i = 0; i < width; i++) {
+        for (let j = 0; j < height; j++) {
+          newShape[j][width-1-i] = shape[i][j];
+        }
+      }
+      return newShape;
+    }
   },
 
   generateRandomDetrominoType() {
