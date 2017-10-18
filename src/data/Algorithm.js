@@ -387,27 +387,25 @@ const Algorithm = {
   /**
    * Returns if the target detrominos in the state is valid. It is valid if it
    * suffices all the requirements below:
+   *   - Not all detrominos are targets
    *   - There are enough original blocks below it
    *   - For each column, all matched original blocks should be continuous
    *   - The matched blocks should not be flowing
    *
-   * @param {LevelEditorGrid} state
+   * @param {Array} matrix
+   * @param {Detromino} detromino
    * @return {boolean} a valid editing block. `null` if no valid block
    */
-  isTargetDetrominosValid(state) {
-    let data = state.grid();
-    let grid = data.get("grid");
-    let matrix = data.get("matrix");
-    let detromino = data.get("detromino");
-
-    if (!grid || !matrix || !detromino) {
-      return grid;
+  isTargetDetrominosValid(matrix, detromino) {
+    if (!matrix || !detromino) {
+      return false;
     }
 
     let width = detromino.width();
     let height = detromino.height();
     let detrominoX = detromino.get("x");
     let detrominoY = detromino.get("y");
+    let isAllTargets = true;
 
     // Iterate over each column of detromino
     for (let dx = 0; dx < width; ++dx) {
@@ -418,8 +416,14 @@ const Algorithm = {
       for (let dy = 0; dy < height; ++dy) {
         let y = detrominoY + dy;
 
-        if (matrix[y][x] && matrix[y][x].get("type") === BlockType.DETROMINO_TARGET) {
+        if (!matrix[y][x]) {
+          continue;
+        }
+
+        if (matrix[y][x].get("type") === BlockType.DETROMINO_TARGET) {
           ++targets;
+        } else {
+          isAllTargets = false;
         }
       }
 
@@ -428,24 +432,30 @@ const Algorithm = {
       }
 
       // Tests original blocks
-      let y = detrominoY + height
+      let y = detrominoY + height;
       for (; y < GridSize.HEIGHT && targets > 0; ++y) {
         if (matrix[y][x]) {
-          for (let dy = 0; dy < targets; ++dy) {
+          let dy = 0;
+
+          for (let t = targets; dy < t && targets > 0; ++dy) {
             if (y + dy >= GridSize.HEIGHT) {
               // Not enough blocks
               return false;
             }
 
-            if (!matrix[y][x]) {
+            if (!matrix[y + dy][x]) {
               // Blocks not continuous
               return false;
             }
 
             // We can check for other eligibility of blocks here ...
-            if (--targets === 0) {
-              break;
-            }
+
+            --targets;
+          }
+
+          if (y + dy < GridSize.HEIGHT && !matrix[y + dy][x]) {
+            // All blocks are matched, but those blocks are floating
+            return false;
           }
 
           break;
@@ -458,7 +468,7 @@ const Algorithm = {
       }
     }
 
-    return true;
+    return !isAllTargets;
   }
 
   // endregion

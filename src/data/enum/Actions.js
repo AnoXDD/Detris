@@ -374,7 +374,10 @@ const Actions = {
   },
 
   disableBlockEditing() {
-    if (!Algorithm.isTargetDetrominosValid(LevelEditorGridStore.getState())) {
+    let grid = LevelEditorGridStore.getState().grid();
+
+    if (!Algorithm.isTargetDetrominosValid(grid.get("matrix"),
+        grid.get("detromino"))) {
       // todo prompt something telling the player that no blocks are editable
       return;
     }
