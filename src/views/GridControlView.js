@@ -17,6 +17,8 @@ const Type = {
   RIGHT            : 5,
   DONE             : 6,
   TOGGLE_EDIT_BLOCK: 7,
+  PREV_DETROMINO   : 8,
+  NEXT_DETROMINO   : 9,
 };
 
 export default class GridControlView extends Component {
@@ -56,6 +58,12 @@ export default class GridControlView extends Component {
       case Type.TOGGLE_EDIT_BLOCK:
         this.props.toggleEditBlock();
         break;
+      case Type.PREV_DETROMINO:
+        this.props.prevDetromino();
+        break;
+      case Type.NEXT_DETROMINO:
+        this.props.nextDetromino();
+        break;
       default:
         break;
     }
@@ -69,7 +77,7 @@ export default class GridControlView extends Component {
     return (
       <div className="control">
         <div className="rotate-wrapper flex-center">
-          <div className="flex-inner-extend rotate-inner-wrapper flex-center">
+          <div className="flex-inner-extend control-inner-wrapper flex-center">
             {this.props.isShowingLevelEditor ?
               <Toggle
                 firstIcon="grid_on"
@@ -83,12 +91,21 @@ export default class GridControlView extends Component {
             >rotate_right</Button>
           </div>
         </div>
+        <div className="shape-cycle-wrapper flex-center">
+          <div className="flex-inner-extend control-inner-wrapper flex-center">
+            <Button
+              onClick={() => this.handleClick(Type.PREV_DETROMINO)}>arrow_drop_up</Button>
+            <Button
+              onClick={() => this.handleClick(Type.NEXT_DETROMINO)}>arrow_drop_down</Button>
+          </div>
+        </div>
         <div className="arrow-wrapper flex-center">
-          <div className="flex-inner-extend arrow-inner-wrapper flex-center">
+          <div className="flex-inner-extend control-inner-wrapper flex-center">
             <div className="arrow-up-wrapper flex-center">
               <Button
                 className={this.state.pressed === Type.UP ? "grid-control-animation" : ""}
                 onClick={() => this.handleClick(Type.UP)}>arrow_upward</Button>
+
             </div>
             <div className="arrow-non-up-wrapper flex-center">
               <Button

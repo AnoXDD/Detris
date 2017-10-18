@@ -268,13 +268,15 @@ html, body, #root {
   width: 250px;
   height: 200px;
 
-  .rotate-wrapper {
-    width: 25%;
+  .rotate-wrapper, .shape-cycle-wrapper {
+    flex-grow: 1;
+    width: 10%;
     position: relative;
   }
 
   .arrow-wrapper {
-    width: 75%;
+    flex-grow: 3;
+    width: 30%;
     position: relative;
     min-height: 100px;
 
@@ -287,7 +289,7 @@ html, body, #root {
     }
   }
 
-  .arrow-inner-wrapper, .rotate-inner-wrapper {
+  .control-inner-wrapper {
     display: flex;
     flex-direction: column;
   }

@@ -2,6 +2,8 @@
  * Created by Anoxic on 9/21/2017.
  */
 
+import Immutable from "immutable";
+
 import Algorithm from "../Algorithm";
 import Rotation from "../enum/Rotation";
 import GridSize from "../grid/GridSize";
@@ -14,6 +16,8 @@ import GridStore from "../grid/GridStoreClass";
 import LevelEditorGrid from "./LevelEditorGrid";
 import Direction from "../enum/Direction";
 
+// The first one is DEFAULT
+const detrominoTypes = Object.values(DetrominoType).slice(1);
 
 class LevelEditorGridStore extends GridStore {
   constructor() {
@@ -21,7 +25,7 @@ class LevelEditorGridStore extends GridStore {
   }
 
   static reset() {
-    return new LevelEditorGrid();
+    return LevelEditorGridStore.nextDetromino(new LevelEditorGrid());
   }
 
   getInitialState() {
@@ -40,9 +44,13 @@ class LevelEditorGridStore extends GridStore {
       case ActionTypes.RESET_GRID:
         return LevelEditorGridStore.reset();
       case ActionTypes.NEXT_DETROMINO_IN_EDITOR:
-        return LevelEditorGridStore.nextDetromino(state, action);
+        return LevelEditorGridStore.nextDetromino(state);
+      case ActionTypes.NEXT_DETROMINO_SHAPE:
+        return LevelEditorGridStore.cycleDetrominoShape(state, 1);
+      case ActionTypes.PREV_DETROMINO_SHAPE:
+        return LevelEditorGridStore.cycleDetrominoShape(state, -1);
       // case ActionTypes.ROTATE:
-        // return LevelEditorGridStore.rotate(state);
+      // return LevelEditorGridStore.rotate(state);
       case ActionTypes.EDITOR_DETROMINO_MOVE_LEFT:
         return LevelEditorGridStore.moveX(state, -1);
       case ActionTypes.EDITOR_DETROMINO_MOVE_RIGHT:
@@ -70,23 +78,26 @@ class LevelEditorGridStore extends GridStore {
     }
   }
 
-  static nextDetromino(state, action) {
+  static nextDetromino(state) {
     // Convert the detromino to original blocks
     state = LevelEditorGridStore._syncData(state, true, BlockType.ORIGINAL);
 
     // Remove target blocks
     let grid = state.get("data");
+    let detromino = grid.get("detromino") || new Detromino({
+        type: DetrominoType.O, // default value
+      });
+
     grid = grid.set("grid", Algorithm.applyDetrominoInEditor(grid.get("grid"),
       grid.get("matrix"),
-      grid.get("detromino")));
+      detromino));
 
     grid = GridStore.syncGridToMatrix(grid);
 
     // Put new detromino
-    let {detrominoType = DetrominoType.DEFAULT} = action;
-    let detromino = new Detromino({
+    detromino = new Detromino({
       id  : new Date().getTime(),
-      type: detrominoType,
+      type: detromino.get("type"),
     });
 
     detromino = detromino.set("x", detromino.getMiddleXPos());
@@ -96,6 +107,27 @@ class LevelEditorGridStore extends GridStore {
     );
 
     return LevelEditorGridStore._syncData(state.set("data", grid));
+  }
+
+  /**
+   * Cycles over the available detromino shapes
+   * @param state
+   * @param {Number} delta
+   */
+  static cycleDetrominoShape(state, delta) {
+    // Clear detromino targets
+    state = state.set("detrominoTargets", Immutable.Set());
+
+    let currentIndex = state.get("detrominoIndex") + delta;
+
+    if (currentIndex < 0) {
+      currentIndex = detrominoTypes.length - 1;
+    } else if (currentIndex >= detrominoTypes.length) {
+      currentIndex = 0;
+    }
+
+    return LevelEditorGridStore._syncData(state.set("detrominoIndex",
+      currentIndex));
   }
 
   static rotate(state) {
@@ -274,11 +306,31 @@ class LevelEditorGridStore extends GridStore {
   static _syncData(state,
                    updateMatrix = true,
                    blockType = BlockType.DETROMINO) {
+    state = LevelEditorGridStore._syncDetrominoIndex(state);
+
     return state.set("data",
       GridStore.syncData(state.get("data"),
         updateMatrix,
         blockType,
         state.get("detrominoTargets")));
+  }
+
+  /**
+   * Syncs the index of detromino
+   * @param state
+   * @private
+   */
+  static _syncDetrominoIndex(state) {
+    let index = state.get("detrominoIndex");
+    let detromino = state.get("data").get("detromino");
+
+    if (!detromino) {
+      return state;
+    }
+
+    return state.set("data",
+      state.get("data")
+        .set("detromino", detromino.set("type", detrominoTypes[index])));
   }
 
   initState() {

@@ -43,6 +43,8 @@ class ControlContainer extends Component {
     keyMap.ArrowRight = () => this.state.move(Direction.RIGHT);
     keyMap.ArrowDown = () => this.state.move(Direction.DOWN);
     keyMap.Shift = this.state.rotate;
+    keyMap.q = this.state.prevDetromino;
+    keyMap.a = this.state.nextDetromino;
     keyMap["`"] = this.state.toggleEditBlock;
     keyMap[" "] = this.state.done;
 

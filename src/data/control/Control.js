@@ -13,6 +13,8 @@ const ControlRecord = Immutable.Record({
   move           : NoOp,
   toggleEditBlock: NoOp,
   chooseEditBlock: NoOp,
+  nextDetromino  : NoOp,
+  prevDetromino  : NoOp,
 });
 
 export default ControlRecord;

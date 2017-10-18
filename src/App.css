@@ -588,18 +588,20 @@ html, body, #root {
   margin: 0 auto;
   width: 250px;
   height: 200px; }
-  .control .rotate-wrapper {
-    width: 25%;
+  .control .rotate-wrapper, .control .shape-cycle-wrapper {
+    flex-grow: 1;
+    width: 10%;
     position: relative; }
   .control .arrow-wrapper {
-    width: 75%;
+    flex-grow: 3;
+    width: 30%;
     position: relative;
     min-height: 100px; }
     .control .arrow-wrapper .arrow-up-wrapper {
       width: 100%; }
     .control .arrow-wrapper .arrow-non-up-wrapper {
       width: 100%; }
-  .control .arrow-inner-wrapper, .control .rotate-inner-wrapper {
+  .control .control-inner-wrapper {
     display: flex;
     flex-direction: column; }
   .control .action-wrapper {

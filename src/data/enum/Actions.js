@@ -216,6 +216,18 @@ const Actions = {
     });
   },
 
+  nextDetrominoShape() {
+    Dispatcher.dispatch({
+      type: ActionTypes.NEXT_DETROMINO_SHAPE,
+    });
+  },
+
+  prevDetrominoShape() {
+    Dispatcher.dispatch({
+      type: ActionTypes.PREV_DETROMINO_SHAPE,
+    });
+  },
+
   // Debug only
   debug__newRandomDetromino() {
     Actions.sinkFloatingBlocks();
