@@ -7,6 +7,7 @@
 import Immutable from "immutable";
 import BlockType from "../block/BlockType";
 import Grid from "../grid/Grid";
+import DetrominoIterator from "../detromino/DetrominoIterator";
 
 const LevelEditorState = Immutable.Record({
   isEditingBlock: false,
@@ -27,7 +28,7 @@ const LevelEditorGridRecord = Immutable.Record({
 
   // The index of detromino block, should be positive numbers because 0 index
   // is DEFAULT
-  detrominoIndex: 0,
+  detrominoIterator: new DetrominoIterator(),
 });
 
 export default class LevelEditorGrid extends LevelEditorGridRecord {

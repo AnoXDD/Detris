@@ -11,7 +11,8 @@ import TitleBoxView from "./TitleBoxView";
 export default class QueueView extends Component {
 
   shouldComponentUpdate(nextProps) {
-    return this.props.queue && this.props.queue !== nextProps.queue;
+    return (this.props.queue && this.props.queue !== nextProps.queue) ||
+      this.props.isShowingLevelEditor !== nextProps.isShowingLevelEditor;
   }
 
   render() {
@@ -24,7 +25,8 @@ export default class QueueView extends Component {
     return (
       <div className="queue-view">
         <div className="next">
-          <TitleBoxView title="next">
+          <TitleBoxView
+            title={this.props.isShowingLevelEditor ? "previous" : "next"}>
             <div className="next-inner">
               <CSSTransitionGroup
                 transitionName="detromino-animation"

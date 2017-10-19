@@ -16,9 +16,6 @@ import GridStore from "../grid/GridStoreClass";
 import LevelEditorGrid from "./LevelEditorGrid";
 import Direction from "../enum/Direction";
 
-// The first one is DEFAULT
-const detrominoTypes = Object.values(DetrominoType).slice(1);
-
 class LevelEditorGridStore extends GridStore {
   constructor() {
     super(Dispatcher);
@@ -112,22 +109,27 @@ class LevelEditorGridStore extends GridStore {
   /**
    * Cycles over the available detromino shapes
    * @param state
-   * @param {Number} delta
+   * @param {Number} delta - positive for next detromino, and negative for
+   *   previous detromino
    */
   static cycleDetrominoShape(state, delta) {
+    if (delta === 0) {
+      return state;
+    }
+
     // Clear detromino targets
     state = state.set("detrominoTargets", Immutable.Set());
 
-    let currentIndex = state.get("detrominoIndex") + delta;
+    let iterator = state.get("detrominoIterator");
 
-    if (currentIndex < 0) {
-      currentIndex = detrominoTypes.length - 1;
-    } else if (currentIndex >= detrominoTypes.length) {
-      currentIndex = 0;
+    if (delta > 0) {
+      iterator.next();
+    } else if (delta < 0) {
+      iterator.prev();
     }
 
-    return LevelEditorGridStore._syncData(state.set("detrominoIndex",
-      currentIndex));
+    return LevelEditorGridStore._syncData(state.set("detrominoIterator",
+      iterator));
   }
 
   static rotate(state) {
@@ -321,7 +323,7 @@ class LevelEditorGridStore extends GridStore {
    * @private
    */
   static _syncDetrominoIndex(state) {
-    let index = state.get("detrominoIndex");
+    let iterator = state.get("detrominoIterator");
     let detromino = state.get("data").get("detromino");
 
     if (!detromino) {
@@ -330,7 +332,7 @@ class LevelEditorGridStore extends GridStore {
 
     return state.set("data",
       state.get("data")
-        .set("detromino", detromino.set("type", detrominoTypes[index])));
+        .set("detromino", detromino.set("type", iterator.value())));
   }
 
   initState() {

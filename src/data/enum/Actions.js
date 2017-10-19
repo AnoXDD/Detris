@@ -209,7 +209,10 @@ const Actions = {
       return;
     }
 
-    let detrominoType = QueueStore.getState().last();
+    let detrominoType = LevelEditorGridStore.getState()
+      .get("detrominoIterator")
+      .value();
+
     Dispatcher.dispatch({
       type: ActionTypes.NEXT_DETROMINO_IN_EDITOR,
       detrominoType,
