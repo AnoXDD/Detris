@@ -12,6 +12,7 @@ import Dispatcher from "../Dispatcher";
 import LocalStorageLoader from "../localStorage/LocalStorageLoader";
 
 import ActionTypes from "../enum/ActionTypes";
+import Queue from "./Queue";
 
 class QueueStore extends ReduceStore {
   constructor() {
@@ -19,11 +20,18 @@ class QueueStore extends ReduceStore {
   }
 
   static reset() {
-    return Immutable.List();
+    return new Queue();
   }
 
   getInitialState() {
-    return LocalStorageLoader.loadQueueFromLocalStorage() || QueueStore.reset();
+    let state = QueueStore.reset();
+
+    let localQueue = LocalStorageLoader.loadQueueFromLocalStorage();
+    if (localQueue) {
+      return state.set("queue", localQueue);
+    }
+
+    return state;
   }
 
   reduce(state, action) {
@@ -33,19 +41,48 @@ class QueueStore extends ReduceStore {
       case ActionTypes.APPLY_DATA:
         return QueueStore.applyData(state, action);
       case ActionTypes.NEXT_DETROMINO_IN_GAME:
-        return state.pop();
+        return QueueStore.pop(state);
       case ActionTypes.NEXT_DETROMINO_IN_EDITOR:
       case ActionTypes.ADD_DETROMINO_TO_QUEUE:
-        return state.push(action.detrominoType);
+        return QueueStore.push(state, action.detrominoType);
+      case ActionTypes.REDO_IN_EDITOR:
+        return QueueStore.redo(state);
+      case ActionTypes.UNDO_IN_EDITOR:
+        return QueueStore.undo(state);
       default:
         return state;
     }
   }
 
-  static applyData(state, action) {
-    let {queueList} = action;
+  static pop(state) {
+    state = state.set("queue", state.get("queue").pop());
 
-    return queueList;
+    state.get("history").record(state);
+
+    return state;
+  }
+
+  static push(state, type) {
+    state = state.set("queue", state.get("queue").push(type));
+
+    state.get("history").record(state);
+
+    return state;
+  }
+
+  static redo(state) {
+    return state.get("history").redo() || state;
+  }
+
+  static undo(state) {
+    return state.get("history").undo() || state;
+  }
+
+  static applyData(state, action) {
+    state.get("history").reset();
+
+    let {queueList} = action;
+    return state.set("queue", queueList);
   }
 }
 

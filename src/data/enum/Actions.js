@@ -189,7 +189,7 @@ const Actions = {
       return;
     }
 
-    let detrominoType = QueueStore.getState().last();
+    let detrominoType = QueueStore.getState().get("queue").last();
     // todo optimization: just drop it if it won't break anything
     Dispatcher.dispatch({
       type: ActionTypes.SINK_FLOATING_BLOCK,

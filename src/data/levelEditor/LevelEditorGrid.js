@@ -1,13 +1,14 @@
 /**
  * Created by Anoxic on 10/11/2017.
  *
- * A class to represent eh state of level editor
+ * A class to represent the state of level editor
  */
 
 import Immutable from "immutable";
 import BlockType from "../block/BlockType";
 import Grid from "../grid/Grid";
 import DetrominoIterator from "../detromino/DetrominoIterator";
+import History from "../History";
 
 const LevelEditorState = Immutable.Record({
   isEditingBlock: false,

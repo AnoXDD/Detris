@@ -10,7 +10,7 @@ import Grid from "../grid/Grid";
 import GameStateStore from "../game/GameStateStore";
 
 function onQueueStoreChanged() {
-  let store = QueueStore.getState();
+  let store = QueueStore.getState().get("queue");
 
   localStorage["queue"] = JSON.stringify(store.toJS());
 }

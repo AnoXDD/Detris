@@ -66,6 +66,12 @@ export default class GridControlView extends Component {
       case Type.NEXT_DETROMINO:
         this.props.nextDetromino();
         break;
+      case Type.UNDO:
+        this.props.undo();
+        break;
+      case Type.REDO:
+        this.props.redo();
+        break;
       default:
         break;
     }

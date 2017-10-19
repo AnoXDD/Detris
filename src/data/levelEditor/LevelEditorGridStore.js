@@ -71,7 +71,9 @@ class LevelEditorGridStore extends GridStore {
       case ActionTypes.EDITOR_BLOCK_MOVE_DOWN:
         return LevelEditorGridStore.moveEditingBlock(state, Direction.DOWN);
       case ActionTypes.UNDO_IN_EDITOR:
+        return LevelEditorGridStore.undo(state);
       case ActionTypes.REDO_IN_EDITOR:
+        return LevelEditorGridStore.redo(state);
       default:
         return state;
     }
@@ -105,7 +107,12 @@ class LevelEditorGridStore extends GridStore {
       Algorithm.getLowestValidPositionInEditor(grid.get("matrix"), detromino)
     );
 
-    return LevelEditorGridStore._syncData(state.set("data", grid));
+    state = LevelEditorGridStore._syncData(state.set("data", grid));
+
+    // Record history
+    state.get("history").record(state);
+
+    return state;
   }
 
   /**
@@ -297,6 +304,14 @@ class LevelEditorGridStore extends GridStore {
 
     return LevelEditorGridStore._syncData(state.set("editorState",
       gridState));
+  }
+
+  static redo(state) {
+    return state.get("history").redo() || state;
+  }
+
+  static undo(state) {
+    return state.get("history").undo() || state;
   }
 
   /**

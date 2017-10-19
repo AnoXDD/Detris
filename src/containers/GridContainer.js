@@ -58,7 +58,7 @@ class GridContainer extends Component {
       ...grid,
       queue  : {
         isShowingLevelEditor,
-        queue: QueueStore.getState(),
+        queue: QueueStore.getState().get("queue"),
       },
       control: {
         isShowingLevelEditor,
