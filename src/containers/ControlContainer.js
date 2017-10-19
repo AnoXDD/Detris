@@ -45,6 +45,8 @@ class ControlContainer extends Component {
     keyMap.Shift = this.state.rotate;
     keyMap.q = this.state.prevDetromino;
     keyMap.a = this.state.nextDetromino;
+    keyMap.z = this.state.undo;
+    keyMap.x = this.state.redo;
     keyMap["`"] = this.state.toggleEditBlock;
     keyMap[" "] = this.state.done;
 

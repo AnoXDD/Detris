@@ -19,6 +19,8 @@ const Type = {
   TOGGLE_EDIT_BLOCK: 7,
   PREV_DETROMINO   : 8,
   NEXT_DETROMINO   : 9,
+  UNDO             : 10,
+  REDO             : 11,
 };
 
 export default class GridControlView extends Component {
@@ -91,21 +93,30 @@ export default class GridControlView extends Component {
             >rotate_right</Button>
           </div>
         </div>
-        <div className="shape-cycle-wrapper flex-center">
-          <div className="flex-inner-extend control-inner-wrapper flex-center">
-            <Button
-              onClick={() => this.handleClick(Type.PREV_DETROMINO)}>arrow_drop_up</Button>
-            <Button
-              onClick={() => this.handleClick(Type.NEXT_DETROMINO)}>arrow_drop_down</Button>
-          </div>
-        </div>
+        {this.props.isShowingLevelEditor ?
+          <div className="shape-cycle-wrapper flex-center">
+            <div
+              className="flex-inner-extend control-inner-wrapper flex-center">
+              <Button
+                onClick={() => this.handleClick(Type.PREV_DETROMINO)}>arrow_drop_up</Button>
+              <Button
+                onClick={() => this.handleClick(Type.NEXT_DETROMINO)}>arrow_drop_down</Button>
+            </div>
+          </div> : null }
         <div className="arrow-wrapper flex-center">
           <div className="flex-inner-extend control-inner-wrapper flex-center">
             <div className="arrow-up-wrapper flex-center">
+              {this.props.isShowingLevelEditor ?
+                <Button onClick={() => this.handleClick(Type.UNDO)}>
+                  undo
+                </Button> : null}
               <Button
                 className={this.state.pressed === Type.UP ? "grid-control-animation" : ""}
                 onClick={() => this.handleClick(Type.UP)}>arrow_upward</Button>
-
+              {this.props.isShowingLevelEditor ?
+                <Button onClick={() => this.handleClick(Type.REDO)}>
+                  redo
+                </Button> : null}
             </div>
             <div className="arrow-non-up-wrapper flex-center">
               <Button

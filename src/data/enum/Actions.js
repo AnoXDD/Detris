@@ -342,6 +342,18 @@ const Actions = {
     });
   },
 
+  redoInEditor() {
+    Dispatcher.dispatch({
+      type: ActionTypes.REDO_IN_EDITOR,
+    });
+  },
+
+  undoInEditor() {
+    Dispatcher.dispatch({
+      type: ActionTypes.UNDO_IN_EDITOR,
+    });
+  },
+
   setBlockType(blockType) {
     Dispatcher.dispatch({
       type: ActionTypes.SET_BLOCKTYPE,

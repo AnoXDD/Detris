@@ -61,6 +61,8 @@ class ControlStore extends ReduceStore {
       toggleEditBlock: Actions.enableBlockEditing,
       nextDetromino  : Actions.nextDetrominoShape,
       prevDetromino  : Actions.prevDetrominoShape,
+      redo           : Actions.redoInEditor,
+      undo           : Actions.undoInEditor,
     });
   }
 

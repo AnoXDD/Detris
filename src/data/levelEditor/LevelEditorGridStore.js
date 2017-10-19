@@ -70,6 +70,8 @@ class LevelEditorGridStore extends GridStore {
         return LevelEditorGridStore.moveEditingBlock(state, Direction.UP);
       case ActionTypes.EDITOR_BLOCK_MOVE_DOWN:
         return LevelEditorGridStore.moveEditingBlock(state, Direction.DOWN);
+      case ActionTypes.UNDO_IN_EDITOR:
+      case ActionTypes.REDO_IN_EDITOR:
       default:
         return state;
     }

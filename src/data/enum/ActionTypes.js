@@ -54,6 +54,8 @@ const ActionTypes = {
   SET_BLOCKTYPE              : "SET_BLOCKTYPE",
   NEXT_DETROMINO_SHAPE       : "NEXT_DETROMINO_SHAPE",
   PREV_DETROMINO_SHAPE       : "PREV_DETROMINO_SHAPE",
+  UNDO_IN_EDITOR             : "UNDO_IN_EDITOR",
+  REDO_IN_EDITOR             : "REDO_IN_EDITOR",
 
   // Block manipulation
   REMOVE_DETROMINO   : "REMOVE_DETROMINO",
