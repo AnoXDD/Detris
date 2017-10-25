@@ -5,7 +5,7 @@
  */
 
 import {Container} from "flux/utils";
-import  {Component} from "react";
+import {Component} from "react";
 import ControlStore from "../data/control/ControlStore";
 import Direction from "../data/enum/Direction";
 import Actions from "../data/enum/Actions";
@@ -45,9 +45,12 @@ class ControlContainer extends Component {
     keyMap.Shift = this.state.rotate;
     keyMap.q = this.state.prevDetromino;
     keyMap.a = this.state.nextDetromino;
+    keyMap.PageUp = this.state.prevDetromino;
+    keyMap.PageDown = this.state.nextDetromino;
     keyMap.z = this.state.undo;
     keyMap.x = this.state.redo;
     keyMap["`"] = this.state.toggleEditBlock;
+    keyMap.Escape = this.state.toggleEditBlock;
     keyMap[" "] = this.state.done;
 
     for (let i = 1; i <= this.state.blockList.length; ++i) {

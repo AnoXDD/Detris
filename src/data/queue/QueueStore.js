@@ -62,6 +62,12 @@ class QueueStore extends ReduceStore {
     return state;
   }
 
+  /**
+   * Pushes a new detromino type into the queue
+   * @param state
+   * @param {DetrominoType|string} type
+   * @return {*}
+   */
   static push(state, type) {
     state = state.set("queue", state.get("queue").push(type));
 
