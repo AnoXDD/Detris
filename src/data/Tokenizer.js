@@ -11,7 +11,6 @@ import Queue from "./queue/Queue";
 import Block from "./block/Block";
 import Detromino from "./detromino/Detromino";
 import Grid from "./grid/Grid";
-import GridStore from "./grid/GridStoreClass";
 
 const BlockKeys = "type x y".split(" ");
 const DetrominoKeys = "type rotation x y".split(" ");
@@ -53,11 +52,16 @@ export default class Tokenizer {
    * @param {Queue} queue the state stored in QueueStore
    */
   static detokenizeQueue(queue) {
-    let queue = queue.get("queue").toJS();
+    queue = queue.get("queue").toJS();
 
     return Tokenizer.detokenize(queue);
   }
 
+  /**
+   * Returns the grid. The returned grid does NOT have matrix synced
+   * @param str
+   * @return {*}
+   */
   static tokenizeGrid(str) {
     let grid = Tokenizer.tokenize(str);
 
@@ -69,7 +73,7 @@ export default class Tokenizer {
       detromino,
     });
 
-    return GridStore.syncData(grid);
+    return grid;
   }
 
   /**
@@ -77,10 +81,13 @@ export default class Tokenizer {
    * @param {Grid} grid
    */
   static detokenizeGrid(grid) {
-    let blocks = Tokenizer.detokenizeActualGrid(grid.get("grid"));
     let detromino = Tokenizer.detokenizeDetromino(grid.get("detromino"));
+    let actualGrid = Tokenizer.detokenizeActualGrid(grid.get("grid"));
 
-    return Tokenizer.detokenize({blocks, detromino});
+    return Tokenizer.detokenize({
+      grid: actualGrid,
+      detromino,
+    });
   }
 
   static tokenizeActualGrid(str) {
@@ -90,10 +97,7 @@ export default class Tokenizer {
     for (let block of blocks) {
       let id = Tokenizer.newId();
 
-      actualGrid[id] = new Block({
-        id,
-        ...block,
-      });
+      actualGrid[id] = Tokenizer.tokenizeBlock(block).set("id", id);
     }
 
     return Immutable.Map(actualGrid);
@@ -104,7 +108,7 @@ export default class Tokenizer {
    * @param {Immutable.Map} actualGrid
    */
   static detokenizeActualGrid(actualGrid) {
-    return Object.values(actualGrid.toJS().map(
+    return Tokenizer.detokenize(actualGrid.valueSeq().map(
       block => Tokenizer.detokenizeBlock(block)));
   }
 
