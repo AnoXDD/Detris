@@ -11,6 +11,7 @@ import Queue from "./queue/Queue";
 import Block from "./block/Block";
 import Detromino from "./detromino/Detromino";
 import Grid from "./grid/Grid";
+import LevelDataUnit from "./game/level/LevelDataUnit";
 
 const BlockKeys = "type x y".split(" ");
 const DetrominoKeys = "type rotation x y".split(" ");
@@ -147,5 +148,32 @@ export default class Tokenizer {
     }
 
     return Tokenizer.detokenize(o);
+  }
+
+  static tokenizeLevelDataUnit(str) {
+    let levelDataUnit = Tokenizer.tokenize(str);
+
+    return new LevelDataUnit({
+      queue: Tokenizer.tokenizeQueue(levelDataUnit.queue),
+      grid : Tokenizer.tokenizeGrid(levelDataUnit.grid),
+      key  : Immutable.List(levelDataUnit.key.map(
+        de => Tokenizer.tokenizeDetromino(de))),
+    });
+  }
+
+  /**
+   * Detokenizes a level data unit to a string
+   * @param {LevelDataUnit} levelDataUnit
+   */
+  static detokenizeLevelDataUnit(levelDataUnit) {
+    let queue = Tokenizer.detokenizeQueue(levelDataUnit.get("queue"));
+    let grid = Tokenizer.detokenizeGrid(levelDataUnit.get("grid"));
+    let key = levelDataUnit.get("key")
+      .toArray()
+      .map(de => Tokenizer.detokenizeDetromino(de));
+
+    return Tokenizer.detokenize({
+      queue, grid, key,
+    });
   }
 };
