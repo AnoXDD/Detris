@@ -16,9 +16,10 @@ import DialogView from "../views/fullscreenOverlay/DialogView";
 import WelcomeContainer from "./WelcomeContainer";
 import CallbackStore from "../data/game/CallbackStore";
 import SettingsView from "../views/fullscreenOverlay/SettingsView";
-import AboutView from "../views/AboutView";
+import AboutView from "../views/fullscreenOverlay/AboutView";
 import ControlContainer from "./ControlContainer";
 import LevelEditorImportExportView from "../views/fullscreenOverlay/LevelEditorImportExportView";
+import OverlayType from "../data/enum/OverlayTypes";
 
 class GameContainer extends Component {
 
@@ -83,13 +84,22 @@ class GameContainer extends Component {
                className={`flex-inner-extend container-wrapper-extend ${this.state.pause ? "paused" : ""}`}>
             {container}
           </div>
-          {this.state.pause ?
-            <PauseMenuView key="pause" {...this.state}/> : null}
-          <LevelEditorImportExportView/>
-          { this.state.credit ? <AboutView key="credit"/> : null}
-          { this.state.settings ? <SettingsView key="settings"/> : null}
-          { this.state.dialog.active ?
-            <DialogView key="dialog" {...this.state}/> : null}
+          {this.state.activeOverlay.map(type => {
+            switch (type) {
+              case OverlayType.PAUSE_GAME:
+                return (<PauseMenuView key="pause" {...this.state}/>);
+              case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
+                return (<LevelEditorImportExportView key="import-export"/>);
+              case OverlayType.ABOUT:
+                return (<AboutView key="credit"/>);
+              case OverlayType.SETTINGS:
+                return (<SettingsView key="settings"/>);
+              case OverlayType.DIALOG:
+                return (<DialogView key="dialog" {...this.state}/>);
+              default:
+                return null;
+            }
+          })}
         </CSSTransitionGroup>
         <ControlContainer/>
       </div>

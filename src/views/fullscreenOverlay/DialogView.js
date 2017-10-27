@@ -14,7 +14,7 @@ export default class DialogView extends Component {
         title=""
       >
         <div className="dialog-title flex-center">
-          {this.props.dialog.title}
+          {this.props.dialogTitle}
         </div>
         <div className="btns">
           <Button

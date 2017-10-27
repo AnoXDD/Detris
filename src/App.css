@@ -706,17 +706,19 @@ html, body, #root {
   background: #4CAF50;
   color: white; }
 
-.dialog-view .fullscreen-menu-background {
-  opacity: .9; }
-.dialog-view .dialog-title {
-  width: 80vw;
-  min-height: 50px;
-  padding: 30px;
-  box-sizing: border-box;
-  text-align: center; }
-.dialog-view .btns {
-  justify-content: space-around;
-  margin-bottom: 10px; }
+.dialog-view {
+  z-index: 1000; }
+  .dialog-view .fullscreen-menu-background {
+    opacity: .9; }
+  .dialog-view .dialog-title {
+    width: 80vw;
+    min-height: 50px;
+    padding: 30px;
+    box-sizing: border-box;
+    text-align: center; }
+  .dialog-view .btns {
+    justify-content: space-around;
+    margin-bottom: 10px; }
 
 .about-view .title-box-view-actual {
   max-height: 70vh;

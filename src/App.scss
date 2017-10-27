@@ -449,6 +449,8 @@ html, body, #root {
 
 .dialog-view {
 
+  z-index: 1000;
+
   .fullscreen-menu-background {
     opacity: .9;
   }

@@ -5,15 +5,13 @@
 import Immutable from "immutable";
 import GameUiState from "../enum/GameUiState";
 import TopBarState from "./TopBarState";
-import DialogState from "./DialogState";
 
 const GameStateRecord = Immutable.Record({
-  uiState : GameUiState.WELCOME,
-  topBar  : new TopBarState(),
-  pause   : false,
-  dialog  : new DialogState(),
-  credit  : false,
-  settings: false,
+  uiState      : GameUiState.WELCOME,
+  topBar       : new TopBarState(),
+  dialogTitle  : "",
+  // A set of {OverlayType} that should be visible
+  activeOverlay: Immutable.Set(),
 });
 
 class GameState extends GameStateRecord {

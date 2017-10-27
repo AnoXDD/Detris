@@ -12,6 +12,7 @@ import Direction from "./Direction";
 import LevelData from "../game/static/LevelData";
 import GameUiState from "./GameUiState";
 import LevelEditorGridStore from "../levelEditor/LevelEditorGridStore";
+import OverlayType from "./OverlayTypes";
 
 const DELAY = 500;
 
@@ -54,37 +55,43 @@ const Actions = {
 
   showCredit() {
     Dispatcher.dispatch({
-      type: ActionTypes.SHOW_CREDIT,
+      type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
+      overlayType: OverlayType.ABOUT,
     });
   },
 
   hideCredit() {
     Dispatcher.dispatch({
-      type: ActionTypes.HIDE_CREDIT,
+      type       : ActionTypes.HIDE_FULLSCREEN_OVERLAY,
+      overlayType: OverlayType.ABOUT,
     });
   },
 
   showSettings() {
     Dispatcher.dispatch({
-      type: ActionTypes.SHOW_SETTINGS,
+      type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
+      overlayType: OverlayType.SETTINGS,
     })
   },
 
   hideSettings() {
     Dispatcher.dispatch({
-      type: ActionTypes.HIDE_SETTINGS,
+      type       : ActionTypes.HIDE_FULLSCREEN_OVERLAY,
+      overlayType: OverlayType.SETTINGS,
     });
   },
 
   showLevelEditorImportExport() {
     Dispatcher.dispatch({
-      type: ActionTypes.SHOW_LEVEL_EDITOR_IMPORT_EXPORT,
+      type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
+      overlayType: OverlayType.LEVEL_EDITOR_IMPORT_EXPORT,
     });
   },
 
   hideLevelEditorImportExport() {
     Dispatcher.dispatch({
-      type: ActionTypes.HIDE_LEVEL_EDITOR_IMPORT_EXPORT,
+      type       : ActionTypes.HIDE_FULLSCREEN_OVERLAY,
+      overlayType: OverlayType.LEVEL_EDITOR_IMPORT_EXPORT,
     });
   },
 
@@ -123,7 +130,8 @@ const Actions = {
 
   showDialog(title, onYes, onNo) {
     Dispatcher.dispatch({
-      type: ActionTypes.SHOW_DIALOG,
+      type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
+      overlayType: OverlayType.DIALOG,
       title,
       onYes,
       onNo,
@@ -132,13 +140,14 @@ const Actions = {
 
   hideDialog() {
     Dispatcher.dispatch({
-      type: ActionTypes.HIDE_DIALOG,
+      type       : ActionTypes.HIDE_FULLSCREEN_OVERLAY,
+      overlayType: OverlayType.DIALOG,
     });
   },
 
-  hideFloatingWindows() {
+  hideAllFullscreenOverlay() {
     Dispatcher.dispatch({
-      type: ActionTypes.HIDE_FLOATING_WINDOWS,
+      type: ActionTypes.HIDE_ALL_FULLSCREEN_OVERLAY,
     });
   },
 

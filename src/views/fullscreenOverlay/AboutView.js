@@ -3,8 +3,8 @@
  */
 
 import React, {Component} from "react";
-import FullscreenOverlayView from "./fullscreenOverlay/FullscreenOverlayView";
-import Actions from "../data/enum/Actions";
+import FullscreenOverlayView from "./FullscreenOverlayView";
+import Actions from "../../data/enum/Actions";
 
 export default class AboutView extends Component {
   render() {

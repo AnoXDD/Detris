@@ -10,8 +10,8 @@ import LocalStorageLoader from "../localStorage/LocalStorageLoader";
 
 import ActionTypes from "../enum/ActionTypes";
 import GameUiState from "../enum/GameUiState";
-import DialogState from "./DialogState";
 import GameState from "./GameState";
+import OverlayType from "../enum/OverlayTypes";
 
 class GameStateStore extends ReduceStore {
   constructor() {
@@ -36,43 +36,45 @@ class GameStateStore extends ReduceStore {
         return GameStateStore.applyTopBarState(state.set("uiState",
           action.uiState));
       case ActionTypes.RESUME:
-        return GameStateStore.hidePauseMenu(state);
+        return state.set("activeOverlay",
+          state.get("activeOverlay").remove(OverlayType.PAUSE_GAME));
       case ActionTypes.PAUSE:
-        return state.set("pause", true);
-      case ActionTypes.SHOW_DIALOG:
-        let {title = ""} = action;
+        return state.set("activeOverlay",
+          state.get("activeOverlay").add(OverlayType.PAUSE_GAME));
+      case ActionTypes.SHOW_FULLSCREEN_OVERLAY:
+        switch (action.overlayType) {
+          case OverlayType.DIALOG:
+            let {title = ""} = action;
 
-        return state.set("dialog", new DialogState({
-          active: true,
-          title,
-        }));
-      case ActionTypes.HIDE_DIALOG:
-        return GameStateStore.hideDialog(state);
-      case ActionTypes.HIDE_FLOATING_WINDOWS:
+            return state.set("dialogTitle", title)
+              .set("activeOverlay",
+                state.get("activeOverlay").add(OverlayType.DIALOG));
+          case OverlayType.ABOUT:
+          case OverlayType.SETTINGS:
+            return state.set("activeOverlay",
+              state.get("activeOverlay").add(action.overlayType));
+          default:
+            return state;
+        }
+      case ActionTypes.HIDE_FULLSCREEN_OVERLAY:
+        switch (action.overlayType) {
+          case OverlayType.DIALOG:
+          case OverlayType.ABOUT:
+          case OverlayType.SETTINGS:
+            return state.set("activeOverlay",
+              state.get("activeOverlay").remove(action.overlayType));
+          default:
+            return state;
+        }
+      case ActionTypes.HIDE_ALL_FULLSCREEN_OVERLAY:
         return GameStateStore.hideAllFloatingWindows(state);
-      case ActionTypes.SHOW_CREDIT:
-        return state.set("credit", true);
-      case ActionTypes.HIDE_CREDIT:
-        return state.set("credit", false);
-      case ActionTypes.SHOW_SETTINGS:
-        return state.set("settings", true);
-      case ActionTypes.HIDE_SETTINGS:
-        return state.set("settings", false);
       default:
         return state;
     }
   }
 
   static hideAllFloatingWindows(state) {
-    return GameStateStore.hidePauseMenu(GameStateStore.hideDialog(state));
-  }
-
-  static hideDialog(state) {
-    return state.set("dialog", false);
-  }
-
-  static hidePauseMenu(state) {
-    return state.set("pause", false);
+    return state.set("activeOverlay", state.get("activeOverlay").clear());
   }
 
   /**

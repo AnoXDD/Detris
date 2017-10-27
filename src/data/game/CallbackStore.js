@@ -11,6 +11,7 @@ import ActionTypes from "../enum/ActionTypes";
 import Actions from "../enum/Actions";
 import CallbackState from "./CallbackState";
 import GameUiState from "../enum/GameUiState";
+import OverlayType from "../enum/OverlayTypes";
 
 class CallbackStore extends ReduceStore {
   constructor() {
@@ -45,22 +46,27 @@ class CallbackStore extends ReduceStore {
           default:
             return state;
         }
-      case ActionTypes.SHOW_DIALOG:
-        let {
-          onYes = () => {
-          },
-          onNo = () => {
-          }
-        } = action;
+      case ActionTypes.SHOW_FULLSCREEN_OVERLAY:
+        switch (action.overlayType) {
+          case OverlayType.DIALOG:
+            let {
+              onYes = () => {
+              },
+              onNo = () => {
+              }
+            } = action;
 
-        return state.set("onDialogYes", () => {
-          onYes();
-          Actions.hideFloatingWindows();
-        }).set("onDialogNo", () => {
-          onNo();
-          Actions.hideDialog();
-        });
-      case ActionTypes.HIDE_FLOATING_WINDOWS:
+            return state.set("onDialogYes", () => {
+              onYes();
+              Actions.hideAllFullscreenOverlay();
+            }).set("onDialogNo", () => {
+              onNo();
+              Actions.hideDialog();
+            });
+          default:
+            return state;
+        }
+      case ActionTypes.HIDE_ALL_FULLSCREEN_OVERLAY:
         return CallbackStore.hideAllFloatingWindows(state);
       default:
         return state;
