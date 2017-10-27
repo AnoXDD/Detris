@@ -17,7 +17,7 @@ export default class TopBarView extends Component {
       if (topBar.back) {
         buttons.push(
           <Button key="back"
-                  onClick={this.props.onBack}
+                  onClick={this.props.onQuit}
           >arrow_back</Button>
         );
       }
@@ -25,7 +25,7 @@ export default class TopBarView extends Component {
       if (topBar.pause) {
         buttons.push(
           <Button key="pause"
-                  onClick={this.props.onPause}
+                  onClick={this.props.onBack}
                   className="right">pause</Button>
         );
       }

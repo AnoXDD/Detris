@@ -6,6 +6,8 @@
  */
 
 import Immutable from "immutable";
+import {Buffer} from "buffer";
+import zlib from "zlib";
 
 import Queue from "./queue/Queue";
 import Block from "./block/Block";
@@ -29,7 +31,7 @@ export default class Tokenizer {
    * @param {string} str
    */
   static tokenize(str) {
-    return JSON.parse(str);
+    return JSON.parse(zlib.inflateSync(new Buffer(str, "base64")).toString());
   }
 
   /**
@@ -37,7 +39,7 @@ export default class Tokenizer {
    * @param {Object} obj
    */
   static detokenize(obj) {
-    return JSON.stringify(obj);
+    return zlib.deflateSync(JSON.stringify(obj)).toString("base64");
   }
 
   static tokenizeQueue(str) {

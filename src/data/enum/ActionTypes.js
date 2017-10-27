@@ -10,17 +10,21 @@ const ActionTypes = {
   RESET_GRID: "RESET_GRID",
 
   // Game
-  SET_GAME_UI_STATE    : "STATE_GAME_STATE",
-  START_LEVEL          : "START_LEVEL",
-  PAUSE                : "PAUSE",
-  RESUME               : "RESUME",
-  SHOW_DIALOG          : "SHOW_DIALOG",
-  HIDE_DIALOG          : "HIDE_DIALOG",
-  HIDE_FLOATING_WINDOWS: "HIDE_FLOATING_WINDOWS",
-  SHOW_CREDIT          : "SHOW_CREDIT",
-  HIDE_CREDIT          : "HIDE_CREDIT",
-  SHOW_SETTINGS        : "SHOW_SETTINGS",
-  HIDE_SETTINGS        : "HIDE_SETTINGS",
+  SET_GAME_UI_STATE: "STATE_GAME_STATE",
+  START_LEVEL      : "START_LEVEL",
+  PAUSE            : "PAUSE",
+  RESUME           : "RESUME",
+
+  // UI change
+  SHOW_DIALOG                    : "SHOW_DIALOG",
+  HIDE_DIALOG                    : "HIDE_DIALOG",
+  HIDE_FLOATING_WINDOWS          : "HIDE_FLOATING_WINDOWS",
+  SHOW_CREDIT                    : "SHOW_CREDIT",
+  HIDE_CREDIT                    : "HIDE_CREDIT",
+  SHOW_SETTINGS                  : "SHOW_SETTINGS",
+  HIDE_SETTINGS                  : "HIDE_SETTINGS",
+  SHOW_LEVEL_EDITOR_IMPORT_EXPORT: "SHOW_LEVEL_EDITOR_IMPORT_EXPORT",
+  HIDE_LEVEL_EDITOR_IMPORT_EXPORT: "HIDE_LEVEL_EDITOR_IMPORT_EXPORT",
 
   // Level navigation
   LEVEL_NEXT_PAGE: "LEVEL_NEXT_PAGE",

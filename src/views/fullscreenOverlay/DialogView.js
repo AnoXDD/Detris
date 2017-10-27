@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from "react";
-import Button from "../lib/Button";
+import Button from "../../lib/Button";
 import FullscreenOverlayView from "./FullscreenOverlayView";
 
 export default class DialogView extends Component {

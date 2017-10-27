@@ -26,11 +26,18 @@ const LevelEditorGridRecord = Immutable.Record({
   editorState     : new LevelEditorState(),
   data            : new Grid(),
   history         : new History(),
-  detrominoTargets: Immutable.Set(), // A set of detromino's ID
+  // A set of ID's of blocks whose types are detromino targets
+  detrominoTargets: Immutable.Set(),
 
   // The index of detromino block, should be positive numbers because 0 index
   // is DEFAULT
   detrominoIterator: new DetrominoIterator(),
+
+  // A list of detrominos to represent how to solve this puzzle
+  key: Immutable.List(),
+
+  // A detokenized string to be used for export
+  detokenized: "",
 });
 
 export default class LevelEditorGrid extends LevelEditorGridRecord {

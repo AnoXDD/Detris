@@ -80,12 +80,18 @@ class LevelEditorGridStore extends GridStore {
   }
 
   static nextDetromino(state) {
+    // Store the detromino into the key
+    let detromino = state.get("data").get("detromino");
+    if (detromino) {
+      state = state.set("key", state.get("key").push(detromino));
+    }
+
     // Convert the detromino to original blocks
     state = LevelEditorGridStore._syncData(state, true, BlockType.ORIGINAL);
 
-    // Remove target blocks
+    // Remove (detromino) target blocks
     let grid = state.get("data");
-    let detromino = grid.get("detromino") || new Detromino({
+    detromino = grid.get("detromino") || new Detromino({
         type: DetrominoType.O, // default value
       });
 
@@ -95,7 +101,7 @@ class LevelEditorGridStore extends GridStore {
 
     grid = GridStore.syncGridToMatrix(grid);
 
-    // Put new detromino
+    // Place new detromino
     detromino = new Detromino({
       id  : new Date().getTime(),
       type: detromino.get("type"),

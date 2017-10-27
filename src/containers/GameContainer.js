@@ -11,13 +11,14 @@ import GridContainer from "./GridContainer";
 import LevelContainer from "./LevelContainer";
 import GameUiState from "../data/enum/GameUiState";
 import TopBarView from "../views/TopBarView";
-import PauseMenuView from "../views/PauseMenuView";
-import DialogView from "../views/DialogView";
+import PauseMenuView from "../views/fullscreenOverlay/PauseMenuView";
+import DialogView from "../views/fullscreenOverlay/DialogView";
 import WelcomeContainer from "./WelcomeContainer";
 import CallbackStore from "../data/game/CallbackStore";
-import SettingsView from "../views/SettingsView";
+import SettingsView from "../views/fullscreenOverlay/SettingsView";
 import AboutView from "../views/AboutView";
 import ControlContainer from "./ControlContainer";
+import LevelEditorImportExportView from "../views/fullscreenOverlay/LevelEditorImportExportView";
 
 class GameContainer extends Component {
 
@@ -83,10 +84,10 @@ class GameContainer extends Component {
             {container}
           </div>
           {this.state.pause ?
-            <PauseMenuView
-              key="pause" {...this.state}/> : null}
-          { this.state.credit ? <AboutView/> : null}
-          { this.state.settings ? <SettingsView/> : null}
+            <PauseMenuView key="pause" {...this.state}/> : null}
+          <LevelEditorImportExportView/>
+          { this.state.credit ? <AboutView key="credit"/> : null}
+          { this.state.settings ? <SettingsView key="settings"/> : null}
           { this.state.dialog.active ?
             <DialogView key="dialog" {...this.state}/> : null}
         </CSSTransitionGroup>

@@ -3,20 +3,20 @@
  */
 
 import React, {Component} from "react";
-import Button from "../lib/Button";
-import Actions from "../data/enum/Actions";
+import Button from "../../lib/Button";
+import Actions from "../../data/enum/Actions";
 import FullscreenOverlayView from "./FullscreenOverlayView";
 
 export default class PauseMenuView extends Component {
   render() {
     return (
       <FullscreenOverlayView
-        onBackgroundClick={this.props.onPause}
+        onBackgroundClick={this.props.onBack}
         title="pause"
       >
         <div className="btns">
           <Button
-            onClick={this.props.onBack}
+            onClick={this.props.onQuit}
           >list</Button>
           <Button
             onClick={Actions.showDialogForGameRestart}
@@ -28,7 +28,7 @@ export default class PauseMenuView extends Component {
         <div className="btns">
           <Button
             text="resume"
-            onClick={this.props.onPause}
+            onClick={this.props.onBack}
           >play_arrow</Button>
         </div>
       </FullscreenOverlayView>

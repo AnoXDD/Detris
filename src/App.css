@@ -774,4 +774,12 @@ html, body, #root {
   .btn.grid-cell-btn .grid-cell.original {
     opacity: 1; }
 
+.hidden-input {
+  top: -1000%;
+  left: -1000%;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden; }
+
 /*# sourceMappingURL=App.css.map */

@@ -76,6 +76,18 @@ const Actions = {
     });
   },
 
+  showLevelEditorImportExport() {
+    Dispatcher.dispatch({
+      type: ActionTypes.SHOW_LEVEL_EDITOR_IMPORT_EXPORT,
+    });
+  },
+
+  hideLevelEditorImportExport() {
+    Dispatcher.dispatch({
+      type: ActionTypes.HIDE_LEVEL_EDITOR_IMPORT_EXPORT,
+    });
+  },
+
   pause() {
     Dispatcher.dispatch({
       type: ActionTypes.PAUSE,

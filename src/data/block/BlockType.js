@@ -5,7 +5,10 @@
 const BlockType = {
   NONE            : "none", // air
   DETROMINO       : "detromino", // The detromino controlled by the player
-  DETROMINO_TARGET: "detromino-target", // Used in level editor
+  DETROMINO_TARGET: "detromino-target", // Used in level editor to represent
+                                        // the blocks that match the blocks to
+                                        // be dropped from the detromino being
+                                        // placed
 
   // FLOATING : "floating", // The blocks just released by the player
   TARGET  : "target", // The blocks to be eliminated, introduced by detromino

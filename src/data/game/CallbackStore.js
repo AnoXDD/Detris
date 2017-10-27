@@ -29,18 +29,18 @@ class CallbackStore extends ReduceStore {
     switch (action.type) {
       case ActionTypes.START_LEVEL:
         return CallbackStore.hidePauseMenu(
-          state.set("onBack",
+          state.set("onQuit",
             Actions.showDialogForQuitToLevelSelect));
       case ActionTypes.RESUME:
         return CallbackStore.hidePauseMenu(state);
       case ActionTypes.PAUSE:
-        return state.set("onPause", Actions.resume);
+        return state.set("onBack", Actions.resume);
       case ActionTypes.SET_GAME_UI_STATE:
         switch (action.uiState) {
           case GameUiState.SELECT_LEVEL:
-            return state.set("onBack", Actions.showWelcomePage);
+            return state.set("onQuit", Actions.showWelcomePage);
           case GameUiState.SHOW_LEVEL_EDITOR:
-            return CallbackStore.hidePauseMenu(state.set("onBack",
+            return CallbackStore.hidePauseMenu(state.set("onQuit",
               Actions.showDialogForQuitToWelcome));
           default:
             return state;
@@ -72,7 +72,7 @@ class CallbackStore extends ReduceStore {
   }
 
   static hidePauseMenu(state) {
-    return state.set("onPause", Actions.pause);
+    return state.set("onBack", Actions.pause);
   }
 }
 

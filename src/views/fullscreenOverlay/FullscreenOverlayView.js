@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from "react";
-import TitleBoxView from "./TitleBoxView";
+import TitleBoxView from "../TitleBoxView";
 
 // This class is supposed to be const one created
 export default class FullscreenOverlayView extends Component {
