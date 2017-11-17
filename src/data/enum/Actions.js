@@ -434,6 +434,27 @@ const Actions = {
       type: ActionTypes.DISABLE_BLOCK_EDITING,
     });
   },
+
+  displayInfo(message) {
+    Dispatcher.dispatch({
+      type: ActionTypes.DISPLAY_INFO,
+      message,
+    });
+  },
+
+  displaySuccess(message) {
+    Dispatcher.dispatch({
+      type: ActionTypes.DISPLAY_SUCCESS,
+      message,
+    });
+  },
+
+  displayError(message) {
+    Dispatcher.dispatch({
+      type: ActionTypes.DISPLAY_ERROR,
+      message,
+    });
+  },
 };
 
 export default Actions;

@@ -10,6 +10,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-ink": "^6.2.0",
+    "react-notification-system": "^0.2.16",
     "react-transition-group": "^1.2.0",
     "zlib": "^1.0.5"
   },

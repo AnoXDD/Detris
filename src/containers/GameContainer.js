@@ -1,5 +1,7 @@
 /**
  * Created by Anoxic on 9/21/2017.
+ *
+ * The main container of the game
  */
 
 import {Container} from "flux/utils";
@@ -21,6 +23,7 @@ import ControlContainer from "./ControlContainer";
 import LevelEditorImportExportView from "../views/fullscreenOverlay/LevelEditorImportExportView";
 import OverlayType from "../data/enum/OverlayTypes";
 import LevelEditorGridStore from "../data/levelEditor/LevelEditorGridStore";
+import NotificationContainer from "./NotificationContainer";
 
 class GameContainer extends Component {
 
@@ -75,6 +78,7 @@ class GameContainer extends Component {
 
     return (
       <div className="game-frame">
+        <NotificationContainer/>
         <TopBarView
           {...this.state}/>
         <CSSTransitionGroup
