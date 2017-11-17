@@ -5,7 +5,6 @@
  */
 
 
-import Immutable from "immutable";
 import {ReduceStore} from "flux/utils";
 
 import Dispatcher from "../Dispatcher";

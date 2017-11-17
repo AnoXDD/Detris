@@ -15,6 +15,7 @@ import DetrominoType from "../detromino/DetrominoType";
 import GridStore from "../grid/GridStoreClass";
 import LevelEditorGrid from "./LevelEditorGrid";
 import Direction from "../enum/Direction";
+import Tokenizer from "../Tokenizer";
 
 class LevelEditorGridStore extends GridStore {
   constructor() {
@@ -113,12 +114,25 @@ class LevelEditorGridStore extends GridStore {
       Algorithm.getLowestValidPositionInEditor(grid.get("matrix"), detromino)
     );
 
+    // Update export token
+    state = LevelEditorGridStore._updateDetokenizedString(state);
+
     state = LevelEditorGridStore._syncData(state.set("data", grid));
 
     // Record history
     state.get("history").record(state);
 
     return state;
+  }
+
+  /**
+   * Updates detokenized string (to be used for export)
+   * @param state
+   * @private
+   */
+  static _updateDetokenizedString(state) {
+    return state.set("detokenized",
+      Tokenizer.detokenizeLevelDataUnit(state.toLevelDataUnit()));
   }
 
   /**

@@ -10,6 +10,7 @@ import DetrominoType from "./detromino/DetrominoType";
 import Block from "./block/Block";
 import Direction from "./enum/Direction";
 import Rotation from "./enum/Rotation";
+import Queue from "./queue/Queue";
 
 /**
  * Converts a grid to an 2d array. Note the matrix is first indexed by y-axis,
@@ -32,6 +33,16 @@ function gridMapToArray(grid) {
 const Algorithm = {
   convertGridToArray(grid) {
     return gridMapToArray(grid);
+  },
+
+  /**
+   * Converts a list of detrominos to queues
+   * @param key
+   */
+  convertKeyToQueue(key) {
+    return new Queue({
+      queue: key.map(detromino => detromino.get("type")),
+    });
   },
 
   /**

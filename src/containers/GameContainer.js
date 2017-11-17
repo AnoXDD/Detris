@@ -20,6 +20,7 @@ import AboutView from "../views/fullscreenOverlay/AboutView";
 import ControlContainer from "./ControlContainer";
 import LevelEditorImportExportView from "../views/fullscreenOverlay/LevelEditorImportExportView";
 import OverlayType from "../data/enum/OverlayTypes";
+import LevelEditorGridStore from "../data/levelEditor/LevelEditorGridStore";
 
 class GameContainer extends Component {
 
@@ -41,6 +42,7 @@ class GameContainer extends Component {
     return [
       GameStateStore,
       CallbackStore,
+      LevelEditorGridStore,
     ];
   }
 
@@ -48,6 +50,8 @@ class GameContainer extends Component {
     return {
       ...CallbackStore.getState().toJS(),
       ...GameStateStore.getState().toJS(),
+      levelEditorExportString: LevelEditorGridStore.getState()
+        .get("detokenized"),
     };
   }
 
@@ -69,11 +73,9 @@ class GameContainer extends Component {
         container = null;
     }
 
-    // todo use activeOverlay to determine if the game is paused (under TopBarView)
     return (
       <div className="game-frame">
         <TopBarView
-          // className={this.state.pause ? "paused" : ""}
           {...this.state}/>
         <CSSTransitionGroup
           className="container-wrapper"
@@ -90,7 +92,9 @@ class GameContainer extends Component {
               case OverlayType.PAUSE_GAME:
                 return (<PauseMenuView key="pause" {...this.state}/>);
               case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
-                return (<LevelEditorImportExportView key="import-export"/>);
+                return (<LevelEditorImportExportView
+                  levelEditorExportString={this.state.levelEditorExportString}
+                  key="import-export"/>);
               case OverlayType.ABOUT:
                 return (<AboutView key="credit"/>);
               case OverlayType.SETTINGS:

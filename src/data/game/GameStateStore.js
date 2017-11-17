@@ -64,6 +64,7 @@ class GameStateStore extends ReduceStore {
           case OverlayType.DIALOG:
           case OverlayType.ABOUT:
           case OverlayType.SETTINGS:
+          case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
             return state.set("activeOverlay",
               state.get("activeOverlay").remove(action.overlayType));
           default:

@@ -11,6 +11,8 @@ const GameStateRecord = Immutable.Record({
   dialogTitle  : "",
   // A set of {OverlayType} that should be visible
   activeOverlay: Immutable.Set(),
+
+  levelEditorExportString: "",
 });
 
 class GameState extends GameStateRecord {

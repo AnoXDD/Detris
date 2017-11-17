@@ -116,6 +116,10 @@ export default class Tokenizer {
   }
 
   static tokenizeDetromino(str) {
+    if (!str) {
+      return null;
+    }
+
     return new Detromino({
       id: Tokenizer.newId(),
       ...Tokenizer.tokenize(str),
@@ -127,6 +131,10 @@ export default class Tokenizer {
    * @param {Detromino} detromino
    */
   static detokenizeDetromino(detromino) {
+    if (!detromino) {
+      return "";
+    }
+
     let o = {};
     for (let key of DetrominoKeys) {
       o[key] = detromino.get(key);

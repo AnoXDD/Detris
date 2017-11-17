@@ -9,6 +9,8 @@ import BlockType from "../block/BlockType";
 import Grid from "../grid/Grid";
 import DetrominoIterator from "../detromino/DetrominoIterator";
 import History from "../History";
+import LevelDataUnit from "../game/level/LevelDataUnit";
+import Algorithm from "../Algorithm";
 
 const LevelEditorState = Immutable.Record({
   isEditingBlock: false,
@@ -36,7 +38,8 @@ const LevelEditorGridRecord = Immutable.Record({
   // A list of detrominos to represent how to solve this puzzle
   key: Immutable.List(),
 
-  // A detokenized string to be used for export
+  // A detokenized string to be used for export, updated every time a new
+  // detromino is placed
   detokenized: "",
 });
 
@@ -63,5 +66,18 @@ export default class LevelEditorGrid extends LevelEditorGridRecord {
 
   blockType() {
     return this.get("editorState").get("blockType");
+  }
+
+  /**
+   * Converts this class and returns a LevelDataUnit
+   */
+  toLevelDataUnit() {
+    let key = this.get("key");
+
+    return new LevelDataUnit({
+      key,
+      grid : this.get("data"),
+      queue: Algorithm.convertKeyToQueue(key),
+    });
   }
 }

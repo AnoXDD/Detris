@@ -14,7 +14,6 @@ const CallbackRecord = Immutable.Record({
   onDialogNo    : NoOp,
   onBack        : NoOp,
   onQuit        : NoOp,
-  onImportExport: NoOp,
 });
 
 export default CallbackRecord;

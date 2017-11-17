@@ -32,10 +32,11 @@ export default class LevelEditorImportExportView extends Component {
   render() {
     return (
       <FullscreenOverlayView
-        onBackgroundClick={this.props.onBack}
+        onBackgroundClick={Actions.hideLevelEditorImportExport}
         title="import/export"
       >
         <input
+          readOnly={true}
           className="hidden-input"
           type="text"
           value={this.props.levelEditorExportString}
@@ -52,7 +53,7 @@ export default class LevelEditorImportExportView extends Component {
         <div className="btns">
           <Button
             text="resume"
-            onClick={this.props.onBack}
+            onClick={Actions.hideLevelEditorImportExport}
           >play_arrow</Button>
         </div>
       </FullscreenOverlayView>
