@@ -4,6 +4,7 @@
  */
 
 import {ReduceStore} from "flux/utils";
+import Immutable from "immutable";
 
 import Dispatcher from "../Dispatcher";
 import LocalStorageLoader from "../localStorage/LocalStorageLoader";
@@ -12,6 +13,7 @@ import ActionTypes from "../enum/ActionTypes";
 import GameUiState from "../enum/GameUiState";
 import GameState from "./GameState";
 import OverlayType from "../enum/OverlayTypes";
+import TopBarType from "../enum/TopBarTypes";
 
 class GameStateStore extends ReduceStore {
   constructor() {
@@ -51,6 +53,7 @@ class GameStateStore extends ReduceStore {
                 state.get("activeOverlay").add(OverlayType.DIALOG));
           case OverlayType.ABOUT:
           case OverlayType.SETTINGS:
+          case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
             return state.set("activeOverlay",
               state.get("activeOverlay").add(action.overlayType));
           default:
@@ -82,24 +85,22 @@ class GameStateStore extends ReduceStore {
    * @param state
    */
   static applyTopBarState(state) {
-    let topBar = state.get("topBar");
+    let topBar = new Immutable.Set();
 
     switch (state.get("uiState")) {
       case GameUiState.WELCOME:
-        topBar = topBar
-          .set("pause", false)
-          .set("back", false);
+        // no-op, nothing to be shown
         break;
       case GameUiState.SELECT_LEVEL:
-        topBar = topBar
-          .set("pause", false)
-          .set("back", true);
+        topBar = topBar.add(TopBarType.TOP_BACK);
         break;
       case GameUiState.SHOW_GRID:
+        topBar = topBar.add(TopBarType.TOP_PAUSE).add(TopBarType.TOP_BACK);
+        break;
       case GameUiState.SHOW_LEVEL_EDITOR:
-        topBar = topBar
-          .set("pause", true)
-          .set("back", false);
+        topBar = topBar.add(TopBarType.TOP_PAUSE)
+          .add(TopBarType.TOP_BACK)
+          .add(TopBarType.TOP_IMPORT_EXPORT);
         break;
       default:
     }

@@ -4,11 +4,10 @@
 
 import Immutable from "immutable";
 import GameUiState from "../enum/GameUiState";
-import TopBarState from "./TopBarState";
 
 const GameStateRecord = Immutable.Record({
   uiState      : GameUiState.WELCOME,
-  topBar       : new TopBarState(),
+  topBar       : Immutable.Set(),
   dialogTitle  : "",
   // A set of {OverlayType} that should be visible
   activeOverlay: Immutable.Set(),

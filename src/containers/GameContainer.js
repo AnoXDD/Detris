@@ -69,10 +69,11 @@ class GameContainer extends Component {
         container = null;
     }
 
+    // todo use activeOverlay to determine if the game is paused (under TopBarView)
     return (
       <div className="game-frame">
         <TopBarView
-          className={this.state.pause ? "paused" : ""}
+          // className={this.state.pause ? "paused" : ""}
           {...this.state}/>
         <CSSTransitionGroup
           className="container-wrapper"
