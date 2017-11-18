@@ -18,9 +18,6 @@ const keyMap = {
   // Temporary debug functions go here
   "=": Actions.debug__addDetrominoToQueue,
   "-": Actions.resetGrid,
-  ",": () => Actions.displayError("err"),
-  ".": () => Actions.displayInfo("info"),
-  "/": () => Actions.displaySuccess("success"),
 };
 
 class ControlContainer extends Component {

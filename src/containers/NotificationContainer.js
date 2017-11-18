@@ -43,9 +43,12 @@ class NotificationContainer extends Component {
   }
 
   render() {
-    return <NotificationSystem ref={r => {
-      this.ns = r;
-    }}/>
+    return <NotificationSystem
+      autoDismiss={5}
+      style={false}
+      ref={r => {
+        this.ns = r;
+      }}/>
   }
 }
 

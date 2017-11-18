@@ -571,3 +571,53 @@ html, body, #root {
   pointer-events: none;
   overflow: hidden;
 }
+
+.notifications-wrapper {
+  .notifications-tc {
+    position: fixed;
+    top: 20%;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+  }
+  .notification {
+    padding: 10px 20px;
+    border: black 1px solid;
+    box-shadow: 2px 2px 3px 1px $lightgrey;
+    position: absolute;
+    background: white;
+    transition: .5s ease;
+    opacity: 0;
+    z-index: 99999;
+
+    &.notification-error {
+      color: $red;
+      font-weight: bold;
+      border-color: $red;
+    }
+
+    &.notification-success {
+      color: $green;
+      border-color: $green;
+    }
+
+    &.notification-info {
+
+    }
+
+    &.notification-visible {
+      opacity: 1;
+    }
+
+    &.notification-hidden {
+      opacity: 0;
+    }
+
+    .notification-dismiss {
+      display: none;
+    }
+  }
+}

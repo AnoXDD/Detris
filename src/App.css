@@ -784,4 +784,36 @@ html, body, #root {
   pointer-events: none;
   overflow: hidden; }
 
+.notifications-wrapper .notifications-tc {
+  position: fixed;
+  top: 20%;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999; }
+.notifications-wrapper .notification {
+  padding: 10px 20px;
+  border: black 1px solid;
+  box-shadow: 2px 2px 3px 1px #e8e8e8;
+  position: absolute;
+  background: white;
+  transition: .5s ease;
+  opacity: 0;
+  z-index: 99999; }
+  .notifications-wrapper .notification.notification-error {
+    color: #F44336;
+    font-weight: bold;
+    border-color: #F44336; }
+  .notifications-wrapper .notification.notification-success {
+    color: #4CAF50;
+    border-color: #4CAF50; }
+  .notifications-wrapper .notification.notification-visible {
+    opacity: 1; }
+  .notifications-wrapper .notification.notification-hidden {
+    opacity: 0; }
+  .notifications-wrapper .notification .notification-dismiss {
+    display: none; }
+
 /*# sourceMappingURL=App.css.map */
