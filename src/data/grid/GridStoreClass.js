@@ -43,7 +43,7 @@ export default class GridStore extends ReduceStore {
       case ActionTypes.RESET_GRID:
         return GridStore.reset();
       case ActionTypes.APPLY_DATA:
-        return GridStore.applyData(state, action);
+        return GridStore.applyData(action);
       case ActionTypes.NEXT_DETROMINO_IN_GAME:
         return GridStore.newDetromino(state, action);
       case ActionTypes.ROTATE:
@@ -67,12 +67,9 @@ export default class GridStore extends ReduceStore {
     }
   }
 
-  static applyData(state, action) {
-    let {blockList} = action;
-
-    return state
-      .set("detromino", null)
-      .set("grid", blockList.map(block => new Block(block)));
+  static applyData(action) {
+    let {levelDataUnit} = action;
+    return GridStore.syncData(levelDataUnit.get("grid"));
   }
 
   static newDetromino(state, action) {

@@ -38,7 +38,7 @@ class QueueStore extends ReduceStore {
       case ActionTypes.RESET_GRID:
         return QueueStore.reset();
       case ActionTypes.APPLY_DATA:
-        return QueueStore.applyData(state, action);
+        return QueueStore.applyData(action);
       case ActionTypes.NEXT_DETROMINO_IN_GAME:
         return QueueStore.pop(state);
       case ActionTypes.NEXT_DETROMINO_IN_EDITOR:
@@ -83,11 +83,9 @@ class QueueStore extends ReduceStore {
     return state.get("history").undo() || state;
   }
 
-  static applyData(state, action) {
-    state.get("history").reset();
-
-    let {queueList} = action;
-    return state.set("queue", queueList);
+  static applyData(action) {
+    let {levelDataUnit} = action;
+    return levelDataUnit.get("queue");
   }
 }
 

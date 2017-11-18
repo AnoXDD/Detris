@@ -76,7 +76,7 @@ export default class LevelEditorGrid extends LevelEditorGridRecord {
 
     return new LevelDataUnit({
       key,
-      grid : this.get("data"),
+      grid : this.get("data").set("detromino", null),
       queue: Algorithm.convertKeyToQueue(key),
     });
   }

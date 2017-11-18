@@ -10,10 +10,11 @@ const NoOp = () => {
 };
 
 const CallbackRecord = Immutable.Record({
-  onDialogYes   : NoOp,
-  onDialogNo    : NoOp,
-  onBack        : NoOp,
-  onQuit        : NoOp,
+  onDialogYes: NoOp,
+  onDialogNo : NoOp,
+  onBack     : NoOp,
+  onQuit     : NoOp,
+  onRestart  : NoOp,
 });
 
 export default CallbackRecord;

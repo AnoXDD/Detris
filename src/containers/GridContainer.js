@@ -22,8 +22,6 @@ class GridContainer extends Component {
 
   constructor() {
     super();
-
-    Actions.init(GridSize.WIDTH, GridSize.HEIGHT);
   }
 
   static getStores() {

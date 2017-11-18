@@ -114,6 +114,13 @@ const Actions = {
     );
   },
 
+  showDialogForResetLevelEditor() {
+    Actions.showDialog(
+      "Do you want to reset the level editor?",
+      Actions.resetGrid
+    );
+  },
+
   showDialogForQuitToLevelSelect() {
     Actions.showDialog(
       "Do you want to return to previous menu? Any changes will be lost.",
@@ -177,32 +184,22 @@ const Actions = {
       currentLevel,
     });
 
-    LevelData.getLevel(currentLevel);
-    let parameters = LevelData.getLevel(currentLevel);
-    Actions.apply(parameters);
+    Actions.apply(LevelData.getLevel(currentLevel));
   },
 
   /**
    * Starts a new game with grid width, height and queue, grid
-   * @param parameters - an object with:
-   *    width - the grid width
-   *    height - the grid height
-   *    detrominoList - the queue represented by an Immutable list of objects
-   *   that can be converted to Detromino
-   *    blockList - the grid represented by an Immutable Map of objects that
-   *   can be converted to Block
+   * @param {Immutable.Map<string, any>|LevelDataUnit} levelDataUnit
    */
-  apply(parameters) {
-    let {width, height, queueList, blockList} = parameters;
+  apply(levelDataUnit) {
     Dispatcher.clearAllFuturePayloads();
 
-    Actions.init(width, height);
+    Actions.init(levelDataUnit.get("width"), levelDataUnit.get("height"));
 
     Dispatcher.dispatch({
       type: ActionTypes.APPLY_DATA,
-      blockList,
-      queueList,
-    })
+      levelDataUnit,
+    });
   },
 
   nextDetrominoInGame() {

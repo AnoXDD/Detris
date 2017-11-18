@@ -19,7 +19,7 @@ export default class PauseMenuView extends Component {
             onClick={this.props.onQuit}
           >list</Button>
           <Button
-            onClick={Actions.showDialogForGameRestart}
+            onClick={this.props.onRestart}
           >replay</Button>
           <Button
             onClick={Actions.showSettings}

@@ -797,6 +797,7 @@ html, body, #root {
   padding: 10px 20px;
   max-width: 60vw;
   text-align: center;
+  font-size: 12px;
   border: black 1px solid;
   box-shadow: 2px 2px 3px 1px #e8e8e8;
   position: absolute;
