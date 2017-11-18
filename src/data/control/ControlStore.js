@@ -8,7 +8,7 @@ import Control from "./Control";
 import ActionTypes from "../enum/ActionTypes";
 import GameUiState from "../enum/GameUiState";
 import Dispatcher from "../Dispatcher";
-import Actions from "../enum/Actions";
+import Actions from "../Actions";
 
 class ControlStore extends ReduceStore {
 

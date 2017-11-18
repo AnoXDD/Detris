@@ -8,7 +8,7 @@ import GameStateStore from "../data/game/GameStateStore";
 import LevelView from "../views/LevelView";
 import LevelStateStore from "../data/game/level/LevelStateStore";
 import PageControlView from "../views/PageControlView";
-import Actions from "../data/enum/Actions";
+import Actions from "../data/Actions";
 
 class LevelContainer extends Component {
 

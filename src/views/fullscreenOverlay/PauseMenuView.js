@@ -4,7 +4,7 @@
 
 import React, {Component} from "react";
 import Button from "../../lib/Button";
-import Actions from "../../data/enum/Actions";
+import Actions from "../../data/Actions";
 import FullscreenOverlayView from "./FullscreenOverlayView";
 
 export default class PauseMenuView extends Component {

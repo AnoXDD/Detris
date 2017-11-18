@@ -4,15 +4,15 @@
  * The list of actions that can be dispatched
  */
 
-import ActionTypes from "./ActionTypes";
-import Algorithm from "../Algorithm";
-import Dispatcher from "../Dispatcher";
-import QueueStore from "../queue/QueueStore";
-import Direction from "./Direction";
-import LevelData from "../game/static/LevelData";
-import GameUiState from "./GameUiState";
-import LevelEditorGridStore from "../levelEditor/LevelEditorGridStore";
-import OverlayType from "./OverlayTypes";
+import ActionTypes from "./enum/ActionTypes";
+import Algorithm from "./Algorithm";
+import Dispatcher from "./Dispatcher";
+import QueueStore from "./queue/QueueStore";
+import Direction from "./enum/Direction";
+import LevelData from "./game/static/LevelData";
+import GameUiState from "./enum/GameUiState";
+import LevelEditorGridStore from "./levelEditor/LevelEditorGridStore";
+import OverlayType from "./enum/OverlayTypes";
 
 const DELAY = 500;
 
@@ -411,7 +411,7 @@ const Actions = {
     let block = Algorithm.getInitialValidEditableBlock(LevelEditorGridStore.getState());
 
     if (!block) {
-      // todo prompt something telling the player that no blocks are editable
+      Actions.displayError("No blocks are currently editable");
       return;
     }
 
@@ -426,7 +426,7 @@ const Actions = {
 
     if (!Algorithm.isTargetDetrominosValid(grid.get("matrix"),
         grid.get("detromino"))) {
-      // todo prompt something telling the player that no blocks are editable
+      Actions.displayError("You can't set the target detrominos like this");
       return;
     }
 

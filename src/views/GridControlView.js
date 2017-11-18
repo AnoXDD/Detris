@@ -6,7 +6,7 @@ import React, {Component} from "react";
 import Button from "../lib/Button";
 import Toggle from "../lib/Toggle";
 import Direction from "../data/enum/Direction";
-import Actions from "../data/enum/Actions";
+import Actions from "../data/Actions";
 
 const Type = {
   NONE             : 0,

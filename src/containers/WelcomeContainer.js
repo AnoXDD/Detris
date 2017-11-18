@@ -5,7 +5,7 @@
 import {Container} from "flux/utils";
 import React, {Component} from "react";
 import GameStateStore from "../data/game/GameStateStore";
-import Actions from "../data/enum/Actions";
+import Actions from "../data/Actions";
 import Button from "../lib/Button";
 
 class WelcomeContainer extends Component {

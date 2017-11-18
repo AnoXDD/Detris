@@ -8,7 +8,7 @@ import {ReduceStore} from "flux/utils";
 import Dispatcher from "../Dispatcher";
 
 import ActionTypes from "../enum/ActionTypes";
-import Actions from "../enum/Actions";
+import Actions from "../Actions";
 import CallbackState from "./CallbackState";
 import GameUiState from "../enum/GameUiState";
 import OverlayType from "../enum/OverlayTypes";

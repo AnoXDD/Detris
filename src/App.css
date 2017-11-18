@@ -795,6 +795,8 @@ html, body, #root {
   z-index: 99999; }
 .notifications-wrapper .notification {
   padding: 10px 20px;
+  max-width: 60vw;
+  text-align: center;
   border: black 1px solid;
   box-shadow: 2px 2px 3px 1px #e8e8e8;
   position: absolute;
@@ -804,7 +806,6 @@ html, body, #root {
   z-index: 99999; }
   .notifications-wrapper .notification.notification-error {
     color: #F44336;
-    font-weight: bold;
     border-color: #F44336; }
   .notifications-wrapper .notification.notification-success {
     color: #4CAF50;

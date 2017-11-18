@@ -585,6 +585,8 @@ html, body, #root {
   }
   .notification {
     padding: 10px 20px;
+    max-width: 60vw;
+    text-align: center;
     border: black 1px solid;
     box-shadow: 2px 2px 3px 1px $lightgrey;
     position: absolute;
@@ -595,7 +597,6 @@ html, body, #root {
 
     &.notification-error {
       color: $red;
-      font-weight: bold;
       border-color: $red;
     }
 

@@ -4,7 +4,7 @@
 
 import React, {Component} from "react";
 import Button from "../../lib/Button";
-import Actions from "../../data/enum/Actions";
+import Actions from "../../data/Actions";
 import FullscreenOverlayView from "./FullscreenOverlayView";
 
 export default class LevelEditorImportExportView extends Component {
@@ -20,13 +20,14 @@ export default class LevelEditorImportExportView extends Component {
 
   handleCopy() {
     if (!this.refCopy) {
-      // todo notify the user that copy fails
+      Actions.displayError(
+        "The data is not copied. Try to move some blocks around and try again.");
       return;
     }
 
     this.refCopy.select();
     document.execCommand("copy");
-    // todo notify the user that copy succeeds
+    Actions.displaySuccess("Copied to clipboard");
   }
 
   render() {

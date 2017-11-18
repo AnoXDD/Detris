@@ -4,7 +4,7 @@
 
 import React, {Component} from "react";
 import FullscreenOverlayView from "./FullscreenOverlayView";
-import Actions from "../../data/enum/Actions";
+import Actions from "../../data/Actions";
 
 export default class AboutView extends Component {
   render() {

@@ -5,7 +5,7 @@
 import React, {Component} from "react";
 import FullscreenOverlayView from "./FullscreenOverlayView";
 import Toggle from "../../lib/Toggle";
-import Actions from "../../data/enum/Actions";
+import Actions from "../../data/Actions";
 import Button from "../../lib/Button";
 
 export default class SettingsView extends Component {
