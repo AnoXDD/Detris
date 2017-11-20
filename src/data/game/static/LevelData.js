@@ -5,7 +5,6 @@
  */
 
 import Immutable from "immutable";
-import GridSize from "../../grid/GridSize";
 import Tokenizer from "../../Tokenizer";
 import LevelDataUnit from "../level/LevelDataUnit";
 

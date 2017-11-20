@@ -45,6 +45,7 @@ class NotificationContainer extends Component {
   render() {
     return <NotificationSystem
       autoDismiss={5}
+      // eslint-disable-next-line
       style={false}
       ref={r => {
         this.ns = r;

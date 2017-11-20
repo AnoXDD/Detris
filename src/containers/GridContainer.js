@@ -4,10 +4,8 @@
 
 import {Container} from "flux/utils";
 import React, {Component} from "react";
-import Actions from "../data/Actions";
 
 import GridStore from "../data/grid/GridStore";
-import GridSize from "../data/grid/GridSize";
 
 import QueueStore from "../data/queue/QueueStore";
 
@@ -19,10 +17,6 @@ import GameStateStore from "../data/game/GameStateStore";
 import ControlStore from "../data/control/ControlStore";
 
 class GridContainer extends Component {
-
-  constructor() {
-    super();
-  }
 
   static getStores() {
     return [
