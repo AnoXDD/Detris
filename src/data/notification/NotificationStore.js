@@ -7,6 +7,7 @@ import GridStore from "../grid/GridStoreClass";
 import NotificationState from "./NotificationState";
 import ActionTypes from "../enum/ActionTypes";
 import NotificationLevel from "../enum/NotificationLevel";
+import EndGameHelper from "../game/EndGameHelper";
 
 class NotificationStore extends GridStore {
   constructor() {
@@ -28,6 +29,18 @@ class NotificationStore extends GridStore {
       case ActionTypes.DISPLAY_ERROR:
         return NotificationStore.display(state, NotificationLevel.ERROR,
           action.message);
+      case ActionTypes.MAYBE_END_GAME:
+        if (EndGameHelper.isLevelFailed()) {
+          return NotificationStore.displayLevelFailed(state);
+        }
+
+        if (EndGameHelper.isLevelSolved()) {
+          return NotificationStore.display(state,
+            NotificationLevel.SUCCESS,
+            "YEEESS!");
+        }
+
+        return state;
       default:
         return state;
     }
@@ -38,6 +51,14 @@ class NotificationStore extends GridStore {
       .set("message", message)
       .set("id", state.get("id") + 1);
   }
+
+  static displayLevelFailed(state) {
+    return NotificationStore.display(state,
+      NotificationLevel.INFO,
+      "Looks like you run out of Detrominos. What about undoing some of them?");
+  }
+
+  static displayEndGame
 }
 
 export default new NotificationStore();

@@ -10,7 +10,7 @@ import GridSize from "./GridSize";
 import BlockType from "../block/BlockType";
 import ActionTypes from "../enum/ActionTypes";
 import Dispatcher from "../Dispatcher";
-import LocalStorageLoader from "../localStorage/LocalStorageLoader";
+import LocalStorageLoader from "../storeListener/LocalStorageLoader";
 import Detromino from "../detromino/Detromino";
 import DetrominoType from "../detromino/DetrominoType";
 import Grid from "./Grid";

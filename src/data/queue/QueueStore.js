@@ -8,7 +8,7 @@
 import {ReduceStore} from "flux/utils";
 
 import Dispatcher from "../Dispatcher";
-import LocalStorageLoader from "../localStorage/LocalStorageLoader";
+import LocalStorageLoader from "../storeListener/LocalStorageLoader";
 
 import ActionTypes from "../enum/ActionTypes";
 import Queue from "./Queue";

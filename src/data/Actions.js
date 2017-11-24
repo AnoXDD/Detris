@@ -50,7 +50,7 @@ const Actions = {
   },
 
   showGridEditor() {
-    Actions.setUiState(GameUiState.SHOW_LEVEL_EDITOR);
+    Actions.setUiState(GameUiState.LEVEL_EDITOR_STARTED);
   },
 
   showCredit() {
@@ -220,6 +220,10 @@ const Actions = {
       type: ActionTypes.NEXT_DETROMINO_IN_GAME,
       detrominoType,
     }, DELAY * 2);
+
+    Dispatcher.dispatchOnClear({
+      type: ActionTypes.MAYBE_END_GAME,
+    });
   },
 
   nextDetrominoInEditor() {

@@ -11,4 +11,8 @@ const QueueRecord = Immutable.Record({
   history: new History(),
 });
 
-export default QueueRecord;
+export default class Queue extends QueueRecord {
+  isEmpty() {
+    return this.get("queue").isEmpty();
+  }
+}

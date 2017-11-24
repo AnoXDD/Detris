@@ -68,8 +68,8 @@ class GameContainer extends Component {
       case GameUiState.SELECT_LEVEL:
         container = <LevelContainer/>;
         break;
-      case GameUiState.SHOW_GRID:
-      case GameUiState.SHOW_LEVEL_EDITOR:
+      case GameUiState.GAME_STARTED:
+      case GameUiState.LEVEL_EDITOR_STARTED:
         container = <GridContainer/>;
         break;
       default:

@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import registerServiceWorker from './registerServiceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import registerServiceWorker from "./registerServiceWorker";
 
 // Global js
-import "./data/localStorage/LocalStorageSaver";
+import "./data/storeListener/LocalStorageSaver";
 
 import GameContainer from "./containers/GameContainer";
 

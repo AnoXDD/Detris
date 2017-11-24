@@ -26,7 +26,7 @@ class ControlStore extends ReduceStore {
         return ControlStore.onGameStarted();
       case ActionTypes.SET_GAME_UI_STATE:
         switch (action.uiState) {
-          case GameUiState.SHOW_LEVEL_EDITOR:
+          case GameUiState.LEVEL_EDITOR_STARTED:
             return ControlStore.onLevelEditorDisableBlockEditing();
           default:
             return new Control();

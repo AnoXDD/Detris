@@ -7,7 +7,7 @@ import {ReduceStore} from "flux/utils";
 import Immutable from "immutable";
 
 import Dispatcher from "../Dispatcher";
-import LocalStorageLoader from "../localStorage/LocalStorageLoader";
+import LocalStorageLoader from "../storeListener/LocalStorageLoader";
 
 import ActionTypes from "../enum/ActionTypes";
 import GameUiState from "../enum/GameUiState";
@@ -33,7 +33,7 @@ class GameStateStore extends ReduceStore {
     switch (action.type) {
       case ActionTypes.START_LEVEL:
         return GameStateStore.applyTopBarState(state.set("uiState",
-          GameUiState.SHOW_GRID));
+          GameUiState.GAME_STARTED));
       case ActionTypes.SET_GAME_UI_STATE:
         return GameStateStore.applyTopBarState(state.set("uiState",
           action.uiState));
@@ -95,10 +95,10 @@ class GameStateStore extends ReduceStore {
       case GameUiState.SELECT_LEVEL:
         topBar = topBar.add(TopBarType.TOP_BACK);
         break;
-      case GameUiState.SHOW_GRID:
+      case GameUiState.GAME_STARTED:
         topBar = topBar.add(TopBarType.TOP_PAUSE).add(TopBarType.TOP_BACK);
         break;
-      case GameUiState.SHOW_LEVEL_EDITOR:
+      case GameUiState.LEVEL_EDITOR_STARTED:
         topBar = topBar.add(TopBarType.TOP_PAUSE)
           .add(TopBarType.TOP_BACK)
           .add(TopBarType.TOP_IMPORT_EXPORT);

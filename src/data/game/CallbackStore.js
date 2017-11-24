@@ -41,7 +41,7 @@ class CallbackStore extends ReduceStore {
         switch (action.uiState) {
           case GameUiState.SELECT_LEVEL:
             return state.set("onQuit", Actions.showWelcomePage);
-          case GameUiState.SHOW_LEVEL_EDITOR:
+          case GameUiState.LEVEL_EDITOR_STARTED:
             return CallbackStore.hidePauseMenu(state.set("onQuit",
               Actions.showDialogForQuitToWelcome)
               .set("onRestart", Actions.showDialogForResetLevelEditor));

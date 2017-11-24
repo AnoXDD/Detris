@@ -5,10 +5,10 @@
  */
 
 const GameUiState = {
-  WELCOME          : "WELCOME",
-  SHOW_GRID        : "SHOW_GRID",
-  SELECT_LEVEL     : "SELECT_LEVEL",
-  SHOW_LEVEL_EDITOR: "SHOW_LEVEL_EDITOR",
+  WELCOME             : "WELCOME",
+  GAME_STARTED        : "GAME_STARTED",
+  SELECT_LEVEL        : "SELECT_LEVEL",
+  LEVEL_EDITOR_STARTED: "LEVEL_EDITOR_STARTED",
 };
 
 export default GameUiState;

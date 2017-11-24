@@ -24,6 +24,15 @@ const GridDataRecord = Immutable.Record({
 });
 
 class Grid extends GridDataRecord {
+
+  /**
+   * Return if the grid is empty
+   * @return {*|boolean}
+   */
+  isEmpty() {
+    return this.get("grid").isEmpty();
+  }
+
   /**
    * Returns a compressed string of Grid object. It will store the grid data
    * into a minimized 2d array
