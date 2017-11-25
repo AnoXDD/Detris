@@ -39,7 +39,9 @@ class NotificationContainer extends Component {
 
     this.id = this.state.id;
 
-    this.ns.addNotification(this.state);
+    if (!this.state.hidden) {
+      this.ns.addNotification(this.state);
+    }
   }
 
   render() {

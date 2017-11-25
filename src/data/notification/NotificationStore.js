@@ -29,6 +29,10 @@ class NotificationStore extends GridStore {
       case ActionTypes.DISPLAY_ERROR:
         return NotificationStore.display(state, NotificationLevel.ERROR,
           action.message);
+      case ActionTypes.SHOW_FULLSCREEN_OVERLAY:
+      case ActionTypes.HIDE_FULLSCREEN_OVERLAY:
+      case ActionTypes.SET_GAME_UI_STATE:
+        return NotificationStore.hide(state);
       case ActionTypes.MAYBE_END_GAME:
         if (EndGameHelper.isLevelFailed()) {
           return NotificationStore.displayLevelFailed(state);
@@ -49,7 +53,13 @@ class NotificationStore extends GridStore {
   static display(state, level, message) {
     return state.set("level", level)
       .set("message", message)
-      .set("id", state.get("id") + 1);
+      .set("id", state.get("id") + 1)
+      .set("hidden", false);
+  }
+
+  static hide(state) {
+    return state.set("id", state.get("id") + 1)
+      .set("hidden", true);
   }
 
   static displayLevelFailed(state) {
