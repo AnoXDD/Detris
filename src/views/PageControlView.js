@@ -7,7 +7,7 @@ import Button from "../lib/Button";
 
 import LevelViewData from "../data/game/static/LevelViewData";
 
-const PAGE_SIZE = LevelViewData.size;
+const PAGE_SIZE = LevelViewData.views().size;
 
 export default class PageControlView extends Component {
 

@@ -12,7 +12,7 @@ const RawData = Immutable.fromJS({
   // key is id of `LevelViewUnit`
   // string is compressed string of grid
   level: {
-    1: "eJwdkMtygjAAAP+FK51BHa3gjIegTBUCGnmIdnqg4RUIQogQodN/r/a0hz3t/kisS7pEWkmJOcCgN0OS+QDIe90D67X0JmUtif+tcMY7P2QEAODoyjw+z2g5pb3nRxXV7QhTVVVrQSYo5HGkTJVqo4qdy/Rvjkz8nrSz6xghjvHyYBu3wwZOLkvdURa1PXXiD1SARTS4S7zrygYTUoTbNMSEt0dDPAaZ14bVZGQoTV+pvCur8tSz81ueBueHUSAi7830okFsPeZ7TNliGzsCFk5A9Dvt7J51O+WWAk1gcNweL8+qMhmk1eeruQ0Ia6CRB5zCIdDMk8Xr3nVHc7Q1jxcQ+VGDnjw96fPCmjDgg3kpLPn15+v3D0icbHU="
+    "1": "eJwdkMtygjAAAP+FK51BHa3gjIegTBUCGnmIdnqg4RUIQogQodN/r/a0hz3t/kisS7pEWkmJOcCgN0OS+QDIe90D67X0JmUtif+tcMY7P2QEAODoyjw+z2g5pb3nRxXV7QhTVVVrQSYo5HGkTJVqo4qdy/Rvjkz8nrSz6xghjvHyYBu3wwZOLkvdURa1PXXiD1SARTS4S7zrygYTUoTbNMSEt0dDPAaZ14bVZGQoTV+pvCur8tSz81ueBueHUSAi7830okFsPeZ7TNliGzsCFk5A9Dvt7J51O+WWAk1gcNweL8+qMhmk1eeruQ0Ia6CRB5zCIdDMk8Xr3nVHc7Q1jxcQ+VGDnjw96fPCmjDgg3kpLPn15+v3D0icbHU="
   },
 });
 

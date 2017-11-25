@@ -21,7 +21,7 @@ class LevelStateStore extends ReduceStore {
     return Immutable.Map({
       currentLevel: -1,
       currentPage : 0,
-      view        : LevelViewData.get(0),
+      view        : LevelViewData.views().get(0),
       isFirstPage : true,
       isLastPage  : false,
     });
@@ -65,9 +65,9 @@ class LevelStateStore extends ReduceStore {
   static setPage(state, newPage) {
     return state
       .set("currentPage", newPage)
-      .set("view", LevelViewData.get(newPage))
+      .set("view", LevelViewData.views().get(newPage))
       .set("isFirstPage", newPage === 0)
-      .set("isLastPage", newPage === LevelViewData.size - 1);
+      .set("isLastPage", newPage === LevelViewData.views().size - 1);
   }
 }
 
