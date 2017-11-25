@@ -330,6 +330,36 @@ img.center {
     box-sizing: border-box;
     padding: 20px 50px 25px; }
 
+.zoom-out-animation-enter {
+  transition: 1s ease;
+  transform: scale(0.7);
+  opacity: 0;
+  pointer-events: none; }
+  .zoom-out-animation-enter.zoom-out-animation-enter-active {
+    opacity: 1;
+    transform: scale(1); }
+
+.zoom-out-animation-leave {
+  transition: 1s ease;
+  transform: scale(1);
+  opacity: .5;
+  pointer-events: none; }
+  .zoom-out-animation-leave.zoom-out-animation-leave-active {
+    transform: scale(1.5);
+    opacity: 0; }
+
+.fade-animation-enter {
+  transition: 1s ease;
+  opacity: 0; }
+  .fade-animation-enter.fade-animation-enter-active {
+    opacity: 1; }
+
+.fade-animation-leave {
+  transition: 1s ease;
+  opacity: 1; }
+  .fade-animation-leave.fade-animation-leave-active {
+    opacity: 0; }
+
 html, body, #root {
   height: 100vh;
   width: 100vw;
@@ -727,44 +757,19 @@ html, body, #root {
   width: 70vw;
   padding: 10px;
   text-align: center; }
-.about-view .title {
-  font-size: 20px;
-  margin-bottom: 15px; }
-.about-view .sub-title {
-  color: #448AFF;
-  margin: 10px; }
 .about-view p {
   margin: 5px; }
 
-.zoom-out-animation-enter {
-  transition: 1s ease;
-  transform: scale(0.7);
-  opacity: 0;
-  pointer-events: none; }
-  .zoom-out-animation-enter.zoom-out-animation-enter-active {
-    opacity: 1;
-    transform: scale(1); }
+.title {
+  font-size: 20px;
+  margin-bottom: 15px;
+  text-align: center; }
+  .title.wide {
+    margin: 20px; }
 
-.zoom-out-animation-leave {
-  transition: 1s ease;
-  transform: scale(1);
-  opacity: .5;
-  pointer-events: none; }
-  .zoom-out-animation-leave.zoom-out-animation-leave-active {
-    transform: scale(1.5);
-    opacity: 0; }
-
-.fade-animation-enter {
-  transition: 1s ease;
-  opacity: 0; }
-  .fade-animation-enter.fade-animation-enter-active {
-    opacity: 1; }
-
-.fade-animation-leave {
-  transition: 1s ease;
-  opacity: 1; }
-  .fade-animation-leave.fade-animation-leave-active {
-    opacity: 0; }
+.sub-title {
+  color: #448AFF;
+  margin: 10px; }
 
 .btn.grid-cell-btn.selected {
   background: #eeeced; }
@@ -802,7 +807,7 @@ html, body, #root {
   box-shadow: 2px 2px 3px 1px #e8e8e8;
   position: absolute;
   background: white;
-  transition: .5s ease;
+  transition: 1s ease;
   opacity: 0;
   z-index: 99999; }
   .notifications-wrapper .notification.notification-error {

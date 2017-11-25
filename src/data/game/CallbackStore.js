@@ -32,7 +32,8 @@ class CallbackStore extends ReduceStore {
         return CallbackStore.hidePauseMenu(
           state.set("onQuit",
             Actions.showDialogForQuitToLevelSelect))
-          .set("onRestart", Actions.showDialogForGameRestart);
+          .set("onRestart",
+            Actions.showDialogForGameRestart);
       case ActionTypes.RESUME:
         return CallbackStore.hidePauseMenu(state);
       case ActionTypes.PAUSE:

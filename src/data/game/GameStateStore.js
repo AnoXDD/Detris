@@ -14,6 +14,7 @@ import GameUiState from "../enum/GameUiState";
 import GameState from "./GameState";
 import OverlayType from "../enum/OverlayTypes";
 import TopBarType from "../enum/TopBarTypes";
+import EndGameHelper from "./EndGameHelper";
 
 class GameStateStore extends ReduceStore {
   constructor() {
@@ -43,6 +44,13 @@ class GameStateStore extends ReduceStore {
       case ActionTypes.PAUSE:
         return state.set("activeOverlay",
           state.get("activeOverlay").add(OverlayType.PAUSE_GAME));
+      case ActionTypes.MAYBE_END_GAME:
+        if (EndGameHelper.isLevelSolved()) {
+          return state.set("activeOverlay",
+            state.get("activeOverlay").add(OverlayType.NEXT_LEVEL));
+        }
+
+        return state;
       case ActionTypes.SHOW_FULLSCREEN_OVERLAY:
         switch (action.overlayType) {
           case OverlayType.DIALOG:

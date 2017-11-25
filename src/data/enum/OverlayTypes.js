@@ -10,6 +10,7 @@ const OverlayType = {
   PAUSE_GAME                : "PAUSE_GAME",
   SETTINGS                  : "SETTINGS",
   ABOUT                     : "ABOUT",
+  NEXT_LEVEL                : "NEXT_LEVEL",
 };
 
 export default OverlayType;

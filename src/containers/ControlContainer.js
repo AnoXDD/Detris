@@ -59,6 +59,7 @@ class ControlContainer extends Component {
   }
 
   handleKeyDown(e) {
+    // todo: don't do it if there's any overlay
     let {key} = e;
     if (!keyMap[key]) {
       console.log(`Key not registered: ${key}`);

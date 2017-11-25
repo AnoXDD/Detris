@@ -2,6 +2,52 @@
 
 $grid-cell-size: 15px;
 
+// region animation
+
+.zoom-out-animation-enter {
+  transition: 1s ease;
+  transform: scale(.7);
+  opacity: 0;
+  pointer-events: none;
+
+  &.zoom-out-animation-enter-active {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.zoom-out-animation-leave {
+  transition: 1s ease;
+  transform: scale(1);
+  opacity: .5;
+  pointer-events: none;
+
+  &.zoom-out-animation-leave-active {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.fade-animation-enter {
+  transition: 1s ease;
+  opacity: 0;
+
+  &.fade-animation-enter-active {
+    opacity: 1;
+  }
+}
+
+.fade-animation-leave {
+  transition: 1s ease;
+  opacity: 1;
+
+  &.fade-animation-leave-active {
+    opacity: 0;
+  }
+}
+
+// endregion
+
 html, body, #root {
   height: 100vh;
   width: 100vw;
@@ -482,63 +528,24 @@ html, body, #root {
     text-align: center;
   }
 
-  .title {
-    font-size: 20px;
-    margin-bottom: 15px;
-  }
-
-  .sub-title {
-    color: $blue;
-    margin: 10px
-  }
-
   p {
     margin: 5px;
   }
 }
 
-// animation
+.title {
+  font-size: 20px;
+  margin-bottom: 15px;
+  text-align: center;
 
-.zoom-out-animation-enter {
-  transition: 1s ease;
-  transform: scale(.7);
-  opacity: 0;
-  pointer-events: none;
-
-  &.zoom-out-animation-enter-active {
-    opacity: 1;
-    transform: scale(1);
+  &.wide {
+    margin: 20px;
   }
 }
 
-.zoom-out-animation-leave {
-  transition: 1s ease;
-  transform: scale(1);
-  opacity: .5;
-  pointer-events: none;
-
-  &.zoom-out-animation-leave-active {
-    transform: scale(1.5);
-    opacity: 0;
-  }
-}
-
-.fade-animation-enter {
-  transition: 1s ease;
-  opacity: 0;
-
-  &.fade-animation-enter-active {
-    opacity: 1;
-  }
-}
-
-.fade-animation-leave {
-  transition: 1s ease;
-  opacity: 1;
-
-  &.fade-animation-leave-active {
-    opacity: 0;
-  }
+.sub-title {
+  color: $blue;
+  margin: 10px
 }
 
 .btn {
@@ -592,7 +599,7 @@ html, body, #root {
     box-shadow: 2px 2px 3px 1px $lightgrey;
     position: absolute;
     background: white;
-    transition: .5s ease;
+    transition: 1s ease;
     opacity: 0;
     z-index: 99999;
 

@@ -13,6 +13,7 @@ import LevelData from "./game/static/LevelData";
 import GameUiState from "./enum/GameUiState";
 import LevelEditorGridStore from "./levelEditor/LevelEditorGridStore";
 import OverlayType from "./enum/OverlayTypes";
+import LevelStateStore from "./game/level/LevelStateStore";
 
 const DELAY = 500;
 
@@ -107,10 +108,10 @@ const Actions = {
     });
   },
 
-  showDialogForGameRestart(currentLevel) {
+  showDialogForGameRestart() {
     Actions.showDialog(
       "Do you want to restart this level?",
-      () => Actions.startNewLevel(currentLevel),
+      Actions.restartCurrentLevel,
     );
   },
 
@@ -185,6 +186,14 @@ const Actions = {
     });
 
     Actions.apply(LevelData.getLevel(currentLevel));
+  },
+
+  restartCurrentLevel() {
+    Actions.startNewLevel(LevelStateStore.getState().get("currentLevel"));
+  },
+
+  nextLevel() {
+    // todo implement this
   },
 
   /**

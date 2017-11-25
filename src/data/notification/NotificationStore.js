@@ -38,12 +38,6 @@ class NotificationStore extends GridStore {
           return NotificationStore.displayLevelFailed(state);
         }
 
-        if (EndGameHelper.isLevelSolved()) {
-          return NotificationStore.display(state,
-            NotificationLevel.SUCCESS,
-            "YEEESS!");
-        }
-
         return state;
       default:
         return state;
