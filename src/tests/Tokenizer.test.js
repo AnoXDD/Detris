@@ -131,8 +131,8 @@ test("Grid (class)", () => {
 
   let grid2 = Tokenizer.tokenizeGrid(Tokenizer.detokenizeGrid(grid));
 
-  expectEqualDetromino(grid2.get("detromino"), d);
-  expectEqualActualGrid(grid2.get("grid"), g);
+  expectEqualDetromino(d, grid2.get("detromino"));
+  expectEqualActualGrid(g, grid2.get("grid"));
 });
 
 test("Queue", () => {

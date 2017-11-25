@@ -129,8 +129,12 @@ const Algorithm = {
           --d;
         } else {
           // Update block information and swap
-          matrix[u][x] = matrix[u][x].set("y", d)
-            .set("type", BlockType.TARGET);
+          matrix[u][x] = matrix[u][x].set("y", d);
+
+          if (matrix[u][x].get("type") !== BlockType.ORIGINAL) {
+            matrix[u][x] = matrix[u][x].set("type", BlockType.TARGET);
+          }
+
           grid = grid.set(matrix[u][x].get("id"), matrix[u][x]);
 
           [matrix[u][x], matrix[d][x]] = [matrix[d][x], matrix[u][x]];

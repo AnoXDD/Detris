@@ -23,7 +23,9 @@ let id = 0;
 export default class Tokenizer {
 
   static newId() {
-    return ++id;
+    // It has to be converted to string because Immutable doesn't work well
+    // with numbers as keys
+    return `${++id}`;
   }
 
   /**
