@@ -19,11 +19,11 @@ class LevelStateStore extends ReduceStore {
 
   getInitialState() {
     return Immutable.Map({
-      currentLevel: -1,
-      currentPage : 0,
-      view        : LevelViewData.views().get(0),
-      isFirstPage : true,
-      isLastPage  : false,
+      currentLevelId: -1,
+      currentPage   : 0,
+      view          : LevelViewData.views().get(0),
+      isFirstPage   : true,
+      isLastPage    : false,
     });
   }
 
@@ -34,7 +34,7 @@ class LevelStateStore extends ReduceStore {
       case (ActionTypes.LEVEL_PREV_PAGE):
         return LevelStateStore.prevPage(state);
       case (ActionTypes.START_LEVEL):
-        return state.set("currentLevel", action.currentLevel);
+        return state.set("currentLevelId", action.currentLevelId);
       default:
         return state;
     }

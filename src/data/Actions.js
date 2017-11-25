@@ -14,6 +14,7 @@ import GameUiState from "./enum/GameUiState";
 import LevelEditorGridStore from "./levelEditor/LevelEditorGridStore";
 import OverlayType from "./enum/OverlayTypes";
 import LevelStateStore from "./game/level/LevelStateStore";
+import LevelViewData from "./game/static/LevelViewData";
 
 const DELAY = 500;
 
@@ -177,23 +178,25 @@ const Actions = {
 
   // endregion
 
-  startNewLevel(currentLevel) {
+  startNewLevel(currentLevelId) {
     Dispatcher.clearAllFuturePayloads();
 
     Dispatcher.dispatch({
       type: ActionTypes.START_LEVEL,
-      currentLevel,
+      currentLevelId,
     });
 
-    Actions.apply(LevelData.getLevel(currentLevel));
+    Actions.apply(LevelData.getLevelById(currentLevelId));
   },
 
   restartCurrentLevel() {
-    Actions.startNewLevel(LevelStateStore.getState().get("currentLevel"));
+    Actions.startNewLevel(LevelStateStore.getState().get("currentLevelId"));
   },
 
   nextLevel() {
-    // todo implement this
+    let currentLevelId = LevelStateStore.getState().get("currentLevelId");
+    let nextLevelId = LevelViewData.nextLevel(currentLevelId);
+    Actions.startNewLevel(nextLevelId);
   },
 
   /**

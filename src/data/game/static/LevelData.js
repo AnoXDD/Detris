@@ -12,19 +12,20 @@ const RawData = Immutable.fromJS({
   // key is id of `LevelViewUnit`
   // string is compressed string of grid
   level: {
-    "1": "eJwdkMtygjAAAP+FK51BHa3gjIegTBUCGnmIdnqg4RUIQogQodN/r/a0hz3t/kisS7pEWkmJOcCgN0OS+QDIe90D67X0JmUtif+tcMY7P2QEAODoyjw+z2g5pb3nRxXV7QhTVVVrQSYo5HGkTJVqo4qdy/Rvjkz8nrSz6xghjvHyYBu3wwZOLkvdURa1PXXiD1SARTS4S7zrygYTUoTbNMSEt0dDPAaZ14bVZGQoTV+pvCur8tSz81ueBueHUSAi7830okFsPeZ7TNliGzsCFk5A9Dvt7J51O+WWAk1gcNweL8+qMhmk1eeruQ0Ia6CRB5zCIdDMk8Xr3nVHc7Q1jxcQ+VGDnjw96fPCmjDgg3kpLPn15+v3D0icbHU="
+    "1": "eJwdkMtygjAAAP+Fq50BUabijIeA2kJCECLB0ukhVcCg5RVBSaf/XvW0hz3t/ipNl3apMldSd0C0dyOeRwCYwArzxUJ5UfKWH572iuVJkJwDALD9KqCOs49bbehWwxJIBlQg1QmZ67YrjHVzkpepZRKy1gEaKs9ndodLfsmYpEBeRfhT2KL3KHjjVO40W9XGSzpayWhTHDvsVI3TTLXYZImmBl1RYnkrOQyN0kgdvi6DQMvYpG67eKlR7iY+w/ssmXUD9OxL0/unVnjfVZ4k4+FmlODd2p6hFx82M6JaaKqOdoHuB8+6Uzoo889He0t5U6PVkYozGih2QyiqnhDpSs/cigIFEauDO+M7I1FArQURmCZ7OHt8+vr7BwRmbXM=",
+    "2": "eJydkMtugkAARf+FrU14WYEmLlARBAZEZCw0XaAMyEMQhodD038vtX/Q1Vnc5NzkfFF1hzpEvVFIJybsdY9JtPQky7o0aDT1QiVNGj3XwRpzzk4y2ZettRDZOD9gFGdVbibkarT+1nDZxEiT9ysmrB36D57l0VpijKJIYFiBHilQaPJgx0VgHmryQRvprpytarAJO7yvkDwI/aatnTIo4xxoEYrUkyPOCD9uQsi15ny/6nKvXdkBUVgQDscBw5H0bHgrVNYtnUW38EgcH8624m/hKxACEsN0dlGVR2s9eBGoreq7mhdIN40/7dt1Ox2eL4N4D/aXhuXoHQYKVxI9LlaPxdFhcAV7TWBowsEtlyyXU40cEert47dVA9P6bipXiAuTQEs/GLjqXXfURyAdcWY6Xnh3Jp4mejgzmEb25HlwMcQ/038U9VPhGaIzKT6/fwDeZpXh",
   },
 });
 
 const LevelData = {
   /**
-   * Reads the level from data and return width, height, detromino queue and
+   * Reads the levelId from data and return width, height, detromino queue and
    * grid
-   * @param level
+   * @param levelId
    * @return {Immutable.Map<string, any>|LevelDataUnit}
    */
-  getLevel(level) {
-    let rawData = RawData.get("level").get(`${level}`);
+  getLevelById(levelId) {
+    let rawData = RawData.get("level").get(`${levelId}`);
 
     // todo implement this when more data become available
     if (!rawData) {
