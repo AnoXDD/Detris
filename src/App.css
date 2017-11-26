@@ -662,6 +662,19 @@ html, body, #root {
       position: relative;
       text-align: center;
       padding: 20px 0; }
+      .level-view .level-view-inner .level-view-unit-wrapper.completed .stars {
+        position: absolute;
+        font-size: 18px;
+        top: 4px;
+        right: 0;
+        color: black;
+        transform: rotate(15deg); }
+        .level-view .level-view-inner .level-view-unit-wrapper.completed .stars.gold {
+          color: #FFC107; }
+      .level-view .level-view-inner .level-view-unit-wrapper.completed .title-box-view-actual {
+        border-color: transparent;
+        color: grey;
+        background: #e8e8e8; }
       .level-view .level-view-inner .level-view-unit-wrapper .title-box-view {
         display: inline-block;
         height: auto; }
@@ -728,6 +741,8 @@ html, body, #root {
     z-index: 1; }
   .fullscreen-view .fullscreen-menu-actual {
     background: white; }
+  .fullscreen-view.end-game-view .fullscreen-menu-actual {
+    width: 70vw; }
 
 .btn.red {
   background: #F44336;
@@ -765,7 +780,7 @@ html, body, #root {
   margin-bottom: 15px;
   text-align: center; }
   .title.wide {
-    margin: 20px; }
+    margin: 10px; }
 
 .sub-title {
   color: #448AFF;

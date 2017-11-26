@@ -11,6 +11,7 @@ import Immutable from "immutable";
 import Dispatcher from "../../Dispatcher";
 import LevelViewData from "../static/LevelViewData";
 import ActionTypes from "../../enum/ActionTypes";
+import EndGameManager from "../EndGameHelper";
 
 class LevelStateStore extends ReduceStore {
   constructor() {
@@ -19,22 +20,30 @@ class LevelStateStore extends ReduceStore {
 
   getInitialState() {
     return Immutable.Map({
-      currentLevelId: -1,
-      currentPage   : 0,
-      view          : LevelViewData.views().get(0),
-      isFirstPage   : true,
-      isLastPage    : false,
+      currentLevelId   : -1,
+      currentPage      : 0,
+      view             : LevelViewData.views().get(0),
+      isFirstPage      : true,
+      isLastPage       : false,
+      completedLevelIds: Immutable.Set(),
     });
   }
 
   reduce(state, action) {
     switch (action.type) {
-      case (ActionTypes.LEVEL_NEXT_PAGE):
+      case ActionTypes.LEVEL_NEXT_PAGE:
         return LevelStateStore.nextPage(state);
-      case (ActionTypes.LEVEL_PREV_PAGE):
+      case ActionTypes.LEVEL_PREV_PAGE:
         return LevelStateStore.prevPage(state);
-      case (ActionTypes.START_LEVEL):
+      case ActionTypes.START_LEVEL:
         return state.set("currentLevelId", action.currentLevelId);
+      case ActionTypes.MAYBE_END_GAME:
+        if (EndGameManager.isLevelSolved()) {
+          return state.set("completedLevelIds",
+            state.get("completedLevelIds").add(state.get("currentLevelId")));
+        }
+
+        return state;
       default:
         return state;
     }

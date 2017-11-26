@@ -33,7 +33,7 @@ export default class TopBarView extends Component {
             <Button key="import"
                     onClick={Actions.showLevelEditorImportExport}
                     className="right"
-            >import_export</Button>
+            >save</Button>
           );
         default:
           return null;

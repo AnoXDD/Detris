@@ -24,17 +24,23 @@ export default class LevelView extends Component {
         transitionLeaveTimeout={1000}
       >
         <div key={new Date().getTime()} className="level-view-inner">
-          {this.props.view.levels.map(level =>
-            <div key={level.id} className="level-view-unit-wrapper">
+          {this.props.view.levels.map(level => {
+            let isCompleted = this.props.completedLevelIds.indexOf(level.id) !== -1;
+
+            return (<div key={level.id}
+                         className={`level-view-unit-wrapper ${isCompleted ? "completed" : ""}`}>
               <TitleBoxView
                 onClick={() => this.props.startNewLevel(level.levelNumber)}
               >
-                <div className="level-view-unit">
+                <div
+                  className="level-view-unit">
                   {level.levelNumber}
                 </div>
+                {isCompleted ? <i className="material-icons stars">star</i> : null}
               </TitleBoxView>
-            </div>
-          )}
+            </div>);
+          })
+          }
         </div>
       </CSSTransitionGroup>
     );

@@ -12,7 +12,7 @@ const LEVEL_PER_PAGE = 12;
 const LevelPage = Immutable.Record({
   id    : -1,
   page  : -1,
-  levels: Immutable.List()
+  levels: Immutable.List(),
 });
 
 /**

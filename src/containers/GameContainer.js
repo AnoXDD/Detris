@@ -24,7 +24,7 @@ import LevelEditorImportExportView from "../views/fullscreenOverlay/LevelEditorI
 import OverlayType from "../data/enum/OverlayTypes";
 import LevelEditorGridStore from "../data/levelEditor/LevelEditorGridStore";
 import NotificationContainer from "./NotificationContainer";
-import NextLevelView from "../views/fullscreenOverlay/NextLevelView";
+import EndGameView from "../views/fullscreenOverlay/EndGameView";
 
 class GameContainer extends Component {
 
@@ -97,7 +97,7 @@ class GameContainer extends Component {
               case OverlayType.PAUSE_GAME:
                 return (<PauseMenuView key="pause" {...this.state}/>);
               case OverlayType.NEXT_LEVEL:
-                return (<NextLevelView key="next-level" {...this.state}/>);
+                return (<EndGameView key="next-level" {...this.state}/>);
               case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
                 return (<LevelEditorImportExportView
                   levelEditorExportString={this.state.levelEditorExportString}

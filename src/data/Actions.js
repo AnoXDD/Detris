@@ -189,6 +189,14 @@ const Actions = {
     Actions.apply(LevelData.getLevelById(currentLevelId));
   },
 
+  markCurrentLevelAsCompleted(currentLevelId = LevelStateStore.getState()
+    .get("currentLevelId")) {
+    Dispatcher.dispatch({
+      type: ActionTypes.MARK_LEVEL_AS_COMPLETED,
+      currentLevelId,
+    });
+  },
+
   restartCurrentLevel() {
     Actions.startNewLevel(LevelStateStore.getState().get("currentLevelId"));
   },

@@ -379,6 +379,27 @@ html, body, #root {
       text-align: center;
       padding: $row-padding 0;
 
+      &.completed {
+        .stars {
+          position: absolute;
+          font-size: 18px;
+          top: 4px;
+          right: 0;
+          color: black;
+          transform: rotate(15deg);
+
+          &.gold {
+            color: $amber;
+          }
+        }
+
+        .title-box-view-actual {
+          border-color: transparent;
+          color: grey;
+          background: $lightgrey;
+        }
+      }
+
       .title-box-view {
         display: inline-block;
         height: auto;
@@ -479,6 +500,12 @@ html, body, #root {
   .fullscreen-menu-actual {
     background: white;
   }
+
+  &.end-game-view {
+    .fullscreen-menu-actual {
+      width: 70vw;
+    }
+  }
 }
 
 .btn {
@@ -539,7 +566,7 @@ html, body, #root {
   text-align: center;
 
   &.wide {
-    margin: 20px;
+    margin: 10px;
   }
 }
 

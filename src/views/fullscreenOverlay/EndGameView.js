@@ -7,7 +7,7 @@ import Button from "../../lib/Button";
 import Actions from "../../data/Actions";
 import FullscreenOverlayView from "./FullscreenOverlayView";
 
-export default class NextLevelView extends Component {
+export default class EndGameView extends Component {
 
   onBack() {
     Actions.hideAllFullscreenOverlay();
@@ -28,6 +28,7 @@ export default class NextLevelView extends Component {
     return (
       <FullscreenOverlayView
         title="solved!"
+        className="end-game-view"
       >
         <div className="title wide">
           Nice!
@@ -43,6 +44,7 @@ export default class NextLevelView extends Component {
         <div className="btns">
           <Button
             text="next level"
+            className="green"
             onClick={this.onNextLevel}
           >play_arrow</Button>
         </div>
