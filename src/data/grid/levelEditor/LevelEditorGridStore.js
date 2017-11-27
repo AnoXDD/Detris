@@ -3,6 +3,7 @@
  */
 
 import Immutable from "immutable";
+import {ReduceStore} from "flux/utils";
 
 import Algorithm from "../../Algorithm";
 import Rotation from "../../enum/Rotation";
@@ -12,13 +13,12 @@ import ActionTypes from "../../enum/ActionTypes";
 import Dispatcher from "../../Dispatcher";
 import Detromino from "../../detromino/Detromino";
 import DetrominoType from "../../detromino/DetrominoType";
-import BaseGridStore from "../GameGridStore";
 import LevelEditorGrid from "./LevelEditorGrid";
 import Direction from "../../enum/Direction";
 import Tokenizer from "../../Tokenizer";
 import BaseGridHelper from "../BaseGridHelper";
 
-class LevelEditorGridStore extends BaseGridStore {
+class LevelEditorGridStore extends ReduceStore {
   constructor() {
     super(Dispatcher);
   }

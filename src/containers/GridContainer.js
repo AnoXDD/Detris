@@ -5,8 +5,7 @@
 import {Container} from "flux/utils";
 import React, {Component} from "react";
 
-import GridStore from "../data/grid/GridStore";
-
+import GameGridStore from "../data/grid/GameGridStore";
 import QueueStore from "../data/queue/QueueStore";
 
 import GridView from "../views/GridView";
@@ -23,7 +22,7 @@ class GridContainer extends Component {
       GameStateStore,
       LevelEditorGridStore,
       QueueStore,
-      GridStore,
+      GameGridStore,
       ControlStore,
     ];
   }
@@ -41,7 +40,10 @@ class GridContainer extends Component {
       };
     } else {
       grid = {
-        grid       : GridStore.getState().get("grid").valueSeq(),
+        grid       : GameGridStore.getState()
+          .get("grid")
+          .get("grid")
+          .valueSeq(),
         editorState: {},
       };
     }

@@ -7,13 +7,6 @@
  */
 
 import Immutable from "immutable";
-import {Buffer} from "buffer";
-import zlib from "zlib";
-
-import Detromino from "../detromino/Detromino";
-import Block from "../block/Block";
-import BlockType from "../block/BlockType";
-import Color from "../enum/Color";
 
 const GridDataRecord = Immutable.Record({
   grid     : Immutable.Map(),

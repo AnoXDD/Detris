@@ -16,26 +16,26 @@ import Dispatcher from "../Dispatcher";
 import LocalStorageLoader from "../storeListener/LocalStorageLoader";
 import Detromino from "../detromino/Detromino";
 import DetrominoType from "../detromino/DetrominoType";
-import Grid from "./BaseGrid";
 import BaseGridHelper from "./BaseGridHelper";
+import GameGrid from "./GameGrid";
 
 
-export default class GridStore extends ReduceStore {
+class GameGridStore extends ReduceStore {
   constructor() {
     super(Dispatcher);
   }
 
   static reset() {
-    return new Grid();
+    return new GameGrid();
   }
 
   getInitialState() {
     let savedState = LocalStorageLoader.loadGridFromLocalStorage();
     if (savedState) {
-      return BaseGridHelper.syncData(savedState);
+      return GameGridStore._syncData(savedState);
     }
 
-    return BaseGridHelper.syncData(GridStore.reset());
+    return GameGridStore._syncData(GameGridStore.reset());
   }
 
   reduce(state, action) {
@@ -43,27 +43,27 @@ export default class GridStore extends ReduceStore {
       case ActionTypes.INIT_GRID:
         return this.initState();
       case ActionTypes.RESET_GRID:
-        return GridStore.reset();
+        return GameGridStore.reset();
       case ActionTypes.APPLY_DATA:
-        return GridStore.applyData(action);
+        return GameGridStore.applyData(action);
       case ActionTypes.NEXT_DETROMINO_IN_GAME:
-        return GridStore.newDetromino(state, action);
+        return GameGridStore.newDetromino(state, action);
       case ActionTypes.ROTATE:
-        return GridStore.rotate(state);
+        return GameGridStore.rotate(state);
       case ActionTypes.DETROMINO_MOVE_LEFT:
-        return GridStore.move(state, {x: -1});
+        return GameGridStore.move(state, {x: -1});
       case ActionTypes.DETROMINO_MOVE_RIGHT:
-        return GridStore.move(state, {x: 1});
+        return GameGridStore.move(state, {x: 1});
       case ActionTypes.DETROMINO_MOVE_UP:
-        return GridStore.move(state, {y: -1});
+        return GameGridStore.move(state, {y: -1});
       case ActionTypes.DETROMINO_MOVE_DOWN:
-        return GridStore.move(state, {y: 1});
+        return GameGridStore.move(state, {y: 1});
       case ActionTypes.REMOVE_DETROMINO:
-        return GridStore.removeDetromino(state);
+        return GameGridStore.removeDetromino(state);
       case ActionTypes.SINK_FLOATING_BLOCK:
-        return GridStore.sinkFloatingBlocks(state);
+        return GameGridStore.sinkFloatingBlocks(state);
       case ActionTypes.SINK_TARGET_BLOCK:
-        return GridStore.sinkTargetBlocks(state);
+        return GameGridStore.sinkTargetBlocks(state);
       default:
         return state;
     }
@@ -71,7 +71,9 @@ export default class GridStore extends ReduceStore {
 
   static applyData(action) {
     let {levelDataUnit} = action;
-    return BaseGridHelper.syncData(levelDataUnit.get("grid"));
+    return new GameGrid({
+      grid: BaseGridHelper.syncData(levelDataUnit.get("grid")),
+    });
   }
 
   static newDetromino(state, action) {
@@ -83,15 +85,16 @@ export default class GridStore extends ReduceStore {
       y   : 0,
     });
 
-    state = state.set("detromino",
+    let grid = state.get("grid");
+    grid = grid.set("detromino",
       detromino.set("x", detromino.getMiddleXPos()));
 
-    return BaseGridHelper.syncData(state);
+    return GameGridStore._syncData(state.set("grid", grid));
   }
 
   static rotate(state) {
     // todo check if detromino exists
-
+    let grid = state.get("grid");
     let detromino = state.get("detromino");
     let rotation = detromino.get("rotation");
 
@@ -111,9 +114,9 @@ export default class GridStore extends ReduceStore {
       default:
     }
 
-    state = state.set("detromino", detromino.set("rotation", rotation));
+    grid = grid.set("detromino", detromino.set("rotation", rotation));
 
-    return BaseGridHelper.syncData(state, false);
+    return GameGridStore._syncData(state.set("grid", grid), false);
   }
 
   /**
@@ -123,8 +126,9 @@ export default class GridStore extends ReduceStore {
    * @param delta - the position delta
    */
   static move(state, delta) {
+    let grid = state.get("grid");
     let {x = 0, y = 0} = delta;
-    let detromino = state.get("detromino");
+    let detromino = grid.get("detromino");
 
     let targetX = detromino.get("x") + x;
     let targetY = detromino.get("y") + y;
@@ -152,30 +156,59 @@ export default class GridStore extends ReduceStore {
       .set("y", detromino.get("y") + y);
 
     // Tests if the detromino is running into target blocks
-    if (Algorithm.isOverlapping(state.get("matrix"), detromino)) {
+    if (Algorithm.isOverlapping(grid.get("matrix"), detromino)) {
       return state;
     }
 
-    return BaseGridHelper.syncData(state.set("detromino", detromino), false);
+    grid = grid.set("detromino", detromino);
+
+    return GameGridStore._syncData(state.set("grid", grid), false);
   }
 
   static removeDetromino(state) {
-    return BaseGridHelper.syncData(state, false, BlockType.NONE);
+    return GameGridStore._syncData(state, false, BlockType.NONE);
   }
 
   static sinkFloatingBlocks(state) {
     let grid = state.get("grid");
+    let actualGrid = grid.get("grid");
+    grid = grid.set("grid", Algorithm.sinkFloatingBlocks(actualGrid));
 
-    return state.set("grid", Algorithm.sinkFloatingBlocks(grid));
+    return state.set("grid", grid);
   }
 
   static sinkTargetBlocks(state) {
     let grid = state.get("grid");
+    let actualGrid = grid.get("grid");
+    grid = grid.set("grid", Algorithm.sinkTargetBlocks(actualGrid));
 
-    return state.set("grid", Algorithm.sinkTargetBlocks(grid));
+    return state.set("grid", grid);
+  }
+
+  /**
+   * A helper to sync the class
+   * @param state
+   * @param {boolean} updateMatrix - should the matrix be updated. Set to false
+   *   if the grid is not changed
+   * @param {string|BlockType} blockType
+   * @param {Immutable.Set} detrominoTargets - optional targets from level
+   *   editor to mark detromino blocks as target
+   * @private
+   */
+  static _syncData(state,
+                   updateMatrix = true,
+                   blockType = BlockType.DETROMINO,
+                   detrominoTargets) {
+    return state.set("grid",
+      BaseGridHelper.syncData(state.get("grid"),
+        updateMatrix,
+        blockType,
+        detrominoTargets));
   }
 
   initState() {
     return this.getInitialState();
   }
 }
+
+export default new GameGridStore();

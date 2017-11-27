@@ -2,14 +2,15 @@
  * Created by Anoxic on 11/17/2017.
  */
 
+import {ReduceStore} from "flux/utils";
+
 import Dispatcher from "../Dispatcher";
-import GridStore from "../grid/GameGridStore";
 import NotificationState from "./NotificationState";
 import ActionTypes from "../enum/ActionTypes";
 import NotificationLevel from "../enum/NotificationLevel";
 import EndGameHelper from "../game/EndGameHelper";
 
-class NotificationStore extends GridStore {
+class NotificationStore extends ReduceStore {
   constructor() {
     super(Dispatcher);
   }
