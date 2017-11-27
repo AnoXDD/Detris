@@ -2,6 +2,6 @@
  * Created by Anoxic on 9/21/2017.
  */
 
-import GridStore from "./GridStoreClass";
+import BaseGridStore from "./GameGridStore";
 
-export default new GridStore();
+export default new BaseGridStore();

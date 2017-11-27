@@ -11,7 +11,7 @@ import QueueStore from "./queue/QueueStore";
 import Direction from "./enum/Direction";
 import LevelData from "./game/static/LevelData";
 import GameUiState from "./enum/GameUiState";
-import LevelEditorGridStore from "./levelEditor/LevelEditorGridStore";
+import LevelEditorGridStore from "./grid/levelEditor/LevelEditorGridStore";
 import OverlayType from "./enum/OverlayTypes";
 import LevelStateStore from "./game/level/LevelStateStore";
 import LevelViewData from "./game/static/LevelViewData";

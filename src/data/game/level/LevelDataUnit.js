@@ -7,7 +7,7 @@
 import Immutable from "immutable";
 
 import Queue from "../../queue/Queue";
-import Grid from "../../grid/Grid";
+import Grid from "../../grid/BaseGrid";
 import GridSize from "../../grid/GridSize";
 
 const LevelDataUnitRecord = Immutable.Record({

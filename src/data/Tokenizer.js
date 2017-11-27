@@ -12,7 +12,7 @@ import zlib from "zlib";
 import Queue from "./queue/Queue";
 import Block from "./block/Block";
 import Detromino from "./detromino/Detromino";
-import Grid from "./grid/Grid";
+import Grid from "./grid/BaseGrid";
 import LevelDataUnit from "./game/level/LevelDataUnit";
 
 const BlockKeys = "type x y".split(" ");

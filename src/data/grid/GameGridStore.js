@@ -1,5 +1,8 @@
 /**
  * Created by Anoxic on 9/21/2017.
+ *
+ * A base reduce store for the game grid. Can be extended to be used in other
+ * grids.
  */
 
 import {ReduceStore} from "flux/utils";
@@ -13,8 +16,8 @@ import Dispatcher from "../Dispatcher";
 import LocalStorageLoader from "../storeListener/LocalStorageLoader";
 import Detromino from "../detromino/Detromino";
 import DetrominoType from "../detromino/DetrominoType";
-import Grid from "./Grid";
-import Color from "../enum/Color";
+import Grid from "./BaseGrid";
+import BaseGridHelper from "./BaseGridHelper";
 
 
 export default class GridStore extends ReduceStore {
@@ -29,10 +32,10 @@ export default class GridStore extends ReduceStore {
   getInitialState() {
     let savedState = LocalStorageLoader.loadGridFromLocalStorage();
     if (savedState) {
-      return GridStore.syncData(savedState);
+      return BaseGridHelper.syncData(savedState);
     }
 
-    return GridStore.syncData(GridStore.reset());
+    return BaseGridHelper.syncData(GridStore.reset());
   }
 
   reduce(state, action) {
@@ -68,7 +71,7 @@ export default class GridStore extends ReduceStore {
 
   static applyData(action) {
     let {levelDataUnit} = action;
-    return GridStore.syncData(levelDataUnit.get("grid"));
+    return BaseGridHelper.syncData(levelDataUnit.get("grid"));
   }
 
   static newDetromino(state, action) {
@@ -83,7 +86,7 @@ export default class GridStore extends ReduceStore {
     state = state.set("detromino",
       detromino.set("x", detromino.getMiddleXPos()));
 
-    return GridStore.syncData(state);
+    return BaseGridHelper.syncData(state);
   }
 
   static rotate(state) {
@@ -110,7 +113,7 @@ export default class GridStore extends ReduceStore {
 
     state = state.set("detromino", detromino.set("rotation", rotation));
 
-    return GridStore.syncData(state, false);
+    return BaseGridHelper.syncData(state, false);
   }
 
   /**
@@ -153,74 +156,11 @@ export default class GridStore extends ReduceStore {
       return state;
     }
 
-    return GridStore.syncData(state.set("detromino", detromino), false);
-  }
-
-  /**
-   * Syncs the data of states. This includes:
-   *  1) Applying detromino to the state
-   *  2) Updating the read only 2d array converted from grid
-   *
-   * @param state
-   * @param {boolean} updateMatrix - should the matrix be updated. Set to false
-   *   if the grid is not changed
-   * @param {string|BlockType} blockType
-   * @param {Immutable.Set} detrominoTargets - optional targets from level
-   *   editor to mark detromino blocks as target
-   */
-  static syncData(state,
-                  updateMatrix = true,
-                  blockType = BlockType.DETROMINO,
-                  detrominoTargets) {
-    state = GridStore._applyDetromino(state, blockType, detrominoTargets);
-
-    if (!updateMatrix) {
-      return state;
-    }
-
-    state = GridStore.syncGridToMatrix(state);
-
-    return state;
-  }
-
-  /**
-   * Converts the grid to a 2d vanilla javascript array. This function should
-   * only be called when the grid is changed
-   * @param state
-   */
-  static syncGridToMatrix(state) {
-    return state.set("matrix", Algorithm.convertGridToArray(state.get("grid")));
-  }
-
-  /**
-   * Applies the detromino to current grid state. This function must be called
-   * every time the detromino is changed
-   * @param state
-   * @param {string|BlockType} blockType - the block type that the detromino is
-   *   converting to
-   * @param {Immutable.Set} detrominoTargets - optional targets from level
-   *   editor to mark detromino blocks as target
-   * @private
-   */
-  static _applyDetromino(state,
-                         blockType = BlockType.DETROMINO,
-                         detrominoTargets) {
-    // Process the raw detromino in the state
-    let detromino = state.get("detromino");
-    if (!detromino) {
-      return state;
-    }
-
-    let shape = detromino.getRotatedBlocks(blockType,
-      Color.SOLID,
-      detrominoTargets);
-
-    // Apply the processed detromino to the grid
-    return state.set("grid", state.get("grid").merge(shape));
+    return BaseGridHelper.syncData(state.set("detromino", detromino), false);
   }
 
   static removeDetromino(state) {
-    return GridStore.syncData(state, false, BlockType.NONE);
+    return BaseGridHelper.syncData(state, false, BlockType.NONE);
   }
 
   static sinkFloatingBlocks(state) {

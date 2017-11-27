@@ -4,20 +4,21 @@
 
 import Immutable from "immutable";
 
-import Algorithm from "../Algorithm";
-import Rotation from "../enum/Rotation";
-import GridSize from "../grid/GridSize";
-import BlockType from "../block/BlockType";
-import ActionTypes from "../enum/ActionTypes";
-import Dispatcher from "../Dispatcher";
-import Detromino from "../detromino/Detromino";
-import DetrominoType from "../detromino/DetrominoType";
-import GridStore from "../grid/GridStoreClass";
+import Algorithm from "../../Algorithm";
+import Rotation from "../../enum/Rotation";
+import GridSize from "../GridSize";
+import BlockType from "../../block/BlockType";
+import ActionTypes from "../../enum/ActionTypes";
+import Dispatcher from "../../Dispatcher";
+import Detromino from "../../detromino/Detromino";
+import DetrominoType from "../../detromino/DetrominoType";
+import BaseGridStore from "../GameGridStore";
 import LevelEditorGrid from "./LevelEditorGrid";
-import Direction from "../enum/Direction";
-import Tokenizer from "../Tokenizer";
+import Direction from "../../enum/Direction";
+import Tokenizer from "../../Tokenizer";
+import BaseGridHelper from "../BaseGridHelper";
 
-class LevelEditorGridStore extends GridStore {
+class LevelEditorGridStore extends BaseGridStore {
   constructor() {
     super(Dispatcher);
   }
@@ -100,7 +101,7 @@ class LevelEditorGridStore extends GridStore {
       grid.get("matrix"),
       detromino));
 
-    grid = GridStore.syncGridToMatrix(grid);
+    grid = BaseGridHelper.syncGridToMatrix(grid);
 
     // Place new detromino
     detromino = new Detromino({
@@ -348,7 +349,7 @@ class LevelEditorGridStore extends GridStore {
     state = LevelEditorGridStore._syncDetrominoIndex(state);
 
     return state.set("data",
-      GridStore.syncData(state.get("data"),
+      BaseGridHelper.syncData(state.get("data"),
         updateMatrix,
         blockType,
         state.get("detrominoTargets")));

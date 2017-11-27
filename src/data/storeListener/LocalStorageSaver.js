@@ -6,7 +6,7 @@
 
 import QueueStore from "../queue/QueueStore";
 import GridStore from "../grid/GridStore";
-import Grid from "../grid/Grid";
+import Grid from "../grid/BaseGrid";
 import GameStateStore from "../game/GameStateStore";
 
 function onQueueStoreChanged() {

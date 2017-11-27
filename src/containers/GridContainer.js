@@ -12,7 +12,7 @@ import QueueStore from "../data/queue/QueueStore";
 import GridView from "../views/GridView";
 import QueueView from "../views/QueueView";
 import GridControlView from "../views/GridControlView";
-import LevelEditorGridStore from "../data/levelEditor/LevelEditorGridStore";
+import LevelEditorGridStore from "../data/grid/levelEditor/LevelEditorGridStore";
 import GameStateStore from "../data/game/GameStateStore";
 import ControlStore from "../data/control/ControlStore";
 

@@ -13,7 +13,7 @@ import Tokenizer from "../data/Tokenizer";
 import DetrominoType from "../data/detromino/DetrominoShape";
 import Rotation from "../data/enum/Rotation";
 import Detromino from "../data/detromino/Detromino";
-import Grid from "../data/grid/Grid";
+import Grid from "../data/grid/BaseGrid";
 import Queue from "../data/queue/Queue";
 import LevelDataUnit from "../data/game/level/LevelDataUnit";
 

@@ -3,7 +3,7 @@
  */
 
 import Dispatcher from "../Dispatcher";
-import GridStore from "../grid/GridStoreClass";
+import GridStore from "../grid/GameGridStore";
 import NotificationState from "./NotificationState";
 import ActionTypes from "../enum/ActionTypes";
 import NotificationLevel from "../enum/NotificationLevel";

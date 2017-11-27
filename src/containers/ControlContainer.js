@@ -9,7 +9,7 @@ import {Component} from "react";
 import ControlStore from "../data/control/ControlStore";
 import Direction from "../data/enum/Direction";
 import Actions from "../data/Actions";
-import LevelEditorGridStore from "../data/levelEditor/LevelEditorGridStore";
+import LevelEditorGridStore from "../data/grid/levelEditor/LevelEditorGridStore";
 
 const keyMap = {
   "Delete": Actions.removeDetromino,

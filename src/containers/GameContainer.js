@@ -22,7 +22,7 @@ import AboutView from "../views/fullscreenOverlay/AboutView";
 import ControlContainer from "./ControlContainer";
 import LevelEditorImportExportView from "../views/fullscreenOverlay/LevelEditorImportExportView";
 import OverlayType from "../data/enum/OverlayTypes";
-import LevelEditorGridStore from "../data/levelEditor/LevelEditorGridStore";
+import LevelEditorGridStore from "../data/grid/levelEditor/LevelEditorGridStore";
 import NotificationContainer from "./NotificationContainer";
 import EndGameView from "../views/fullscreenOverlay/EndGameView";
 
