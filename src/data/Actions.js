@@ -51,6 +51,10 @@ const Actions = {
     Actions.setUiState(GameUiState.SELECT_LEVEL);
   },
 
+  showTutorial() {
+    Actions.setUiState(GameUiState.TUTORIAL);
+  },
+
   showGridEditor() {
     Actions.setUiState(GameUiState.LEVEL_EDITOR_STARTED);
   },
