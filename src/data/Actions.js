@@ -137,6 +137,13 @@ const Actions = {
     );
   },
 
+  showDialogForSkipTutorial() {
+    Actions.showDialog(
+      "Do you want to skip tutorial? You can come back later in the main menu.",
+      Actions.showSelectLevel
+    );
+  },
+
   showDialog(title, onYes, onNo) {
     Dispatcher.dispatch({
       type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
