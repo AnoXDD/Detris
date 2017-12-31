@@ -6,7 +6,7 @@ import Immutable from "immutable";
 import GameUiState from "../enum/GameUiState";
 
 const GameStateRecord = Immutable.Record({
-  uiState      : GameUiState.WELCOME,
+  uiState      : GameUiState.DEFAULT_STATE,
   topBar       : Immutable.Set(),
   dialogTitle  : "",
   // A set of {OverlayType} that should be visible

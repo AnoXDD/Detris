@@ -418,6 +418,13 @@ html, body, #root {
 .welcome-container {
   .welcome-title {
     font-size: 15vw;
+
+    .sub-title {
+      font-size: 15px;
+      margin: 20px 0 0;
+      color: black;
+      text-align: center;
+    }
   }
 
   .play-btns {

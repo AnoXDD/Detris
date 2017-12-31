@@ -686,6 +686,11 @@ html, body, #root {
 
 .welcome-container .welcome-title {
   font-size: 15vw; }
+  .welcome-container .welcome-title .sub-title {
+    font-size: 15px;
+    margin: 20px 0 0;
+    color: black;
+    text-align: center; }
 .welcome-container .play-btns {
   flex-direction: column; }
   .welcome-container .play-btns .btn {

@@ -25,6 +25,7 @@ import OverlayType from "../data/enum/OverlayTypes";
 import LevelEditorGridStore from "../data/grid/levelEditor/LevelEditorGridStore";
 import NotificationContainer from "./NotificationContainer";
 import EndGameView from "../views/fullscreenOverlay/EndGameView";
+import TutorialContainer from "./TutorialContainer";
 
 class GameContainer extends Component {
 
@@ -63,6 +64,9 @@ class GameContainer extends Component {
     let container = null;
 
     switch (this.state.uiState) {
+      case GameUiState.TUTORIAL_WELCOME:
+        container = <TutorialContainer/>;
+        break;
       case GameUiState.WELCOME:
         container = <WelcomeContainer/>;
         break;
