@@ -101,6 +101,20 @@ const Actions = {
     });
   },
 
+  showTutorialGuide() {
+    Dispatcher.dispatch({
+      type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
+      overlayType: OverlayType.TUTORIAL_GUIDE,
+    });
+  },
+
+  hideTutorialGuide() {
+    Dispatcher.dispatch({
+      type       : ActionTypes.HIDE_FULLSCREEN_OVERLAY,
+      overlayType: OverlayType.TUTORIAL_GUIDE,
+    });
+  },
+
   pause() {
     Dispatcher.dispatch({
       type: ActionTypes.PAUSE,

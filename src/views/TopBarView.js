@@ -35,6 +35,13 @@ export default class TopBarView extends Component {
                     className="right"
             >save</Button>
           );
+        case TopBarType.TOP_TUTORIAL_INFO:
+          return (
+            <Button key="tutorial_info"
+                    onClick={Actions.showTutorialGuide}
+                    className="right"
+            >info</Button>
+          );
         default:
           return null;
       }

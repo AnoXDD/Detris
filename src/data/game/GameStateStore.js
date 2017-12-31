@@ -36,8 +36,14 @@ class GameStateStore extends ReduceStore {
         return GameStateStore.applyTopBarState(state.set("uiState",
           GameUiState.GAME_STARTED));
       case ActionTypes.SET_GAME_UI_STATE:
-        return GameStateStore.applyTopBarState(state.set("uiState",
-          action.uiState));
+        let {uiState} = action;
+
+        if (uiState === GameUiState.TUTORIAL) {
+          state = state.set("activeOverlay",
+            state.get("activeOverlay").add(OverlayType.TUTORIAL_GUIDE));
+        }
+
+        return GameStateStore.applyTopBarState(state.set("uiState", uiState));
       case ActionTypes.RESUME:
         return state.set("activeOverlay",
           state.get("activeOverlay").remove(OverlayType.PAUSE_GAME));
@@ -99,6 +105,9 @@ class GameStateStore extends ReduceStore {
     switch (state.get("uiState")) {
       case GameUiState.WELCOME:
         // no-op, nothing to be shown
+        break;
+      case GameUiState.TUTORIAL:
+        topBar = topBar.add(TopBarType.TOP_TUTORIAL_INFO);
         break;
       case GameUiState.SELECT_LEVEL:
         topBar = topBar.add(TopBarType.TOP_BACK);

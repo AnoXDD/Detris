@@ -748,12 +748,20 @@ html, body, #root {
     background: white; }
   .fullscreen-view.end-game-view .fullscreen-menu-actual {
     width: 70vw; }
+  .fullscreen-view.tutorial-guide-view {
+    position: absolute;
+    justify-content: flex-start; }
+    .fullscreen-view.tutorial-guide-view .fullscreen-menu-actual-wrapper {
+      margin: 20px 0; }
 
 .btn.red {
   background: #F44336;
   color: white; }
 .btn.green {
   background: #4CAF50;
+  color: white; }
+.btn.blue {
+  background: #448AFF;
   color: white; }
 
 .dialog-view {
@@ -779,6 +787,9 @@ html, body, #root {
   text-align: center; }
 .about-view p {
   margin: 5px; }
+
+.tutorial-guide-view .guide-text {
+  padding: 20px; }
 
 .title {
   font-size: 20px;

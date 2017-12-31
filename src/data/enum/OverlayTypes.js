@@ -11,6 +11,7 @@ const OverlayType = {
   SETTINGS                  : "SETTINGS",
   ABOUT                     : "ABOUT",
   NEXT_LEVEL                : "NEXT_LEVEL",
+  TUTORIAL_GUIDE            : "TUTORIAL_GUIDE",
 };
 
 export default OverlayType;

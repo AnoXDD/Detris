@@ -27,6 +27,7 @@ import NotificationContainer from "./NotificationContainer";
 import EndGameView from "../views/fullscreenOverlay/EndGameView";
 import TutorialWelcomeContainer from "./TutorialWelcomeContainer";
 import TutorialGridContainer from "./TutorialGridContainer";
+import TutorialGuideView from "../views/fullscreenOverlay/TutorialGuideView";
 
 class GameContainer extends Component {
 
@@ -116,6 +117,8 @@ class GameContainer extends Component {
                 return (<SettingsView key="settings"/>);
               case OverlayType.DIALOG:
                 return (<DialogView key="dialog" {...this.state}/>);
+              case OverlayType.TUTORIAL_GUIDE:
+                return (<TutorialGuideView key="tutorial-guide"/>);
               default:
                 return null;
             }
