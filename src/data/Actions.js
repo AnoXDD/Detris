@@ -115,6 +115,20 @@ const Actions = {
     });
   },
 
+  setTutorialProgress(progress) {
+    Dispatcher.dispatch({
+      progress,
+      type: ActionTypes.SET_TUTORIAL_PROGRESS,
+    });
+  },
+
+  nextTutorialProgress() {
+    // todo implement this
+    Dispatcher.dispatch({
+      type: ActionTypes.SET_TUTORIAL_PROGRESS,
+    });
+  },
+
   pause() {
     Dispatcher.dispatch({
       type: ActionTypes.PAUSE,

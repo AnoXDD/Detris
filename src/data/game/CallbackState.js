@@ -15,7 +15,7 @@ const CallbackRecord = Immutable.Record({
   onBack     : NoOp,
   onQuit     : NoOp,
   onRestart  : NoOp,
-  onDismiss  : NoOp,
+  onDismiss  : NoOp, // tutorial
 });
 
 export default CallbackRecord;
