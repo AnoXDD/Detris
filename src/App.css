@@ -812,6 +812,9 @@ html, body, #root {
   .btn.grid-cell-btn .grid-cell.original {
     opacity: 1; }
 
+.hidden {
+  display: none; }
+
 .hidden-input {
   top: -1000%;
   left: -1000%;

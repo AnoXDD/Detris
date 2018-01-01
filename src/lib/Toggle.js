@@ -13,6 +13,10 @@ export default class Toggle extends Component {
   };
 
   render() {
+    if (this.props.hidden) {
+      return null;
+    }
+
     let {className, isHidden, isChangingOnHover, isChanging, onClick, firstIcon, secondIcon} = this.props;
     let tag = this.props["data-tag"];
 

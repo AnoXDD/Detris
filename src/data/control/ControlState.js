@@ -17,6 +17,8 @@ const ControlRecord = Immutable.Record({
   prevDetromino  : NoOp,
   redo           : NoOp,
   undo           : NoOp,
+
+  enabled: Immutable.Set(),
 });
 
 export default ControlRecord;

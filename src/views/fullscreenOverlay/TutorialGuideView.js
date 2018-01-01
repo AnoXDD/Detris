@@ -4,7 +4,6 @@
 
 import React, {Component} from "react";
 import Button from "../../lib/Button";
-import Actions from "../../data/Actions";
 import FullscreenOverlayView from "./FullscreenOverlayView";
 import TutorialText from "../../data/enum/TutorialText";
 

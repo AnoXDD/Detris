@@ -9,6 +9,10 @@ import Ink from "react-ink";
 export default class Button extends Component {
 
   render() {
+    if (this.props.hidden) {
+      return null;
+    }
+
     let disabled = {};
     if (this.props.disabled || this.props.loading) {
       disabled.disabled = "disabled";

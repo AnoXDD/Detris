@@ -624,6 +624,10 @@ html, body, #root {
   }
 }
 
+.hidden {
+  display: none;
+}
+
 .hidden-input {
   top: -1000%;
   left: -1000%;

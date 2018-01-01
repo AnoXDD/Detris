@@ -95,7 +95,7 @@ class GameGridStore extends ReduceStore {
   static rotate(state) {
     // todo check if detromino exists
     let grid = state.get("grid");
-    let detromino = state.get("detromino");
+    let detromino = grid.get("detromino");
     let rotation = detromino.get("rotation");
 
     switch (rotation) {
