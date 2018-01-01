@@ -28,6 +28,7 @@ import EndGameView from "../views/fullscreenOverlay/EndGameView";
 import TutorialWelcomeContainer from "./TutorialWelcomeContainer";
 import TutorialGridContainer from "./TutorialGridContainer";
 import TutorialGuideView from "../views/fullscreenOverlay/TutorialGuideView";
+import TutorialStore from "../data/game/tutorial/TutorialStore";
 
 class GameContainer extends Component {
 
@@ -50,6 +51,7 @@ class GameContainer extends Component {
       GameStateStore,
       CallbackStore,
       LevelEditorGridStore,
+      TutorialStore,
     ];
   }
 
@@ -59,6 +61,9 @@ class GameContainer extends Component {
       ...GameStateStore.getState().toJS(),
       levelEditorExportString: LevelEditorGridStore.getState()
         .get("detokenized"),
+      tutorial               : {
+        ...TutorialStore.getState().toJS()
+      },
     };
   }
 
@@ -118,7 +123,8 @@ class GameContainer extends Component {
               case OverlayType.DIALOG:
                 return (<DialogView key="dialog" {...this.state}/>);
               case OverlayType.TUTORIAL_GUIDE:
-                return (<TutorialGuideView key="tutorial-guide"/>);
+                return (
+                  <TutorialGuideView key="tutorial-guide" {...this.state}/>);
               default:
                 return null;
             }

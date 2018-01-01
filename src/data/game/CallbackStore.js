@@ -73,7 +73,7 @@ class CallbackStore extends ReduceStore {
       case ActionTypes.HIDE_ALL_FULLSCREEN_OVERLAY:
         return CallbackStore.hideAllFloatingWindows(state);
       case ActionTypes.SET_TUTORIAL_PROGRESS:
-        return CallbackStore.applyTutorialProgress(state);
+        return CallbackStore.applyTutorialProgress(state, action.progress);
       default:
         return state;
     }
@@ -87,11 +87,8 @@ class CallbackStore extends ReduceStore {
     return state.set("onBack", Actions.pause);
   }
 
-  /**
-   * Applies tutorial progress
-   */
-  static applyTutorialProgress(state) {
-    switch (state) {
+  static applyTutorialProgress(state, progress) {
+    switch (progress) {
       case TutorialProgress.GAME_INTRO:
       case TutorialProgress.GAME_INTRO_GUIDE_TOGGLE:
       case TutorialProgress.MOVE_DETROMINO_INTRO:

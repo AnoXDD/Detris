@@ -15,6 +15,8 @@ import LevelEditorGridStore from "./grid/levelEditor/LevelEditorGridStore";
 import OverlayType from "./enum/OverlayTypes";
 import LevelStateStore from "./game/level/LevelStateStore";
 import LevelViewData from "./game/static/LevelViewData";
+import TutorialStore from "./game/tutorial/TutorialStore";
+import TutorialProgress from "./enum/TutorialProgress";
 
 const DELAY = 500;
 
@@ -51,8 +53,9 @@ const Actions = {
     Actions.setUiState(GameUiState.SELECT_LEVEL);
   },
 
-  showTutorial() {
+  showTutorial(initProgress = TutorialProgress.GAME_INTRO) {
     Actions.setUiState(GameUiState.TUTORIAL);
+    Actions.setTutorialProgress(initProgress);
   },
 
   showGridEditor() {
@@ -123,8 +126,10 @@ const Actions = {
   },
 
   nextTutorialProgress() {
-    // todo implement this
+    let progress = TutorialStore.getState().next();
+
     Dispatcher.dispatch({
+      progress,
       type: ActionTypes.SET_TUTORIAL_PROGRESS,
     });
   },

@@ -33,7 +33,7 @@ class TutorialWelcomeContainer extends Component {
         </div>
         <div className="btns play-btns">
           <div className="btns">
-            <Button onClick={Actions.showTutorial}
+            <Button onClick={() => Actions.showTutorial()}
                     text="start"
                     className="accent"
             >play_arrow</Button>

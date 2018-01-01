@@ -7,8 +7,16 @@ import TitleBoxView from "../TitleBoxView";
 
 // This class is supposed to be const one created
 export default class FullscreenOverlayView extends Component {
+
+  update = false;
+
+  constructor(props) {
+    super(props);
+    this.update = props.update || false;
+  }
+
   shouldComponentUpdate() {
-    return false;
+    return this.update;
   }
 
   render() {
