@@ -17,6 +17,8 @@ import LevelStateStore from "./game/level/LevelStateStore";
 import LevelViewData from "./game/static/LevelViewData";
 import TutorialStore from "./game/tutorial/TutorialStore";
 import TutorialProgress from "./enum/TutorialProgress";
+import GameGridStore from "./grid/GameGridStore";
+import TutorialHelper from "./game/tutorial/TutorialHelper";
 
 const DELAY = 500;
 
@@ -132,6 +134,8 @@ const Actions = {
       progress,
       type: ActionTypes.SET_TUTORIAL_PROGRESS,
     });
+
+    Actions.showTutorialGuide();
   },
 
   pause() {
@@ -335,6 +339,19 @@ const Actions = {
       type: ActionTypes.ADD_DETROMINO_TO_QUEUE,
       detrominoType,
     });
+  },
+
+  /**
+   * A wrapper for `moveDetrominoInGame`, but this method also checks if game
+   * grid meets the tutorial goal
+   * @param direction
+   */
+  moveDetrominoInTutorial(direction) {
+    Actions.moveDetrominoInGame(direction);
+
+    if (TutorialHelper.isDetrominoReachedHighlightArea(GameGridStore.getState())) {
+      Actions.nextTutorialProgress();
+    }
   },
 
   moveDetrominoInGame(direction) {

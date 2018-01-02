@@ -108,10 +108,18 @@ class ControlStore extends ReduceStore {
         return new Control();
 
       case TutorialProgress.MOVE_DETROMINO_INTRO:
+        return new Control({
+          enabled: Immutable.Set([
+            ControlTypes.CONTROL_UP,
+            ControlTypes.CONTROL_DOWN,
+            ControlTypes.CONTROL_LEFT,
+            ControlTypes.CONTROL_RIGHT,
+          ]),
+        });
       case TutorialProgress.MOVE_DETROMINO_LEFT_RIGHT:
       case TutorialProgress.MOVE_DETROMINO_NO_OVERLAP:
         return new Control({
-          move   : Actions.moveDetrominoInGame,
+          move   : Actions.moveDetrominoInTutorial,
           enabled: Immutable.Set([
             ControlTypes.CONTROL_UP,
             ControlTypes.CONTROL_DOWN,
@@ -121,7 +129,7 @@ class ControlStore extends ReduceStore {
         });
       case TutorialProgress.MOVE_DETROMINO_ROTATE:
         return new Control({
-          move   : Actions.moveDetrominoInGame,
+          move   : Actions.moveDetrominoInTutorial,
           rotate : Actions.rotate,
           enabled: Immutable.Set([
             ControlTypes.CONTROL_UP,
@@ -149,7 +157,7 @@ class ControlStore extends ReduceStore {
       case TutorialProgress.MECHANISM_DEMO_FLOOR_RESULT:
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_START:
         return new Control({
-          move   : Actions.moveDetrominoInGame,
+          move   : Actions.moveDetrominoInTutorial,
           rotate : Actions.rotate,
           done   : Actions.nextDetrominoInGame,
           enabled: Immutable.Set([
@@ -176,7 +184,7 @@ class ControlStore extends ReduceStore {
     return new Control({
       rotate : Actions.rotate,
       done   : Actions.nextDetrominoInGame,
-      move   : Actions.moveDetrominoInGame,
+      move   : Actions.moveDetrominoInTutorial,
       undo   : Actions.undoInGame,
       redo   : Actions.redoInGame,
       enabled: Immutable.Set([
