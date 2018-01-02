@@ -59,6 +59,7 @@ class TutorialGridContainer extends Component {
         </div>
         <GridControlView
           {...this.state.control}
+          update={true}
           blockList={this.state.editorState.blockList}
           isEditingBlock={this.state.editorState.isEditingBlock}/>
       </div>

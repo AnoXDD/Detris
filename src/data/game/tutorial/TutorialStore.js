@@ -43,7 +43,7 @@ class TutorialStore extends ReduceStore {
       case TutorialProgress.GAME_INTRO_GUIDE_TOGGLE:
         return state.set("position", TutorialGuidePosition.BOTTOM);
       case TutorialProgress.MOVE_DETROMINO_INTRO:
-        return state.set("position", TutorialGuidePosition.BOTTOM);
+        return state.set("position", TutorialGuidePosition.TOP);
       case TutorialProgress.MOVE_DETROMINO_LEFT_RIGHT:
         return state.set("position", TutorialGuidePosition.CENTER);
       case TutorialProgress.MOVE_DETROMINO_NO_OVERLAP:

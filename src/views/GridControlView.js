@@ -64,7 +64,7 @@ export default class GridControlView extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.props.isEditingBlock !== nextProps.isEditingBlock || this.props.isShowingLevelEditor !== nextProps.isShowingLevelEditor;
+    return this.props.update || this.props.isEditingBlock !== nextProps.isEditingBlock || this.props.isShowingLevelEditor !== nextProps.isShowingLevelEditor;
   }
 
   render() {
