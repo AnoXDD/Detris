@@ -146,15 +146,36 @@ const Algorithm = {
   },
 
   /**
+   * Returns if the block cell is opaque. Used to determine if the detromino
+   * can be moved over it
+   * @param block
+   * @return {boolean}
+   */
+  isOpaqueBlock(block) {
+    if (!block) {
+      return true;
+    }
+
+    switch (block.get("type")) {
+      case BlockType.DETROMINO:
+      case BlockType.HIGHLIGHT:
+        return true;
+      default:
+        return false;
+    }
+  },
+
+  /**
    * Returns if grid and detromino is overlapping each other
    * @param {Array} matrix - 2d javascript native array
    * @param {Immutable.Map<string, number>|Detromino} detromino
    */
   isOverlapping(matrix, detromino) {
     let detrominoArray = detromino.getRotatedBlocks().valueSeq().toArray();
+
     for (let cell of detrominoArray) {
       let gridCell = matrix[cell.get("y")][cell.get("x")];
-      if (gridCell && gridCell.get("type") !== BlockType.DETROMINO) {
+      if (!Algorithm.isOpaqueBlock(gridCell)) {
         return true;
       }
     }

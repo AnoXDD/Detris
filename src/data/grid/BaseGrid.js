@@ -9,6 +9,7 @@
 import Immutable from "immutable";
 
 const GridDataRecord = Immutable.Record({
+  /* Each entry is a pair of [id (type of string), Block] */
   grid     : Immutable.Map(),
   detromino: null,
 

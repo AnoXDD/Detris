@@ -4,6 +4,18 @@ $grid-cell-size: 15px;
 
 // region animation
 
+@keyframes cell-highlight {
+  from {
+    transform: scale(1);
+    opacity: .5;
+  }
+
+  to {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
 .zoom-out-animation-enter {
   transition: 1s ease;
   transform: scale(.7);
@@ -150,6 +162,23 @@ html, body, #root {
 
     &.detromino-target {
       background: #a5bcdb;
+    }
+
+    &.highlight {
+      background: #ffecb3;
+
+      &:after {
+        content: " ";
+        background: #ffecb3;
+        width: $grid-cell-size;
+        height: $grid-cell-size;
+        display: block;
+        position: absolute;
+        box-sizing: border-box;
+        left: -1px;
+        top: -1px;
+        animation: cell-highlight infinite 2s;
+      }
     }
 
     &.stale {

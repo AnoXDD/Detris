@@ -330,6 +330,13 @@ img.center {
     box-sizing: border-box;
     padding: 20px 50px 25px; }
 
+@keyframes cell-highlight {
+  from {
+    transform: scale(1);
+    opacity: .5; }
+  to {
+    transform: scale(2);
+    opacity: 0; } }
 .zoom-out-animation-enter {
   transition: 1s ease;
   transform: scale(0.7);
@@ -428,6 +435,19 @@ html, body, #root {
         opacity: 1; }
   .grid-container .grid-cell.detromino-target {
     background: #a5bcdb; }
+  .grid-container .grid-cell.highlight {
+    background: #ffecb3; }
+    .grid-container .grid-cell.highlight:after {
+      content: " ";
+      background: #ffecb3;
+      width: 15px;
+      height: 15px;
+      display: block;
+      position: absolute;
+      box-sizing: border-box;
+      left: -1px;
+      top: -1px;
+      animation: cell-highlight infinite 2s; }
   .grid-container .grid-cell.stale {
     background-color: #F44336;
     z-index: 10; }

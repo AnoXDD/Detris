@@ -53,7 +53,7 @@ const Actions = {
     Actions.setUiState(GameUiState.SELECT_LEVEL);
   },
 
-  showTutorial(initProgress = TutorialProgress.GAME_INTRO) {
+  showTutorial(initProgress = TutorialProgress.MOVE_DETROMINO_INTRO) {
     Actions.setUiState(GameUiState.TUTORIAL);
     Actions.setTutorialProgress(initProgress);
   },

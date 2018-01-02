@@ -5,6 +5,7 @@
  * grids.
  */
 
+import Immutable from "immutable";
 import {ReduceStore} from "flux/utils";
 
 import Algorithm from "../Algorithm";
@@ -18,6 +19,9 @@ import Detromino from "../detromino/Detromino";
 import DetrominoType from "../detromino/DetrominoType";
 import BaseGridHelper from "./BaseGridHelper";
 import GameGrid from "./GameGrid";
+import TutorialProgress from "../enum/TutorialProgress";
+import BaseGrid from "./BaseGrid";
+import Block from "../block/Block";
 
 
 class GameGridStore extends ReduceStore {
@@ -68,6 +72,8 @@ class GameGridStore extends ReduceStore {
         return GameGridStore.undo(state);
       case ActionTypes.REDO_IN_GAME:
         return GameGridStore.redo(state);
+      case ActionTypes.SET_TUTORIAL_PROGRESS:
+        return GameGridStore.setTutorialGrid(state, action.progress);
       default:
         return state;
     }
@@ -200,6 +206,47 @@ class GameGridStore extends ReduceStore {
 
   static undo(state) {
     return state.get("history").undo() || state;
+  }
+
+  static setTutorialGrid(state, progress) {
+    let emptyState = GameGridStore.reset();
+
+    switch (progress) {
+      case TutorialProgress.MOVE_DETROMINO_INTRO:
+        let detromino = new Detromino({
+          id  : Date.now(),
+          type: DetrominoType.I,
+          x   : 0,
+          y   : 0,
+        });
+
+        let highlightBlocks = [
+          {x: 3, y: 9},
+          {x: 4, y: 9},
+          {x: 5, y: 9},
+          {x: 6, y: 9},
+        ];
+
+        let grid = {};
+        for (let block of highlightBlocks) {
+          let {x, y} = block;
+          let id = `h-${x}-${y}`;
+          grid[id] = new Block({
+            x, y, id,
+            type: BlockType.HIGHLIGHT,
+          });
+        }
+
+        let baseGrid = new BaseGrid({
+            detromino: detromino.set("x", detromino.getMiddleXPos()),
+            grid     : Immutable.Map(grid),
+          },
+        );
+
+        return GameGridStore._syncData(emptyState.set("grid", baseGrid));
+      default:
+        return state;
+    }
   }
 
   /**

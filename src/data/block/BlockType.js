@@ -14,6 +14,8 @@ const BlockType = {
   TARGET  : "target", // The blocks to be eliminated, introduced by detromino
   STALE   : "stale", // The blocks to be disappeared
   ORIGINAL: "original", // The original blocks to be eliminated
+
+  HIGHLIGHT: "highlight", // opaque block to guide the player, used in tutorial
 };
 
 export default BlockType;
