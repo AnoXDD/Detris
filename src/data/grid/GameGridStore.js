@@ -47,7 +47,7 @@ class GameGridStore extends ReduceStore {
       case ActionTypes.APPLY_DATA:
         return GameGridStore.applyData(action);
       case ActionTypes.NEXT_DETROMINO_IN_GAME:
-        return GameGridStore.newDetromino(state, action);
+        return GameGridStore.nextDetromino(state, action);
       case ActionTypes.ROTATE:
         return GameGridStore.rotate(state);
       case ActionTypes.DETROMINO_MOVE_LEFT:
@@ -64,6 +64,10 @@ class GameGridStore extends ReduceStore {
         return GameGridStore.sinkFloatingBlocks(state);
       case ActionTypes.SINK_TARGET_BLOCK:
         return GameGridStore.sinkTargetBlocks(state);
+      case ActionTypes.UNDO_IN_GAME:
+        return GameGridStore.undo(state);
+      case ActionTypes.REDO_IN_GAME:
+        return GameGridStore.redo(state);
       default:
         return state;
     }
@@ -76,7 +80,7 @@ class GameGridStore extends ReduceStore {
     });
   }
 
-  static newDetromino(state, action) {
+  static nextDetromino(state, action) {
     let {detrominoType = DetrominoType.DEFAULT} = action;
     let detromino = new Detromino({
       id  : new Date().getTime(),
@@ -89,7 +93,12 @@ class GameGridStore extends ReduceStore {
     grid = grid.set("detromino",
       detromino.set("x", detromino.getMiddleXPos()));
 
-    return GameGridStore._syncData(state.set("grid", grid));
+    state = GameGridStore._syncData(state.set("grid", grid));
+
+    // Record history
+    state.get("history").record(state);
+
+    return state;
   }
 
   static rotate(state) {
@@ -183,6 +192,14 @@ class GameGridStore extends ReduceStore {
     grid = grid.set("grid", Algorithm.sinkTargetBlocks(actualGrid));
 
     return state.set("grid", grid);
+  }
+
+  static redo(state) {
+    return state.get("history").redo() || state;
+  }
+
+  static undo(state) {
+    return state.get("history").undo() || state;
   }
 
   /**

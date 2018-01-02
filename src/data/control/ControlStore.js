@@ -50,6 +50,8 @@ class ControlStore extends ReduceStore {
       rotate : Actions.rotate,
       done   : Actions.nextDetrominoInGame,
       move   : Actions.moveDetrominoInGame,
+      undo   : Actions.undoInGame,
+      redo   : Actions.redoInGame,
       enabled: Immutable.Set([
         ControlTypes.CONTROL_ROTATE,
         ControlTypes.CONTROL_UP,

@@ -366,6 +366,18 @@ const Actions = {
     });
   },
 
+  undoInGame() {
+    Dispatcher.dispatch({
+      type: ActionTypes.UNDO_IN_GAME,
+    });
+  },
+
+  redoInGame() {
+    Dispatcher.dispatch({
+      type: ActionTypes.REDO_IN_GAME,
+    });
+  },
+
   moveDetrominoInEditor(direction) {
     let type = null;
 

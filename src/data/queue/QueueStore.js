@@ -45,8 +45,10 @@ class QueueStore extends ReduceStore {
       case ActionTypes.ADD_DETROMINO_TO_QUEUE:
         return QueueStore.push(state, action.detrominoType);
       case ActionTypes.REDO_IN_EDITOR:
+      case ActionTypes.REDO_IN_GAME:
         return QueueStore.redo(state);
       case ActionTypes.UNDO_IN_EDITOR:
+      case ActionTypes.UNDO_IN_GAME:
         return QueueStore.undo(state);
       default:
         return state;
