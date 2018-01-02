@@ -6,6 +6,7 @@
 
 import Immutable from "immutable";
 import TutorialProgress from "../../enum/TutorialProgress";
+import TutorialGuidePosition from "../../enum/TutorialGuidePosition";
 
 const ORDER = [
   TutorialProgress.GAME_INTRO,
@@ -40,6 +41,7 @@ const ORDER = [
 
 const TutorialStateRecord = Immutable.Record({
   progress: TutorialProgress.GAME_INTRO,
+  position: TutorialGuidePosition.TOP,
 });
 
 export default class TutorialState extends TutorialStateRecord {

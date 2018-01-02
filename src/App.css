@@ -751,8 +751,16 @@ html, body, #root {
   .fullscreen-view.tutorial-guide-view {
     position: absolute;
     justify-content: flex-start; }
+    .fullscreen-view.tutorial-guide-view.position-top {
+      justify-content: flex-start; }
+    .fullscreen-view.tutorial-guide-view.position-center {
+      justify-content: center; }
+    .fullscreen-view.tutorial-guide-view.position-bottom {
+      justify-content: flex-end; }
     .fullscreen-view.tutorial-guide-view .fullscreen-menu-actual-wrapper {
       margin: 20px 0; }
+    .fullscreen-view.tutorial-guide-view .fullscreen-menu-background {
+      opacity: 0; }
 
 .btn.red {
   background: #F44336;

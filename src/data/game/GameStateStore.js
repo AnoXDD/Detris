@@ -68,6 +68,7 @@ class GameStateStore extends ReduceStore {
           case OverlayType.ABOUT:
           case OverlayType.SETTINGS:
           case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
+          case OverlayType.TUTORIAL_GUIDE:
             return state.set("activeOverlay",
               state.get("activeOverlay").add(action.overlayType));
           default:
@@ -79,6 +80,7 @@ class GameStateStore extends ReduceStore {
           case OverlayType.ABOUT:
           case OverlayType.SETTINGS:
           case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
+          case OverlayType.TUTORIAL_GUIDE:
             return state.set("activeOverlay",
               state.get("activeOverlay").remove(action.overlayType));
           default:

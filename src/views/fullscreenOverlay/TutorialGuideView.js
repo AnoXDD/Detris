@@ -13,7 +13,7 @@ export default class TutorialGuideView extends Component {
     return (
       <FullscreenOverlayView
         title=""
-        className={`tutorial-guide-view ${this.props.position || ""}`}
+        className={`tutorial-guide-view ${this.props.tutorial.position}`}
         onBackgroundClick={this.props.onDismiss}
         update={true}
       >

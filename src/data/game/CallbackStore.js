@@ -88,11 +88,25 @@ class CallbackStore extends ReduceStore {
   }
 
   static applyTutorialProgress(state, progress) {
+    // Button for show tutorial guide
+    if (progress === TutorialProgress.GAME_INTRO_GUIDE_TOGGLE) {
+      state = state.set("onShowGuide", () => {
+        Actions.nextTutorialProgress();
+        Actions.showTutorialGuide();
+      });
+    } else {
+      state = state.set("onShowGuide", Actions.showTutorialGuide);
+    }
+
     switch (progress) {
       case TutorialProgress.GAME_INTRO:
+        return state.set("onDismiss", Actions.nextTutorialProgress);
       case TutorialProgress.GAME_INTRO_GUIDE_TOGGLE:
+        return state.set("onDismiss", Actions.hideTutorialGuide);
       case TutorialProgress.MOVE_DETROMINO_INTRO:
+        return state.set("onDismiss", Actions.nextTutorialProgress);
       case TutorialProgress.MOVE_DETROMINO_LEFT_RIGHT:
+        return state.set("onDismiss", Actions.hideTutorialGuide);
       case TutorialProgress.MOVE_DETROMINO_NO_OVERLAP:
       case TutorialProgress.MOVE_DETROMINO_ROTATE:
       case TutorialProgress.MECHANISM_INTRO:
@@ -116,7 +130,7 @@ class CallbackStore extends ReduceStore {
       case TutorialProgress.FIRST_GAME_INTRO:
       case TutorialProgress.FIRST_GAME_START:
       case TutorialProgress.FIRST_GAME_DONE:
-        return state.set("onDismiss", Actions.nextTutorialProgress);
+        return state.set("onDismiss", Actions.hideTutorialGuide);
       default:
         return state;
     }

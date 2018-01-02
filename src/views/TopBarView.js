@@ -38,7 +38,7 @@ export default class TopBarView extends Component {
         case TopBarType.TOP_TUTORIAL_INFO:
           return (
             <Button key="tutorial_info"
-                    onClick={Actions.showTutorialGuide}
+                    onClick={this.props.onShowGuide}
                     className="right"
             >info</Button>
           );
