@@ -10,6 +10,7 @@ import ControlStore from "../data/control/ControlStore";
 import Direction from "../data/enum/Direction";
 import Actions from "../data/Actions";
 import LevelEditorGridStore from "../data/grid/levelEditor/LevelEditorGridStore";
+import GameStateStore from "../data/game/GameStateStore";
 
 const keyMap = {
   "Delete": Actions.removeDetromino,
@@ -59,7 +60,13 @@ class ControlContainer extends Component {
   }
 
   handleKeyDown(e) {
-    // todo: don't do it if there's any overlay
+    // Checks if there is any active overlay
+    if (this.state.activeOverlay.length) {
+      // There is overlay, do not handle any key events
+      // We may want to add some other behavior, like dismissing overlay when `esc` is pressed
+      return;
+    }
+
     let {key} = e;
     if (!keyMap[key]) {
       console.log(`Key not registered: ${key}`);
@@ -73,6 +80,7 @@ class ControlContainer extends Component {
     return [
       ControlStore,
       LevelEditorGridStore,
+      GameStateStore,
     ];
   }
 
@@ -83,6 +91,7 @@ class ControlContainer extends Component {
 
     return {
       ...ControlStore.getState().toJS(),
+      ...GameStateStore.getState().toJS(),
       blockList,
     };
   }
