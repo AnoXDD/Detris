@@ -425,7 +425,8 @@ html, body, #root {
   .grid-container .grid-cell.grid-cell-color-solid {
     background-color: black; }
   .grid-container .grid-cell.detromino {
-    background-color: #448AFF; }
+    background-color: #448AFF;
+    z-index: 10; }
     .grid-container .grid-cell.detromino.grid-cell-animation-enter {
       transform: scale(0.5);
       opacity: 0;

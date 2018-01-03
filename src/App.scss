@@ -147,6 +147,7 @@ html, body, #root {
 
     &.detromino {
       background-color: $blue;
+      z-index: 10;
 
       &.grid-cell-animation-enter {
         transform: scale(0.5);
