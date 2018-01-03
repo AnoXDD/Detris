@@ -16,7 +16,7 @@ import TopBarView from "../views/TopBarView";
 import PauseMenuView from "../views/fullscreenOverlay/PauseMenuView";
 import DialogView from "../views/fullscreenOverlay/DialogView";
 import WelcomeContainer from "./WelcomeContainer";
-import CallbackStore from "../data/game/CallbackStore";
+import CallbackStore from "../data/game/OverlayCallbackStore";
 import SettingsView from "../views/fullscreenOverlay/SettingsView";
 import AboutView from "../views/fullscreenOverlay/AboutView";
 import ControlContainer from "./ControlContainer";
