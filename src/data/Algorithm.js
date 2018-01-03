@@ -20,7 +20,7 @@ import Queue from "./queue/Queue";
  */
 function gridMapToArray(grid) {
   let matrix = new Array(GridSize.HEIGHT).fill().map(
-    a => new Array(GridSize.WIDTH));
+    a => new Array(GridSize.WIDTH).fill());
 
   let cells = grid.valueSeq().toArray();
   for (let cell of cells) {
@@ -121,15 +121,22 @@ const Algorithm = {
   },
 
   /**
-   * Sinks target blocks to eliminate the gaps between them
+   * Removes stale blocks and sinks target blocks to eliminate the gaps between
+   * them
    * @param {Immutable.Map<K, V>|grid} grid Immutable map of blocks
    */
-  sinkTargetBlocks(grid) {
+  removeStaleAndSinkTargetBlocks(grid) {
     grid = Algorithm.removeStaleBlocks(grid);
+    return Algorithm.sinkTargetBlocks(grid);
+  },
 
+  /**
+   * Sinks target blocks in a 2d matrix
+   * @param {GameGrid} grid
+   */
+  sinkTargetBlocks(grid) {
     let matrix = gridMapToArray(grid);
 
-    // Sink target blocks
     for (let x = 0; x < GridSize.WIDTH; ++x) {
       let u = GridSize.HEIGHT - 1, d = u;
 

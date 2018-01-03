@@ -196,7 +196,7 @@ class GameGridStore extends ReduceStore {
   static sinkTargetBlocks(state) {
     let grid = state.get("grid");
     let actualGrid = grid.get("grid");
-    grid = grid.set("grid", Algorithm.sinkTargetBlocks(actualGrid));
+    grid = grid.set("grid", Algorithm.removeStaleAndSinkTargetBlocks(actualGrid));
 
     return state.set("grid", grid);
   }

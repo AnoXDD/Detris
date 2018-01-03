@@ -332,7 +332,7 @@ const Actions = {
   // Debug only
   debug__newRandomDetromino() {
     Actions.applyDetrominoBlocks();
-    Actions.sinkTargetBlocks();
+    Actions.removeStaleAndSinkTargetBlocks();
 
     let detrominoType = Algorithm.generateRandomDetrominoType();
 
