@@ -231,6 +231,7 @@ class GameGridStore extends ReduceStore {
       case TutorialProgress.MECHANISM_DEMO_T_RESULT:
       case TutorialProgress.MECHANISM_DEMO_FLOOR_INTRO:
       case TutorialProgress.MECHANISM_DEMO_FLOOR_RESULT:
+      case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_INTRO:
         baseGrid = TutorialGrid[progress];
         break;
 

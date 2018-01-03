@@ -91,7 +91,7 @@ class CallbackStore extends ReduceStore {
     // Button for show tutorial guide
     if (progress === TutorialProgress.GAME_INTRO_GUIDE_TOGGLE) {
       state = state.set("onShowGuide", () => {
-        Actions.nextTutorialProgress();
+        Actions.nextTutorial();
         Actions.showTutorialGuide();
       });
     } else {
@@ -100,24 +100,24 @@ class CallbackStore extends ReduceStore {
 
     switch (progress) {
       case TutorialProgress.GAME_INTRO:
-        return state.set("onDismiss", Actions.nextTutorialProgress);
+        return state.set("onDismiss", Actions.nextTutorial);
       case TutorialProgress.GAME_INTRO_GUIDE_TOGGLE:
         return state.set("onDismiss", Actions.hideTutorialGuide);
       case TutorialProgress.MOVE_DETROMINO_INTRO:
-        return state.set("onDismiss", Actions.nextTutorialProgress);
+        return state.set("onDismiss", Actions.nextTutorial);
       case TutorialProgress.MOVE_DETROMINO_LEFT_RIGHT:
       case TutorialProgress.MOVE_DETROMINO_NO_OVERLAP:
       case TutorialProgress.MOVE_DETROMINO_ROTATE:
         return state.set("onDismiss", Actions.hideTutorialGuide);
       case TutorialProgress.MECHANISM_INTRO:
       case TutorialProgress.MECHANISM_DEMO_INTRO:
-        return state.set("onDismiss", Actions.nextTutorialProgress);
+        return state.set("onDismiss", Actions.nextTutorial);
       case TutorialProgress.MECHANISM_DEMO_I_INTRO:
         return state.set("onDismiss", Actions.hideTutorialGuide);
       case TutorialProgress.MECHANISM_DEMO_I_FALLING:
       case TutorialProgress.MECHANISM_DEMO_I_APPLYING:
       case TutorialProgress.MECHANISM_DEMO_I_RESULT:
-        return state.set("onDismiss", Actions.nextTutorialProgress);
+        return state.set("onDismiss", Actions.nextTutorial);
       case TutorialProgress.MECHANISM_DEMO_T_INTRO:
         return state.set("onDismiss", Actions.hideTutorialGuide);
       case TutorialProgress.MECHANISM_DEMO_T_FALLING:
@@ -126,13 +126,21 @@ class CallbackStore extends ReduceStore {
       case TutorialProgress.MECHANISM_DEMO_T_TARGET_FALLING:
       case TutorialProgress.MECHANISM_DEMO_T_TARGET_BLOCKS:
       case TutorialProgress.MECHANISM_DEMO_T_RESULT:
-        return state.set("onDismiss", Actions.nextTutorialProgress);
+        return state.set("onDismiss", Actions.nextTutorial);
       case TutorialProgress.MECHANISM_DEMO_FLOOR_INTRO:
+        return state.set("onDismiss", Actions.hideTutorialGuide);
       case TutorialProgress.MECHANISM_DEMO_FLOOR_RESULT:
-      case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_START:
+        return state.set("onDismiss", Actions.nextTutorial);
+      case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_INTRO:
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_UNDO_REDO:
+        return state.set("onDismiss", Actions.nextTutorial);
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY:
+        return state.set("onDismiss", () => {
+          Actions.hideTutorialGuide();
+          Actions.setNextTutorialProgress();
+        });
       case TutorialProgress.FIRST_GAME_INTRO:
+        return state.set("onDismiss", Actions.nextTutorial);
       case TutorialProgress.FIRST_GAME_START:
       case TutorialProgress.FIRST_GAME_DONE:
         return state.set("onDismiss", Actions.hideTutorialGuide);

@@ -145,7 +145,7 @@ class ControlStore extends ReduceStore {
         return new Control();
       case TutorialProgress.MECHANISM_DEMO_I_INTRO:
         return new Control({
-          done   : Actions.nextTutorialProgress,
+          done   : Actions.nextTutorial,
           enabled: Immutable.Set([
             ControlTypes.CONTROL_DONE,
           ]),
@@ -156,7 +156,7 @@ class ControlStore extends ReduceStore {
         return new Control();
       case TutorialProgress.MECHANISM_DEMO_T_INTRO:
         return new Control({
-          done   : Actions.nextTutorialProgress,
+          done   : Actions.nextTutorial,
           enabled: Immutable.Set([
             ControlTypes.CONTROL_DONE,
           ]),
@@ -170,33 +170,21 @@ class ControlStore extends ReduceStore {
         return new Control();
       case TutorialProgress.MECHANISM_DEMO_FLOOR_INTRO:
         return new Control({
-          done   : Actions.nextTutorialProgress,
+          done   : Actions.nextTutorial,
           enabled: Immutable.Set([
             ControlTypes.CONTROL_DONE,
           ]),
         });
       case TutorialProgress.MECHANISM_DEMO_FLOOR_RESULT:
         return new Control();
-      case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_START:
-        return new Control({
-          move   : Actions.moveDetrominoInTutorial,
-          rotate : Actions.rotateInTutorial,
-          done   : Actions.nextDetrominoInGame,
-          enabled: Immutable.Set([
-            ControlTypes.CONTROL_UP,
-            ControlTypes.CONTROL_DOWN,
-            ControlTypes.CONTROL_LEFT,
-            ControlTypes.CONTROL_RIGHT,
-            ControlTypes.CONTROL_ROTATE,
-            ControlTypes.CONTROL_DONE,
-          ]),
-        });
+      case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_INTRO:
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_UNDO_REDO:
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY:
       case TutorialProgress.FIRST_GAME_INTRO:
       case TutorialProgress.FIRST_GAME_START:
       case TutorialProgress.FIRST_GAME_DONE:
-        return ControlStore.fullGameControl();
+        return ControlStore.fullGameControl()
+          .set("done", Actions.nextDetromino);
       default:
         return new Control();
     }

@@ -66,13 +66,16 @@ class TutorialStore extends ReduceStore {
       case TutorialProgress.MECHANISM_DEMO_FLOOR_INTRO:
       case TutorialProgress.MECHANISM_DEMO_FLOOR_RESULT:
         return state.set("position", TutorialGuidePosition.BOTTOM);
-      case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_START:
+      case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_INTRO:
+        return state.set("position", TutorialGuidePosition.TOP);
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_UNDO_REDO:
+        return state.set("position", TutorialGuidePosition.CENTER);
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY:
+        return state.set("position", TutorialGuidePosition.TOP);
       case TutorialProgress.FIRST_GAME_INTRO:
       case TutorialProgress.FIRST_GAME_START:
       case TutorialProgress.FIRST_GAME_DONE:
-        return state.set("progress", progress);
+        return state.set("position", TutorialGuidePosition.TOP);
       default:
         return state;
     }
@@ -101,7 +104,7 @@ class TutorialStore extends ReduceStore {
       case TutorialProgress.MECHANISM_DEMO_T_RESULT:
       case TutorialProgress.MECHANISM_DEMO_FLOOR_INTRO:
       case TutorialProgress.MECHANISM_DEMO_FLOOR_RESULT:
-      case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_START:
+      case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_INTRO:
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_UNDO_REDO:
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY:
       case TutorialProgress.FIRST_GAME_INTRO:

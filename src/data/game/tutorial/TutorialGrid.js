@@ -524,6 +524,33 @@ const MECHANISM_DEMO_FLOOR_RESULT = new BaseGrid({
 
 // endregion
 
+// region MECHANISM_DEMO_FREE_PLAY_INTRO
+
+originalBlocks = [
+  ...[...new Array(10)]
+    .map((a,x) =>
+      [14, 16, 18].map(y => {
+        return {x, y,};
+      }))
+    .reduce((a, b) => [...a, ...b]),
+
+  ...[0, 2, 4, 5, 7, 9]
+    .map(x =>
+      [15, 17, 19].map(y => {
+        return {x, y,};
+      }))
+    .reduce((a, b) => [...a, ...b]),
+];
+
+grid = {
+  ...blocksToGridMap(originalBlocks, BlockType.ORIGINAL),
+};
+
+const MECHANISM_DEMO_FREE_PLAY_INTRO = new BaseGrid({
+  grid: Immutable.Map(grid),
+});
+
+// endregion
 
 
 //////////////////////////////////////////////
@@ -546,6 +573,7 @@ const TutorialGrid = {
   MECHANISM_DEMO_T_RESULT,
   MECHANISM_DEMO_FLOOR_INTRO,
   MECHANISM_DEMO_FLOOR_RESULT,
+  MECHANISM_DEMO_FREE_PLAY_INTRO,
 };
 
 export default TutorialGrid;

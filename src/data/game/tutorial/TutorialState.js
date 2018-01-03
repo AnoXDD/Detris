@@ -30,7 +30,7 @@ const ORDER = [
   TutorialProgress.MECHANISM_DEMO_T_RESULT,
   TutorialProgress.MECHANISM_DEMO_FLOOR_INTRO,
   TutorialProgress.MECHANISM_DEMO_FLOOR_RESULT,
-  TutorialProgress.MECHANISM_DEMO_FREE_PLAY_START,
+  TutorialProgress.MECHANISM_DEMO_FREE_PLAY_INTRO,
   TutorialProgress.MECHANISM_DEMO_FREE_PLAY_UNDO_REDO,
   TutorialProgress.MECHANISM_DEMO_FREE_PLAY,
   TutorialProgress.FIRST_GAME_INTRO,

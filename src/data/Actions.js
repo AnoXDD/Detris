@@ -56,7 +56,7 @@ const Actions = {
   },
 
   // todo set initProgress to be the actual progress
-  showTutorial(initProgress = TutorialProgress.MECHANISM_DEMO_FLOOR_INTRO) {
+  showTutorial(initProgress = TutorialProgress.MECHANISM_DEMO_FREE_PLAY_INTRO) {
     Actions.setUiState(GameUiState.TUTORIAL);
     Actions.setTutorialProgress(initProgress);
   },
@@ -128,14 +128,17 @@ const Actions = {
     });
   },
 
-  nextTutorialProgress() {
+  setNextTutorialProgress() {
     let progress = TutorialStore.getState().next();
 
     Dispatcher.dispatch({
       progress,
       type: ActionTypes.SET_TUTORIAL_PROGRESS,
     });
+  },
 
+  nextTutorial() {
+    Actions.setNextTutorialProgress();
     Actions.showTutorialGuide();
   },
 
@@ -271,7 +274,7 @@ const Actions = {
     });
   },
 
-  nextDetrominoInGame() {
+  nextDetromino() {
     if (Dispatcher.willBeDispatching()) {
       return;
     }
@@ -289,6 +292,10 @@ const Actions = {
       type: ActionTypes.NEXT_DETROMINO_IN_GAME,
       detrominoType,
     }, DELAY * 2);
+  },
+
+  nextDetrominoInGame() {
+    Actions.nextDetromino();
 
     Dispatcher.dispatchOnClear({
       type: ActionTypes.MAYBE_END_GAME,
@@ -351,7 +358,7 @@ const Actions = {
     Actions.moveDetrominoInGame(direction);
 
     if (TutorialHelper.isDetrominoReachedHighlightArea(GameGridStore.getState())) {
-      Actions.nextTutorialProgress();
+      Actions.nextTutorial();
     }
   },
 
@@ -491,7 +498,7 @@ const Actions = {
     Actions.rotate();
 
     if (TutorialHelper.isDetrominoReachedHighlightArea(GameGridStore.getState())) {
-      Actions.nextTutorialProgress();
+      Actions.nextTutorial();
     }
   },
 

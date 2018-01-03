@@ -20,7 +20,7 @@ const EndGameHelper = {
    */
   isLevelFailed() {
     return QueueStore.getState().isEmpty() && !GridStore.getState().isEmpty();
-  }
+  },
 };
 
 export default EndGameHelper;

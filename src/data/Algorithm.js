@@ -66,6 +66,7 @@ const Algorithm = {
 
     // Dummy implementation: remove the following snippet after this function
     // is actually implemented
+    // General idea: from where the detromino is placed, keep moving it down one block at a time, until some non-DETROMINO block is above it
     const b = GridSize.HEIGHT - 1;
     for (let x = 0; x < GridSize.WIDTH; ++x) {
       for (let y = 0; y < GridSize.HEIGHT; ++y) {
@@ -117,15 +118,28 @@ const Algorithm = {
 
     let matrix = gridMapToArray(grid);
 
+    // todo maybe remove this part after sinkFloatingBlocks is implemented
+    // Convert detromino blocks to target
+    for (let x = 0; x < GridSize.WIDTH; ++x) {
+      for (let y = 0; y < GridSize.HEIGHT; ++y) {
+        if (matrix[y][x] && matrix[y][x].get("type") === BlockType.DETROMINO) {
+          matrix[y][x] = matrix[y][x].set("type", BlockType.TARGET);
+        }
+      }
+    }
+
+    // Sink target blocks
     for (let x = 0; x < GridSize.WIDTH; ++x) {
       let u = GridSize.HEIGHT - 1, d = u;
 
       while (u >= 0 && d >= 0) {
         if (u > d) {
           u = d;
-        } else if (!matrix[u][x]) {
+        } else if (!matrix[u][x] || matrix[u][x].get("type") !== BlockType.TARGET) {
+          // Find the first target block from the bottom
           --u;
         } else if (matrix[d][x]) {
+          // Find the first air block from the bottom
           --d;
         } else {
           // Update block information and swap
