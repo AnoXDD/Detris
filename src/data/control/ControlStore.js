@@ -155,12 +155,19 @@ class ControlStore extends ReduceStore {
       case TutorialProgress.MECHANISM_DEMO_I_RESULT:
         return new Control();
       case TutorialProgress.MECHANISM_DEMO_T_INTRO:
+        return new Control({
+          done   : Actions.nextTutorialProgress,
+          enabled: Immutable.Set([
+            ControlTypes.CONTROL_DONE,
+          ]),
+        });
       case TutorialProgress.MECHANISM_DEMO_T_FALLING:
       case TutorialProgress.MECHANISM_DEMO_T_FALLING_EXPLANATION:
       case TutorialProgress.MECHANISM_DEMO_T_APPLYING:
       case TutorialProgress.MECHANISM_DEMO_T_TARGET_FALLING:
       case TutorialProgress.MECHANISM_DEMO_T_TARGET_BLOCKS:
       case TutorialProgress.MECHANISM_DEMO_T_RESULT:
+        return new Control();
       case TutorialProgress.MECHANISM_DEMO_FLOOR_INTRO:
       case TutorialProgress.MECHANISM_DEMO_FLOOR_RESULT:
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_START:

@@ -337,6 +337,11 @@ img.center {
   to {
     transform: scale(2);
     opacity: 0; } }
+@keyframes blink {
+  0%, 100% {
+    opacity: 0; }
+  50% {
+    opacity: 1; } }
 .zoom-out-animation-enter {
   transition: 1s ease;
   transform: scale(0.7);
@@ -449,6 +454,14 @@ html, body, #root {
       left: -1px;
       top: -1px;
       animation: cell-highlight infinite 2s; }
+  .grid-container .grid-cell.blinking {
+    background: #fff;
+    z-index: 100;
+    animation: blink infinite 2s; }
+  .grid-container .grid-cell.blinking-black {
+    background: #000;
+    z-index: 100;
+    animation: blink infinite 2s; }
   .grid-container .grid-cell.stale {
     background-color: #F44336;
     z-index: 10; }

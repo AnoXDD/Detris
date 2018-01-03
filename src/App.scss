@@ -16,6 +16,16 @@ $grid-cell-size: 15px;
   }
 }
 
+@keyframes blink {
+  0%, 100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
 .zoom-out-animation-enter {
   transition: 1s ease;
   transform: scale(.7);
@@ -180,6 +190,18 @@ html, body, #root {
         top: -1px;
         animation: cell-highlight infinite 2s;
       }
+    }
+
+    &.blinking {
+      background: #fff;
+      z-index: 100;
+      animation: blink infinite 2s;
+    }
+
+    &.blinking-black {
+      background: #000;
+      z-index: 100;
+      animation: blink infinite 2s;
     }
 
     &.stale {

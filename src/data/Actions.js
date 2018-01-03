@@ -56,7 +56,7 @@ const Actions = {
   },
 
   // todo set initProgress to be the actual progress
-  showTutorial(initProgress = TutorialProgress.MECHANISM_INTRO) {
+  showTutorial(initProgress = TutorialProgress.MECHANISM_DEMO_T_INTRO) {
     Actions.setUiState(GameUiState.TUTORIAL);
     Actions.setTutorialProgress(initProgress);
   },
@@ -493,18 +493,6 @@ const Actions = {
     if (TutorialHelper.isDetrominoReachedHighlightArea(GameGridStore.getState())) {
       Actions.nextTutorialProgress();
     }
-  },
-
-  dropDetrominoIInTutorial() {
-    Dispatcher.dispatch({
-      type: ActionTypes.NEXT_DETROMINO_IN_TUTORIAL_I,
-    });
-  },
-
-  dropDetrominoTInTutorial() {
-    Dispatcher.dispatch({
-      type: ActionTypes.NEXT_DETROMINO_IN_TUTORIAL_T,
-    });
   },
 
   // Remove the current detromino block from the grid

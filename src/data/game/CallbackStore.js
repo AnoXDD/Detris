@@ -126,6 +126,7 @@ class CallbackStore extends ReduceStore {
       case TutorialProgress.MECHANISM_DEMO_T_TARGET_FALLING:
       case TutorialProgress.MECHANISM_DEMO_T_TARGET_BLOCKS:
       case TutorialProgress.MECHANISM_DEMO_T_RESULT:
+        return state.set("onDismiss", Actions.nextTutorialProgress);
       case TutorialProgress.MECHANISM_DEMO_FLOOR_INTRO:
       case TutorialProgress.MECHANISM_DEMO_FLOOR_RESULT:
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_START:
