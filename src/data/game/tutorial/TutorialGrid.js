@@ -490,6 +490,41 @@ const MECHANISM_DEMO_T_RESULT = new BaseGrid({
 
 // endregion
 
+// region MECHANISM_DEMO_FLOOR_INTRO
+
+detromino = new Detromino({
+  id  : detrominoId,
+  type: DetrominoType.O,
+  x   : 4,
+  y   : 18,
+});
+
+const MECHANISM_DEMO_FLOOR_INTRO = new BaseGrid({
+  detromino,
+});
+
+// endregion
+
+// region MECHANISM_DEMO_FLOOR_RESULT
+
+originalBlocks = [
+  {x: 4, y: 18,},
+  {x: 5, y: 18,},
+  {x: 4, y: 19,},
+  {x: 5, y: 19,},
+];
+
+grid = {
+  ...blocksToGridMap(originalBlocks, BlockType.ORIGINAL),
+};
+
+const MECHANISM_DEMO_FLOOR_RESULT = new BaseGrid({
+  grid: Immutable.Map(grid),
+});
+
+// endregion
+
+
 
 //////////////////////////////////////////////
 
@@ -509,6 +544,8 @@ const TutorialGrid = {
   MECHANISM_DEMO_T_TARGET_FALLING,
   MECHANISM_DEMO_T_TARGET_BLOCKS,
   MECHANISM_DEMO_T_RESULT,
+  MECHANISM_DEMO_FLOOR_INTRO,
+  MECHANISM_DEMO_FLOOR_RESULT,
 };
 
 export default TutorialGrid;

@@ -56,7 +56,7 @@ const Actions = {
   },
 
   // todo set initProgress to be the actual progress
-  showTutorial(initProgress = TutorialProgress.MECHANISM_DEMO_T_INTRO) {
+  showTutorial(initProgress = TutorialProgress.MECHANISM_DEMO_FLOOR_INTRO) {
     Actions.setUiState(GameUiState.TUTORIAL);
     Actions.setTutorialProgress(initProgress);
   },
