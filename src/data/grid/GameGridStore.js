@@ -215,10 +215,9 @@ class GameGridStore extends ReduceStore {
 
     switch (progress) {
       case TutorialProgress.MOVE_DETROMINO_INTRO:
-        baseGrid = TutorialGrid.MOVE_DETROMINO_INTRO;
-        break;
       case TutorialProgress.MOVE_DETROMINO_NO_OVERLAP:
-        baseGrid = TutorialGrid.MOVE_DETROMINO_NO_OVERLAP;
+      case TutorialProgress.MOVE_DETROMINO_ROTATE:
+        baseGrid = TutorialGrid[progress];
         break;
 
       default:

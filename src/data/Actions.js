@@ -55,7 +55,8 @@ const Actions = {
     Actions.setUiState(GameUiState.SELECT_LEVEL);
   },
 
-  showTutorial(initProgress = TutorialProgress.MOVE_DETROMINO_INTRO) {
+  // todo set initProgress to be the actual progress
+  showTutorial(initProgress = TutorialProgress.MOVE_DETROMINO_NO_OVERLAP) {
     Actions.setUiState(GameUiState.TUTORIAL);
     Actions.setTutorialProgress(initProgress);
   },

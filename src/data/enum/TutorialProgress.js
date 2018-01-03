@@ -2,6 +2,7 @@
  * Created by Anoxic on 12/31/2017.
  */
 
+// Each of these key-value pairs must match EXACTLY
 const TutorialProgress = {
   GAME_INTRO             : "GAME_INTRO",
   GAME_INTRO_GUIDE_TOGGLE: "GAME_INTRO_GUIDE_TOGGLE",

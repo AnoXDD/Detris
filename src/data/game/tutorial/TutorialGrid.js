@@ -46,10 +46,10 @@ detromino = new Detromino({
 });
 
 highlightBlocks = [
-  {x: 3, y: 9},
-  {x: 4, y: 9},
-  {x: 5, y: 9},
-  {x: 6, y: 9},
+  {x: 3, y: 8},
+  {x: 4, y: 8},
+  {x: 5, y: 8},
+  {x: 6, y: 8},
 ];
 
 grid = {
@@ -80,8 +80,8 @@ highlightBlocks = [
 ];
 
 originalBlocks = [
-  {x: 4, y: 7},
-  {x: 5, y: 7},
+  {x: 4, y: 4},
+  {x: 5, y: 4},
 ];
 
 grid = {
@@ -96,11 +96,53 @@ const MOVE_DETROMINO_NO_OVERLAP = new BaseGrid({
 
 // endregion
 
+// region MOVE_DETROMINO_ROTATE
+
+detromino = new Detromino({
+  id  : detrominoId,
+  type: DetrominoType.I,
+  x   : 3,
+  y   : 0,
+});
+
+highlightBlocks = [
+  {x: 3, y: 6},
+  {x: 4, y: 6},
+  {x: 5, y: 6},
+  {x: 6, y: 6},
+];
+
+originalBlocks = [
+  {x: 4, y: 4},
+  {x: 5, y: 4},
+
+  // Blocks on two sides
+  ...[...new Array(5)]
+    .map((a, y) =>
+      [0, 1, 2, 7, 8, 9].map(x => {
+        return {x, y,};
+      }))
+    .reduce((a, b) => [...a, ...b]),
+];
+
+grid = {
+  ...blocksToGridMap(highlightBlocks, BlockType.HIGHLIGHT),
+  ...blocksToGridMap(originalBlocks, BlockType.ORIGINAL),
+};
+
+const MOVE_DETROMINO_ROTATE = new BaseGrid({
+  detromino,
+  grid: Immutable.Map(grid),
+});
+
+// endregion
+
 //////////////////////////////////////////////
 
 const TutorialGrid = {
   MOVE_DETROMINO_INTRO,
   MOVE_DETROMINO_NO_OVERLAP,
+  MOVE_DETROMINO_ROTATE,
 };
 
 export default TutorialGrid;

@@ -47,7 +47,9 @@ class TutorialStore extends ReduceStore {
       case TutorialProgress.MOVE_DETROMINO_LEFT_RIGHT:
         return state.set("position", TutorialGuidePosition.CENTER);
       case TutorialProgress.MOVE_DETROMINO_NO_OVERLAP:
+        return state.set("position", TutorialGuidePosition.CENTER);
       case TutorialProgress.MOVE_DETROMINO_ROTATE:
+        return state.set("position", TutorialGuidePosition.CENTER);
       case TutorialProgress.MECHANISM_INTRO:
       case TutorialProgress.MECHANISM_DEMO_INTRO:
       case TutorialProgress.MECHANISM_DEMO_I_INTRO:
