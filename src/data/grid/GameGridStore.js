@@ -65,9 +65,9 @@ class GameGridStore extends ReduceStore {
         return GameGridStore.move(state, {y: 1});
       case ActionTypes.REMOVE_DETROMINO:
         return GameGridStore.removeDetromino(state);
-      case ActionTypes.SINK_FLOATING_BLOCK:
-        return GameGridStore.sinkFloatingBlocks(state);
-      case ActionTypes.SINK_TARGET_BLOCK:
+      case ActionTypes.APPLY_DETROMINO_BLOCKS:
+        return GameGridStore.applyDetrominoBlocks(state);
+      case ActionTypes.SINK_TARGET_BLOCKS:
         return GameGridStore.sinkTargetBlocks(state);
       case ActionTypes.UNDO_IN_GAME:
         return GameGridStore.undo(state);
@@ -185,10 +185,10 @@ class GameGridStore extends ReduceStore {
     return GameGridStore._syncData(state, false, BlockType.NONE);
   }
 
-  static sinkFloatingBlocks(state) {
+  static applyDetrominoBlocks(state) {
     let grid = state.get("grid");
     let actualGrid = grid.get("grid");
-    grid = grid.set("grid", Algorithm.sinkFloatingBlocks(actualGrid));
+    grid = grid.set("grid", Algorithm.applyDetrominoBlocks(actualGrid));
 
     return state.set("grid", grid);
   }

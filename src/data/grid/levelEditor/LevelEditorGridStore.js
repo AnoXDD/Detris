@@ -97,7 +97,7 @@ class LevelEditorGridStore extends ReduceStore {
         type: DetrominoType.O, // default value
       });
 
-    grid = grid.set("grid", Algorithm.applyDetrominoInEditor(grid.get("grid"),
+    grid = grid.set("grid", Algorithm.displayDetrominoInEditor(grid.get("grid"),
       grid.get("matrix"),
       detromino));
 

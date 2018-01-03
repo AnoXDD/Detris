@@ -26,7 +26,7 @@ const BaseGridHelper = {
            updateMatrix = true,
            blockType = BlockType.DETROMINO,
            detrominoTargets) {
-    baseGrid = BaseGridHelper._applyDetromino(baseGrid,
+    baseGrid = BaseGridHelper._displayDetromino(baseGrid,
       blockType,
       detrominoTargets);
 
@@ -60,9 +60,9 @@ const BaseGridHelper = {
    *   editor to mark detromino blocks as target
    * @private
    */
-  _applyDetromino(state,
-                  blockType = BlockType.DETROMINO,
-                  detrominoTargets) {
+  _displayDetromino(state,
+                    blockType = BlockType.DETROMINO,
+                    detrominoTargets) {
     // Process the raw detromino in the state
     let detromino = state.get("detromino");
     if (!detromino) {

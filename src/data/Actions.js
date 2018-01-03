@@ -282,10 +282,10 @@ const Actions = {
     let detrominoType = QueueStore.getState().get("queue").last();
     // todo optimization: just drop it if it won't break anything
     Dispatcher.dispatch({
-      type: ActionTypes.SINK_FLOATING_BLOCK,
+      type: ActionTypes.APPLY_DETROMINO_BLOCKS,
     });
     Dispatcher.dispatch({
-      type: ActionTypes.SINK_TARGET_BLOCK,
+      type: ActionTypes.SINK_TARGET_BLOCKS,
     }, DELAY);
 
     Dispatcher.dispatch({
@@ -331,7 +331,7 @@ const Actions = {
 
   // Debug only
   debug__newRandomDetromino() {
-    Actions.sinkFloatingBlocks();
+    Actions.applyDetrominoBlocks();
     Actions.sinkTargetBlocks();
 
     let detrominoType = Algorithm.generateRandomDetrominoType();
@@ -509,15 +509,15 @@ const Actions = {
     });
   },
 
-  sinkFloatingBlocks() {
+  applyDetrominoBlocks() {
     Dispatcher.dispatch({
-      type: ActionTypes.SINK_FLOATING_BLOCK,
+      type: ActionTypes.APPLY_DETROMINO_BLOCKS,
     });
   },
 
   sinkTargetBlocks() {
     Dispatcher.dispatch({
-      type: ActionTypes.SINK_TARGET_BLOCK,
+      type: ActionTypes.SINK_TARGET_BLOCKS,
     });
   },
 

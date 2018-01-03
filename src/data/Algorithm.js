@@ -55,18 +55,19 @@ const Algorithm = {
   },
 
   /**
-   * Sinks the floating blocks whose type is FLOATING to make it not floating
-   * anymore. A floating block is defined as a block whose adjacent block below
-   * is neither the edge of the grid nor another block another grid
+   * Applies detromino blocks to interact with existing blocks (e.g original or
+   * target blocks). After this function is called, all detromino blocks should
+   * either be eliminated or converted to target blocks)
    * @param {Immutable.Map<K, V>|Grid} grid Immutable map of blocks
    */
-  sinkFloatingBlocks(grid) {
+  applyDetrominoBlocks(grid) {
     let matrix = gridMapToArray(grid);
     // todo implement this
 
     // Dummy implementation: remove the following snippet after this function
     // is actually implemented
-    // General idea: from where the detromino is placed, keep moving it down one block at a time, until some non-DETROMINO block is above it
+    // General idea: from where the detromino is placed, keep moving it down
+    // one block at a time, until some non-DETROMINO block is above it
     const b = GridSize.HEIGHT - 1;
     for (let x = 0; x < GridSize.WIDTH; ++x) {
       for (let y = 0; y < GridSize.HEIGHT; ++y) {
@@ -87,6 +88,16 @@ const Algorithm = {
           matrix[b][x] = null;
         }
         break;
+      }
+    }
+
+    // Convert remaining detromino blocks to targets
+    for (let x = 0; x < GridSize.WIDTH; ++x) {
+      for (let y = 0; y < GridSize.HEIGHT; ++y) {
+        if (matrix[y][x] && matrix[y][x].get("type") === BlockType.DETROMINO) {
+          grid = grid.set(matrix[y][x].id,
+            matrix[y][x] = matrix[y][x].set("type", BlockType.TARGET));
+        }
       }
     }
 
@@ -117,16 +128,6 @@ const Algorithm = {
     grid = Algorithm.removeStaleBlocks(grid);
 
     let matrix = gridMapToArray(grid);
-
-    // todo maybe remove this part after sinkFloatingBlocks is implemented
-    // Convert detromino blocks to target
-    for (let x = 0; x < GridSize.WIDTH; ++x) {
-      for (let y = 0; y < GridSize.HEIGHT; ++y) {
-        if (matrix[y][x] && matrix[y][x].get("type") === BlockType.DETROMINO) {
-          matrix[y][x] = matrix[y][x].set("type", BlockType.TARGET);
-        }
-      }
-    }
 
     // Sink target blocks
     for (let x = 0; x < GridSize.WIDTH; ++x) {
@@ -427,7 +428,7 @@ const Algorithm = {
    * @param {Detromino} detromino
    * @return {Immutable.Map<K, V>|Grid} resulting grid
    */
-  applyDetrominoInEditor(grid, matrix, detromino) {
+  displayDetrominoInEditor(grid, matrix, detromino) {
     if (!grid || !matrix || !detromino) {
       return grid;
     }
