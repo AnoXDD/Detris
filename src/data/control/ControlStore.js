@@ -130,7 +130,7 @@ class ControlStore extends ReduceStore {
       case TutorialProgress.MOVE_DETROMINO_ROTATE:
         return new Control({
           move   : Actions.moveDetrominoInTutorial,
-          rotate : Actions.rotate,
+          rotate : Actions.rotateInTutorial,
           enabled: Immutable.Set([
             ControlTypes.CONTROL_UP,
             ControlTypes.CONTROL_DOWN,
@@ -142,10 +142,18 @@ class ControlStore extends ReduceStore {
 
       case TutorialProgress.MECHANISM_INTRO:
       case TutorialProgress.MECHANISM_DEMO_INTRO:
+        return new Control();
       case TutorialProgress.MECHANISM_DEMO_I_INTRO:
+        return new Control({
+          done   : Actions.nextTutorialProgress,
+          enabled: Immutable.Set([
+            ControlTypes.CONTROL_DONE,
+          ]),
+        });
       case TutorialProgress.MECHANISM_DEMO_I_FALLING:
       case TutorialProgress.MECHANISM_DEMO_I_APPLYING:
       case TutorialProgress.MECHANISM_DEMO_I_RESULT:
+        return new Control();
       case TutorialProgress.MECHANISM_DEMO_T_INTRO:
       case TutorialProgress.MECHANISM_DEMO_T_FALLING:
       case TutorialProgress.MECHANISM_DEMO_T_FALLING_EXPLANATION:
@@ -158,7 +166,7 @@ class ControlStore extends ReduceStore {
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_START:
         return new Control({
           move   : Actions.moveDetrominoInTutorial,
-          rotate : Actions.rotate,
+          rotate : Actions.rotateInTutorial,
           done   : Actions.nextDetrominoInGame,
           enabled: Immutable.Set([
             ControlTypes.CONTROL_UP,
@@ -182,7 +190,7 @@ class ControlStore extends ReduceStore {
 
   static fullGameControl() {
     return new Control({
-      rotate : Actions.rotate,
+      rotate : Actions.rotateInTutorial,
       done   : Actions.nextDetrominoInGame,
       move   : Actions.moveDetrominoInTutorial,
       undo   : Actions.undoInGame,

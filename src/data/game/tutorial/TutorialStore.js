@@ -65,6 +65,7 @@ class TutorialStore extends ReduceStore {
       case TutorialProgress.MECHANISM_DEMO_T_RESULT:
       case TutorialProgress.MECHANISM_DEMO_FLOOR_INTRO:
       case TutorialProgress.MECHANISM_DEMO_FLOOR_RESULT:
+        return state.set("position", TutorialGuidePosition.BOTTOM);
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_START:
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_UNDO_REDO:
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY:

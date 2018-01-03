@@ -56,7 +56,7 @@ const Actions = {
   },
 
   // todo set initProgress to be the actual progress
-  showTutorial(initProgress = TutorialProgress.MOVE_DETROMINO_NO_OVERLAP) {
+  showTutorial(initProgress = TutorialProgress.MECHANISM_INTRO) {
     Actions.setUiState(GameUiState.TUTORIAL);
     Actions.setTutorialProgress(initProgress);
   },
@@ -480,6 +480,30 @@ const Actions = {
   rotate() {
     Dispatcher.dispatch({
       type: ActionTypes.ROTATE,
+    });
+  },
+
+  /**
+   * A wrapper for `rotate`, but this method also checks if game
+   * grid meets the tutorial goal
+   */
+  rotateInTutorial() {
+    Actions.rotate();
+
+    if (TutorialHelper.isDetrominoReachedHighlightArea(GameGridStore.getState())) {
+      Actions.nextTutorialProgress();
+    }
+  },
+
+  dropDetrominoIInTutorial() {
+    Dispatcher.dispatch({
+      type: ActionTypes.NEXT_DETROMINO_IN_TUTORIAL_I,
+    });
+  },
+
+  dropDetrominoTInTutorial() {
+    Dispatcher.dispatch({
+      type: ActionTypes.NEXT_DETROMINO_IN_TUTORIAL_T,
     });
   },
 

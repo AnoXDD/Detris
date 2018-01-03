@@ -137,12 +137,139 @@ const MOVE_DETROMINO_ROTATE = new BaseGrid({
 
 // endregion
 
+const MECHANISM_INTRO = new BaseGrid();
+
+// region MECHANISM_DEMO_I_INTRO
+
+detromino = new Detromino({
+  id  : detrominoId,
+  type: DetrominoType.I,
+  x   : 3,
+  y   : 0,
+});
+
+originalBlocks = [
+  ...[...new Array(10)]
+    .map((a, x) =>
+      [17, 18, 19].map(y => {
+        return {x, y,};
+      }))
+    .reduce((a, b) => [...a, ...b]),
+];
+
+grid = {
+  ...blocksToGridMap(originalBlocks, BlockType.ORIGINAL),
+};
+
+const MECHANISM_DEMO_I_INTRO = new BaseGrid({
+  detromino,
+  grid: Immutable.Map(grid),
+});
+
+// endregion
+
+// region MECHANISM_DEMO_I_FALLING
+
+detromino = new Detromino({
+  id  : detrominoId,
+  type: DetrominoType.I,
+  x   : 3,
+  y   : 17,
+});
+
+originalBlocks = [
+  ...[...new Array(10)]
+    .map((a, x) =>
+      [17, 18, 19].map(y => {
+        return {x, y,};
+      }))
+    .reduce((a, b) => [...a, ...b]),
+];
+
+grid = {
+  ...blocksToGridMap(originalBlocks, BlockType.ORIGINAL),
+};
+
+const MECHANISM_DEMO_I_FALLING = new BaseGrid({
+  detromino,
+  grid: Immutable.Map(grid),
+});
+
+// endregion
+
+// region MECHANISM_DEMO_I_APPLYING
+
+originalBlocks = [
+  {x: 0, y: 17,},
+  {x: 1, y: 17,},
+  {x: 2, y: 17,},
+  {x: 7, y: 17,},
+  {x: 8, y: 17,},
+  {x: 9, y: 17,},
+  ...[...new Array(10)]
+    .map((a, x) =>
+      [18, 19].map(y => {
+        return {x, y,};
+      }))
+    .reduce((a, b) => [...a, ...b]),
+];
+
+highlightBlocks = [
+  {x: 3, y: 17,},
+  {x: 4, y: 17,},
+  {x: 5, y: 17,},
+  {x: 6, y: 17,},
+];
+
+grid = {
+  ...blocksToGridMap(originalBlocks, BlockType.ORIGINAL),
+  ...blocksToGridMap(highlightBlocks, BlockType.HIGHLIGHT),
+};
+
+const MECHANISM_DEMO_I_APPLYING = new BaseGrid({
+  grid: Immutable.Map(grid),
+});
+
+// endregion
+
+// region
+
+originalBlocks = [
+  {x: 0, y: 17,},
+  {x: 1, y: 17,},
+  {x: 2, y: 17,},
+  {x: 7, y: 17,},
+  {x: 8, y: 17,},
+  {x: 9, y: 17,},
+  ...[...new Array(10)]
+    .map((a, x) =>
+      [18, 19].map(y => {
+        return {x, y,};
+      }))
+    .reduce((a, b) => [...a, ...b]),
+];
+
+grid = {
+  ...blocksToGridMap(originalBlocks, BlockType.ORIGINAL),
+};
+
+const MECHANISM_DEMO_I_RESULT = new BaseGrid({
+  grid: Immutable.Map(grid),
+});
+
+// endregion
+
 //////////////////////////////////////////////
 
 const TutorialGrid = {
   MOVE_DETROMINO_INTRO,
   MOVE_DETROMINO_NO_OVERLAP,
   MOVE_DETROMINO_ROTATE,
+  MECHANISM_INTRO,
+  MECHANISM_DEMO_I_INTRO,
+  MECHANISM_DEMO_I_FALLING,
+  MECHANISM_DEMO_I_APPLYING,
+  MECHANISM_DEMO_I_RESULT,
 };
 
 export default TutorialGrid;

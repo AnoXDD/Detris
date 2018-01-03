@@ -106,16 +106,20 @@ class CallbackStore extends ReduceStore {
       case TutorialProgress.MOVE_DETROMINO_INTRO:
         return state.set("onDismiss", Actions.nextTutorialProgress);
       case TutorialProgress.MOVE_DETROMINO_LEFT_RIGHT:
-        return state.set("onDismiss", Actions.hideTutorialGuide);
       case TutorialProgress.MOVE_DETROMINO_NO_OVERLAP:
       case TutorialProgress.MOVE_DETROMINO_ROTATE:
+        return state.set("onDismiss", Actions.hideTutorialGuide);
       case TutorialProgress.MECHANISM_INTRO:
       case TutorialProgress.MECHANISM_DEMO_INTRO:
+        return state.set("onDismiss", Actions.nextTutorialProgress);
       case TutorialProgress.MECHANISM_DEMO_I_INTRO:
+        return state.set("onDismiss", Actions.hideTutorialGuide);
       case TutorialProgress.MECHANISM_DEMO_I_FALLING:
       case TutorialProgress.MECHANISM_DEMO_I_APPLYING:
       case TutorialProgress.MECHANISM_DEMO_I_RESULT:
+        return state.set("onDismiss", Actions.nextTutorialProgress);
       case TutorialProgress.MECHANISM_DEMO_T_INTRO:
+        return state.set("onDismiss", Actions.hideTutorialGuide);
       case TutorialProgress.MECHANISM_DEMO_T_FALLING:
       case TutorialProgress.MECHANISM_DEMO_T_FALLING_EXPLANATION:
       case TutorialProgress.MECHANISM_DEMO_T_APPLYING:
