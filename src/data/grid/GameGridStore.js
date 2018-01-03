@@ -22,6 +22,7 @@ import GameGrid from "./GameGrid";
 import TutorialProgress from "../enum/TutorialProgress";
 import BaseGrid from "./BaseGrid";
 import Block from "../block/Block";
+import TutorialGrid from "../game/tutorial/TutorialGrid";
 
 
 class GameGridStore extends ReduceStore {
@@ -210,43 +211,21 @@ class GameGridStore extends ReduceStore {
 
   static setTutorialGrid(state, progress) {
     let emptyState = GameGridStore.reset();
+    let baseGrid = null;
 
     switch (progress) {
       case TutorialProgress.MOVE_DETROMINO_INTRO:
-        let detromino = new Detromino({
-          id  : Date.now(),
-          type: DetrominoType.I,
-          x   : 0,
-          y   : 0,
-        });
+        baseGrid = TutorialGrid.MOVE_DETROMINO_INTRO;
+        break;
+      case TutorialProgress.MOVE_DETROMINO_NO_OVERLAP:
+        baseGrid = TutorialGrid.MOVE_DETROMINO_NO_OVERLAP;
+        break;
 
-        let highlightBlocks = [
-          {x: 3, y: 9},
-          {x: 4, y: 9},
-          {x: 5, y: 9},
-          {x: 6, y: 9},
-        ];
-
-        let grid = {};
-        for (let block of highlightBlocks) {
-          let {x, y} = block;
-          let id = `h-${x}-${y}`;
-          grid[id] = new Block({
-            x, y, id,
-            type: BlockType.HIGHLIGHT,
-          });
-        }
-
-        let baseGrid = new BaseGrid({
-            detromino: detromino.set("x", detromino.getMiddleXPos()),
-            grid     : Immutable.Map(grid),
-          },
-        );
-
-        return GameGridStore._syncData(emptyState.set("grid", baseGrid));
       default:
         return state;
     }
+
+    return GameGridStore._syncData(emptyState.set("grid", baseGrid));
   }
 
   /**
