@@ -143,19 +143,19 @@ const Algorithm = {
       while (u >= 0 && d >= 0) {
         if (u > d) {
           u = d;
+        } else if (matrix[u][x] && matrix[u][x].get("type") === BlockType.ORIGINAL) {
+          // Found a new supporting block, update both higher and lower blocks
+          // index
+          d = --u;
         } else if (!matrix[u][x] || matrix[u][x].get("type") !== BlockType.TARGET) {
-          // Find the first target block from the bottom
+          // Continue looking for the first target block from the bottom
           --u;
         } else if (matrix[d][x]) {
-          // Find the first air block from the bottom
+          // Continue looking for the first air block from the bottom
           --d;
         } else {
           // Update block information and swap
           matrix[u][x] = matrix[u][x].set("y", d);
-
-          if (matrix[u][x].get("type") !== BlockType.ORIGINAL) {
-            matrix[u][x] = matrix[u][x].set("type", BlockType.TARGET);
-          }
 
           grid = grid.set(matrix[u][x].get("id"), matrix[u][x]);
 
