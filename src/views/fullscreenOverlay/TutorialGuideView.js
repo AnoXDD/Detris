@@ -6,10 +6,13 @@ import React, {Component} from "react";
 import Button from "../../lib/Button";
 import FullscreenOverlayView from "./FullscreenOverlayView";
 import TutorialText from "../../data/enum/TutorialText";
+import Actions from "../../data/Actions";
+import TutorialProgress from "../../data/enum/TutorialProgress";
 
 export default class TutorialGuideView extends Component {
 
   render() {
+    let {progress} = this.props.tutorial;
     return (
       <FullscreenOverlayView
         title=""
@@ -18,14 +21,22 @@ export default class TutorialGuideView extends Component {
         update={true}
       >
         <div className="guide-text">
-          {TutorialText[this.props.tutorial.progress]}
+          {TutorialText[progress]}
         </div>
         <div className="btns">
+          {progress !== TutorialProgress.BEGIN ?
+            <Button
+              onClick={Actions.previousTutorial}
+            >skip_previous</Button> : null}
           <Button
-            text="dismiss"
-            class="blue"
+            // text="dismiss"
+            className="blue"
             onClick={this.props.onDismiss}
-          >close</Button>
+          >play_arrow</Button>
+          {progress !== TutorialProgress.BEGIN && progress !== TutorialProgress.END ?
+            <Button
+              onClick={Actions.nextTutorial}
+            >skip_next</Button> : null}
         </div>
       </FullscreenOverlayView>
     );

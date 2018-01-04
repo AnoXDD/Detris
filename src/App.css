@@ -345,8 +345,7 @@ img.center {
 .zoom-out-animation-enter {
   transition: 1s ease;
   transform: scale(0.7);
-  opacity: 0;
-  pointer-events: none; }
+  opacity: 0; }
   .zoom-out-animation-enter.zoom-out-animation-enter-active {
     opacity: 1;
     transform: scale(1); }
@@ -802,7 +801,7 @@ html, body, #root {
   color: white; }
 .btn.blue {
   background: #448AFF;
-  color: white; }
+  color: white !important; }
 
 .dialog-view {
   z-index: 1000; }
@@ -829,7 +828,8 @@ html, body, #root {
   margin: 5px; }
 
 .tutorial-guide-view .guide-text {
-  padding: 20px; }
+  padding: 30px;
+  line-height: 25px; }
 
 .title {
   font-size: 20px;

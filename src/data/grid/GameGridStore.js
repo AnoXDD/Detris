@@ -5,7 +5,6 @@
  * grids.
  */
 
-import Immutable from "immutable";
 import {ReduceStore} from "flux/utils";
 
 import Algorithm from "../Algorithm";
@@ -20,8 +19,6 @@ import DetrominoType from "../detromino/DetrominoType";
 import BaseGridHelper from "./BaseGridHelper";
 import GameGrid from "./GameGrid";
 import TutorialProgress from "../enum/TutorialProgress";
-import BaseGrid from "./BaseGrid";
-import Block from "../block/Block";
 import TutorialGrid from "../game/tutorial/TutorialGrid";
 
 
@@ -228,7 +225,6 @@ class GameGridStore extends ReduceStore {
       case TutorialProgress.MECHANISM_DEMO_T_APPLYING:
       case TutorialProgress.MECHANISM_DEMO_T_TARGET_FALLING:
       case TutorialProgress.MECHANISM_DEMO_T_TARGET_BLOCKS:
-      case TutorialProgress.MECHANISM_DEMO_T_RESULT:
       case TutorialProgress.MECHANISM_DEMO_FLOOR_INTRO:
       case TutorialProgress.MECHANISM_DEMO_FLOOR_RESULT:
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_INTRO:

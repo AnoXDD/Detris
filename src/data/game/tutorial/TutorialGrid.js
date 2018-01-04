@@ -69,7 +69,7 @@ detromino = new Detromino({
   id  : detrominoId,
   type: DetrominoType.I,
   x   : 3,
-  y   : 9,
+  y   : 8,
 });
 
 highlightBlocks = [
@@ -461,35 +461,6 @@ const MECHANISM_DEMO_T_TARGET_BLOCKS = new BaseGrid({
 
 // endregion
 
-// region MECHANISM_DEMO_T_RESULT
-
-originalBlocks = [
-  {x: 1, y: 17,},
-  {x: 7, y: 17,},
-  {x: 8, y: 17,},
-  ...[1, 2, 3, 6, 7, 8]
-    .map(x =>
-      [18, 19].map(y => {
-        return {x, y,};
-      }))
-    .reduce((a, b) => [...a, ...b]),
-
-  // Target blocks from previous progress
-  {x: 3, y: 17},
-  {x: 3, y: 16},
-  {x: 4, y: 19, id: "falling"},
-];
-
-grid = {
-  ...blocksToGridMap(originalBlocks, BlockType.ORIGINAL),
-};
-
-const MECHANISM_DEMO_T_RESULT = new BaseGrid({
-  grid: Immutable.Map(grid),
-});
-
-// endregion
-
 // region MECHANISM_DEMO_FLOOR_INTRO
 
 detromino = new Detromino({
@@ -570,7 +541,6 @@ const TutorialGrid = {
   MECHANISM_DEMO_T_APPLYING,
   MECHANISM_DEMO_T_TARGET_FALLING,
   MECHANISM_DEMO_T_TARGET_BLOCKS,
-  MECHANISM_DEMO_T_RESULT,
   MECHANISM_DEMO_FLOOR_INTRO,
   MECHANISM_DEMO_FLOOR_RESULT,
   MECHANISM_DEMO_FREE_PLAY_INTRO,

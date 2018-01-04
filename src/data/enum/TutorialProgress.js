@@ -4,6 +4,9 @@
 
 // Each of these key-value pairs must match EXACTLY
 const TutorialProgress = {
+  BEGIN: "TUTORIAL_INTRO",
+  END  : "FIRST_GAME_START",
+
   TUTORIAL_INTRO             : "TUTORIAL_INTRO",
   TUTORIAL_INTRO_GUIDE_TOGGLE: "TUTORIAL_INTRO_GUIDE_TOGGLE",
 

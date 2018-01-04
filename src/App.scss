@@ -30,7 +30,7 @@ $grid-cell-size: 15px;
   transition: 1s ease;
   transform: scale(.7);
   opacity: 0;
-  pointer-events: none;
+  //pointer-events: none;
 
   &.zoom-out-animation-enter-active {
     opacity: 1;
@@ -599,7 +599,7 @@ html, body, #root {
 
   &.blue {
     background: $blue;
-    color: white;
+    color: white !important;
   }
 }
 
@@ -645,7 +645,8 @@ html, body, #root {
 
 .tutorial-guide-view {
   .guide-text {
-    padding: 20px;
+    padding: 30px;
+    line-height: 25px;
   }
 }
 

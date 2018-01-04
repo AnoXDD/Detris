@@ -11,10 +11,8 @@ import QueueStore from "../data/queue/QueueStore";
 import GridView from "../views/GridView";
 import QueueView from "../views/QueueView";
 import GridControlView from "../views/GridControlView";
-import LevelEditorGridStore from "../data/grid/levelEditor/LevelEditorGridStore";
 import GameStateStore from "../data/game/GameStateStore";
 import ControlStore from "../data/control/ControlStore";
-import TutorialGuideView from "../views/fullscreenOverlay/TutorialGuideView";
 
 class TutorialGridContainer extends Component {
 

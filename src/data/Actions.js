@@ -62,7 +62,7 @@ const Actions = {
   },
 
   // todo set initProgress to be the actual progress
-  showTutorialUi(initProgress = TutorialProgress.TUTORIAL_INTRO) {
+  showTutorialUi(initProgress = TutorialProgress.BEGIN) {
     Actions.setUiState(GameUiState.TUTORIAL);
     Actions.setTutorialProgress(initProgress);
   },
@@ -137,14 +137,22 @@ const Actions = {
   setNextTutorialProgress() {
     let progress = TutorialStore.getState().next();
 
-    Dispatcher.dispatch({
-      progress,
-      type: ActionTypes.SET_TUTORIAL_PROGRESS,
-    });
+    Actions.setTutorialProgress(progress);
+  },
+
+  setPreviousTutorialProgress() {
+    let progress = TutorialStore.getState().prev();
+
+    Actions.setTutorialProgress(progress);
   },
 
   nextTutorial() {
     Actions.setNextTutorialProgress();
+    Actions.showTutorialGuide();
+  },
+
+  previousTutorial() {
+    Actions.setPreviousTutorialProgress();
     Actions.showTutorialGuide();
   },
 
@@ -158,10 +166,10 @@ const Actions = {
   },
 
   completeTutorial() {
-    // todo handle the case if the tutorial starts from main menu
     if (GameStateStore.getState().get("tutorialCompleted")) {
       // The player has completed the tutorial before, or they have skipped the
       // tutorial the first time the game is launched
+      Actions.hideTutorialGuide();
       Actions.showWelcomePage();
     } else {
       // The player starts the tutorial from the tutorial welcome page

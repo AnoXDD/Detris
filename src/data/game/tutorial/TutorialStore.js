@@ -8,11 +8,9 @@ import {ReduceStore} from "flux/utils";
 import Dispatcher from "../../Dispatcher";
 
 import ActionTypes from "../../enum/ActionTypes";
-import Actions from "../../Actions";
 import TutorialProgress from "../../enum/TutorialProgress";
 import TutorialState from "./TutorialState";
 import TutorialGuidePosition from "../../enum/TutorialGuidePosition";
-import OverlayType from "../../enum/OverlayTypes";
 
 class TutorialStore extends ReduceStore {
   constructor() {
@@ -43,7 +41,7 @@ class TutorialStore extends ReduceStore {
       case TutorialProgress.TUTORIAL_INTRO_GUIDE_TOGGLE:
         return state.set("position", TutorialGuidePosition.BOTTOM);
       case TutorialProgress.MOVE_DETROMINO_INTRO:
-        return state.set("position", TutorialGuidePosition.TOP);
+        return state.set("position", TutorialGuidePosition.CENTER);
       case TutorialProgress.MOVE_DETROMINO_LEFT_RIGHT:
         return state.set("position", TutorialGuidePosition.CENTER);
       case TutorialProgress.MOVE_DETROMINO_NO_OVERLAP:

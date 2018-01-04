@@ -58,4 +58,15 @@ export default class TutorialState extends TutorialStateRecord {
 
     return ORDER[index + 1];
   }
+
+  prev() {
+    let progress = this.get("progress");
+    let index = ORDER.indexOf(progress);
+
+    if (index === -1) {
+      return null;
+    }
+
+    return ORDER[index - 1];
+  }
 };
