@@ -14,8 +14,13 @@ const TutorialHelper = {
     let blocks = state.get("grid").get("grid").valueSeq().toArray();
 
     // Get two types of blocks
-    let detrominos = blocks.filter(b => b.type === BlockType.DETROMINO);
     let highlights = blocks.filter(b => b.type === BlockType.HIGHLIGHT);
+    if (!highlights.length) {
+      // There is no highlight area
+      return false;
+    }
+
+    let detrominos = blocks.filter(b => b.type === BlockType.DETROMINO);
 
     // Compare if they overlap
     for (let d of detrominos) {

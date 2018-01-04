@@ -4,7 +4,7 @@
  * A store for the queue holding detrominos
  */
 
-
+import Immutable from "immutable";
 import {ReduceStore} from "flux/utils";
 
 import Dispatcher from "../Dispatcher";
@@ -12,6 +12,8 @@ import LocalStorageLoader from "../storeListener/LocalStorageLoader";
 
 import ActionTypes from "../enum/ActionTypes";
 import Queue from "./Queue";
+import TutorialProgress from "../enum/TutorialProgress";
+import DetrominoType from "../detromino/DetrominoType";
 
 class QueueStore extends ReduceStore {
   constructor() {
@@ -50,6 +52,25 @@ class QueueStore extends ReduceStore {
       case ActionTypes.UNDO_IN_EDITOR:
       case ActionTypes.UNDO_IN_GAME:
         return QueueStore.undo(state);
+      case ActionTypes.SET_TUTORIAL_PROGRESS:
+        switch (action.progress) {
+          case TutorialProgress.TUTORIAL_INTRO:
+            return QueueStore.reset();
+          case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_INTRO:
+            return QueueStore.reset()
+              .set("queue",
+                Immutable.List([
+                  DetrominoType.O,
+                  DetrominoType.T,
+                  DetrominoType.I,
+                  DetrominoType.J,
+                  DetrominoType.S,
+                  DetrominoType.L,
+                  DetrominoType.Z])
+              );
+          default:
+            return state;
+        }
       default:
         return state;
     }

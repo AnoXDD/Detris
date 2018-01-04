@@ -55,8 +55,13 @@ const Actions = {
     Actions.setUiState(GameUiState.SELECT_LEVEL);
   },
 
+  startTutorial() {
+    Actions.resetGrid();
+    Actions.showTutorial();
+  },
+
   // todo set initProgress to be the actual progress
-  showTutorial(initProgress = TutorialProgress.MECHANISM_DEMO_FREE_PLAY_INTRO) {
+  showTutorial(initProgress = TutorialProgress.TUTORIAL_INTRO) {
     Actions.setUiState(GameUiState.TUTORIAL);
     Actions.setTutorialProgress(initProgress);
   },
@@ -140,6 +145,12 @@ const Actions = {
   nextTutorial() {
     Actions.setNextTutorialProgress();
     Actions.showTutorialGuide();
+  },
+
+  finishTutorial() {
+    // todo handle the case if the tutorial starts from main menu
+    Actions.hideTutorialGuide();
+    Actions.startNewLevel();
   },
 
   pause() {
@@ -230,7 +241,7 @@ const Actions = {
 
   // endregion
 
-  startNewLevel(currentLevelId) {
+  startNewLevel(currentLevelId = LevelData.firstLevel()) {
     Dispatcher.clearAllFuturePayloads();
 
     Dispatcher.dispatch({

@@ -9,8 +9,8 @@ import TutorialProgress from "../../enum/TutorialProgress";
 import TutorialGuidePosition from "../../enum/TutorialGuidePosition";
 
 const ORDER = [
-  TutorialProgress.GAME_INTRO,
-  TutorialProgress.GAME_INTRO_GUIDE_TOGGLE,
+  TutorialProgress.TUTORIAL_INTRO,
+  TutorialProgress.TUTORIAL_INTRO_GUIDE_TOGGLE,
   TutorialProgress.MOVE_DETROMINO_INTRO,
   TutorialProgress.MOVE_DETROMINO_LEFT_RIGHT,
   TutorialProgress.MOVE_DETROMINO_NO_OVERLAP,
@@ -35,12 +35,11 @@ const ORDER = [
   TutorialProgress.MECHANISM_DEMO_FREE_PLAY,
   TutorialProgress.FIRST_GAME_INTRO,
   TutorialProgress.FIRST_GAME_START,
-  TutorialProgress.FIRST_GAME_DONE,
 ];
 
 
 const TutorialStateRecord = Immutable.Record({
-  progress: TutorialProgress.GAME_INTRO,
+  progress: TutorialProgress.TUTORIAL_INTRO,
   position: TutorialGuidePosition.TOP,
 });
 

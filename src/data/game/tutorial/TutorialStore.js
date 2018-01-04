@@ -39,8 +39,8 @@ class TutorialStore extends ReduceStore {
 
   static applyTutorialPosition(state, progress) {
     switch (progress) {
-      case TutorialProgress.GAME_INTRO:
-      case TutorialProgress.GAME_INTRO_GUIDE_TOGGLE:
+      case TutorialProgress.TUTORIAL_INTRO:
+      case TutorialProgress.TUTORIAL_INTRO_GUIDE_TOGGLE:
         return state.set("position", TutorialGuidePosition.BOTTOM);
       case TutorialProgress.MOVE_DETROMINO_INTRO:
         return state.set("position", TutorialGuidePosition.TOP);
@@ -74,7 +74,6 @@ class TutorialStore extends ReduceStore {
         return state.set("position", TutorialGuidePosition.TOP);
       case TutorialProgress.FIRST_GAME_INTRO:
       case TutorialProgress.FIRST_GAME_START:
-      case TutorialProgress.FIRST_GAME_DONE:
         return state.set("position", TutorialGuidePosition.TOP);
       default:
         return state;
@@ -83,8 +82,8 @@ class TutorialStore extends ReduceStore {
 
   static applyTutorialProgress(state, progress) {
     switch (progress) {
-      case TutorialProgress.GAME_INTRO:
-      case TutorialProgress.GAME_INTRO_GUIDE_TOGGLE:
+      case TutorialProgress.TUTORIAL_INTRO:
+      case TutorialProgress.TUTORIAL_INTRO_GUIDE_TOGGLE:
       case TutorialProgress.MOVE_DETROMINO_INTRO:
       case TutorialProgress.MOVE_DETROMINO_LEFT_RIGHT:
       case TutorialProgress.MOVE_DETROMINO_NO_OVERLAP:
@@ -109,7 +108,6 @@ class TutorialStore extends ReduceStore {
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY:
       case TutorialProgress.FIRST_GAME_INTRO:
       case TutorialProgress.FIRST_GAME_START:
-      case TutorialProgress.FIRST_GAME_DONE:
         return state.set("progress", progress);
       default:
         return state;

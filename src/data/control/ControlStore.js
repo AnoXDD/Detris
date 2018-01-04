@@ -103,8 +103,8 @@ class ControlStore extends ReduceStore {
 
   static onTutorialProgress(progress) {
     switch (progress) {
-      case TutorialProgress.GAME_INTRO:
-      case TutorialProgress.GAME_INTRO_GUIDE_TOGGLE:
+      case TutorialProgress.TUTORIAL_INTRO:
+      case TutorialProgress.TUTORIAL_INTRO_GUIDE_TOGGLE:
         return new Control();
 
       case TutorialProgress.MOVE_DETROMINO_INTRO:
@@ -182,7 +182,6 @@ class ControlStore extends ReduceStore {
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY:
       case TutorialProgress.FIRST_GAME_INTRO:
       case TutorialProgress.FIRST_GAME_START:
-      case TutorialProgress.FIRST_GAME_DONE:
         return ControlStore.fullGameControl()
           .set("done", Actions.nextDetromino);
       default:
