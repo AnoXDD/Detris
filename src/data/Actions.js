@@ -186,7 +186,10 @@ const Actions = {
   showDialogForStartTutorial() {
     Actions.showDialog(
       "Do you want to start the tutorial?",
-      Actions.startTutorial,
+      () => {
+        Actions.startTutorial();
+        Actions.showTutorialGuide();
+      }
     );
   },
 

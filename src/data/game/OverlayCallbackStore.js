@@ -61,11 +61,11 @@ class CallbackStore extends ReduceStore {
             } = action;
 
             return state.set("onDialogYes", () => {
-              onYes();
               Actions.hideAllFullscreenOverlay();
+              onYes();
             }).set("onDialogNo", () => {
-              onNo();
               Actions.hideDialog();
+              onNo();
             });
           default:
             return state;
