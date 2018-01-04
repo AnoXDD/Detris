@@ -33,12 +33,7 @@ class TutorialWelcomeContainer extends Component {
         </div>
         <div className="btns play-btns">
           <div className="btns">
-            <Button onClick={() => {
-              // It has to be this, because empty parameter defaults to the
-              // first game. If using onClick={Actions.showTutorial}, the
-              // parameter will be passed as an event
-              Actions.showTutorial();
-            }}
+            <Button onClick={Actions.startTutorial}
                     text="start"
                     className="accent"
             >play_arrow</Button>
@@ -51,7 +46,7 @@ class TutorialWelcomeContainer extends Component {
           </div>
         </div>
         <div className="btns other-btns">
-          <Button onClick={Actions.showSettings}>settings</Button>
+          <Button onClick={Actions.showSettingsUi}>settings</Button>
         </div>
       </div>
     );

@@ -35,6 +35,7 @@ class GameStateStore extends ReduceStore {
       case ActionTypes.START_LEVEL:
         return GameStateStore.applyTopBarState(state.set("uiState",
           GameUiState.GAME_STARTED));
+
       case ActionTypes.SET_GAME_UI_STATE:
         let {uiState} = action;
 
@@ -44,19 +45,22 @@ class GameStateStore extends ReduceStore {
         }
 
         return GameStateStore.applyTopBarState(state.set("uiState", uiState));
+
       case ActionTypes.RESUME:
         return state.set("activeOverlay",
           state.get("activeOverlay").remove(OverlayType.PAUSE_GAME));
+
       case ActionTypes.PAUSE:
         return state.set("activeOverlay",
           state.get("activeOverlay").add(OverlayType.PAUSE_GAME));
+
       case ActionTypes.MAYBE_END_GAME:
         if (EndGameHelper.isLevelSolved()) {
           return state.set("activeOverlay",
             state.get("activeOverlay").add(OverlayType.NEXT_LEVEL));
         }
-
         return state;
+
       case ActionTypes.SHOW_FULLSCREEN_OVERLAY:
         switch (action.overlayType) {
           case OverlayType.DIALOG:
@@ -74,6 +78,7 @@ class GameStateStore extends ReduceStore {
           default:
             return state;
         }
+
       case ActionTypes.HIDE_FULLSCREEN_OVERLAY:
         switch (action.overlayType) {
           case OverlayType.DIALOG:
@@ -86,8 +91,13 @@ class GameStateStore extends ReduceStore {
           default:
             return state;
         }
+
       case ActionTypes.HIDE_ALL_FULLSCREEN_OVERLAY:
         return GameStateStore.hideAllFloatingWindows(state);
+
+      case ActionTypes.SET_TUTORIAL_COMPLETED:
+        return state.set("tutorialCompleted", true);
+
       default:
         return state;
     }

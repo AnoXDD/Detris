@@ -19,6 +19,7 @@ import TutorialStore from "./game/tutorial/TutorialStore";
 import TutorialProgress from "./enum/TutorialProgress";
 import GameGridStore from "./grid/GameGridStore";
 import TutorialHelper from "./game/tutorial/TutorialHelper";
+import GameStateStore from "./game/GameStateStore";
 
 const DELAY = 500;
 
@@ -57,41 +58,41 @@ const Actions = {
 
   startTutorial() {
     Actions.resetGrid();
-    Actions.showTutorial();
+    Actions.showTutorialUi();
   },
 
   // todo set initProgress to be the actual progress
-  showTutorial(initProgress = TutorialProgress.TUTORIAL_INTRO) {
+  showTutorialUi(initProgress = TutorialProgress.TUTORIAL_INTRO) {
     Actions.setUiState(GameUiState.TUTORIAL);
     Actions.setTutorialProgress(initProgress);
   },
 
-  showGridEditor() {
+  showGridEditorUi() {
     Actions.setUiState(GameUiState.LEVEL_EDITOR_STARTED);
   },
 
-  showCredit() {
+  showCreditUi() {
     Dispatcher.dispatch({
       type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.ABOUT,
     });
   },
 
-  hideCredit() {
+  hideCreditUi() {
     Dispatcher.dispatch({
       type       : ActionTypes.HIDE_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.ABOUT,
     });
   },
 
-  showSettings() {
+  showSettingsUi() {
     Dispatcher.dispatch({
       type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.SETTINGS,
     })
   },
 
-  hideSettings() {
+  hideSettingsUi() {
     Dispatcher.dispatch({
       type       : ActionTypes.HIDE_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.SETTINGS,
@@ -147,10 +148,27 @@ const Actions = {
     Actions.showTutorialGuide();
   },
 
-  finishTutorial() {
+  /**
+   * Simply set the game state of tutorial to be finished
+   */
+  setTutorialFinished() {
+    Dispatcher.dispatch({
+      type: ActionTypes.SET_TUTORIAL_COMPLETED,
+    });
+  },
+
+  completeTutorial() {
     // todo handle the case if the tutorial starts from main menu
-    Actions.hideTutorialGuide();
-    Actions.startNewLevel();
+    if (GameStateStore.getState().get("tutorialCompleted")) {
+      // The player has completed the tutorial before, or they have skipped the
+      // tutorial the first time the game is launched
+      Actions.showWelcomePage();
+    } else {
+      // The player starts the tutorial from the tutorial welcome page
+      Actions.setTutorialFinished();
+      Actions.hideTutorialGuide();
+      Actions.startNewLevel();
+    }
   },
 
   pause() {
@@ -163,6 +181,13 @@ const Actions = {
     Dispatcher.dispatch({
       type: ActionTypes.RESUME,
     });
+  },
+
+  showDialogForStartTutorial() {
+    Actions.showDialog(
+      "Do you want to start the tutorial?",
+      Actions.startTutorial,
+    );
   },
 
   showDialogForGameRestart() {
@@ -196,7 +221,10 @@ const Actions = {
   showDialogForSkipTutorial() {
     Actions.showDialog(
       "Do you want to skip tutorial? You can come back later in the main menu.",
-      Actions.showSelectLevel
+      () => {
+        Actions.setTutorialFinished();
+        Actions.showSelectLevel();
+      }
     );
   },
 

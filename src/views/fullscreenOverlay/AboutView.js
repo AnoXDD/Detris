@@ -12,7 +12,7 @@ export default class AboutView extends Component {
       <FullscreenOverlayView
         className="about-view"
         title="credit"
-        onBackgroundClick={Actions.hideCredit}
+        onBackgroundClick={Actions.hideCreditUi}
       >
         <div className="about-section">
           <p className="title">Developer</p>

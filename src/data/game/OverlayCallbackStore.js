@@ -142,7 +142,7 @@ class CallbackStore extends ReduceStore {
       case TutorialProgress.FIRST_GAME_INTRO:
         return state.set("onDismiss", Actions.nextTutorial);
       case TutorialProgress.FIRST_GAME_START:
-        return state.set("onDismiss", Actions.finishTutorial);
+        return state.set("onDismiss", Actions.completeTutorial);
       default:
         return state;
     }

@@ -34,16 +34,23 @@ class WelcomeContainer extends Component {
             >play_arrow</Button>
           </div>
           <div className="btns">
-            <Button onClick={Actions.showGridEditor}
+            <Button onClick={Actions.showGridEditorUi}
                     text="level editor"
                     className="border"
             >edit</Button>
           </div>
         </div>
         <div className="btns other-btns">
-          <Button>help</Button>
-          <Button onClick={Actions.showSettings}>settings</Button>
-          <Button onClick={Actions.showCredit}>info</Button>
+          <Button
+            onClick={Actions.showDialogForStartTutorial}>
+            help
+          </Button>
+          <Button onClick={Actions.showSettingsUi}>
+            settings
+          </Button>
+          <Button onClick={Actions.showCreditUi}>
+            info
+          </Button>
         </div>
       </div>
     );

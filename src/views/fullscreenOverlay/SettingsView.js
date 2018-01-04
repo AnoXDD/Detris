@@ -13,14 +13,14 @@ export default class SettingsView extends Component {
     return (
       <FullscreenOverlayView
         title="settings"
-        onBackgroundClick={Actions.hideSettings}
+        onBackgroundClick={Actions.hideSettingsUi}
       >
         <div className="btns">
           <Toggle firstIcon="volume_up" secondIcon="volume_off"/>
         </div>
         <div className="btns">
           <Button
-            onClick={Actions.hideSettings}
+            onClick={Actions.hideSettingsUi}
             text="done"
             className="accent">done</Button>
         </div>
