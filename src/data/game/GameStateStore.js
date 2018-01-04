@@ -119,7 +119,8 @@ class GameStateStore extends ReduceStore {
         // no-op, nothing to be shown
         break;
       case GameUiState.TUTORIAL:
-        topBar = topBar.add(TopBarType.TOP_TUTORIAL_INFO);
+        topBar = topBar.add(TopBarType.TOP_TUTORIAL_INFO)
+          .add(TopBarType.TOP_BACK);
         break;
       case GameUiState.SELECT_LEVEL:
         topBar = topBar.add(TopBarType.TOP_BACK);

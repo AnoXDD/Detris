@@ -793,8 +793,6 @@ html, body, #root {
       justify-content: flex-end; }
     .fullscreen-view.tutorial-guide-view .fullscreen-menu-actual-wrapper {
       margin: 20px 0; }
-    .fullscreen-view.tutorial-guide-view .fullscreen-menu-background {
-      opacity: 0; }
 
 .btn.red {
   background: #F44336;

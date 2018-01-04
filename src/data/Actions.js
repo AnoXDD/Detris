@@ -151,7 +151,7 @@ const Actions = {
   /**
    * Simply set the game state of tutorial to be finished
    */
-  setTutorialFinished() {
+  setTutorialCompleted() {
     Dispatcher.dispatch({
       type: ActionTypes.SET_TUTORIAL_COMPLETED,
     });
@@ -165,7 +165,7 @@ const Actions = {
       Actions.showWelcomePage();
     } else {
       // The player starts the tutorial from the tutorial welcome page
-      Actions.setTutorialFinished();
+      Actions.setTutorialCompleted();
       Actions.hideTutorialGuide();
       Actions.startNewLevel();
     }
@@ -223,10 +223,23 @@ const Actions = {
 
   showDialogForSkipTutorial() {
     Actions.showDialog(
-      "Do you want to skip tutorial? You can come back later in the main menu.",
+      "Do you want to skip tutorial? You can come back later from the main menu.",
       () => {
-        Actions.setTutorialFinished();
+        Actions.setTutorialCompleted();
         Actions.showSelectLevel();
+      }
+    );
+  },
+
+  /**
+   * Called when the player decides to prematurely end the tutorial
+   */
+  showDialogForEndTutorial() {
+    Actions.showDialog(
+      "Do you want to end tutorial now? You can come back later from the main menu.",
+      () => {
+        Actions.setTutorialCompleted();
+        Actions.showWelcomePage();
       }
     );
   },

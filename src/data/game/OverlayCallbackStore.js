@@ -88,6 +88,8 @@ class CallbackStore extends ReduceStore {
   }
 
   static applyTutorialProgress(state, progress) {
+    state = state.set("onQuit", Actions.showDialogForEndTutorial);
+
     // Button for show tutorial guide
     if (progress === TutorialProgress.TUTORIAL_INTRO_GUIDE_TOGGLE) {
       state = state.set("onShowGuide", () => {
