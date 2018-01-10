@@ -20,6 +20,7 @@ import BaseGridHelper from "./BaseGridHelper";
 import GameGrid from "./GameGrid";
 import TutorialProgress from "../enum/TutorialProgress";
 import TutorialGrid from "../game/tutorial/TutorialGrid";
+import History from "../History";
 
 
 class GameGridStore extends ReduceStore {
@@ -48,6 +49,9 @@ class GameGridStore extends ReduceStore {
         return GameGridStore.reset();
       case ActionTypes.APPLY_DATA:
         return GameGridStore.applyData(action);
+      case ActionTypes.START_LEVEL:
+        // Reset history
+        return state.set("history", new History());
       case ActionTypes.NEXT_DETROMINO_IN_GAME:
         return GameGridStore.nextDetromino(state, action);
       case ActionTypes.ROTATE:
@@ -193,7 +197,8 @@ class GameGridStore extends ReduceStore {
   static sinkTargetBlocks(state) {
     let grid = state.get("grid");
     let actualGrid = grid.get("grid");
-    grid = grid.set("grid", Algorithm.removeStaleAndSinkTargetBlocks(actualGrid));
+    grid = grid.set("grid",
+      Algorithm.removeStaleAndSinkTargetBlocks(actualGrid));
 
     return state.set("grid", grid);
   }
