@@ -265,17 +265,19 @@ const Algorithm = {
      * with `detromino`. You don't need to know what blockType and
      * detrominoTargets are, since they will not be used when finding the best
      * position of detromino. See Detromino.js for definition of detromino (x,
-     * y are the coordinates, there are comments there explaining what they are
+     * y are the coordinates; there are comments there explaining what they are
      * actually representing)
      *
      * Rule:
      *  (1) if it's overlapped, try moving detromino UP, until it's not
-     * overlapped
+     * overlapped OR the lower boundary of new detromino's position is above
+     * the upper boundary of original detromino
      *  (2) if moving detromino up doesn't work (i.e. every possible detromino
      * position is still overlapping original blocks), move detromino LEFT, and
      * Repeat (1)
-     *  (3) Repeat (2), until there is no other possible detromino location. In
-     * that case, return null
+     *  (3) Repeat (2), until there is no other possible detromino location OR
+     * the right boundary of new detromino's position is on the left of the
+     * left boundary of original detromino. In that case, return null
      */
 
       // Use the lines below to merge the detromino shape and the grid
