@@ -12,6 +12,7 @@ import Dispatcher from "../../Dispatcher";
 import LevelViewData from "../static/LevelViewData";
 import ActionTypes from "../../enum/ActionTypes";
 import EndGameManager from "../EndGameHelper";
+import CompletedLevel from "./CompletedLevel";
 
 class LevelStateStore extends ReduceStore {
   constructor() {
@@ -20,12 +21,15 @@ class LevelStateStore extends ReduceStore {
 
   getInitialState() {
     return Immutable.Map({
-      currentLevelId   : -1,
-      currentPage      : 0,
-      view             : LevelViewData.views().get(0),
-      isFirstPage      : true,
-      isLastPage       : false,
-      completedLevelIds: Immutable.Set(),
+      currentLevelId: -1,
+      currentPage   : 0,
+      view          : LevelViewData.views().get(0),
+      isFirstPage   : true,
+      isLastPage    : false,
+
+      // Map<id {String}, CompletedLevel>
+      completedLevels: Immutable.Map(),
+      noUndo         : true,
     });
   }
 
@@ -36,11 +40,24 @@ class LevelStateStore extends ReduceStore {
       case ActionTypes.LEVEL_PREV_PAGE:
         return LevelStateStore.prevPage(state);
       case ActionTypes.START_LEVEL:
-        return state.set("currentLevelId", action.currentLevelId);
+        return state
+          .set("currentLevelId", action.currentLevelId)
+          .set("noUndo", true);
+      case ActionTypes.UNDO_IN_GAME:
+        return state.set("noUndo", false);
       case ActionTypes.MAYBE_END_GAME:
         if (EndGameManager.isLevelSolved()) {
-          return state.set("completedLevelIds",
-            state.get("completedLevelIds").add(state.get("currentLevelId")));
+          let id = state.get("currentLevelId");
+          let completedLevels = state.get("completedLevels");
+          let prevNoUndo = completedLevels.get(id) ? completedLevels.get(id)
+            .get("noUndo") : false;
+
+          return state.set("completedLevels",
+            completedLevels.set(id, new CompletedLevel({
+              id,
+              noUndo: prevNoUndo || state.get("noUndo"),
+            }))
+          );
         }
 
         return state;

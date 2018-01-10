@@ -30,6 +30,7 @@ class NotificationStore extends ReduceStore {
       case ActionTypes.DISPLAY_ERROR:
         return NotificationStore.display(state, NotificationLevel.ERROR,
           action.message);
+      case ActionTypes.UNDO_IN_GAME:
       case ActionTypes.SHOW_FULLSCREEN_OVERLAY:
       case ActionTypes.HIDE_FULLSCREEN_OVERLAY:
       case ActionTypes.SET_GAME_UI_STATE:

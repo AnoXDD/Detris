@@ -455,13 +455,13 @@ const Actions = {
   },
 
   undoInGame() {
-    Dispatcher.dispatch({
+    Dispatcher.dispatchOnlyIfClear({
       type: ActionTypes.UNDO_IN_GAME,
     });
   },
 
   redoInGame() {
-    Dispatcher.dispatch({
+    Dispatcher.dispatchOnlyIfClear({
       type: ActionTypes.REDO_IN_GAME,
     });
   },

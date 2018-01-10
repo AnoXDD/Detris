@@ -564,6 +564,16 @@ html, body, #root {
     .fullscreen-menu-actual {
       width: 70vw;
     }
+
+    .title-box-view-actual {
+      text-align: center;
+    }
+
+    .sub-title {
+      color: black;
+      text-align: center;
+      margin: 30px 10px;
+    }
   }
 
   &.tutorial-guide-view {
@@ -663,6 +673,15 @@ html, body, #root {
 .sub-title {
   color: $blue;
   margin: 10px;
+}
+
+.round-border {
+  border-radius: 8px;
+  border: 1px grey solid;
+  color: grey;
+  font-size: 13px;
+  display: inline-block;
+  padding: 5px;
 }
 
 .btn {

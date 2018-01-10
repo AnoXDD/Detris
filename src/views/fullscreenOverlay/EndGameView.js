@@ -33,15 +33,17 @@ export default class EndGameView extends Component {
         <div className="title wide">
           Nice!
         </div>
+        {this.props.levelState.noUndo ?
+          <div className="round-border"> ★: No Undo</div>
+          : null
+        }
+        <div className="sub-title">
+          You have completed this level!
+        </div>
         <div className="btns">
           <Button
             onClick={this.onBack}
           >arrow_back</Button>
-          <Button
-            onClick={this.onRestart}
-          >replay</Button>
-        </div>
-        <div className="btns">
           <Button
             text="next level"
             className="green"

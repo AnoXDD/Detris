@@ -781,6 +781,12 @@ html, body, #root {
     background: white; }
   .fullscreen-view.end-game-view .fullscreen-menu-actual {
     width: 70vw; }
+  .fullscreen-view.end-game-view .title-box-view-actual {
+    text-align: center; }
+  .fullscreen-view.end-game-view .sub-title {
+    color: black;
+    text-align: center;
+    margin: 30px 10px; }
   .fullscreen-view.tutorial-guide-view {
     position: absolute;
     justify-content: flex-start; }
@@ -841,6 +847,14 @@ html, body, #root {
 .sub-title {
   color: #448AFF;
   margin: 10px; }
+
+.round-border {
+  border-radius: 8px;
+  border: 1px grey solid;
+  color: grey;
+  font-size: 13px;
+  display: inline-block;
+  padding: 5px; }
 
 .btn.grid-cell-btn.selected {
   background: #eeeced; }

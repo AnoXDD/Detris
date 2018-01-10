@@ -29,6 +29,7 @@ import TutorialWelcomeContainer from "./TutorialWelcomeContainer";
 import TutorialGridContainer from "./TutorialGridContainer";
 import TutorialGuideView from "../views/fullscreenOverlay/TutorialGuideView";
 import TutorialStore from "../data/game/tutorial/TutorialStore";
+import LevelStateStore from "../data/game/level/LevelStateStore";
 
 class GameContainer extends Component {
 
@@ -52,6 +53,7 @@ class GameContainer extends Component {
       CallbackStore,
       LevelEditorGridStore,
       TutorialStore,
+      LevelStateStore,
     ];
   }
 
@@ -63,6 +65,9 @@ class GameContainer extends Component {
         .get("detokenized"),
       tutorial               : {
         ...TutorialStore.getState().toJS()
+      },
+      levelState: {
+        ...LevelStateStore.getState().toJS(),
       },
     };
   }

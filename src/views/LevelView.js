@@ -25,7 +25,7 @@ export default class LevelView extends Component {
       >
         <div key={new Date().getTime()} className="level-view-inner">
           {this.props.view.levels.map(level => {
-            let isCompleted = this.props.completedLevelIds.indexOf(level.id) !== -1;
+            let isCompleted = this.props.completedLevels[level.id];
 
             return (<div key={level.id}
                          className={`level-view-unit-wrapper ${isCompleted ? "completed" : ""}`}>
@@ -36,7 +36,7 @@ export default class LevelView extends Component {
                   className="level-view-unit">
                   {level.levelNumber}
                 </div>
-                {isCompleted ? <i className="material-icons stars">star</i> : null}
+                {isCompleted && isCompleted.noUndo ? <i className="material-icons stars">star</i> : null}
               </TitleBoxView>
             </div>);
           })
