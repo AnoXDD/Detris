@@ -435,7 +435,7 @@ const Algorithm = {
    * @param {Detromino} detromino
    * @return {Immutable.Map<K, V>|Grid} resulting grid
    */
-  displayDetrominoInEditor(grid, matrix, detromino) {
+  applyDetrominoInEditor(grid, matrix, detromino) {
     if (!grid || !matrix || !detromino) {
       return grid;
     }
