@@ -26,7 +26,7 @@ const BaseGridHelper = {
            updateMatrix = true,
            blockType = BlockType.DETROMINO,
            detrominoTargets) {
-    baseGrid = BaseGridHelper._displayDetromino(baseGrid,
+    baseGrid = BaseGridHelper._fitDetrominoInGrid(baseGrid,
       blockType,
       detrominoTargets);
 
@@ -51,8 +51,10 @@ const BaseGridHelper = {
   },
 
   /**
-   * Applies the detromino to current grid state. This function must be called
-   * every time the detromino is changed
+   * Fits detromino to the current grid state. It will also fix the detromino
+   * if it's not placed correctly (e.g. caused by rotation)
+   *
+   * This function must be called every time the detromino is changed.
    * @param state
    * @param {string|BlockType} blockType - the block type that the detromino is
    *   converting to
@@ -60,21 +62,22 @@ const BaseGridHelper = {
    *   editor to mark detromino blocks as target
    * @private
    */
-  _displayDetromino(state,
-                    blockType = BlockType.DETROMINO,
-                    detrominoTargets) {
+  _fitDetrominoInGrid(state,
+                      blockType = BlockType.DETROMINO,
+                      detrominoTargets) {
     // Process the raw detromino in the state
     let detromino = state.get("detromino");
     if (!detromino) {
       return state;
     }
 
-    let shape = detromino.getRotatedBlocks(blockType,
-      Color.SOLID,
-      detrominoTargets);
+    let newGrid = Algorithm.maybeRepositionDetromino(state.get("grid"), detromino, blockType, detrominoTargets);
+    if (!newGrid) {
+      return state;
+    }
 
     // Apply the processed detromino to the grid
-    return state.set("grid", state.get("grid").merge(shape));
+    return state.set("grid", newGrid);
   },
 };
 

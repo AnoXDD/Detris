@@ -11,6 +11,7 @@ import Block from "./block/Block";
 import Direction from "./enum/Direction";
 import Rotation from "./enum/Rotation";
 import Queue from "./queue/Queue";
+import Color from "./enum/Color";
 
 /**
  * Converts a grid to an 2d array. Note the matrix is first indexed by y-axis,
@@ -243,6 +244,47 @@ const Algorithm = {
       }
     }
     return newShape;
+  },
+
+  /**
+   * Repositions detromino if it's not placed correctly
+   * @param {Immutable.Map|BaseGrid} grid - the base grid whose .get("matrix")
+   *   that might have NOT been updated yet
+   * @param {Detromino} detromino - detromino on the grid
+   * @param {string|BlockType} blockType - the block type that the detromino is
+   *   converting to
+   * @param {Immutable.Set} detrominoTargets - optional targets from level
+   * @return updated grid with detromino whose position is fixed; null if the
+   *   position can't be fixed
+   */
+  maybeRepositionDetromino(grid, detromino, blockType, detrominoTargets) {
+    /**
+     * todo: place detromino if it's out of bounds or overlapped
+     *
+     * Generally, use Algorithm.isOverlapping to check if `grid` is overlapped
+     * with `detromino`. You don't need to know what blockType and
+     * detrominoTargets are, since they will not be used when finding the best
+     * position of detromino. See Detromino.js for definition of detromino (x,
+     * y are the coordinates, there are comments there explaining what they are
+     * actually representing)
+     *
+     * Rule:
+     *  (1) if it's overlapped, try moving detromino UP, until it's not
+     * overlapped
+     *  (2) if moving detromino up doesn't work (i.e. every possible detromino
+     * position is still overlapping original blocks), move detromino LEFT, and
+     * Repeat (1)
+     *  (3) Repeat (2), until there is no other possible detromino location. In
+     * that case, return null
+     */
+
+      // Use the lines below to merge the detromino shape and the grid
+    let shape = detromino.getRotatedBlocks(blockType,
+      Color.SOLID,
+      detrominoTargets);
+
+    // Apply the processed detromino to the grid
+    return grid.merge(shape);
   },
 
   generateRandomDetrominoType() {
