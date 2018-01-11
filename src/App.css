@@ -666,7 +666,11 @@ html, body, #root {
       width: 100%; }
   .control .control-inner-wrapper {
     display: flex;
-    flex-direction: column; }
+    flex-direction: row; }
+    .control .control-inner-wrapper .control-arrow-row {
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 100px; }
   .control .action-wrapper {
     width: 100%; }
 

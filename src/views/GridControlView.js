@@ -103,34 +103,36 @@ export default class GridControlView extends Component {
         </div>
         <div className="arrow-wrapper flex-center">
           <div className="flex-inner-extend control-inner-wrapper flex-center">
-            <div className="arrow-up-wrapper flex-center">
+            <div className="control-arrow-row flex-center">
               <Button
                 hidden={hidden(ControlTypes.CONTROL_UNDO)}
                 onClick={() => this.handleClick(ControlTypes.CONTROL_UNDO)}>
                 undo
               </Button>
               <Button
-                hidden={hidden(ControlTypes.CONTROL_UP)}
-                className={this.state.pressed === ControlTypes.CONTROL_UP ? "grid-control-animation" : ""}
-                onClick={() => this.handleClick(ControlTypes.CONTROL_UP)}>arrow_upward</Button>
-              <Button
-                hidden={hidden(ControlTypes.CONTROL_REDO)}
-                onClick={() => this.handleClick(ControlTypes.CONTROL_REDO)}>
-                redo
-              </Button>
-            </div>
-            <div className="arrow-non-up-wrapper flex-center">
-              <Button
                 hidden={hidden(ControlTypes.CONTROL_LEFT)}
                 className={`left ${this.state.pressed === ControlTypes.CONTROL_LEFT ? "grid-control-animation" : ""}`}
                 onClick={() => this.handleClick(ControlTypes.CONTROL_LEFT)}>
                 arrow_back
               </Button>
+            </div>
+            <div className="control-arrow-row flex-center">
+              <Button
+                hidden={hidden(ControlTypes.CONTROL_UP)}
+                className={this.state.pressed === ControlTypes.CONTROL_UP ? "grid-control-animation" : ""}
+                onClick={() => this.handleClick(ControlTypes.CONTROL_UP)}>arrow_upward</Button>
               <Button
                 hidden={hidden(ControlTypes.CONTROL_DOWN)}
                 className={`down ${this.state.pressed === ControlTypes.CONTROL_DOWN ? "grid-control-animation" : ""}`}
                 onClick={() => this.handleClick(ControlTypes.CONTROL_DOWN)}>
                 arrow_downward
+              </Button>
+            </div>
+            <div className="control-arrow-row flex-center">
+              <Button
+                hidden={hidden(ControlTypes.CONTROL_REDO)}
+                onClick={() => this.handleClick(ControlTypes.CONTROL_REDO)}>
+                redo
               </Button>
               <Button
                 hidden={hidden(ControlTypes.CONTROL_RIGHT)}

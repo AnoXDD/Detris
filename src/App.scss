@@ -389,7 +389,13 @@ html, body, #root {
 
   .control-inner-wrapper {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+
+    .control-arrow-row {
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 2 * $button-height;
+    }
   }
 
   .action-wrapper {
