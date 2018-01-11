@@ -15,8 +15,8 @@ import Detromino from "../../detromino/Detromino";
 import DetrominoType from "../../detromino/DetrominoType";
 import LevelEditorGrid from "./LevelEditorGrid";
 import Direction from "../../enum/Direction";
-import Tokenizer from "../../Tokenizer";
 import BaseGridHelper from "../BaseGridHelper";
+import LevelDataUnitTokenizer from "../../tokenizer/LevelDataUnitTokenizer";
 
 class LevelEditorGridStore extends ReduceStore {
   constructor() {
@@ -133,7 +133,7 @@ class LevelEditorGridStore extends ReduceStore {
    */
   static _updateDetokenizedString(state) {
     return state.set("detokenized",
-      Tokenizer.detokenizeLevelDataUnit(state.toLevelDataUnit()));
+      LevelDataUnitTokenizer.detokenizeLevelDataUnit(state.toLevelDataUnit()));
   }
 
   /**

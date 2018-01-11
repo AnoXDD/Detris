@@ -7,11 +7,11 @@
 
 import Immutable from "immutable";
 
-import Control from "../control/ControlState";
 import ControlTypes from "./ControlTypes";
 import Actions from "../Actions";
+import ControlState from "../control/ControlState";
 
-const FULL_GAME_CONTROL = new Control({
+const FULL_GAME_CONTROL = new ControlState({
   rotate : Actions.rotateInTutorial,
   done   : Actions.nextDetrominoInGame,
   move   : Actions.moveDetrominoInTutorial,
@@ -28,9 +28,9 @@ const FULL_GAME_CONTROL = new Control({
 });
 
 const ControlPresets = {
-  EMPTY: new Control(),
+  EMPTY: new ControlState(),
 
-  LEVEL_EDITOR_BLOCK_EDITING_DISABLED: new Control({
+  LEVEL_EDITOR_BLOCK_EDITING_DISABLED: new ControlState({
     done           : Actions.nextDetrominoInEditor,
     move           : Actions.moveDetrominoInEditor,
     toggleEditBlock: Actions.enableBlockEditing,
@@ -53,7 +53,7 @@ const ControlPresets = {
     ]),
   }),
 
-  LEVEL_EDITOR_BLOCK_EDITING_ENABLED: new Control({
+  LEVEL_EDITOR_BLOCK_EDITING_ENABLED: new ControlState({
     move           : Actions.moveEditingBlock,
     toggleEditBlock: Actions.disableBlockEditing,
     chooseEditBlock: Actions.setBlockType,
@@ -69,7 +69,7 @@ const ControlPresets = {
     ]),
   }),
 
-  ARROW_ONLY_NO_FUNCTION: new Control({
+  ARROW_ONLY_NO_FUNCTION: new ControlState({
     enabled: Immutable.Set([
       ControlTypes.CONTROL_UP,
       ControlTypes.CONTROL_DOWN,
@@ -78,7 +78,7 @@ const ControlPresets = {
     ]),
   }),
 
-  ARROW_ONLY: new Control({
+  ARROW_ONLY: new ControlState({
     move   : Actions.moveDetrominoInTutorial,
     enabled: Immutable.Set([
       ControlTypes.CONTROL_UP,
@@ -88,7 +88,7 @@ const ControlPresets = {
     ]),
   }),
 
-  ARROW_AND_ROTATE_ONLY: new Control({
+  ARROW_AND_ROTATE_ONLY: new ControlState({
     move   : Actions.moveDetrominoInTutorial,
     enabled: Immutable.Set([
       ControlTypes.CONTROL_UP,
@@ -98,7 +98,7 @@ const ControlPresets = {
     ]),
   }),
 
-  NEXT_DETROMINO_ONLY: new Control({
+  NEXT_DETROMINO_ONLY: new ControlState({
     done   : Actions.nextTutorial,
     enabled: Immutable.Set([
       ControlTypes.CONTROL_DONE,
@@ -130,5 +130,12 @@ const ControlPresets = {
 };
 
 // add id to each control
+(() => {
+  let ids = Object.keys(ControlPresets);
+
+  for (let id of ids) {
+    ControlPresets[id].set("controlRecordId", id);
+  }
+})();
 
 export default ControlPresets;

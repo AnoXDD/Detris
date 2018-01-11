@@ -5,7 +5,6 @@
  */
 
 import Immutable from "immutable";
-import Tokenizer from "../../Tokenizer";
 import LevelDataUnit from "../level/LevelDataUnit";
 
 const FIRST_LEVEL_ID = "1";
@@ -35,7 +34,8 @@ const LevelData = {
     }
 
     // Trying to convert it
-    return Tokenizer.tokenizeLevelDataUnit(rawData);
+    var LevelDataUnitTokenizer;
+    return LevelDataUnitTokenizer.tokenizeLevelDataUnit(rawData);
   },
 
   firstLevel() {

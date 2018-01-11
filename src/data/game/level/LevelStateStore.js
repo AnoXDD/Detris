@@ -6,7 +6,6 @@
  */
 
 import {ReduceStore} from "flux/utils";
-import Immutable from "immutable";
 
 import Dispatcher from "../../Dispatcher";
 import LevelViewData from "../static/LevelViewData";

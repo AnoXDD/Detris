@@ -9,19 +9,18 @@ import Immutable from "immutable";
 
 import Block from "../data/block/Block";
 import BlockType from "../data/block/BlockType";
-import Tokenizer from "../data/Tokenizer";
 import DetrominoType from "../data/detromino/DetrominoShape";
 import Rotation from "../data/enum/Rotation";
 import Detromino from "../data/detromino/Detromino";
 import Grid from "../data/grid/BaseGrid";
 import Queue from "../data/queue/Queue";
 import LevelDataUnit from "../data/game/level/LevelDataUnit";
-import GameState from "../data/game/GameState";
-import GameUiState from "../data/enum/GameUiState";
-import TopBarType from "../data/enum/TopBarTypes";
-import LevelState from "../data/game/level/LevelState";
-import LevelViewData from "../data/game/static/LevelViewData";
-import CompletedLevel from "../data/game/level/CompletedLevel";
+import GeneralTokenizer from "../data/tokenizer/GeneralTokenizer";
+import BlockTokenizer from "../data/tokenizer/BlockTokenizer";
+import DetrominoTokenizer from "../data/tokenizer/DetrominoTokenizer";
+import GridTokenizer from "../data/tokenizer/GridTokenizer";
+import QueueTokenizer from "../data/tokenizer/QueueTokenizer";
+import LevelDataUnitTokenizer from "../data/tokenizer/LevelDataUnitTokenizer";
 
 function expectEqualDetromino(d, d2) {
   d = d.toJS();
@@ -55,7 +54,7 @@ test("General tokenization", () => {
 
   let o = {num, str, bol, arr, obj,};
 
-  let o2 = Tokenizer.tokenize(Tokenizer.detokenize(o));
+  let o2 = GeneralTokenizer.tokenize(GeneralTokenizer.detokenize(o));
 
   expect(Object.keys(o2).length).toBe(5);
 
@@ -73,7 +72,7 @@ test("Block", () => {
     y   : 3,
   });
 
-  let block2 = Tokenizer.tokenizeBlock(Tokenizer.detokenizeBlock(block));
+  let block2 = BlockTokenizer.tokenizeBlock(BlockTokenizer.detokenizeBlock(block));
 
   expect(block2.toJS()).toEqual(block.toJS());
 });
@@ -86,7 +85,8 @@ test("Detromino", () => {
     y       : 23,
   });
 
-  let d2 = Tokenizer.tokenizeDetromino(Tokenizer.detokenizeDetromino(d));
+  let d2 = DetrominoTokenizer.tokenizeDetromino(DetrominoTokenizer.detokenizeDetromino(
+    d));
 
   expectEqualDetromino(d, d2);
 });
@@ -104,7 +104,7 @@ test("Grid (actual)", () => {
   }
 
   let g = Immutable.Map(m);
-  let g2 = Tokenizer.tokenizeActualGrid(Tokenizer.detokenizeActualGrid(g));
+  let g2 = GridTokenizer.tokenizeActualGrid(GridTokenizer.detokenizeActualGrid(g));
 
   expectEqualActualGrid(g, g2);
 });
@@ -135,7 +135,8 @@ test("Grid (class)", () => {
     detromino: d,
   });
 
-  let grid2 = Tokenizer.tokenizeGrid(Tokenizer.detokenizeGrid(grid));
+  let grid2 = GridTokenizer.tokenizeBaseGrid(GridTokenizer.detokenizeBaseGrid(
+    grid));
 
   expectEqualDetromino(d, grid2.get("detromino"));
   expectEqualActualGrid(g, grid2.get("grid"));
@@ -148,7 +149,7 @@ test("Queue", () => {
     queue: Immutable.List(queue),
   });
 
-  let q2 = Tokenizer.tokenizeQueue(Tokenizer.detokenizeQueue(q));
+  let q2 = QueueTokenizer.tokenizeQueue(QueueTokenizer.detokenizeQueue(q));
 
   expect(q2).toEqual(q);
 });
@@ -218,8 +219,9 @@ test("LevelDataUnit", () => {
     key,
   });
 
-  let data2 = Tokenizer.tokenizeLevelDataUnit(Tokenizer.detokenizeLevelDataUnit(
-    data));
+  let data2 = LevelDataUnitTokenizer.tokenizeLevelDataUnit(
+    LevelDataUnitTokenizer.detokenizeLevelDataUnit(
+      data));
 
   let grid2 = data2.get("grid");
 
@@ -235,48 +237,4 @@ test("LevelDataUnit", () => {
   for (let i = 0; i < key.length; ++i) {
     expectEqualDetromino(key[i], key2[i]);
   }
-});
-
-test("GameState", () => {
-  let gameState = new GameState({
-    uiState                : GameUiState.GAME_STARTED,
-    topBar                 : Immutable.Set([TopBarType.TOP_BACK, TopBarType.TOP_PAUSE]),
-    dialogTitle            : "Dialog title",
-    activeOverlay          : Immutable.Set([]),
-    tutorialCompleted      : true,
-    levelEditorExportString: "",
-  });
-
-  let gameState2 = Tokenizer.tokenizeGameState(Tokenizer.detokenizeGameState(
-    gameState));
-
-  expect(Immutable.is(gameState, gameState2)).toBeTruthy();
-});
-
-test("LevelState", () => {
-  let levelState = new LevelState({
-    currentLevelId: -1,
-    currentPage   : 1,
-    view          : LevelViewData.views().get(1),
-
-    isFirstPage: false,
-    isLastPage : true,
-
-    completedLevels: Immutable.Map({
-      1 : new CompletedLevel({
-        id    : 1,
-        noUndo: false,
-      }),
-      35: new CompletedLevel({
-        id    : 35,
-        noUndo: true,
-      }),
-    }),
-    noUndo         : true,
-  });
-
-  let levelState2 = Tokenizer.tokenizeLevelState(Tokenizer.detokenizeLevelState(
-    levelState));
-
-  expect(Immutable.is(levelState, levelState2)).toBeTruthy();
 });

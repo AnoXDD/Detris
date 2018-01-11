@@ -2,15 +2,10 @@
  * Created by Anoxic on 10/12/2017.
  */
 
-import Immutable from "immutable";
 import {ReduceStore} from "flux/utils";
-
-import Control from "./ControlState";
 import ActionTypes from "../enum/ActionTypes";
 import GameUiState from "../enum/GameUiState";
 import Dispatcher from "../Dispatcher";
-import Actions from "../Actions";
-import ControlTypes from "../enum/ControlTypes";
 import TutorialProgress from "../enum/TutorialProgress";
 import GridHistoryHelper from "../grid/GridHistoryHelper";
 import ControlPresets from "../enum/ControlPresets";
@@ -111,7 +106,6 @@ class ControlStore extends ReduceStore {
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_INTRO:
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_UNDO_REDO:
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY:
-
       case TutorialProgress.FIRST_GAME_INTRO:
       case TutorialProgress.FIRST_GAME_START:
         return ControlPresets.TUTORIAL_TRY_OUT;
