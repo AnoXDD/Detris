@@ -16,6 +16,9 @@ import Detromino from "../data/detromino/Detromino";
 import Grid from "../data/grid/BaseGrid";
 import Queue from "../data/queue/Queue";
 import LevelDataUnit from "../data/game/level/LevelDataUnit";
+import GameState from "../data/game/GameState";
+import GameUiState from "../data/enum/GameUiState";
+import TopBarType from "../data/enum/TopBarTypes";
 
 function expectEqualDetromino(d, d2) {
   d = d.toJS();
@@ -229,4 +232,20 @@ test("LevelDataUnit", () => {
   for (let i = 0; i < key.length; ++i) {
     expectEqualDetromino(key[i], key2[i]);
   }
+});
+
+test("GameState", () => {
+  let gameState = new GameState({
+    uiState                : GameUiState.GAME_STARTED,
+    topBar                 : Immutable.Set([TopBarType.TOP_BACK, TopBarType.TOP_PAUSE]),
+    dialogTitle            : "Dialog title",
+    activeOverlay          : Immutable.Set([]),
+    tutorialCompleted      : true,
+    levelEditorExportString: "",
+  });
+
+  let gameState2 = Tokenizer.tokenizeGameState(Tokenizer.detokenizeGameState(
+    gameState));
+
+  expect(Immutable.is(gameState, gameState2)).toBeTruthy();
 });

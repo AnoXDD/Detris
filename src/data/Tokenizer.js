@@ -14,6 +14,7 @@ import Block from "./block/Block";
 import Detromino from "./detromino/Detromino";
 import Grid from "./grid/BaseGrid";
 import LevelDataUnit from "./game/level/LevelDataUnit";
+import GameState from "./game/GameState";
 
 const BlockKeys = "type x y".split(" ");
 const DetrominoKeys = "type rotation x y".split(" ");
@@ -31,6 +32,7 @@ export default class Tokenizer {
   /**
    * A generic tokenizing function to convert a string to a JavaScript object
    * @param {string} str
+   * @return {Object}
    */
   static tokenize(str) {
     return JSON.parse(zlib.inflateSync(new Buffer(str, "base64")).toString());
@@ -187,5 +189,22 @@ export default class Tokenizer {
     return Tokenizer.detokenize({
       queue, grid, key,
     });
+  }
+
+  static tokenizeGameState(str) {
+    let obj = Tokenizer.tokenize(str);
+    obj.topBar = Immutable.Set(obj.topBar);
+    obj.activeOverlay = Immutable.Set(obj.activeOverlay);
+
+    return new GameState(obj);
+  }
+
+  /**
+   * Detokenizes game state
+   * @param {GameState} gameState
+   * @return {string}
+   */
+  static detokenizeGameState(gameState) {
+    return Tokenizer.detokenize(gameState.toJS());
   }
 };
