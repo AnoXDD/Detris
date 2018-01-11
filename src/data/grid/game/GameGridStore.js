@@ -7,20 +7,20 @@
 
 import {ReduceStore} from "flux/utils";
 
-import Algorithm from "../Algorithm";
-import Rotation from "../enum/Rotation";
-import GridSize from "./GridSize";
-import BlockType from "../block/BlockType";
-import ActionTypes from "../enum/ActionTypes";
-import Dispatcher from "../Dispatcher";
-import LocalStorageLoader from "../storeListener/LocalStorageLoader";
-import Detromino from "../detromino/Detromino";
-import DetrominoType from "../detromino/DetrominoType";
-import BaseGridHelper from "./BaseGridHelper";
+import Algorithm from "../../Algorithm";
+import Rotation from "../../enum/Rotation";
+import GridSize from "../GridSize";
+import BlockType from "../../block/BlockType";
+import ActionTypes from "../../enum/ActionTypes";
+import Dispatcher from "../../Dispatcher";
+import LocalStorageLoader from "../../storeListener/LocalStorageLoader";
+import Detromino from "../../detromino/Detromino";
+import DetrominoType from "../../detromino/DetrominoType";
+import BaseGridHelper from "../BaseGridHelper";
 import GameGrid from "./GameGrid";
-import TutorialProgress from "../enum/TutorialProgress";
-import TutorialGrid from "../game/tutorial/TutorialGrid";
-import History from "../History";
+import TutorialProgress from "../../enum/TutorialProgress";
+import TutorialGrid from "../../game/tutorial/TutorialGrid";
+import History from "../../History";
 
 
 class GameGridStore extends ReduceStore {

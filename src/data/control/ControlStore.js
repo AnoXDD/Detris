@@ -12,6 +12,7 @@ import Dispatcher from "../Dispatcher";
 import Actions from "../Actions";
 import ControlTypes from "../enum/ControlTypes";
 import TutorialProgress from "../enum/TutorialProgress";
+import GridHistoryHelper from "../grid/GridHistoryHelper";
 
 class ControlStore extends ReduceStore {
 
@@ -27,6 +28,10 @@ class ControlStore extends ReduceStore {
     switch (action.type) {
       case ActionTypes.START_LEVEL:
         return ControlStore.onGameStarted();
+      case ActionTypes.NEXT_DETROMINO_IN_GAME:
+      case ActionTypes.UNDO_IN_GAME:
+      case ActionTypes.REDO_IN_GAME:
+        return ControlStore.fullGameControlWithHistory();
       case ActionTypes.SET_GAME_UI_STATE:
         switch (action.uiState) {
           case GameUiState.LEVEL_EDITOR_STARTED:
@@ -49,7 +54,7 @@ class ControlStore extends ReduceStore {
    * Called when an actual game has started
    */
   static onGameStarted() {
-    return ControlStore.fullGameControl();
+    return ControlStore.fullGameControlWithHistory();
   }
 
   /**
@@ -182,30 +187,43 @@ class ControlStore extends ReduceStore {
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY:
       case TutorialProgress.FIRST_GAME_INTRO:
       case TutorialProgress.FIRST_GAME_START:
-        return ControlStore.fullGameControl()
+        return ControlStore.fullGameControlWithHistory()
           .set("done", Actions.nextDetromino);
       default:
         return new Control();
     }
   }
 
-  static fullGameControl() {
+  /**
+   * Returns a full game control with undo/redo, depending on if the history
+   * actually has it
+   * @return {Map<string, any>}
+   */
+  static fullGameControlWithHistory() {
+    let controls = [
+      ControlTypes.CONTROL_ROTATE,
+      ControlTypes.CONTROL_UP,
+      ControlTypes.CONTROL_DOWN,
+      ControlTypes.CONTROL_LEFT,
+      ControlTypes.CONTROL_RIGHT,
+      ControlTypes.CONTROL_DONE,
+    ];
+
+    if (GridHistoryHelper.canUndoInGame()) {
+      controls.push(ControlTypes.CONTROL_UNDO);
+    }
+
+    if (GridHistoryHelper.canRedoInGame()) {
+      controls.push(ControlTypes.CONTROL_REDO);
+    }
+
     return new Control({
       rotate : Actions.rotateInTutorial,
       done   : Actions.nextDetrominoInGame,
       move   : Actions.moveDetrominoInTutorial,
       undo   : Actions.undoInGame,
       redo   : Actions.redoInGame,
-      enabled: Immutable.Set([
-        ControlTypes.CONTROL_ROTATE,
-        ControlTypes.CONTROL_UP,
-        ControlTypes.CONTROL_DOWN,
-        ControlTypes.CONTROL_LEFT,
-        ControlTypes.CONTROL_RIGHT,
-        ControlTypes.CONTROL_UNDO,
-        ControlTypes.CONTROL_REDO,
-        ControlTypes.CONTROL_DONE,
-      ]),
+      enabled: Immutable.Set(controls),
     });
   }
 

@@ -5,7 +5,7 @@
 import {Container} from "flux/utils";
 import React, {Component} from "react";
 
-import GameGridStore from "../data/grid/GameGridStore";
+import GameGridStore from "../data/grid/game/GameGridStore";
 import QueueStore from "../data/queue/QueueStore";
 
 import GridView from "../views/GridView";
@@ -72,6 +72,7 @@ class GridContainer extends Component {
         </div>
         <GridControlView
           {...this.state.control}
+
           blockList={this.state.editorState.blockList}
           isEditingBlock={this.state.editorState.isEditingBlock}/>
       </div>

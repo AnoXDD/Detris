@@ -4,6 +4,7 @@ import registerServiceWorker from "./registerServiceWorker";
 
 // Global js
 import "./data/storeListener/LocalStorageSaver";
+import "./data/DispatchRegister";
 
 import GameContainer from "./containers/GameContainer";
 

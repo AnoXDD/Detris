@@ -17,7 +17,7 @@ import LevelStateStore from "./game/level/LevelStateStore";
 import LevelViewData from "./game/static/LevelViewData";
 import TutorialStore from "./game/tutorial/TutorialStore";
 import TutorialProgress from "./enum/TutorialProgress";
-import GameGridStore from "./grid/GameGridStore";
+import GameGridStore from "./grid/game/GameGridStore";
 import TutorialHelper from "./game/tutorial/TutorialHelper";
 import GameStateStore from "./game/GameStateStore";
 

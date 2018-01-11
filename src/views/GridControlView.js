@@ -63,9 +63,9 @@ export default class GridControlView extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.props.update || this.props.isEditingBlock !== nextProps.isEditingBlock || this.props.isShowingLevelEditor !== nextProps.isShowingLevelEditor;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return this.props.update || this.props.isEditingBlock !== nextProps.isEditingBlock || this.props.isShowingLevelEditor !== nextProps.isShowingLevelEditor;
+  // }
 
   render() {
     let hidden = controlType => this.props.enabled.indexOf(controlType) === -1;

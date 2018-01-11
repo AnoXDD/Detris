@@ -5,7 +5,7 @@
 import {Container} from "flux/utils";
 import React, {Component} from "react";
 
-import GameGridStore from "../data/grid/GameGridStore";
+import GameGridStore from "../data/grid/game/GameGridStore";
 import QueueStore from "../data/queue/QueueStore";
 
 import GridView from "../views/GridView";
