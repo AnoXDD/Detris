@@ -19,6 +19,9 @@ import LevelDataUnit from "../data/game/level/LevelDataUnit";
 import GameState from "../data/game/GameState";
 import GameUiState from "../data/enum/GameUiState";
 import TopBarType from "../data/enum/TopBarTypes";
+import LevelState from "../data/game/level/LevelState";
+import LevelViewData from "../data/game/static/LevelViewData";
+import CompletedLevel from "../data/game/level/CompletedLevel";
 
 function expectEqualDetromino(d, d2) {
   d = d.toJS();
@@ -249,3 +252,31 @@ test("GameState", () => {
 
   expect(Immutable.is(gameState, gameState2)).toBeTruthy();
 });
+
+test("LevelState", () => {
+  let levelState = new LevelState({
+    currentLevelId: -1,
+    currentPage   : 1,
+    view          : LevelViewData.views().get(1),
+
+    isFirstPage: false,
+    isLastPage : true,
+
+    completedLevels: Immutable.Map({
+      1 : new CompletedLevel({
+        id    : 1,
+        noUndo: false,
+      }),
+      35: new CompletedLevel({
+        id    : 35,
+        noUndo: true,
+      }),
+    }),
+    noUndo         : true,
+  });
+
+  let levelState2 = Tokenizer.tokenizeLevelState(Tokenizer.detokenizeLevelState(
+    levelState));
+
+  expect(Immutable.is(levelState, levelState2)).toBeTruthy();
+})

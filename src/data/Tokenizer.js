@@ -15,6 +15,9 @@ import Detromino from "./detromino/Detromino";
 import Grid from "./grid/BaseGrid";
 import LevelDataUnit from "./game/level/LevelDataUnit";
 import GameState from "./game/GameState";
+import LevelViewData from "./game/static/LevelViewData";
+import LevelState from "./game/level/LevelState";
+import CompletedLevel from "./game/level/CompletedLevel";
 
 const BlockKeys = "type x y".split(" ");
 const DetrominoKeys = "type rotation x y".split(" ");
@@ -206,5 +209,34 @@ export default class Tokenizer {
    */
   static detokenizeGameState(gameState) {
     return Tokenizer.detokenize(gameState.toJS());
+  }
+
+  static tokenizeLevelState(str) {
+    let obj = Tokenizer.tokenize(str);
+    obj.view = LevelViewData.views().get(obj.currentPage);
+
+    // Convert completedLevels
+    let {completedLevels} = obj;
+    let ids = Object.keys(completedLevels);
+
+    for (let id of ids) {
+      completedLevels[id] = new CompletedLevel(completedLevels[id]);
+    }
+
+    obj.completedLevels = Immutable.Map(completedLevels);
+
+    return new LevelState(obj);
+  }
+
+  /**
+   * Detokenizes level state (throwing away `view` because it's synced with
+   * `currentPage` - see LevelState.js for more detail)
+   * @param {Immutable.Map|LevelState} levelState
+   */
+  static detokenizeLevelState(levelState) {
+    let obj = levelState.toJS();
+    delete obj.view;
+
+    return Tokenizer.detokenize(obj);
   }
 };

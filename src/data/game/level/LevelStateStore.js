@@ -13,6 +13,7 @@ import LevelViewData from "../static/LevelViewData";
 import ActionTypes from "../../enum/ActionTypes";
 import EndGameManager from "../EndGameHelper";
 import CompletedLevel from "./CompletedLevel";
+import LevelState from "./LevelState";
 
 class LevelStateStore extends ReduceStore {
   constructor() {
@@ -20,17 +21,7 @@ class LevelStateStore extends ReduceStore {
   }
 
   getInitialState() {
-    return Immutable.Map({
-      currentLevelId: -1,
-      currentPage   : 0,
-      view          : LevelViewData.views().get(0),
-      isFirstPage   : true,
-      isLastPage    : false,
-
-      // Map<id {String}, CompletedLevel>
-      completedLevels: Immutable.Map(),
-      noUndo         : true,
-    });
+    return new LevelState();
   }
 
   reduce(state, action) {
