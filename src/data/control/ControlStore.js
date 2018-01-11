@@ -13,6 +13,7 @@ import Actions from "../Actions";
 import ControlTypes from "../enum/ControlTypes";
 import TutorialProgress from "../enum/TutorialProgress";
 import GridHistoryHelper from "../grid/GridHistoryHelper";
+import ControlPresets from "../enum/ControlPresets";
 
 class ControlStore extends ReduceStore {
 
@@ -21,7 +22,7 @@ class ControlStore extends ReduceStore {
   }
 
   getInitialState() {
-    return new Control();
+    return ControlPresets.EMPTY;
   }
 
   reduce(state, action) {
@@ -37,7 +38,7 @@ class ControlStore extends ReduceStore {
           case GameUiState.LEVEL_EDITOR_STARTED:
             return ControlStore.onLevelEditorDisableBlockEditing();
           default:
-            return new Control();
+            return ControlPresets.EMPTY;
         }
       case ActionTypes.DISABLE_BLOCK_EDITING:
         return ControlStore.onLevelEditorDisableBlockEditing();
@@ -61,136 +62,61 @@ class ControlStore extends ReduceStore {
    * Called when the player is moving detromino in the level editor
    */
   static onLevelEditorDisableBlockEditing() {
-    return new Control({
-      done           : Actions.nextDetrominoInEditor,
-      move           : Actions.moveDetrominoInEditor,
-      toggleEditBlock: Actions.enableBlockEditing,
-      nextDetromino  : Actions.nextDetrominoShape,
-      prevDetromino  : Actions.prevDetrominoShape,
-      redo           : Actions.redoInEditor,
-      undo           : Actions.undoInEditor,
-      enabled        : Immutable.Set([
-        ControlTypes.CONTROL_ROTATE,
-        ControlTypes.CONTROL_UP,
-        ControlTypes.CONTROL_DOWN,
-        ControlTypes.CONTROL_LEFT,
-        ControlTypes.CONTROL_RIGHT,
-        ControlTypes.CONTROL_UNDO,
-        ControlTypes.CONTROL_REDO,
-        ControlTypes.CONTROL_DONE,
-        ControlTypes.CONTROL_TOGGLE_EDIT,
-        ControlTypes.CONTROL_PREV_DETROMINO,
-        ControlTypes.CONTROL_NEXT_DETROMINO,
-      ]),
-    });
+    return ControlPresets.LEVEL_EDITOR_BLOCK_EDITING_DISABLED;
   }
 
   /**
    * Called when the player is moving the editing block in the level editor
    */
   static onLevelEditorEnableBlockEditing() {
-    return new Control({
-      move           : Actions.moveEditingBlock,
-      toggleEditBlock: Actions.disableBlockEditing,
-      chooseEditBlock: Actions.setBlockType,
-      enabled        : Immutable.Set([
-        ControlTypes.CONTROL_UP,
-        ControlTypes.CONTROL_DOWN,
-        ControlTypes.CONTROL_LEFT,
-        ControlTypes.CONTROL_RIGHT,
-        ControlTypes.CONTROL_UNDO,
-        ControlTypes.CONTROL_REDO,
-        ControlTypes.CONTROL_TOGGLE_EDIT,
-        ControlTypes.CONTROL_BLOCK_SELECTOR,
-      ]),
-    });
+    return ControlPresets.LEVEL_EDITOR_BLOCK_EDITING_ENABLED;
   }
 
   static onTutorialProgress(progress) {
     switch (progress) {
       case TutorialProgress.TUTORIAL_INTRO:
       case TutorialProgress.TUTORIAL_INTRO_GUIDE_TOGGLE:
-        return new Control();
+        return ControlPresets.EMPTY;
 
       case TutorialProgress.MOVE_DETROMINO_INTRO:
-        return new Control({
-          enabled: Immutable.Set([
-            ControlTypes.CONTROL_UP,
-            ControlTypes.CONTROL_DOWN,
-            ControlTypes.CONTROL_LEFT,
-            ControlTypes.CONTROL_RIGHT,
-          ]),
-        });
+        return ControlPresets.ARROW_ONLY_NO_FUNCTION;
       case TutorialProgress.MOVE_DETROMINO_LEFT_RIGHT:
       case TutorialProgress.MOVE_DETROMINO_NO_OVERLAP:
-        return new Control({
-          move   : Actions.moveDetrominoInTutorial,
-          enabled: Immutable.Set([
-            ControlTypes.CONTROL_UP,
-            ControlTypes.CONTROL_DOWN,
-            ControlTypes.CONTROL_LEFT,
-            ControlTypes.CONTROL_RIGHT,
-          ]),
-        });
+        return ControlPresets.ARROW_ONLY;
       case TutorialProgress.MOVE_DETROMINO_ROTATE:
-        return new Control({
-          move   : Actions.moveDetrominoInTutorial,
-          rotate : Actions.rotateInTutorial,
-          enabled: Immutable.Set([
-            ControlTypes.CONTROL_UP,
-            ControlTypes.CONTROL_DOWN,
-            ControlTypes.CONTROL_LEFT,
-            ControlTypes.CONTROL_RIGHT,
-            ControlTypes.CONTROL_ROTATE,
-          ]),
-        });
+        return ControlPresets.ARROW_AND_ROTATE_ONLY;
 
       case TutorialProgress.MECHANISM_INTRO:
       case TutorialProgress.MECHANISM_DEMO_INTRO:
-        return new Control();
+        return ControlPresets.EMPTY;
       case TutorialProgress.MECHANISM_DEMO_I_INTRO:
-        return new Control({
-          done   : Actions.nextTutorial,
-          enabled: Immutable.Set([
-            ControlTypes.CONTROL_DONE,
-          ]),
-        });
+        return ControlPresets.NEXT_DETROMINO_ONLY;
       case TutorialProgress.MECHANISM_DEMO_I_FALLING:
       case TutorialProgress.MECHANISM_DEMO_I_APPLYING:
       case TutorialProgress.MECHANISM_DEMO_I_RESULT:
-        return new Control();
+        return ControlPresets.EMPTY;
       case TutorialProgress.MECHANISM_DEMO_T_INTRO:
-        return new Control({
-          done   : Actions.nextTutorial,
-          enabled: Immutable.Set([
-            ControlTypes.CONTROL_DONE,
-          ]),
-        });
+        return ControlPresets.NEXT_DETROMINO_ONLY;
       case TutorialProgress.MECHANISM_DEMO_T_FALLING:
       case TutorialProgress.MECHANISM_DEMO_T_FALLING_EXPLANATION:
       case TutorialProgress.MECHANISM_DEMO_T_APPLYING:
       case TutorialProgress.MECHANISM_DEMO_T_TARGET_FALLING:
       case TutorialProgress.MECHANISM_DEMO_T_TARGET_BLOCKS:
       case TutorialProgress.MECHANISM_DEMO_T_RESULT:
-        return new Control();
+        return ControlPresets.EMPTY;
       case TutorialProgress.MECHANISM_DEMO_FLOOR_INTRO:
-        return new Control({
-          done   : Actions.nextTutorial,
-          enabled: Immutable.Set([
-            ControlTypes.CONTROL_DONE,
-          ]),
-        });
+        return ControlPresets.NEXT_DETROMINO_ONLY;
       case TutorialProgress.MECHANISM_DEMO_FLOOR_RESULT:
-        return new Control();
+        return ControlPresets.EMPTY;
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_INTRO:
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_UNDO_REDO:
       case TutorialProgress.MECHANISM_DEMO_FREE_PLAY:
+
       case TutorialProgress.FIRST_GAME_INTRO:
       case TutorialProgress.FIRST_GAME_START:
-        return ControlStore.fullGameControlWithHistory()
-          .set("done", Actions.nextDetromino);
+        return ControlPresets.TUTORIAL_TRY_OUT;
       default:
-        return new Control();
+        return ControlPresets.EMPTY;
     }
   }
 
@@ -200,31 +126,19 @@ class ControlStore extends ReduceStore {
    * @return {Map<string, any>}
    */
   static fullGameControlWithHistory() {
-    let controls = [
-      ControlTypes.CONTROL_ROTATE,
-      ControlTypes.CONTROL_UP,
-      ControlTypes.CONTROL_DOWN,
-      ControlTypes.CONTROL_LEFT,
-      ControlTypes.CONTROL_RIGHT,
-      ControlTypes.CONTROL_DONE,
-    ];
-
     if (GridHistoryHelper.canUndoInGame()) {
-      controls.push(ControlTypes.CONTROL_UNDO);
+      if (GridHistoryHelper.canRedoInGame()) {
+        return ControlPresets.FULL_GAME_CONTROL_WITH_UNDO_REDO;
+      }
+
+      return ControlPresets.FULL_GAME_CONTROL_WITH_UNDO;
     }
 
     if (GridHistoryHelper.canRedoInGame()) {
-      controls.push(ControlTypes.CONTROL_REDO);
+      return ControlPresets.FULL_GAME_CONTROL_WITH_REDO;
     }
 
-    return new Control({
-      rotate : Actions.rotateInTutorial,
-      done   : Actions.nextDetrominoInGame,
-      move   : Actions.moveDetrominoInTutorial,
-      undo   : Actions.undoInGame,
-      redo   : Actions.redoInGame,
-      enabled: Immutable.Set(controls),
-    });
+    return ControlPresets.FULL_GAME_CONTROL;
   }
 
 }

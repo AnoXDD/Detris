@@ -279,4 +279,4 @@ test("LevelState", () => {
     levelState));
 
   expect(Immutable.is(levelState, levelState2)).toBeTruthy();
-})
+});
