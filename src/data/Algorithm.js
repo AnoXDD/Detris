@@ -5,13 +5,13 @@
  */
 
 import GridSize from "./grid/GridSize";
-import BlockType from "./block/BlockType";
+import BlockType from "../enum/BlockType";
 import DetrominoType from "./detromino/DetrominoType";
-import Block from "./block/Block";
-import Direction from "./enum/Direction";
-import Rotation from "./enum/Rotation";
+import Block from "./Block";
+import Direction from "../enum/Direction";
+import Rotation from "../enum/Rotation";
 import Queue from "./queue/Queue";
-import Color from "./enum/Color";
+import Color from "../enum/Color";
 
 /**
  * Converts a grid to an 2d array. Note the matrix is first indexed by y-axis,

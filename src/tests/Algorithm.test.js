@@ -5,11 +5,11 @@
 import Immutable from "immutable";
 import Algorithm from "../data/Algorithm";
 
-import Block from "../data/block/Block";
-import BlockType from "../data/block/BlockType";
+import Block from "../data/Block";
+import BlockType from "../enum/BlockType";
 import Detromino from "../data/detromino/Detromino";
 import DetrominoType from "../data/detromino/DetrominoType";
-import Direction from "../data/enum/Direction";
+import Direction from "../enum/Direction";
 
 const charToType = {
   "1": BlockType.ORIGINAL,

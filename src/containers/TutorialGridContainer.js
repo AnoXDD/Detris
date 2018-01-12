@@ -5,13 +5,13 @@
 import {Container} from "flux/utils";
 import React, {Component} from "react";
 
-import GameGridStore from "../data/grid/game/GameGridStore";
-import QueueStore from "../data/queue/QueueStore";
+import GameGridStore from "../reducer/gameGrid";
+import QueueStore from "../reducer/queue";
 
 import GridView from "../views/GridView";
 import QueueView from "../views/QueueView";
 import GridControlView from "../views/GridControlView";
-import GameStateStore from "../data/game/GameStateStore";
+import GameStateStore from "../reducer/game";
 import ControlStore from "../data/control/ControlStore";
 
 class TutorialGridContainer extends Component {

@@ -4,22 +4,22 @@
  * The list of actions that can be dispatched
  */
 
-import ActionTypes from "./enum/ActionTypes";
+import ActionTypes from "../enum/ActionTypes";
 import Algorithm from "./Algorithm";
 import Dispatcher from "./Dispatcher";
-import QueueStore from "./queue/QueueStore";
-import Direction from "./enum/Direction";
+import QueueStore from "../reducer/queue";
+import Direction from "../enum/Direction";
 import LevelData from "./game/static/LevelData";
-import GameUiState from "./enum/GameUiState";
+import GameUiState from "../enum/GameUiState";
 import LevelEditorGridStore from "./grid/levelEditor/LevelEditorGridStore";
-import OverlayType from "./enum/OverlayTypes";
-import LevelStateStore from "./game/level/LevelStateStore";
+import OverlayType from "../enum/OverlayTypes";
+import LevelStateStore from "../reducer/level";
 import LevelViewData from "./game/static/LevelViewData";
-import TutorialStore from "./game/tutorial/TutorialStore";
-import TutorialProgress from "./enum/TutorialProgress";
-import GameGridStore from "./grid/game/GameGridStore";
+import TutorialStore from "../reducer/tutorial";
+import TutorialProgress from "../enum/TutorialProgress";
+import GameGridStore from "../reducer/gameGrid";
 import TutorialHelper from "./game/tutorial/TutorialHelper";
-import GameStateStore from "./game/GameStateStore";
+import GameStateStore from "../reducer/game";
 
 const DELAY = 500;
 

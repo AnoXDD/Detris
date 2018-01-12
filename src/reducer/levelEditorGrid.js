@@ -4,75 +4,20 @@
 
 import Immutable from "immutable";
 
-import Algorithm from "../../Algorithm";
-import Rotation from "../../enum/Rotation";
-import GridSize from "../GridSize";
-import BlockType from "../../block/BlockType";
-import ActionTypes from "../../enum/ActionTypes";
-import Detromino from "../../detromino/Detromino";
-import DetrominoType from "../../detromino/DetrominoType";
-import LevelEditorGrid from "./LevelEditorGrid";
-import Direction from "../../enum/Direction";
-import BaseGridHelper from "../BaseGridHelper";
-import LevelDataUnitTokenizer from "../../tokenizer/LevelDataUnitTokenizer";
-import createFluxStore from "../../../reducer/createFluxStore";
+import Algorithm from "../data/Algorithm";
+import Rotation from "../enum/Rotation";
+import GridSize from "../data/grid/GridSize";
+import BlockType from "../enum/BlockType";
+import ActionTypes from "../enum/ActionTypes";
+import Detromino from "../data/detromino/Detromino";
+import DetrominoType from "../data/detromino/DetrominoType";
+import LevelEditorGrid from "../data/grid/LevelEditorGrid";
+import Direction from "../enum/Direction";
+import BaseGridHelper from "../data/grid/BaseGridHelper";
+import LevelDataUnitTokenizer from "../data/tokenizer/LevelDataUnitTokenizer";
 
 function reset() {
   return nextDetromino(new LevelEditorGrid());
-}
-
-function getInitialState() {
-  // let savedState = LocalStorageLoader.loadGridFromLocalStorage();
-  // if (savedState) {
-  //   return syncData(savedState);
-  // }
-
-  return reset();
-}
-
-function reduce(state, action) {
-  switch (action.type) {
-    case ActionTypes.INIT_GRID:
-      return this.initState();
-    case ActionTypes.RESET_GRID:
-      return reset();
-    case ActionTypes.NEXT_DETROMINO_IN_EDITOR:
-      return nextDetromino(state);
-    case ActionTypes.NEXT_DETROMINO_SHAPE:
-      return cycleDetrominoShape(state, 1);
-    case ActionTypes.PREV_DETROMINO_SHAPE:
-      return cycleDetrominoShape(state, -1);
-    // case ActionTypes.ROTATE:
-    // return rotate(state);
-    case ActionTypes.EDITOR_DETROMINO_MOVE_LEFT:
-      return moveX(state, -1);
-    case ActionTypes.EDITOR_DETROMINO_MOVE_RIGHT:
-      return moveX(state, 1);
-    case ActionTypes.EDITOR_DETROMINO_MOVE_UP:
-      return moveY(state, -1);
-    case ActionTypes.EDITOR_DETROMINO_MOVE_DOWN:
-      return moveY(state, 1);
-    case ActionTypes.ENABLE_BLOCK_EDITING:
-      return enableBlockEditing(state, action);
-    case ActionTypes.DISABLE_BLOCK_EDITING:
-      return disableBlockEditing(state);
-    case ActionTypes.SET_BLOCKTYPE:
-      return setCurrentBlock(state, action);
-    case ActionTypes.EDITOR_BLOCK_MOVE_LEFT:
-      return moveEditingBlock(state, Direction.LEFT);
-    case ActionTypes.EDITOR_BLOCK_MOVE_RIGHT:
-      return moveEditingBlock(state, Direction.RIGHT);
-    case ActionTypes.EDITOR_BLOCK_MOVE_UP:
-      return moveEditingBlock(state, Direction.UP);
-    case ActionTypes.EDITOR_BLOCK_MOVE_DOWN:
-      return moveEditingBlock(state, Direction.DOWN);
-    case ActionTypes.UNDO_IN_EDITOR:
-      return undo(state);
-    case ActionTypes.REDO_IN_EDITOR:
-      return redo(state);
-    default:
-      return state;
-  }
 }
 
 function nextDetromino(state) {
@@ -367,8 +312,46 @@ function _syncDetrominoIndex(state) {
       .set("detromino", detromino.set("type", iterator.value())));
 }
 
-function initState() {
-  return this.getInitialState();
+export default function reduce(state = reset(), action) {
+  switch (action.type) {
+    case ActionTypes.INIT_GRID:
+    case ActionTypes.RESET_GRID:
+      return reset();
+    case ActionTypes.NEXT_DETROMINO_IN_EDITOR:
+      return nextDetromino(state);
+    case ActionTypes.NEXT_DETROMINO_SHAPE:
+      return cycleDetrominoShape(state, 1);
+    case ActionTypes.PREV_DETROMINO_SHAPE:
+      return cycleDetrominoShape(state, -1);
+    // case ActionTypes.ROTATE:
+    // return rotate(state);
+    case ActionTypes.EDITOR_DETROMINO_MOVE_LEFT:
+      return moveX(state, -1);
+    case ActionTypes.EDITOR_DETROMINO_MOVE_RIGHT:
+      return moveX(state, 1);
+    case ActionTypes.EDITOR_DETROMINO_MOVE_UP:
+      return moveY(state, -1);
+    case ActionTypes.EDITOR_DETROMINO_MOVE_DOWN:
+      return moveY(state, 1);
+    case ActionTypes.ENABLE_BLOCK_EDITING:
+      return enableBlockEditing(state, action);
+    case ActionTypes.DISABLE_BLOCK_EDITING:
+      return disableBlockEditing(state);
+    case ActionTypes.SET_BLOCKTYPE:
+      return setCurrentBlock(state, action);
+    case ActionTypes.EDITOR_BLOCK_MOVE_LEFT:
+      return moveEditingBlock(state, Direction.LEFT);
+    case ActionTypes.EDITOR_BLOCK_MOVE_RIGHT:
+      return moveEditingBlock(state, Direction.RIGHT);
+    case ActionTypes.EDITOR_BLOCK_MOVE_UP:
+      return moveEditingBlock(state, Direction.UP);
+    case ActionTypes.EDITOR_BLOCK_MOVE_DOWN:
+      return moveEditingBlock(state, Direction.DOWN);
+    case ActionTypes.UNDO_IN_EDITOR:
+      return undo(state);
+    case ActionTypes.REDO_IN_EDITOR:
+      return redo(state);
+    default:
+      return state;
+  }
 }
-
-export default createFluxStore(reduce, getInitialState());

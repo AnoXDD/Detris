@@ -4,7 +4,7 @@
 
 import {Container} from "flux/utils";
 import React, {Component} from "react";
-import GameStateStore from "../data/game/GameStateStore";
+import GameStateStore from "../reducer/game";
 import Actions from "../data/Actions";
 import Button from "../lib/Button";
 

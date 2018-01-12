@@ -3,7 +3,7 @@
  */
 
 import Immutable from "immutable";
-import GameUiState from "../enum/GameUiState";
+import GameUiState from "../../enum/GameUiState";
 
 const GameStateRecord = Immutable.Record({
   uiState          : GameUiState.DEFAULT_STATE,

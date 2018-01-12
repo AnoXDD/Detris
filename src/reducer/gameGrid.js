@@ -5,20 +5,19 @@
  * grids.
  */
 
-import Algorithm from "../../Algorithm";
-import Rotation from "../../enum/Rotation";
-import GridSize from "../GridSize";
-import BlockType from "../../block/BlockType";
-import ActionTypes from "../../enum/ActionTypes";
-import LocalStorageLoader from "../../storeListener/LocalStorageLoader";
-import Detromino from "../../detromino/Detromino";
-import DetrominoType from "../../detromino/DetrominoType";
-import BaseGridHelper from "../BaseGridHelper";
-import GameGrid from "./GameGrid";
-import TutorialProgress from "../../enum/TutorialProgress";
-import TutorialGrid from "../../game/tutorial/TutorialGrid";
-import History from "../../History";
-import createFluxStore from "../../../reducer/createFluxStore";
+import Algorithm from "../data/Algorithm";
+import Rotation from "../enum/Rotation";
+import GridSize from "../data/grid/GridSize";
+import BlockType from "../enum/BlockType";
+import ActionTypes from "../enum/ActionTypes";
+import LocalStorageLoader from "../data/storeListener/LocalStorageLoader";
+import Detromino from "../data/detromino/Detromino";
+import DetrominoType from "../data/detromino/DetrominoType";
+import BaseGridHelper from "../data/grid/BaseGridHelper";
+import GameGrid from "../data/grid/GameGrid";
+import TutorialProgress from "../enum/TutorialProgress";
+import TutorialGrid from "../data/game/tutorial/TutorialGrid";
+import History from "../data/History";
 
 
 function reset() {
@@ -32,42 +31,6 @@ function getInitialState() {
   }
 
   return _syncData(reset());
-}
-
-function reduce(state, action) {
-  switch (action.type) {
-    case ActionTypes.APPLY_DATA:
-      return applyData(action);
-    case ActionTypes.START_LEVEL:
-      // Reset history
-      return state.set("history", new History());
-    case ActionTypes.NEXT_DETROMINO_IN_GAME:
-      return nextDetromino(state, action);
-    case ActionTypes.ROTATE:
-      return rotate(state);
-    case ActionTypes.DETROMINO_MOVE_LEFT:
-      return move(state, {x: -1});
-    case ActionTypes.DETROMINO_MOVE_RIGHT:
-      return move(state, {x: 1});
-    case ActionTypes.DETROMINO_MOVE_UP:
-      return move(state, {y: -1});
-    case ActionTypes.DETROMINO_MOVE_DOWN:
-      return move(state, {y: 1});
-    case ActionTypes.REMOVE_DETROMINO:
-      return removeDetromino(state);
-    case ActionTypes.APPLY_DETROMINO_BLOCKS:
-      return applyDetrominoBlocks(state);
-    case ActionTypes.SINK_TARGET_BLOCKS:
-      return sinkTargetBlocks(state);
-    case ActionTypes.UNDO_IN_GAME:
-      return undo(state);
-    case ActionTypes.REDO_IN_GAME:
-      return redo(state);
-    case ActionTypes.SET_TUTORIAL_PROGRESS:
-      return setTutorialGrid(state, action.progress);
-    default:
-      return state;
-  }
 }
 
 function applyData(action) {
@@ -253,8 +216,38 @@ function _syncData(state,
       detrominoTargets));
 }
 
-function initState() {
-  return this.getInitialState();
+export default function reduce(state = getInitialState(), action) {
+  switch (action.type) {
+    case ActionTypes.APPLY_DATA:
+      return applyData(action);
+    case ActionTypes.START_LEVEL:
+      // Reset history
+      return state.set("history", new History());
+    case ActionTypes.NEXT_DETROMINO_IN_GAME:
+      return nextDetromino(state, action);
+    case ActionTypes.ROTATE:
+      return rotate(state);
+    case ActionTypes.DETROMINO_MOVE_LEFT:
+      return move(state, {x: -1});
+    case ActionTypes.DETROMINO_MOVE_RIGHT:
+      return move(state, {x: 1});
+    case ActionTypes.DETROMINO_MOVE_UP:
+      return move(state, {y: -1});
+    case ActionTypes.DETROMINO_MOVE_DOWN:
+      return move(state, {y: 1});
+    case ActionTypes.REMOVE_DETROMINO:
+      return removeDetromino(state);
+    case ActionTypes.APPLY_DETROMINO_BLOCKS:
+      return applyDetrominoBlocks(state);
+    case ActionTypes.SINK_TARGET_BLOCKS:
+      return sinkTargetBlocks(state);
+    case ActionTypes.UNDO_IN_GAME:
+      return undo(state);
+    case ActionTypes.REDO_IN_GAME:
+      return redo(state);
+    case ActionTypes.SET_TUTORIAL_PROGRESS:
+      return setTutorialGrid(state, action.progress);
+    default:
+      return state;
+  }
 }
-
-export default createFluxStore(reduce, getInitialState());

@@ -5,13 +5,12 @@
  */
 
 import Immutable from "immutable";
-import LocalStorageLoader from "../storeListener/LocalStorageLoader";
+import LocalStorageLoader from "../data/storeListener/LocalStorageLoader";
 
 import ActionTypes from "../enum/ActionTypes";
-import Queue from "./Queue";
+import Queue from "../data/queue/Queue";
 import TutorialProgress from "../enum/TutorialProgress";
-import DetrominoType from "../detromino/DetrominoType";
-import createFluxStore from "../../reducer/createFluxStore";
+import DetrominoType from "../data/detromino/DetrominoType";
 
 function reset() {
   return new Queue();
@@ -28,7 +27,42 @@ function getInitialState() {
   return state;
 }
 
-function reduce(state, action) {
+function pop(state) {
+  state = state.set("queue", state.get("queue").pop());
+
+  state.get("history").record(state);
+
+  return state;
+}
+
+/**
+ * Pushes a new detromino type into the queue
+ * @param state
+ * @param {DetrominoType|string} type
+ * @return {*}
+ */
+function push(state, type) {
+  state = state.set("queue", state.get("queue").push(type));
+
+  state.get("history").record(state);
+
+  return state;
+}
+
+function redo(state) {
+  return state.get("history").redo() || state;
+}
+
+function undo(state) {
+  return state.get("history").undo() || state;
+}
+
+function applyData(action) {
+  let {levelDataUnit} = action;
+  return levelDataUnit.get("queue");
+}
+
+export default function reduce(state = getInitialState(), action) {
   switch (action.type) {
     case ActionTypes.RESET_GRID:
       return reset();
@@ -68,40 +102,3 @@ function reduce(state, action) {
       return state;
   }
 }
-
-function pop(state) {
-  state = state.set("queue", state.get("queue").pop());
-
-  state.get("history").record(state);
-
-  return state;
-}
-
-/**
- * Pushes a new detromino type into the queue
- * @param state
- * @param {DetrominoType|string} type
- * @return {*}
- */
-function push(state, type) {
-  state = state.set("queue", state.get("queue").push(type));
-
-  state.get("history").record(state);
-
-  return state;
-}
-
-function redo(state) {
-  return state.get("history").redo() || state;
-}
-
-function undo(state) {
-  return state.get("history").undo() || state;
-}
-
-function applyData(action) {
-  let {levelDataUnit} = action;
-  return levelDataUnit.get("queue");
-}
-
-export default createFluxStore(reduce, getInitialState());

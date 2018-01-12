@@ -4,15 +4,14 @@
  */
 
 import Immutable from "immutable";
-import LocalStorageLoader from "../storeListener/LocalStorageLoader";
+import LocalStorageLoader from "../data/storeListener/LocalStorageLoader";
 
 import ActionTypes from "../enum/ActionTypes";
 import GameUiState from "../enum/GameUiState";
-import GameState from "./GameState";
+import GameState from "../data/game/GameState";
 import OverlayType from "../enum/OverlayTypes";
 import TopBarType from "../enum/TopBarTypes";
-import EndGameHelper from "./EndGameHelper";
-import createFluxStore from "../../reducer/createFluxStore";
+import EndGameHelper from "../data/game/EndGameHelper";
 
 function reset() {
   return new GameState();
@@ -23,7 +22,43 @@ function getInitialState() {
   return applyTopBarState(state || reset());
 }
 
-function reduce(state, action) {
+function hideAllFloatingWindows(state) {
+  return state.set("activeOverlay", state.get("activeOverlay").clear());
+}
+
+/**
+ * Applies the game state to top bar state
+ * @param state
+ */
+function applyTopBarState(state) {
+  let topBar = new Immutable.Set();
+
+  switch (state.get("uiState")) {
+    case GameUiState.WELCOME:
+      // no-op, nothing to be shown
+      break;
+    case GameUiState.TUTORIAL:
+      topBar = topBar.add(TopBarType.TOP_TUTORIAL_INFO)
+        .add(TopBarType.TOP_BACK);
+      break;
+    case GameUiState.SELECT_LEVEL:
+      topBar = topBar.add(TopBarType.TOP_BACK);
+      break;
+    case GameUiState.GAME_STARTED:
+      topBar = topBar.add(TopBarType.TOP_PAUSE).add(TopBarType.TOP_BACK);
+      break;
+    case GameUiState.LEVEL_EDITOR_STARTED:
+      topBar = topBar.add(TopBarType.TOP_PAUSE)
+        .add(TopBarType.TOP_BACK)
+        .add(TopBarType.TOP_IMPORT_EXPORT);
+      break;
+    default:
+  }
+
+  return state.set("topBar", topBar);
+}
+
+export default function reduce(state = getInitialState(), action) {
   switch (action.type) {
     case ActionTypes.START_LEVEL:
       return applyTopBarState(state.set("uiState",
@@ -95,41 +130,3 @@ function reduce(state, action) {
       return state;
   }
 }
-
-function hideAllFloatingWindows(state) {
-  return state.set("activeOverlay", state.get("activeOverlay").clear());
-}
-
-/**
- * Applies the game state to top bar state
- * @param state
- */
-function applyTopBarState(state) {
-  let topBar = new Immutable.Set();
-
-  switch (state.get("uiState")) {
-    case GameUiState.WELCOME:
-      // no-op, nothing to be shown
-      break;
-    case GameUiState.TUTORIAL:
-      topBar = topBar.add(TopBarType.TOP_TUTORIAL_INFO)
-        .add(TopBarType.TOP_BACK);
-      break;
-    case GameUiState.SELECT_LEVEL:
-      topBar = topBar.add(TopBarType.TOP_BACK);
-      break;
-    case GameUiState.GAME_STARTED:
-      topBar = topBar.add(TopBarType.TOP_PAUSE).add(TopBarType.TOP_BACK);
-      break;
-    case GameUiState.LEVEL_EDITOR_STARTED:
-      topBar = topBar.add(TopBarType.TOP_PAUSE)
-        .add(TopBarType.TOP_BACK)
-        .add(TopBarType.TOP_IMPORT_EXPORT);
-      break;
-    default:
-  }
-
-  return state.set("topBar", topBar);
-}
-
-export default createFluxStore(reduce, getInitialState());

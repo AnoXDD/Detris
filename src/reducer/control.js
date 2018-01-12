@@ -1,43 +1,12 @@
 /**
- * Created by Anoxic on 10/12/2017.
+ * Created by Anoxic on 1/11/2018.
  */
 
 import ActionTypes from "../enum/ActionTypes";
 import GameUiState from "../enum/GameUiState";
 import TutorialProgress from "../enum/TutorialProgress";
-import GridHistoryHelper from "../grid/GridHistoryHelper";
 import ControlPresets from "../enum/ControlPresets";
-import createFluxStore from "../../reducer/createFluxStore";
-
-function getInitialState() {
-  return ControlPresets.EMPTY;
-}
-
-function reduce(state, action) {
-  switch (action.type) {
-    case ActionTypes.START_LEVEL:
-      return onGameStarted();
-    case ActionTypes.NEXT_DETROMINO_IN_GAME:
-    case ActionTypes.UNDO_IN_GAME:
-    case ActionTypes.REDO_IN_GAME:
-      return fullGameControlWithHistory();
-    case ActionTypes.SET_GAME_UI_STATE:
-      switch (action.uiState) {
-        case GameUiState.LEVEL_EDITOR_STARTED:
-          return onLevelEditorDisableBlockEditing();
-        default:
-          return ControlPresets.EMPTY;
-      }
-    case ActionTypes.DISABLE_BLOCK_EDITING:
-      return onLevelEditorDisableBlockEditing();
-    case ActionTypes.ENABLE_BLOCK_EDITING:
-      return onLevelEditorEnableBlockEditing();
-    case ActionTypes.SET_TUTORIAL_PROGRESS:
-      return onTutorialProgress(action.progress);
-    default:
-      return state;
-  }
-}
+import GridHistoryHelper from "../data/grid/GridHistoryHelper";
 
 /**
  * Called when an actual game has started
@@ -128,4 +97,28 @@ function fullGameControlWithHistory() {
   return ControlPresets.FULL_GAME_CONTROL;
 }
 
-export default createFluxStore(reduce, getInitialState());
+export default function control(state = ControlPresets.EMPTY, action) {
+  switch (action.type) {
+    case ActionTypes.START_LEVEL:
+      return onGameStarted();
+    case ActionTypes.NEXT_DETROMINO_IN_GAME:
+    case ActionTypes.UNDO_IN_GAME:
+    case ActionTypes.REDO_IN_GAME:
+      return fullGameControlWithHistory();
+    case ActionTypes.SET_GAME_UI_STATE:
+      switch (action.uiState) {
+        case GameUiState.LEVEL_EDITOR_STARTED:
+          return onLevelEditorDisableBlockEditing();
+        default:
+          return ControlPresets.EMPTY;
+      }
+    case ActionTypes.DISABLE_BLOCK_EDITING:
+      return onLevelEditorDisableBlockEditing();
+    case ActionTypes.ENABLE_BLOCK_EDITING:
+      return onLevelEditorEnableBlockEditing();
+    case ActionTypes.SET_TUTORIAL_PROGRESS:
+      return onTutorialProgress(action.progress);
+    default:
+      return state;
+  }
+}

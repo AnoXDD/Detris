@@ -4,11 +4,11 @@
 
 import Immutable from "immutable";
 
-import Color from "../enum/Color";
-import Rotation from "../enum/Rotation";
+import Color from "../../enum/Color";
+import Rotation from "../../enum/Rotation";
 
-import Block from "../block/Block";
-import BlockType from "../block/BlockType";
+import Block from "../Block";
+import BlockType from "../../enum/BlockType";
 import DetrominoType from "./DetrominoType";
 import DetrominoShape from "./DetrominoShape";
 import Algorithm from "../Algorithm";

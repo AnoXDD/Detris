@@ -7,7 +7,7 @@
 import {Container} from "flux/utils";
 import React, {Component} from "react";
 
-import NotificationStore from "../data/notification/NotificationStore";
+import NotificationStore from "../reducer/notification";
 import NotificationSystem from "react-notification-system";
 
 class NotificationContainer extends Component {

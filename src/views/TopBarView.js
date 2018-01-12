@@ -5,7 +5,7 @@
 import React, {Component} from "react";
 import Button from "../lib/Button";
 import {CSSTransitionGroup} from "react-transition-group";
-import TopBarType from "../data/enum/TopBarTypes";
+import TopBarType from "../enum/TopBarTypes";
 import Actions from "../data/Actions";
 
 export default class TopBarView extends Component {

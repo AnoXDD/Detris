@@ -7,10 +7,10 @@
 
 import Immutable from "immutable";
 
-import Block from "../data/block/Block";
-import BlockType from "../data/block/BlockType";
+import Block from "../data/Block";
+import BlockType from "../enum/BlockType";
 import DetrominoType from "../data/detromino/DetrominoShape";
-import Rotation from "../data/enum/Rotation";
+import Rotation from "../enum/Rotation";
 import Detromino from "../data/detromino/Detromino";
 import Grid from "../data/grid/BaseGrid";
 import Queue from "../data/queue/Queue";

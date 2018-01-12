@@ -4,9 +4,9 @@
  * Manager for loading data to cache
  */
 
-import QueueStore from "../queue/QueueStore";
-import GameGridStore from "../grid/game/GameGridStore";
-import GameStateStore from "../game/GameStateStore";
+import QueueStore from "../../reducer/queue";
+import GameGridStore from "../../reducer/gameGrid";
+import GameStateStore from "../../reducer/game";
 
 function onQueueStoreChanged() {
   let store = QueueStore.getState().get("queue");

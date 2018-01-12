@@ -8,10 +8,10 @@ import {Container} from "flux/utils";
 import React, {Component} from "react";
 import {CSSTransitionGroup} from "react-transition-group";
 
-import GameStateStore from "../data/game/GameStateStore";
+import GameStateStore from "../reducer/game";
 import GridContainer from "./GridContainer";
 import LevelContainer from "./LevelContainer";
-import GameUiState from "../data/enum/GameUiState";
+import GameUiState from "../enum/GameUiState";
 import TopBarView from "../views/TopBarView";
 import PauseMenuView from "../views/fullscreenOverlay/PauseMenuView";
 import DialogView from "../views/fullscreenOverlay/DialogView";
@@ -21,15 +21,15 @@ import SettingsView from "../views/fullscreenOverlay/SettingsView";
 import AboutView from "../views/fullscreenOverlay/AboutView";
 import ControlContainer from "./ControlContainer";
 import LevelEditorImportExportView from "../views/fullscreenOverlay/LevelEditorImportExportView";
-import OverlayType from "../data/enum/OverlayTypes";
+import OverlayType from "../enum/OverlayTypes";
 import LevelEditorGridStore from "../data/grid/levelEditor/LevelEditorGridStore";
 import NotificationContainer from "./NotificationContainer";
 import EndGameView from "../views/fullscreenOverlay/EndGameView";
 import TutorialWelcomeContainer from "./TutorialWelcomeContainer";
 import TutorialGridContainer from "./TutorialGridContainer";
 import TutorialGuideView from "../views/fullscreenOverlay/TutorialGuideView";
-import TutorialStore from "../data/game/tutorial/TutorialStore";
-import LevelStateStore from "../data/game/level/LevelStateStore";
+import TutorialStore from "../reducer/tutorial";
+import LevelStateStore from "../reducer/level";
 
 class GameContainer extends Component {
 

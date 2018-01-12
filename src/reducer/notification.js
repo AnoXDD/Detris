@@ -2,17 +2,34 @@
  * Created by Anoxic on 11/17/2017.
  */
 
-import NotificationState from "./NotificationState";
+import NotificationState from "../data/notification/NotificationState";
 import ActionTypes from "../enum/ActionTypes";
 import NotificationLevel from "../enum/NotificationLevel";
-import EndGameHelper from "../game/EndGameHelper";
-import createFluxStore from "../../reducer/createFluxStore";
+import EndGameHelper from "../data/game/EndGameHelper";
 
 function getInitialState() {
   return new NotificationState();
 }
 
-function reduce(state, action) {
+function display(state, level, message) {
+  return state.set("level", level)
+    .set("message", message)
+    .set("id", state.get("id") + 1)
+    .set("hidden", false);
+}
+
+function hide(state) {
+  return state.set("id", state.get("id") + 1)
+    .set("hidden", true);
+}
+
+function displayLevelFailed(state) {
+  return display(state,
+    NotificationLevel.INFO,
+    "Looks like you run out of Detrominos. What about undoing some of them?");
+}
+
+export default function reduce(state = getInitialState(), action) {
   switch (action.type) {
     case ActionTypes.DISPLAY_INFO:
       return display(state, NotificationLevel.INFO,
@@ -38,23 +55,3 @@ function reduce(state, action) {
       return state;
   }
 }
-
-function display(state, level, message) {
-  return state.set("level", level)
-    .set("message", message)
-    .set("id", state.get("id") + 1)
-    .set("hidden", false);
-}
-
-function hide(state) {
-  return state.set("id", state.get("id") + 1)
-    .set("hidden", true);
-}
-
-function displayLevelFailed(state) {
-  return display(state,
-    NotificationLevel.INFO,
-    "Looks like you run out of Detrominos. What about undoing some of them?");
-}
-
-export default createFluxStore(reduce, getInitialState());

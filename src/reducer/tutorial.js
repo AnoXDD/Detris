@@ -3,11 +3,10 @@
  * A store for the tutorial state
  */
 
-import ActionTypes from "../../enum/ActionTypes";
-import TutorialProgress from "../../enum/TutorialProgress";
-import TutorialState from "./TutorialState";
-import TutorialGuidePosition from "../../enum/TutorialGuidePosition";
-import createFluxStore from "../../../reducer/createFluxStore";
+import ActionTypes from "../enum/ActionTypes";
+import TutorialProgress from "../enum/TutorialProgress";
+import TutorialState from "../data/game/tutorial/TutorialState";
+import TutorialGuidePosition from "../enum/TutorialGuidePosition";
 
 
 function reset() {
@@ -16,16 +15,6 @@ function reset() {
 
 function getInitialState() {
   return reset();
-}
-
-function reduce(state, action) {
-  switch (action.type) {
-    case ActionTypes.SET_TUTORIAL_PROGRESS:
-      state = applyTutorialPosition(state, action.progress);
-      return applyTutorialProgress(state, action.progress);
-    default:
-      return state;
-  }
 }
 
 function applyTutorialPosition(state, progress) {
@@ -105,4 +94,12 @@ function applyTutorialProgress(state, progress) {
   }
 }
 
-export default createFluxStore(reduce, getInitialState());
+export default function reduce(state = getInitialState(), action) {
+  switch (action.type) {
+    case ActionTypes.SET_TUTORIAL_PROGRESS:
+      state = applyTutorialPosition(state, action.progress);
+      return applyTutorialProgress(state, action.progress);
+    default:
+      return state;
+  }
+}

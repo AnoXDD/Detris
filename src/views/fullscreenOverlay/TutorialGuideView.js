@@ -5,9 +5,9 @@
 import React, {Component} from "react";
 import Button from "../../lib/Button";
 import FullscreenOverlayView from "./FullscreenOverlayView";
-import TutorialText from "../../data/enum/TutorialText";
+import TutorialText from "../../enum/TutorialText";
 import Actions from "../../data/Actions";
-import TutorialProgress from "../../data/enum/TutorialProgress";
+import TutorialProgress from "../../enum/TutorialProgress";
 
 export default class TutorialGuideView extends Component {
 

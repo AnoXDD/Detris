@@ -8,8 +8,8 @@ import Immutable from "immutable";
 
 import Detromino from "../../detromino/Detromino";
 import DetrominoType from "../../detromino/DetrominoType";
-import Block from "../../block/Block";
-import BlockType from "../../block/BlockType";
+import Block from "../../Block";
+import BlockType from "../../../enum/BlockType";
 import BaseGrid from "../../grid/BaseGrid";
 
 /**

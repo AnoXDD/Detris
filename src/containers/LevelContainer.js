@@ -4,9 +4,9 @@
 
 import {Container} from "flux/utils";
 import React, {Component} from "react";
-import GameStateStore from "../data/game/GameStateStore";
+import GameStateStore from "../reducer/game";
 import LevelView from "../views/LevelView";
-import LevelStateStore from "../data/game/level/LevelStateStore";
+import LevelStateStore from "../reducer/level";
 import PageControlView from "../views/PageControlView";
 import Actions from "../data/Actions";
 

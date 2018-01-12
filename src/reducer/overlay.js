@@ -4,71 +4,14 @@
  */
 
 import ActionTypes from "../enum/ActionTypes";
-import Actions from "../Actions";
-import CallbackState from "./CallbackState";
+import Actions from "../data/Actions";
+import CallbackState from "../data/game/CallbackState";
 import GameUiState from "../enum/GameUiState";
 import OverlayType from "../enum/OverlayTypes";
 import TutorialProgress from "../enum/TutorialProgress";
-import createFluxStore from "../../reducer/createFluxStore";
 
 function reset() {
   return new CallbackState();
-}
-
-function getInitialState() {
-  return reset();
-}
-
-function reduce(state, action) {
-  switch (action.type) {
-    case ActionTypes.START_LEVEL:
-      return hidePauseMenu(
-        state.set("onQuit",
-          Actions.showDialogForQuitToLevelSelect))
-        .set("onRestart",
-          Actions.showDialogForGameRestart);
-    case ActionTypes.RESUME:
-      return hidePauseMenu(state);
-    case ActionTypes.PAUSE:
-      return state.set("onBack", Actions.resume);
-    case ActionTypes.SET_GAME_UI_STATE:
-      switch (action.uiState) {
-        case GameUiState.SELECT_LEVEL:
-          return state.set("onQuit", Actions.showWelcomePage);
-        case GameUiState.LEVEL_EDITOR_STARTED:
-          return hidePauseMenu(state.set("onQuit",
-            Actions.showDialogForQuitToWelcome)
-            .set("onRestart", Actions.showDialogForResetLevelEditor));
-        default:
-          return state;
-      }
-    case ActionTypes.SHOW_FULLSCREEN_OVERLAY:
-      switch (action.overlayType) {
-        case OverlayType.DIALOG:
-          let {
-            onYes = () => {
-            },
-            onNo = () => {
-            }
-          } = action;
-
-          return state.set("onDialogYes", () => {
-            Actions.hideAllFullscreenOverlay();
-            onYes();
-          }).set("onDialogNo", () => {
-            Actions.hideDialog();
-            onNo();
-          });
-        default:
-          return state;
-      }
-    case ActionTypes.HIDE_ALL_FULLSCREEN_OVERLAY:
-      return hideAllFloatingWindows(state);
-    case ActionTypes.SET_TUTORIAL_PROGRESS:
-      return applyTutorialProgress(state, action.progress);
-    default:
-      return state;
-  }
 }
 
 function hideAllFloatingWindows(state) {
@@ -142,4 +85,54 @@ function applyTutorialProgress(state, progress) {
   }
 }
 
-export default createFluxStore(reduce, getInitialState());
+export default function reduce(state = reset(), action) {
+  switch (action.type) {
+    case ActionTypes.START_LEVEL:
+      return hidePauseMenu(
+        state.set("onQuit",
+          Actions.showDialogForQuitToLevelSelect))
+        .set("onRestart",
+          Actions.showDialogForGameRestart);
+    case ActionTypes.RESUME:
+      return hidePauseMenu(state);
+    case ActionTypes.PAUSE:
+      return state.set("onBack", Actions.resume);
+    case ActionTypes.SET_GAME_UI_STATE:
+      switch (action.uiState) {
+        case GameUiState.SELECT_LEVEL:
+          return state.set("onQuit", Actions.showWelcomePage);
+        case GameUiState.LEVEL_EDITOR_STARTED:
+          return hidePauseMenu(state.set("onQuit",
+            Actions.showDialogForQuitToWelcome)
+            .set("onRestart", Actions.showDialogForResetLevelEditor));
+        default:
+          return state;
+      }
+    case ActionTypes.SHOW_FULLSCREEN_OVERLAY:
+      switch (action.overlayType) {
+        case OverlayType.DIALOG:
+          let {
+            onYes = () => {
+            },
+            onNo = () => {
+            }
+          } = action;
+
+          return state.set("onDialogYes", () => {
+            Actions.hideAllFullscreenOverlay();
+            onYes();
+          }).set("onDialogNo", () => {
+            Actions.hideDialog();
+            onNo();
+          });
+        default:
+          return state;
+      }
+    case ActionTypes.HIDE_ALL_FULLSCREEN_OVERLAY:
+      return hideAllFloatingWindows(state);
+    case ActionTypes.SET_TUTORIAL_PROGRESS:
+      return applyTutorialProgress(state, action.progress);
+    default:
+      return state;
+  }
+}

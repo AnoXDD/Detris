@@ -8,8 +8,8 @@
 import Immutable from "immutable";
 
 import ControlTypes from "./ControlTypes";
-import Actions from "../Actions";
-import ControlState from "../control/ControlState";
+import Actions from "../data/Actions";
+import ControlState from "../data/ControlState";
 
 const FULL_GAME_CONTROL = new ControlState({
   rotate : Actions.rotateInTutorial,

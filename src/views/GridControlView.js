@@ -5,9 +5,9 @@
 import React, {Component} from "react";
 import Button from "../lib/Button";
 import Toggle from "../lib/Toggle";
-import Direction from "../data/enum/Direction";
+import Direction from "../enum/Direction";
 import Actions from "../data/Actions";
-import ControlTypes from "../data/enum/ControlTypes";
+import ControlTypes from "../enum/ControlTypes";
 
 export default class GridControlView extends Component {
 

@@ -4,7 +4,7 @@
  * This test file is separated because it will cause circular dependency when placed with Tokenizer.test.js
  */
 
-import ControlPresets from "../data/enum/ControlPresets";
+import ControlPresets from "../enum/ControlPresets";
 import ControlStateTokenizer from "../data/tokenizer/ControlStateTokenizer";
 
 test("ControlState", () => {

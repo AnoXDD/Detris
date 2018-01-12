@@ -5,8 +5,8 @@
  */
 
 import Immutable from "immutable";
-import TutorialProgress from "../../enum/TutorialProgress";
-import TutorialGuidePosition from "../../enum/TutorialGuidePosition";
+import TutorialProgress from "../../../enum/TutorialProgress";
+import TutorialGuidePosition from "../../../enum/TutorialGuidePosition";
 
 const ORDER = [
   TutorialProgress.TUTORIAL_INTRO,
