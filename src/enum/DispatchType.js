@@ -5,7 +5,7 @@
  * to wait, etc.
  */
 
-const ActionDispatchTypes = {
+const DispatchType = {
   // A regular dispatch
   INSTANT      : "INSTANT",
   DELAYED      : "DELAYED",
@@ -15,4 +15,4 @@ const ActionDispatchTypes = {
   OVERWRITE    : "OVERWRITE",
 };
 
-export default ActionDispatchTypes;
+export default DispatchType;
