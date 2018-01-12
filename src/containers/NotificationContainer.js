@@ -4,10 +4,8 @@
  * The main container of the game
  */
 
-import {Container} from "flux/utils";
 import React, {Component} from "react";
-
-import NotificationStore from "../reducer/notification";
+import {connect} from "react-redux";
 import NotificationSystem from "react-notification-system";
 
 class NotificationContainer extends Component {
@@ -17,30 +15,18 @@ class NotificationContainer extends Component {
   // The id number to keep track of what has been displayed
   id = -1;
 
-  static getStores() {
-    return [
-      NotificationStore,
-    ];
-  }
-
-  static calculateState(prevState) {
-    return {
-      ...NotificationStore.getState().toJS(),
-    };
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextState.id !== this.id;
+  shouldComponentUpdate(nextProps) {
+    return nextProps.id !== this.id;
   }
 
   componentDidUpdate() {
     // Dismiss notifications
     this.ns.clearNotifications();
 
-    this.id = this.state.id;
+    this.id = this.props.id;
 
-    if (!this.state.hidden) {
-      this.ns.addNotification(this.state);
+    if (!this.props.hidden) {
+      this.ns.addNotification(this.props);
     }
   }
 
@@ -55,4 +41,11 @@ class NotificationContainer extends Component {
   }
 }
 
-export default Container.create(NotificationContainer);
+
+function calculateProps(state, ownProps) {
+  return state.notification;
+}
+
+const connected = connect(calculateProps)(NotificationContainer);
+
+export default connected;

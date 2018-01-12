@@ -2,26 +2,13 @@
  * Created by Anoxic on 9/21/2017.
  */
 
-import {Container} from "flux/utils";
 import React, {Component} from "react";
-import GameStateStore from "../reducer/game";
+import {connect} from "react-redux";
+
 import Actions from "../data/Actions";
 import Button from "../lib/Button";
 
 class WelcomeContainer extends Component {
-
-  static getStores() {
-    return [
-      GameStateStore,
-    ];
-  }
-
-  static calculateState(prevState) {
-    return {
-      gameState: GameStateStore.getState(),
-    };
-  }
-
   render() {
     return (
       <div className="container welcome-container flex-center">
@@ -57,4 +44,12 @@ class WelcomeContainer extends Component {
   }
 }
 
-export default Container.create(WelcomeContainer);
+function calculateProps(state, ownProps) {
+  return {
+    gameState: state.game,
+  };
+}
+
+const connected = connect(calculateProps)(WelcomeContainer);
+
+export default connected;

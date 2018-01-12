@@ -12,7 +12,7 @@ import gameGrid from "./gameGrid";
 import level from "./level";
 import levelEditorGrid from "./levelEditorGrid";
 import notification from "./notification";
-import overlay from "./overlay";
+import callback from "./callback";
 import queue from "./queue";
 import tutorial from "./tutorial";
 
@@ -23,7 +23,7 @@ export default combineReducers({
   level,
   levelEditorGrid,
   notification,
-  overlay,
+  callback,
   queue,
   tutorial,
 });

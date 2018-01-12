@@ -12,70 +12,42 @@ import GameStateStore from "../reducer/game";
 import GridContainer from "./GridContainer";
 import LevelContainer from "./LevelContainer";
 import GameUiState from "../enum/GameUiState";
-import TopBarView from "../views/TopBarView";
-import PauseMenuView from "../views/fullscreenOverlay/PauseMenuView";
-import DialogView from "../views/fullscreenOverlay/DialogView";
+import TopBarView from "../components/TopBarView";
+import PauseMenuView from "../components/fullscreenOverlay/PauseMenuView";
+import DialogView from "../components/fullscreenOverlay/DialogView";
 import WelcomeContainer from "./WelcomeContainer";
 import CallbackStore from "../data/game/OverlayCallbackStore";
-import SettingsView from "../views/fullscreenOverlay/SettingsView";
-import AboutView from "../views/fullscreenOverlay/AboutView";
+import SettingsView from "../components/fullscreenOverlay/SettingsView";
+import AboutView from "../components/fullscreenOverlay/AboutView";
 import ControlContainer from "./ControlContainer";
-import LevelEditorImportExportView from "../views/fullscreenOverlay/LevelEditorImportExportView";
+import LevelEditorImportExportView from "../components/fullscreenOverlay/LevelEditorImportExportView";
 import OverlayType from "../enum/OverlayTypes";
 import LevelEditorGridStore from "../data/grid/levelEditor/LevelEditorGridStore";
 import NotificationContainer from "./NotificationContainer";
-import EndGameView from "../views/fullscreenOverlay/EndGameView";
+import EndGameView from "../components/fullscreenOverlay/EndGameView";
 import TutorialWelcomeContainer from "./TutorialWelcomeContainer";
 import TutorialGridContainer from "./TutorialGridContainer";
-import TutorialGuideView from "../views/fullscreenOverlay/TutorialGuideView";
+import TutorialGuideView from "../components/fullscreenOverlay/TutorialGuideView";
 import TutorialStore from "../reducer/tutorial";
 import LevelStateStore from "../reducer/level";
+import {connect} from "react-redux";
 
 class GameContainer extends Component {
 
   id = 0;
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.state.uiState !== nextState.uiState || this.state.pause.active !== nextState.pause.active;
-  }
-
-  componentWillUpdate(nextProps, nextState) {
+  componentWillUpdate(nextProps) {
     // Check if the pause status is changed
-    if (this.state.uiState !== nextState.uiState) {
+    if (this.props.uiState !== nextProps.uiState) {
       // We only change the id if ui state is changed
       ++this.id;
     }
   }
 
-  static getStores() {
-    return [
-      GameStateStore,
-      CallbackStore,
-      LevelEditorGridStore,
-      TutorialStore,
-      LevelStateStore,
-    ];
-  }
-
-  static calculateState(prevState) {
-    return {
-      ...CallbackStore.getState().toJS(),
-      ...GameStateStore.getState().toJS(),
-      levelEditorExportString: LevelEditorGridStore.getState()
-        .get("detokenized"),
-      tutorial               : {
-        ...TutorialStore.getState().toJS()
-      },
-      levelState: {
-        ...LevelStateStore.getState().toJS(),
-      },
-    };
-  }
-
   render() {
     let container = null;
 
-    switch (this.state.uiState) {
+    switch (this.props.uiState) {
       case GameUiState.TUTORIAL_WELCOME:
         container = <TutorialWelcomeContainer/>;
         break;
@@ -100,7 +72,7 @@ class GameContainer extends Component {
       <div className="game-frame">
         <NotificationContainer/>
         <TopBarView
-          {...this.state}/>
+          {...this.props}/>
         <CSSTransitionGroup
           className="container-wrapper"
           transitionName="zoom-out-animation"
@@ -108,28 +80,28 @@ class GameContainer extends Component {
           transitionLeaveTimeout={1000}
         >
           <div key={this.id}
-               className={`flex-inner-extend container-wrapper-extend ${this.state.pause ? "paused" : ""}`}>
+               className={`flex-inner-extend container-wrapper-extend ${this.props.pause ? "paused" : ""}`}>
             {container}
           </div>
-          {this.state.activeOverlay.map(type => {
+          {this.props.activeOverlay.map(type => {
             switch (type) {
               case OverlayType.PAUSE_GAME:
-                return (<PauseMenuView key="pause" {...this.state}/>);
+                return (<PauseMenuView key="pause" {...this.props}/>);
               case OverlayType.NEXT_LEVEL:
-                return (<EndGameView key="next-level" {...this.state}/>);
+                return (<EndGameView key="next-level" {...this.props}/>);
               case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
                 return (<LevelEditorImportExportView
-                  levelEditorExportString={this.state.levelEditorExportString}
+                  levelEditorExportString={this.props.levelEditorExportString}
                   key="import-export"/>);
               case OverlayType.ABOUT:
                 return (<AboutView key="credit"/>);
               case OverlayType.SETTINGS:
                 return (<SettingsView key="settings"/>);
               case OverlayType.DIALOG:
-                return (<DialogView key="dialog" {...this.state}/>);
+                return (<DialogView key="dialog" {...this.props}/>);
               case OverlayType.TUTORIAL_GUIDE:
                 return (
-                  <TutorialGuideView key="tutorial-guide" {...this.state}/>);
+                  <TutorialGuideView key="tutorial-guide" {...this.props}/>);
               default:
                 return null;
             }
@@ -141,4 +113,20 @@ class GameContainer extends Component {
   }
 }
 
-export default Container.create(GameContainer);
+function calculateProps(state, ownProps) {
+  return {
+    ...state.callback.toJS(),
+    ...state.game.toJS(),
+    levelEditorExportString: state.levelEditorGrid.get("detokenized"),
+    tutorial               : {
+      ...state.tutorial.toJS()
+    },
+    levelState             : {
+      ...state.level.toJS(),
+    },
+  };
+}
+
+const connected = connect(calculateProps)(GameContainer);
+
+export default connected;

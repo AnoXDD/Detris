@@ -14,7 +14,7 @@ const LevelStateRecord = Immutable.Record({
   currentLevelId: -1,
   // Keep `view` synced with `currentPage`
   currentPage   : DEFAULT_PAGE,
-  // LevelViewData.views().get(this.currentPage)
+  // LevelViewData.components().get(this.currentPage)
   view          : LevelViewData.views().get(DEFAULT_PAGE),
 
   isFirstPage: true,

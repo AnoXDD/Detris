@@ -5,7 +5,7 @@
  */
 
 import Immutable from "immutable";
-import LevelViewUnit from "../../../views/LevelViewUnit";
+import LevelViewUnit from "../../../components/LevelViewUnit";
 
 const LEVEL_PER_PAGE = 12;
 
