@@ -4,15 +4,15 @@
 
 import Immutable from "immutable";
 
-import Color from "../../enum/Color";
-import Rotation from "../../enum/Rotation";
+import Color from "../enum/Color";
+import Rotation from "../enum/Rotation";
 
-import Block from "../Block";
-import BlockType from "../../enum/BlockType";
-import DetrominoType from "./DetrominoType";
-import DetrominoShape from "./DetrominoShape";
-import Algorithm from "../Algorithm";
-import GridSize from "../grid/GridSize";
+import Block from "./Block";
+import BlockType from "../enum/BlockType";
+import DetrominoType from "../enum/DetrominoType";
+import DetrominoShape from "../enum/DetrominoShape";
+import Algorithm from "../util/Algorithm";
+import GridSize from "../enum/GridSize";
 
 const DetrominoRecord = Immutable.Record({
   id      : -1, // Used to help generate correct id

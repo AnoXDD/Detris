@@ -5,7 +5,7 @@
 
 import ActionTypes from "../enum/ActionTypes";
 import TutorialProgress from "../enum/TutorialProgress";
-import TutorialState from "../data/game/tutorial/TutorialState";
+import TutorialState from "../state/Tutorial";
 import TutorialGuidePosition from "../enum/TutorialGuidePosition";
 
 

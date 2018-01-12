@@ -4,7 +4,7 @@
  * A helper to determine if the user has finished this part of tutorial
  */
 
-import BlockType from "../../../enum/BlockType";
+import BlockType from "../enum/BlockType";
 const TutorialHelper = {
   /**
    * Returns if the user has finished this part of tutorial

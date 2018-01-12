@@ -5,7 +5,7 @@
  */
 
 import ControlPresets from "../enum/ControlPresets";
-import ControlStateTokenizer from "../data/tokenizer/ControlStateTokenizer";
+import ControlStateTokenizer from "../tokenizer/ControlStateTokenizer";
 
 test("ControlState", () => {
   // Iterative testing: test every case

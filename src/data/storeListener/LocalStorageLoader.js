@@ -5,7 +5,7 @@
  */
 
 import Immutable from "immutable";
-import Grid from "../grid/BaseGrid";
+import Grid from "../../state/BaseGrid";
 
 const LocalStorageLoader = {
   loadQueueFromLocalStorage() {

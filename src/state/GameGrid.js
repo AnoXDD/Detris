@@ -6,7 +6,7 @@
 
 import Immutable from "immutable";
 import BaseGrid from "./BaseGrid";
-import History from "../History";
+import History from "../data/History";
 
 const GameGridRecord = Immutable.Record({
   grid   : new BaseGrid(),

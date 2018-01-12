@@ -5,9 +5,9 @@
 import Immutable from "immutable";
 
 import GeneralTokenizer from "./GeneralTokenizer";
-import LevelViewData from "../game/static/LevelViewData";
-import CompletedLevel from "../game/level/CompletedLevel";
-import LevelState from "../game/level/LevelState";
+import LevelViewData from "../data/game/static/LevelViewData";
+import CompletedLevel from "../data/game/level/CompletedLevel";
+import LevelState from "../data/game/level/LevelState";
 
 export default class LevelStateTokenizer {
   static tokenizeLevelState(str) {

@@ -6,11 +6,11 @@
 
 import Immutable from "immutable";
 
-import Detromino from "../../detromino/Detromino";
-import DetrominoType from "../../detromino/DetrominoType";
-import Block from "../../Block";
-import BlockType from "../../../enum/BlockType";
-import BaseGrid from "../../grid/BaseGrid";
+import Detromino from "./Detromino";
+import DetrominoType from "../enum/DetrominoType";
+import Block from "./Block";
+import BlockType from "../enum/BlockType";
+import BaseGrid from "./BaseGrid";
 
 /**
  * Converts a map of {x,y} to grid map for BaseGrid

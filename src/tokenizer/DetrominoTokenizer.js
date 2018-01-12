@@ -2,7 +2,7 @@
  * Created by Anoxic on 1/11/2018.
  */
 
-import Detromino from "../detromino/Detromino";
+import Detromino from "../state/Detromino";
 import GeneralTokenizer from "./GeneralTokenizer";
 
 const DetrominoKeys = "type rotation x y".split(" ");

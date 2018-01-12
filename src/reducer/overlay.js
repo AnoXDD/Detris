@@ -5,7 +5,7 @@
 
 import ActionTypes from "../enum/ActionTypes";
 import Actions from "../data/Actions";
-import CallbackState from "../data/game/CallbackState";
+import CallbackState from "../state/Callbacks";
 import GameUiState from "../enum/GameUiState";
 import OverlayType from "../enum/OverlayTypes";
 import TutorialProgress from "../enum/TutorialProgress";

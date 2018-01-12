@@ -6,9 +6,9 @@
 
 import Immutable from "immutable";
 
-import Queue from "../../queue/Queue";
-import Grid from "../../grid/BaseGrid";
-import GridSize from "../../grid/GridSize";
+import Queue from "../../../state/Queue";
+import Grid from "../../../state/BaseGrid";
+import GridSize from "../../../enum/GridSize";
 
 const LevelDataUnitRecord = Immutable.Record({
   width : GridSize.WIDTH,

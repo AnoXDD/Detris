@@ -7,20 +7,20 @@
 
 import Immutable from "immutable";
 
-import Block from "../data/Block";
+import Block from "../state/Block";
 import BlockType from "../enum/BlockType";
-import DetrominoType from "../data/detromino/DetrominoShape";
+import DetrominoType from "../enum/DetrominoShape";
 import Rotation from "../enum/Rotation";
-import Detromino from "../data/detromino/Detromino";
-import Grid from "../data/grid/BaseGrid";
-import Queue from "../data/queue/Queue";
+import Detromino from "../state/Detromino";
+import Grid from "../state/BaseGrid";
+import Queue from "../state/Queue";
 import LevelDataUnit from "../data/game/level/LevelDataUnit";
-import GeneralTokenizer from "../data/tokenizer/GeneralTokenizer";
-import BlockTokenizer from "../data/tokenizer/BlockTokenizer";
-import DetrominoTokenizer from "../data/tokenizer/DetrominoTokenizer";
-import GridTokenizer from "../data/tokenizer/GridTokenizer";
-import QueueTokenizer from "../data/tokenizer/QueueTokenizer";
-import LevelDataUnitTokenizer from "../data/tokenizer/LevelDataUnitTokenizer";
+import GeneralTokenizer from "../tokenizer/GeneralTokenizer";
+import BlockTokenizer from "../tokenizer/BlockTokenizer";
+import DetrominoTokenizer from "../tokenizer/DetrominoTokenizer";
+import GridTokenizer from "../tokenizer/GridTokenizer";
+import QueueTokenizer from "../tokenizer/QueueTokenizer";
+import LevelDataUnitTokenizer from "../tokenizer/LevelDataUnitTokenizer";
 
 function expectEqualDetromino(d, d2) {
   d = d.toJS();

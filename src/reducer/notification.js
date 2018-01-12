@@ -2,10 +2,10 @@
  * Created by Anoxic on 11/17/2017.
  */
 
-import NotificationState from "../data/notification/NotificationState";
+import NotificationState from "../state/Notification";
 import ActionTypes from "../enum/ActionTypes";
 import NotificationLevel from "../enum/NotificationLevel";
-import EndGameHelper from "../data/game/EndGameHelper";
+import EndGameHelper from "../util/EndGameHelper";
 
 function getInitialState() {
   return new NotificationState();

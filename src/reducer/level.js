@@ -7,7 +7,7 @@
 
 import LevelViewData from "../data/game/static/LevelViewData";
 import ActionTypes from "../enum/ActionTypes";
-import EndGameManager from "../data/game/EndGameHelper";
+import EndGameManager from "../util/EndGameHelper";
 import CompletedLevel from "../data/game/level/CompletedLevel";
 import LevelState from "../data/game/level/LevelState";
 

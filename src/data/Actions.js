@@ -5,7 +5,7 @@
  */
 
 import ActionTypes from "../enum/ActionTypes";
-import Algorithm from "./Algorithm";
+import Algorithm from "../util/Algorithm";
 import Dispatcher from "./Dispatcher";
 import QueueStore from "../reducer/queue";
 import Direction from "../enum/Direction";
@@ -18,7 +18,7 @@ import LevelViewData from "./game/static/LevelViewData";
 import TutorialStore from "../reducer/tutorial";
 import TutorialProgress from "../enum/TutorialProgress";
 import GameGridStore from "../reducer/gameGrid";
-import TutorialHelper from "./game/tutorial/TutorialHelper";
+import TutorialHelper from "../util/TutorialHelper";
 import GameStateStore from "../reducer/game";
 
 const DELAY = 500;

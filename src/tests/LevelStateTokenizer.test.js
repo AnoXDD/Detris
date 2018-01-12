@@ -7,7 +7,7 @@ import Immutable from "immutable";
 import LevelState from "../data/game/level/LevelState";
 import LevelViewData from "../data/game/static/LevelViewData";
 import CompletedLevel from "../data/game/level/CompletedLevel";
-import LevelStateTokenizer from "../data/tokenizer/LevelStateTokenizer";
+import LevelStateTokenizer from "../tokenizer/LevelStateTokenizer";
 
 test("LevelState", () => {
   let levelState = new LevelState({

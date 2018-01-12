@@ -7,7 +7,7 @@ import Immutable from "immutable";
 import GeneralTokenizer from "./GeneralTokenizer";
 import DetrominoTokenizer from "./DetrominoTokenizer";
 import BlockTokenizer from "./BlockTokenizer";
-import BaseGrid from "../grid/BaseGrid";
+import BaseGrid from "../state/BaseGrid";
 
 export default class GridTokenizer {
   /**

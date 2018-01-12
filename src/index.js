@@ -6,7 +6,7 @@ import registerServiceWorker from "./registerServiceWorker";
 import "./data/storeListener/LocalStorageSaver";
 import "./data/DispatchRegister";
 
-import GameContainer from "./containers/GameContainer";
+import GameContainer from "./components/GameContainer";
 
 import "./App.css";
 

@@ -5,8 +5,8 @@
  */
 
 
-import BlockType from "../../enum/BlockType";
-import Algorithm from "../Algorithm";
+import BlockType from "../enum/BlockType";
+import Algorithm from "./Algorithm";
 
 const BaseGridHelper = {
   /**

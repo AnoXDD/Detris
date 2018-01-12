@@ -4,7 +4,7 @@
  * A helper file to determine the state of history in grid store
  */
 
-import GameGridStore from "../../reducer/gameGrid";
+import GameGridStore from "../reducer/gameGrid";
 
 const GridHistoryHelper = {
   /**

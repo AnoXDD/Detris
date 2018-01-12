@@ -5,12 +5,12 @@
  */
 
 import Immutable from "immutable";
-import BlockType from "../../enum/BlockType";
+import BlockType from "../enum/BlockType";
 import Grid from "./BaseGrid";
-import DetrominoIterator from "../detromino/DetrominoIterator";
-import History from "../History";
-import LevelDataUnit from "../game/level/LevelDataUnit";
-import Algorithm from "../Algorithm";
+import DetrominoIterator from "../util/DetrominoIterator";
+import History from "../data/History";
+import LevelDataUnit from "../data/game/level/LevelDataUnit";
+import Algorithm from "../util/Algorithm";
 
 const LevelEditorState = Immutable.Record({
   isEditingBlock: false,

@@ -5,18 +5,18 @@
  * grids.
  */
 
-import Algorithm from "../data/Algorithm";
+import Algorithm from "../util/Algorithm";
 import Rotation from "../enum/Rotation";
-import GridSize from "../data/grid/GridSize";
+import GridSize from "../enum/GridSize";
 import BlockType from "../enum/BlockType";
 import ActionTypes from "../enum/ActionTypes";
 import LocalStorageLoader from "../data/storeListener/LocalStorageLoader";
-import Detromino from "../data/detromino/Detromino";
-import DetrominoType from "../data/detromino/DetrominoType";
-import BaseGridHelper from "../data/grid/BaseGridHelper";
-import GameGrid from "../data/grid/GameGrid";
+import Detromino from "../state/Detromino";
+import DetrominoType from "../enum/DetrominoType";
+import BaseGridHelper from "../util/BaseGridHelper";
+import GameGrid from "../state/GameGrid";
 import TutorialProgress from "../enum/TutorialProgress";
-import TutorialGrid from "../data/game/tutorial/TutorialGrid";
+import TutorialGrid from "../state/TutorialGrid";
 import History from "../data/History";
 
 
@@ -196,7 +196,7 @@ function setTutorialGrid(state, progress) {
 }
 
 /**
- * A helper to sync the class
+ * A util to sync the class
  * @param state
  * @param {boolean} updateMatrix - should the matrix be updated. Set to false
  *   if the grid is not changed

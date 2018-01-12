@@ -3,7 +3,7 @@
  */
 
 import GeneralTokenizer from "./GeneralTokenizer";
-import Block from "../Block";
+import Block from "../state/Block";
 
 const BlockKeys = "type x y".split(" ");
 

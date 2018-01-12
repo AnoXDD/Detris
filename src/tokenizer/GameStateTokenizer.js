@@ -5,7 +5,7 @@
 import Immutable from "immutable";
 
 import GeneralTokenizer from "./GeneralTokenizer";
-import GameState from "../game/GameState";
+import GameState from "../state/Game";
 
 export default class GameStateTokenizer {
   static tokenizeGameState(str) {

@@ -4,8 +4,8 @@
  * A helper to determine if the game shuold be ended
  */
 
-import GridStore from "../../reducer/gameGrid";
-import QueueStore from "../../reducer/queue";
+import GridStore from "../reducer/gameGrid";
+import QueueStore from "../reducer/queue";
 
 const EndGameHelper = {
   /**

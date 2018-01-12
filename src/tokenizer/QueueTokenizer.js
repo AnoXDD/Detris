@@ -5,7 +5,7 @@
 import Immutable from "immutable";
 
 import GeneralTokenizer from "./GeneralTokenizer";
-import Queue from "../queue/Queue";
+import Queue from "../state/Queue";
 
 export default class QueueTokenizer {
   static tokenizeQueue(str) {

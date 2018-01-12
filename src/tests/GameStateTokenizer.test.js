@@ -4,10 +4,10 @@
 
 import Immutable from "immutable";
 
-import GameState from "../data/game/GameState";
+import GameState from "../state/Game";
 import GameUiState from "../enum/GameUiState";
 import TopBarType from "../enum/TopBarTypes";
-import GameStateTokenizer from "../data/tokenizer/GameStateTokenizer";
+import GameStateTokenizer from "../tokenizer/GameStateTokenizer";
 
 test("GameState", () => {
   let gameState = new GameState({

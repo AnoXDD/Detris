@@ -8,9 +8,9 @@ import Immutable from "immutable";
 import LocalStorageLoader from "../data/storeListener/LocalStorageLoader";
 
 import ActionTypes from "../enum/ActionTypes";
-import Queue from "../data/queue/Queue";
+import Queue from "../state/Queue";
 import TutorialProgress from "../enum/TutorialProgress";
-import DetrominoType from "../data/detromino/DetrominoType";
+import DetrominoType from "../enum/DetrominoType";
 
 function reset() {
   return new Queue();

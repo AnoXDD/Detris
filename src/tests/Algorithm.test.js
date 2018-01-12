@@ -3,12 +3,12 @@
  */
 
 import Immutable from "immutable";
-import Algorithm from "../data/Algorithm";
+import Algorithm from "../util/Algorithm";
 
-import Block from "../data/Block";
+import Block from "../state/Block";
 import BlockType from "../enum/BlockType";
-import Detromino from "../data/detromino/Detromino";
-import DetrominoType from "../data/detromino/DetrominoType";
+import Detromino from "../state/Detromino";
+import DetrominoType from "../enum/DetrominoType";
 import Direction from "../enum/Direction";
 
 const charToType = {

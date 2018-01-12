@@ -3,7 +3,7 @@
  */
 
 import Immutable from "immutable";
-import History from "../History";
+import History from "../data/History";
 
 const QueueRecord = Immutable.Record({
   // A list of {DetrominoType}

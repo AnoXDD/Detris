@@ -6,7 +6,7 @@ import ActionTypes from "../enum/ActionTypes";
 import GameUiState from "../enum/GameUiState";
 import TutorialProgress from "../enum/TutorialProgress";
 import ControlPresets from "../enum/ControlPresets";
-import GridHistoryHelper from "../data/grid/GridHistoryHelper";
+import GridHistoryHelper from "../util/GridHistoryHelper";
 
 /**
  * Called when an actual game has started

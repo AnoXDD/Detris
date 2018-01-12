@@ -4,13 +4,13 @@
  * The list of actions that can be dispatched
  */
 
-import GridSize from "./grid/GridSize";
+import GridSize from "../enum/GridSize";
 import BlockType from "../enum/BlockType";
-import DetrominoType from "./detromino/DetrominoType";
-import Block from "./Block";
+import DetrominoType from "../enum/DetrominoType";
+import Block from "../state/Block";
 import Direction from "../enum/Direction";
 import Rotation from "../enum/Rotation";
-import Queue from "./queue/Queue";
+import Queue from "../state/Queue";
 import Color from "../enum/Color";
 
 /**

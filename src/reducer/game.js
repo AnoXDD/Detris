@@ -8,10 +8,10 @@ import LocalStorageLoader from "../data/storeListener/LocalStorageLoader";
 
 import ActionTypes from "../enum/ActionTypes";
 import GameUiState from "../enum/GameUiState";
-import GameState from "../data/game/GameState";
+import GameState from "../state/Game";
 import OverlayType from "../enum/OverlayTypes";
 import TopBarType from "../enum/TopBarTypes";
-import EndGameHelper from "../data/game/EndGameHelper";
+import EndGameHelper from "../util/EndGameHelper";
 
 function reset() {
   return new GameState();

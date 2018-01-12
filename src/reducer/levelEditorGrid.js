@@ -4,17 +4,17 @@
 
 import Immutable from "immutable";
 
-import Algorithm from "../data/Algorithm";
+import Algorithm from "../util/Algorithm";
 import Rotation from "../enum/Rotation";
-import GridSize from "../data/grid/GridSize";
+import GridSize from "../enum/GridSize";
 import BlockType from "../enum/BlockType";
 import ActionTypes from "../enum/ActionTypes";
-import Detromino from "../data/detromino/Detromino";
-import DetrominoType from "../data/detromino/DetrominoType";
-import LevelEditorGrid from "../data/grid/LevelEditorGrid";
+import Detromino from "../state/Detromino";
+import DetrominoType from "../enum/DetrominoType";
+import LevelEditorGrid from "../state/LevelEditorGrid";
 import Direction from "../enum/Direction";
-import BaseGridHelper from "../data/grid/BaseGridHelper";
-import LevelDataUnitTokenizer from "../data/tokenizer/LevelDataUnitTokenizer";
+import BaseGridHelper from "../util/BaseGridHelper";
+import LevelDataUnitTokenizer from "../tokenizer/LevelDataUnitTokenizer";
 
 function reset() {
   return nextDetromino(new LevelEditorGrid());

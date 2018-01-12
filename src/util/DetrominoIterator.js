@@ -4,7 +4,7 @@
  * A class used for iterating over detromino shapes
  */
 
-import DetrominoType from "./DetrominoType";
+import DetrominoType from "../enum/DetrominoType";
 
 const detrominoTypes = Object.values(DetrominoType).slice(1);
 
