@@ -3,10 +3,7 @@
  * A store for the queue holding detrominos
  */
 
-import {ReduceStore} from "flux/utils";
 import Immutable from "immutable";
-
-import Dispatcher from "../Dispatcher";
 import LocalStorageLoader from "../storeListener/LocalStorageLoader";
 
 import ActionTypes from "../enum/ActionTypes";
@@ -15,129 +12,124 @@ import GameState from "./GameState";
 import OverlayType from "../enum/OverlayTypes";
 import TopBarType from "../enum/TopBarTypes";
 import EndGameHelper from "./EndGameHelper";
+import createFluxStore from "../../reducer/createFluxStore";
 
-class GameStateStore extends ReduceStore {
-  constructor() {
-    super(Dispatcher);
-  }
+function reset() {
+  return new GameState();
+}
 
-  static reset() {
-    return new GameState();
-  }
+function getInitialState() {
+  let state = LocalStorageLoader.loadGameStateFromLocalStorage();
+  return applyTopBarState(state || reset());
+}
 
-  getInitialState() {
-    let state = LocalStorageLoader.loadGameStateFromLocalStorage();
-    return GameStateStore.applyTopBarState(state || GameStateStore.reset());
-  }
+function reduce(state, action) {
+  switch (action.type) {
+    case ActionTypes.START_LEVEL:
+      return applyTopBarState(state.set("uiState",
+        GameUiState.GAME_STARTED));
 
-  reduce(state, action) {
-    switch (action.type) {
-      case ActionTypes.START_LEVEL:
-        return GameStateStore.applyTopBarState(state.set("uiState",
-          GameUiState.GAME_STARTED));
+    case ActionTypes.SET_GAME_UI_STATE:
+      let {uiState} = action;
 
-      case ActionTypes.SET_GAME_UI_STATE:
-        let {uiState} = action;
+      if (uiState === GameUiState.TUTORIAL) {
+        state = state.set("activeOverlay",
+          state.get("activeOverlay").add(OverlayType.TUTORIAL_GUIDE));
+      }
 
-        if (uiState === GameUiState.TUTORIAL) {
-          state = state.set("activeOverlay",
-            state.get("activeOverlay").add(OverlayType.TUTORIAL_GUIDE));
-        }
+      return applyTopBarState(state.set("uiState", uiState));
 
-        return GameStateStore.applyTopBarState(state.set("uiState", uiState));
+    case ActionTypes.RESUME:
+      return state.set("activeOverlay",
+        state.get("activeOverlay").remove(OverlayType.PAUSE_GAME));
 
-      case ActionTypes.RESUME:
+    case ActionTypes.PAUSE:
+      return state.set("activeOverlay",
+        state.get("activeOverlay").add(OverlayType.PAUSE_GAME));
+
+    case ActionTypes.MAYBE_END_GAME:
+      if (EndGameHelper.isLevelSolved()) {
         return state.set("activeOverlay",
-          state.get("activeOverlay").remove(OverlayType.PAUSE_GAME));
+          state.get("activeOverlay").add(OverlayType.NEXT_LEVEL));
+      }
+      return state;
 
-      case ActionTypes.PAUSE:
-        return state.set("activeOverlay",
-          state.get("activeOverlay").add(OverlayType.PAUSE_GAME));
+    case ActionTypes.SHOW_FULLSCREEN_OVERLAY:
+      switch (action.overlayType) {
+        case OverlayType.DIALOG:
+          let {title = ""} = action;
 
-      case ActionTypes.MAYBE_END_GAME:
-        if (EndGameHelper.isLevelSolved()) {
+          return state.set("dialogTitle", title)
+            .set("activeOverlay",
+              state.get("activeOverlay").add(OverlayType.DIALOG));
+        case OverlayType.ABOUT:
+        case OverlayType.SETTINGS:
+        case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
+        case OverlayType.TUTORIAL_GUIDE:
           return state.set("activeOverlay",
-            state.get("activeOverlay").add(OverlayType.NEXT_LEVEL));
-        }
-        return state;
+            state.get("activeOverlay").add(action.overlayType));
+        default:
+          return state;
+      }
 
-      case ActionTypes.SHOW_FULLSCREEN_OVERLAY:
-        switch (action.overlayType) {
-          case OverlayType.DIALOG:
-            let {title = ""} = action;
+    case ActionTypes.HIDE_FULLSCREEN_OVERLAY:
+      switch (action.overlayType) {
+        case OverlayType.DIALOG:
+        case OverlayType.ABOUT:
+        case OverlayType.SETTINGS:
+        case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
+        case OverlayType.TUTORIAL_GUIDE:
+          return state.set("activeOverlay",
+            state.get("activeOverlay").remove(action.overlayType));
+        default:
+          return state;
+      }
 
-            return state.set("dialogTitle", title)
-              .set("activeOverlay",
-                state.get("activeOverlay").add(OverlayType.DIALOG));
-          case OverlayType.ABOUT:
-          case OverlayType.SETTINGS:
-          case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
-          case OverlayType.TUTORIAL_GUIDE:
-            return state.set("activeOverlay",
-              state.get("activeOverlay").add(action.overlayType));
-          default:
-            return state;
-        }
+    case ActionTypes.HIDE_ALL_FULLSCREEN_OVERLAY:
+      return hideAllFloatingWindows(state);
 
-      case ActionTypes.HIDE_FULLSCREEN_OVERLAY:
-        switch (action.overlayType) {
-          case OverlayType.DIALOG:
-          case OverlayType.ABOUT:
-          case OverlayType.SETTINGS:
-          case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
-          case OverlayType.TUTORIAL_GUIDE:
-            return state.set("activeOverlay",
-              state.get("activeOverlay").remove(action.overlayType));
-          default:
-            return state;
-        }
+    case ActionTypes.SET_TUTORIAL_COMPLETED:
+      return state.set("tutorialCompleted", true);
 
-      case ActionTypes.HIDE_ALL_FULLSCREEN_OVERLAY:
-        return GameStateStore.hideAllFloatingWindows(state);
-
-      case ActionTypes.SET_TUTORIAL_COMPLETED:
-        return state.set("tutorialCompleted", true);
-
-      default:
-        return state;
-    }
-  }
-
-  static hideAllFloatingWindows(state) {
-    return state.set("activeOverlay", state.get("activeOverlay").clear());
-  }
-
-  /**
-   * Applies the game state to top bar state
-   * @param state
-   */
-  static applyTopBarState(state) {
-    let topBar = new Immutable.Set();
-
-    switch (state.get("uiState")) {
-      case GameUiState.WELCOME:
-        // no-op, nothing to be shown
-        break;
-      case GameUiState.TUTORIAL:
-        topBar = topBar.add(TopBarType.TOP_TUTORIAL_INFO)
-          .add(TopBarType.TOP_BACK);
-        break;
-      case GameUiState.SELECT_LEVEL:
-        topBar = topBar.add(TopBarType.TOP_BACK);
-        break;
-      case GameUiState.GAME_STARTED:
-        topBar = topBar.add(TopBarType.TOP_PAUSE).add(TopBarType.TOP_BACK);
-        break;
-      case GameUiState.LEVEL_EDITOR_STARTED:
-        topBar = topBar.add(TopBarType.TOP_PAUSE)
-          .add(TopBarType.TOP_BACK)
-          .add(TopBarType.TOP_IMPORT_EXPORT);
-        break;
-      default:
-    }
-
-    return state.set("topBar", topBar);
+    default:
+      return state;
   }
 }
 
-export default new GameStateStore();
+function hideAllFloatingWindows(state) {
+  return state.set("activeOverlay", state.get("activeOverlay").clear());
+}
+
+/**
+ * Applies the game state to top bar state
+ * @param state
+ */
+function applyTopBarState(state) {
+  let topBar = new Immutable.Set();
+
+  switch (state.get("uiState")) {
+    case GameUiState.WELCOME:
+      // no-op, nothing to be shown
+      break;
+    case GameUiState.TUTORIAL:
+      topBar = topBar.add(TopBarType.TOP_TUTORIAL_INFO)
+        .add(TopBarType.TOP_BACK);
+      break;
+    case GameUiState.SELECT_LEVEL:
+      topBar = topBar.add(TopBarType.TOP_BACK);
+      break;
+    case GameUiState.GAME_STARTED:
+      topBar = topBar.add(TopBarType.TOP_PAUSE).add(TopBarType.TOP_BACK);
+      break;
+    case GameUiState.LEVEL_EDITOR_STARTED:
+      topBar = topBar.add(TopBarType.TOP_PAUSE)
+        .add(TopBarType.TOP_BACK)
+        .add(TopBarType.TOP_IMPORT_EXPORT);
+      break;
+    default:
+  }
+
+  return state.set("topBar", topBar);
+}
+
+export default createFluxStore(reduce, getInitialState());

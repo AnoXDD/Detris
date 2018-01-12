@@ -16,7 +16,7 @@ export default function createFluxStore(reducer, initValue) {
     }
 
     reduce(state, action) {
-      reducer(state, action);
+      return reducer(state, action);
     }
   }
 
