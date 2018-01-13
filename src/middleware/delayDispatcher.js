@@ -171,6 +171,10 @@ export function delayDispatch({dispatch, getState}) {
    * @param action
    */
   function resolveAction(next, action) {
+    if (!action) {
+      return;
+    }
+
     let delayType = action[DELAY_TYPE] || DispatchType.INSTANT;
     let timeout = action[TIME_OUT] || 0;
 
@@ -193,7 +197,6 @@ export function delayDispatch({dispatch, getState}) {
         dispatch(next, action, timeout);
         break;
       default:
-
     }
   }
 

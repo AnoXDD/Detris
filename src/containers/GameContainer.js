@@ -4,11 +4,8 @@
  * The main container of the game
  */
 
-import {Container} from "flux/utils";
 import React, {Component} from "react";
 import {CSSTransitionGroup} from "react-transition-group";
-
-import GameStateStore from "../reducer/game";
 import GridContainer from "./GridContainer";
 import LevelContainer from "./LevelContainer";
 import GameUiState from "../enum/GameUiState";
@@ -16,20 +13,16 @@ import TopBarView from "../components/TopBarView";
 import PauseMenuView from "../components/fullscreenOverlay/PauseMenuView";
 import DialogView from "../components/fullscreenOverlay/DialogView";
 import WelcomeContainer from "./WelcomeContainer";
-import CallbackStore from "../data/game/OverlayCallbackStore";
 import SettingsView from "../components/fullscreenOverlay/SettingsView";
 import AboutView from "../components/fullscreenOverlay/AboutView";
 import ControlContainer from "./ControlContainer";
 import LevelEditorImportExportView from "../components/fullscreenOverlay/LevelEditorImportExportView";
 import OverlayType from "../enum/OverlayTypes";
-import LevelEditorGridStore from "../data/grid/levelEditor/LevelEditorGridStore";
 import NotificationContainer from "./NotificationContainer";
 import EndGameView from "../components/fullscreenOverlay/EndGameView";
 import TutorialWelcomeContainer from "./TutorialWelcomeContainer";
 import TutorialGridContainer from "./TutorialGridContainer";
 import TutorialGuideView from "../components/fullscreenOverlay/TutorialGuideView";
-import TutorialStore from "../reducer/tutorial";
-import LevelStateStore from "../reducer/level";
 import {connect} from "react-redux";
 
 class GameContainer extends Component {
@@ -86,9 +79,10 @@ class GameContainer extends Component {
           {this.props.activeOverlay.map(type => {
             switch (type) {
               case OverlayType.PAUSE_GAME:
-                return (<PauseMenuView key="pause" {...this.props}/>);
+                return (<PauseMenuView key="pause" {...this.props.callback}/>);
               case OverlayType.NEXT_LEVEL:
-                return (<EndGameView key="next-level" {...this.props}/>);
+                return (
+                  <EndGameView key="next-level" {...this.props.callback}/>);
               case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
                 return (<LevelEditorImportExportView
                   levelEditorExportString={this.props.levelEditorExportString}
@@ -98,10 +92,11 @@ class GameContainer extends Component {
               case OverlayType.SETTINGS:
                 return (<SettingsView key="settings"/>);
               case OverlayType.DIALOG:
-                return (<DialogView key="dialog" {...this.props}/>);
+                return (<DialogView key="dialog" {...this.props.callback}/>);
               case OverlayType.TUTORIAL_GUIDE:
                 return (
-                  <TutorialGuideView key="tutorial-guide" {...this.props}/>);
+                  <TutorialGuideView
+                    key="tutorial-guide" {...this.props.callback}/>);
               default:
                 return null;
             }
@@ -113,13 +108,15 @@ class GameContainer extends Component {
   }
 }
 
-function stateToProps(state, ownProps) {
+function stateToProps(state) {
   return {
-    ...state.callback.toJS(),
+    callback               : {
+      ...state.callback.toJS(),
+    },
     ...state.game.toJS(),
     levelEditorExportString: state.levelEditorGrid.get("detokenized"),
     tutorial               : {
-      ...state.tutorial.toJS()
+      ...state.tutorial.toJS(),
     },
     levelState             : {
       ...state.level.toJS(),
@@ -127,6 +124,21 @@ function stateToProps(state, ownProps) {
   };
 }
 
-const connected = connect(stateToProps)(GameContainer);
+function mergeProps(stateProps, dispatch) {
+  let {callback} = stateProps;
+  let keys = Object.keys(callback);
+
+  for (let key of keys) {
+    callback[key] = () => dispatch(callback[key]);
+  }
+
+  stateProps.callback = callback;
+
+  return stateProps;
+}
+
+const connected = connect(stateToProps,
+  dispatch => dispatch,
+  mergeProps)(GameContainer);
 
 export default connected;
