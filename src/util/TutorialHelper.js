@@ -8,11 +8,9 @@ import BlockType from "../enum/BlockType";
 const TutorialHelper = {
   /**
    * Returns if the user has finished this part of tutorial
-   * @param {GameGrid} state
+   * @param {Array} blocks - an array of Block
    */
-  isDetrominoReachedHighlightArea(state) {
-    let blocks = state.get("grid").get("grid").valueSeq().toArray();
-
+  isDetrominoReachedHighlightArea(blocks) {
     // Get two types of blocks
     let highlights = blocks.filter(b => b.type === BlockType.HIGHLIGHT);
     if (!highlights.length) {

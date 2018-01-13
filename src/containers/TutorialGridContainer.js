@@ -8,8 +8,17 @@ import {connect} from "react-redux";
 import GridView from "../components/GridView";
 import QueueView from "../components/QueueView";
 import GridControlView from "../components/GridControlView";
+import Actions from "../data/Actions";
+import TutorialHelper from "../util/TutorialHelper";
 
 class TutorialGridContainer extends Component {
+
+  componentWillReceiveProps(nextProps) {
+    if (TutorialHelper.isDetrominoReachedHighlightArea(nextProps.grid)) {
+      nextProps.onDetrominoReachedHighlightedArea();
+    }
+  }
+
   render() {
     return (
       <div className="container grid-container">
@@ -21,7 +30,6 @@ class TutorialGridContainer extends Component {
         </div>
         <GridControlView
           {...this.props.control}
-          update={true}
           blockList={this.props.editorState.blockList}
           isEditingBlock={this.props.editorState.isEditingBlock}/>
       </div>
@@ -31,10 +39,7 @@ class TutorialGridContainer extends Component {
 
 function stateToProps(state, ownProps) {
   let grid = {
-    grid       : state.gameGrid
-      .get("grid")
-      .get("grid")
-      .valueSeq(),
+    grid       : state.gameGrid.get("grid").get("grid").valueSeq().toArray(),
     editorState: {},
   };
 
@@ -49,6 +54,14 @@ function stateToProps(state, ownProps) {
   };
 }
 
-const connected = connect(stateToProps)(TutorialGridContainer);
+function dispatchToProps(dispatch) {
+  return {
+    onDetrominoReachedHighlightedArea: () => {
+      dispatch(Actions.nextTutorial());
+    }
+  }
+}
+
+const connected = connect(stateToProps, dispatchToProps)(TutorialGridContainer);
 
 export default connected;

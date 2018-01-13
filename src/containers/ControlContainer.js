@@ -39,10 +39,10 @@ class ControlContainer extends Component {
 
   componentDidUpdate() {
     // Process keyMap
-    keyMap.ArrowLeft =  this.props.move(Direction.LEFT);
-    keyMap.ArrowUp =  this.props.move(Direction.UP);
-    keyMap.ArrowRight =  this.props.move(Direction.RIGHT);
-    keyMap.ArrowDown = this.props.move(Direction.DOWN);
+    keyMap.ArrowLeft = () => this.props.move(Direction.LEFT);
+    keyMap.ArrowUp = () => this.props.move(Direction.UP);
+    keyMap.ArrowRight = () => this.props.move(Direction.RIGHT);
+    keyMap.ArrowDown =() => this.props.move(Direction.DOWN);
     keyMap.Shift = this.props.rotate;
     keyMap.q = this.props.prevDetromino;
     keyMap.a = this.props.nextDetromino;
