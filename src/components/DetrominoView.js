@@ -7,7 +7,7 @@ import DetrominoShape from "../enum/DetrominoShape";
 
 export default class DetrominoView extends Component {
   shouldComponentUpdate(nextProps) {
-    return nextProps.type && DetrominoShape[nextProps.type] && this.props.type !== nextProps.type;
+    return !!nextProps.type && !!DetrominoShape[nextProps.type] && this.props.type !== nextProps.type;
   }
 
   render() {

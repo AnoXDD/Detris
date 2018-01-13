@@ -12,7 +12,6 @@ import PanelType from "../enum/PanelType";
 export default class QueueView extends Component {
 
   shouldComponentUpdate(nextProps) {
-    // todo fix this
     return (this.props.queue && this.props.queue.join() !== nextProps.queue.join()) ||
       this.props.panelType !== nextProps.panelType;
   }
@@ -22,7 +21,7 @@ export default class QueueView extends Component {
       return null;
     }
 
-    const size = this.props.queue.size;
+    const size = this.props.queue.length;
     const title = this.props.panelType === PanelType.LEVEL_EDITOR ? "previous" : "next";
 
     return (
