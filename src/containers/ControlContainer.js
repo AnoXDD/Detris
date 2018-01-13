@@ -74,7 +74,7 @@ class ControlContainer extends Component {
       return;
     }
 
-    store.dispatch(keyMap[key]);
+    store.dispatch(keyMap[key]());
   }
 
   render() {

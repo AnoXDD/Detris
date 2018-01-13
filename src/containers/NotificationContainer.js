@@ -43,7 +43,7 @@ class NotificationContainer extends Component {
 
 
 function stateToProps(state, ownProps) {
-  return state.notification;
+  return state.notification.toJS();
 }
 
 const connected = connect(stateToProps)(NotificationContainer);

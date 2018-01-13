@@ -23,7 +23,7 @@ export default class PauseMenuView extends Component {
             onClick={this.props.onRestart}
           >replay</Button>
           <Button
-            onClick={() => store.dispatch(Actions.showSettingsUi)}
+            onClick={() => store.dispatch(Actions.showSettingsUi())}
           >settings</Button>
         </div>
         <div className="btns">

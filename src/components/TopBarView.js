@@ -32,7 +32,7 @@ export default class TopBarView extends Component {
         case TopBarType.TOP_IMPORT_EXPORT:
           return (
             <Button key="import"
-                    onClick={() => store.dispatch(Actions.showLevelEditorImportExport)}
+                    onClick={() => store.dispatch(Actions.showLevelEditorImportExport())}
                     className="right"
             >save</Button>
           );

@@ -24,9 +24,9 @@ function stateToProps(state, ownProps) {
   return {
     gameState : state.game,
     levelState: {
-      prevPage     : Actions.levelPagePrev,
-      nextPage     : Actions.levelPageNext,
-      startNewLevel: Actions.startNewLevel,
+      prevPage     : Actions.levelPagePrev(),
+      nextPage     : Actions.levelPageNext(),
+      startNewLevel: Actions.startNewLevel(),
       ...state.level.toJS()
     },
   };

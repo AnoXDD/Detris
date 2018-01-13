@@ -211,28 +211,28 @@ const Actions = {
   showDialogForGameRestart() {
     return Actions.showDialog(
       "Do you want to restart this level?",
-      Actions.restartCurrentLevel
+      Actions.restartCurrentLevel()
     );
   },
 
   showDialogForResetLevelEditor() {
     return Actions.showDialog(
       "Do you want to reset the level editor?",
-      Actions.resetGrid
+      Actions.resetGrid()
     );
   },
 
   showDialogForQuitToLevelSelect() {
     return Actions.showDialog(
       "Do you want to return to previous menu? Any changes will be lost.",
-      Actions.showSelectLevel
+      Actions.showSelectLevel()
     );
   },
 
   showDialogForQuitToWelcome() {
     return Actions.showDialog(
       "Do you want to return to home page? Any changes will be lost.",
-      Actions.showWelcomePage
+      Actions.showWelcomePage()
     );
   },
 

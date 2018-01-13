@@ -4,8 +4,7 @@
 
 import Immutable from "immutable";
 
-const NoOp = () => {
-};
+const NoOp = () => null;
 
 const ControlRecord = Immutable.Record({
   rotate         : NoOp,

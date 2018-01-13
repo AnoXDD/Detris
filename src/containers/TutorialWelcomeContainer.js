@@ -49,13 +49,13 @@ function mapStateToProps(state, ownProps) {
 function mapStateToDispatch(dispatch) {
   return {
     onPlay    : () => {
-      dispatch(Actions.startTutorial);
+      dispatch(Actions.startTutorial());
     },
     onSkip    : () => {
-      dispatch(Actions.showDialogForSkipTutorial);
+      dispatch(Actions.showDialogForSkipTutorial());
     },
     onSettings: () => {
-      dispatch(Actions.showSettingsUi);
+      dispatch(Actions.showSettingsUi());
     }
   }
 }

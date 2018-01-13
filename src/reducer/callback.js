@@ -9,6 +9,7 @@ import CallbackState from "../state/Callbacks";
 import GameUiState from "../enum/GameUiState";
 import OverlayType from "../enum/OverlayTypes";
 import TutorialProgress from "../enum/TutorialProgress";
+import {createBatchActions} from "../middleware/delayDispatcher";
 
 function reset() {
   return new CallbackState();
@@ -27,10 +28,10 @@ function applyTutorialProgress(state, progress) {
 
   // Button for show tutorial guide
   if (progress === TutorialProgress.TUTORIAL_INTRO_GUIDE_TOGGLE) {
-    state = state.set("onShowGuide", () => {
-      Actions.nextTutorial();
-      Actions.showTutorialGuide();
-    });
+    state = state.set("onShowGuide", () => createBatchActions(
+      Actions.nextTutorial(),
+      Actions.showTutorialGuide(),
+    ));
   } else {
     state = state.set("onShowGuide", Actions.showTutorialGuide);
   }
@@ -72,10 +73,10 @@ function applyTutorialProgress(state, progress) {
     case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_UNDO_REDO:
       return state.set("onDismiss", Actions.nextTutorial);
     case TutorialProgress.MECHANISM_DEMO_FREE_PLAY:
-      return state.set("onDismiss", () => {
-        Actions.hideTutorialGuide();
-        Actions.setNextTutorialProgress();
-      });
+      return state.set("onDismiss", () => createBatchActions(
+        Actions.hideTutorialGuide(),
+        Actions.setNextTutorialProgress()
+      ));
     case TutorialProgress.FIRST_GAME_INTRO:
       return state.set("onDismiss", Actions.nextTutorial);
     case TutorialProgress.FIRST_GAME_START:
@@ -102,8 +103,8 @@ export default function reduce(state = reset(), action) {
         case GameUiState.SELECT_LEVEL:
           return state.set("onQuit", Actions.showWelcomePage);
         case GameUiState.LEVEL_EDITOR_STARTED:
-          return hidePauseMenu(state.set("onQuit",
-            Actions.showDialogForQuitToWelcome)
+          return hidePauseMenu(state
+            .set("onQuit", Actions.showDialogForQuitToWelcome)
             .set("onRestart", Actions.showDialogForResetLevelEditor));
         default:
           return state;
@@ -112,19 +113,17 @@ export default function reduce(state = reset(), action) {
       switch (action.overlayType) {
         case OverlayType.DIALOG:
           let {
-            onYes = () => {
-            },
-            onNo = () => {
-            }
+            onYes = null,
+            onNo = null
           } = action;
 
-          return state.set("onDialogYes", () => {
-            Actions.hideAllFullscreenOverlay();
-            onYes();
-          }).set("onDialogNo", () => {
-            Actions.hideDialog();
-            onNo();
-          });
+          return state.set("onDialogYes", () => createBatchActions(
+            Actions.hideAllFullscreenOverlay(),
+            onYes
+          )).set("onDialogNo", () => createBatchActions(
+            Actions.hideDialog(),
+            onNo
+          ));
         default:
           return state;
       }

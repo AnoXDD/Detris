@@ -3,12 +3,12 @@
  */
 
 import React, {Component} from "react";
-import {connect} from "react-redux";
 
 import FullscreenOverlayView from "./FullscreenOverlayView";
 import Actions from "../../data/Actions";
+import store from "../../store/store";
 
-class AboutView extends Component {
+export default class AboutView extends Component {
   shouldComponentUpdate() {
     return false;
   }
@@ -18,7 +18,7 @@ class AboutView extends Component {
       <FullscreenOverlayView
         className="about-view"
         title="credit"
-        onBackgroundClick={() => this.props.dispatch(Actions.hideCreditUi)}
+        onBackgroundClick={() => store.dispatch(Actions.hideCreditUi())}
       >
         <div className="about-section">
           <p className="title">Developer</p>
@@ -37,5 +37,3 @@ class AboutView extends Component {
     );
   }
 }
-
-export default connect()(AboutView);

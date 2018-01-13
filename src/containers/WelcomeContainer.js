@@ -10,8 +10,6 @@ import Button from "../lib/Button";
 
 class WelcomeContainer extends Component {
   render() {
-    let {dispatch} = this.props;
-
     return (
       <div className="container welcome-container flex-center">
         <div className="welcome-title">Detris</div>
@@ -55,16 +53,16 @@ function stateToProps(state, ownProps) {
 function stateToDispatch(dispatch) {
   return {
     onPlay    : () => {
-      dispatch(Actions.showSelectLevel)
+      dispatch(Actions.showSelectLevel())
     },
     onEdit    : () => {
-      dispatch(Actions.showGridEditorUi);
+      dispatch(Actions.showGridEditorUi());
     },
     onHelp    : () => {
-      dispatch(Actions.showDialogForStartTutorial);
+      dispatch(Actions.showDialogForStartTutorial());
     },
     onSettings: () => {
-      dispatch(Actions.showSettingsUi);
+      dispatch(Actions.showSettingsUi());
     },
     onInfo    : () => {
       dispatch(Actions.showCreditUi);

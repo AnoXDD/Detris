@@ -92,7 +92,9 @@ class GameContainer extends Component {
               case OverlayType.SETTINGS:
                 return (<SettingsView key="settings"/>);
               case OverlayType.DIALOG:
-                return (<DialogView key="dialog" {...this.props.callback}/>);
+                return (<DialogView key="dialog"
+                                    dialogTitle={this.props.dialogTitle}
+                                    {...this.props.callback}/>);
               case OverlayType.TUTORIAL_GUIDE:
                 return (
                   <TutorialGuideView
@@ -125,11 +127,14 @@ function stateToProps(state) {
 }
 
 function mergeProps(stateProps, dispatch) {
+  dispatch = dispatch.dispatch;
   let {callback} = stateProps;
+
   let keys = Object.keys(callback);
 
   for (let key of keys) {
-    callback[key] = () => dispatch(callback[key]);
+    let action = callback[key]();
+    callback[key] = () => dispatch(action);
   }
 
   stateProps.callback = callback;
@@ -138,7 +143,9 @@ function mergeProps(stateProps, dispatch) {
 }
 
 const connected = connect(stateToProps,
-  dispatch => dispatch,
+  dispatch => {
+    return {dispatch,};
+  },
   mergeProps)(GameContainer);
 
 export default connected;

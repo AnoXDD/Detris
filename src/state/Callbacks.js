@@ -6,15 +6,16 @@
 
 import Immutable from "immutable";
 
+const NoOp = () => null;
 
 const CallbackRecord = Immutable.Record({
-  onDialogYes: null,
-  onDialogNo : null,
-  onBack     : null,
-  onQuit     : null,
-  onRestart  : null,
-  onDismiss  : null, // tutorial
-  onShowGuide: null, // tutorial
+  onDialogYes: NoOp,
+  onDialogNo : NoOp,
+  onBack     : NoOp,
+  onQuit     : NoOp,
+  onRestart  : NoOp,
+  onDismiss  : NoOp, // tutorial
+  onShowGuide: NoOp, // tutorial
 });
 
 export default CallbackRecord;

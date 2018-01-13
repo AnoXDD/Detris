@@ -36,7 +36,7 @@ export function createSpecialAction(action,
 }
 
 export function delayDispatch({dispatch, getState}) {
-  function dispatch(next, payload, delay = 0) {
+  function dispatchRegular(next, payload, delay = 0) {
     if (delay === 0) {
       next(payload);
       return;
@@ -44,7 +44,7 @@ export function delayDispatch({dispatch, getState}) {
 
     let id = `${new Date().getTime()}-${delayDispatch._id++}`;
     let token = setTimeout(() => {
-      delayDispatch._dispatchOnTimeout(next, id);
+      _dispatchOnTimeout(next, id);
     }, delay);
 
     delayDispatch._payloadQueue[id] = {
@@ -58,7 +58,7 @@ export function delayDispatch({dispatch, getState}) {
    * @param payload
    */
   function dispatchOnClear(next, payload) {
-    if (!delayDispatch.willBeDispatching()) {
+    if (!willBeDispatching()) {
       next(payload);
       return;
     }
@@ -74,25 +74,14 @@ export function delayDispatch({dispatch, getState}) {
   }
 
   /**
-   * Dispatches all the payloads in the queue
-   */
-  function dispatchDelayedPayload(next) {
-    for (let id in delayDispatch._payloadQueue) {
-      if (delayDispatch._payloadQueue.hasOwnProperty(id)) {
-        delayDispatch._dispatchOnTimeout(next, id);
-      }
-    }
-  }
-
-  /**
    * Dispatch only if no payloads are scheduled to be dispatched
    */
   function dispatchOnlyIfClear(next, payload, delay) {
-    if (delayDispatch.willBeDispatching()) {
+    if (willBeDispatching()) {
       return;
     }
 
-    dispatch(next, payload, delay);
+    dispatchRegular(next, payload, delay);
   }
 
   /**
@@ -100,8 +89,8 @@ export function delayDispatch({dispatch, getState}) {
    * scheduled after those delayed payloads are dispatched
    */
   function clearAllDelayedPayloads(next) {
-    delayDispatch._resetPayloadQueue();
-    delayDispatch._dispatchQueue(next);
+    _resetPayloadQueue();
+    _dispatchQueue(next);
   }
 
   /**
@@ -117,9 +106,9 @@ export function delayDispatch({dispatch, getState}) {
    * after those delayed payloads are dispatched
    */
   function clearAllFuturePayloads() {
-    delayDispatch._resetPayloadQueue();
+    _resetPayloadQueue();
 
-    delayDispatch.clearAllCallbackPayloads();
+    clearAllCallbackPayloads();
   }
 
   function _resetPayloadQueue() {
@@ -135,8 +124,8 @@ export function delayDispatch({dispatch, getState}) {
     let {payload} = delayDispatch._payloadQueue[id];
     delete delayDispatch._payloadQueue[id];
 
-    if (!delayDispatch.willBeDispatching()) {
-      delayDispatch._dispatchQueue(next);
+    if (!willBeDispatching()) {
+      _dispatchQueue(next);
     }
 
     next(payload);
@@ -161,7 +150,7 @@ export function delayDispatch({dispatch, getState}) {
    */
   function resolveBatchActions(next, actions) {
     for (let action of actions) {
-      resolveAction(next, action);
+      resolveObject(next, action);
     }
   }
 
@@ -175,7 +164,7 @@ export function delayDispatch({dispatch, getState}) {
       return;
     }
 
-    let delayType = action[DELAY_TYPE] || DispatchType.INSTANT;
+    let delayType = action[DELAY_TYPE] || DispatchType.REGULAR;
     let timeout = action[TIME_OUT] || 0;
 
     // Remove tags
@@ -184,7 +173,7 @@ export function delayDispatch({dispatch, getState}) {
 
     switch (delayType) {
       case DispatchType.REGULAR:
-        dispatch(next, action, timeout);
+        dispatchRegular(next, action, timeout);
         break;
       case DispatchType.ON_CLEAR:
         dispatchOnClear(next, action);
@@ -194,19 +183,34 @@ export function delayDispatch({dispatch, getState}) {
         break;
       case DispatchType.OVERWRITE:
         clearAllFuturePayloads();
-        dispatch(next, action, timeout);
+        dispatchRegular(next, action, timeout);
         break;
       default:
+        dispatchRegular(next, action, timeout);
     }
   }
 
-  return next => action => {
+  /**
+   * Resolves an action or a batch action
+   * @param next
+   * @param action
+   */
+  function resolveObject(next, action) {
+    if (!action) {
+      return;
+    }
+
     // Handle batch actions
     if (action[BATCH_ACTION_TYPE]) {
       resolveBatchActions(next, action.actions);
+      return;
     }
 
     resolveAction(next, action);
+  }
+
+  return next => action => {
+    resolveObject(next, action);
   }
 }
 

@@ -27,7 +27,7 @@ export default class TutorialGuideView extends Component {
         <div className="btns">
           {progress !== TutorialProgress.BEGIN ?
             <Button
-              onClick={() => store.dispatch(Actions.previousTutorial)}
+              onClick={() => store.dispatch(Actions.previousTutorial())}
             >skip_previous</Button> : null}
           <Button
             className="blue"
@@ -35,7 +35,7 @@ export default class TutorialGuideView extends Component {
           >play_arrow</Button>
           {progress !== TutorialProgress.BEGIN && progress !== TutorialProgress.END ?
             <Button
-              onClick={() => store.dispatch(Actions.nextTutorial)}
+              onClick={() => store.dispatch(Actions.nextTutorial())}
             >skip_next</Button> : null}
         </div>
       </FullscreenOverlayView>

@@ -34,7 +34,7 @@ export default class LevelEditorImportExportView extends Component {
   render() {
     return (
       <FullscreenOverlayView
-        onBackgroundClick={() => store.dispatch(Actions.hideLevelEditorImportExport)}
+        onBackgroundClick={() => store.dispatch(Actions.hideLevelEditorImportExport())}
         title="import/export"
       >
         <input
@@ -55,7 +55,7 @@ export default class LevelEditorImportExportView extends Component {
         <div className="btns">
           <Button
             text="resume"
-            onClick={() => store.dispatch(Actions.hideLevelEditorImportExport)}
+            onClick={() => store.dispatch(Actions.hideLevelEditorImportExport())}
           >play_arrow</Button>
         </div>
       </FullscreenOverlayView>
