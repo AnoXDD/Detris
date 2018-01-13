@@ -11,6 +11,10 @@ import GridControlView from "../components/GridControlView";
 import PanelType from "../enum/PanelType";
 import TutorialHelper from "../util/TutorialHelper";
 import Actions from "../data/Actions";
+import {
+  mergePropsFromKey,
+  simpleDispatchToProps
+} from "../util/callbackToProps";
 
 class PanelContainer extends Component {
 
@@ -75,12 +79,16 @@ function stateToProps(state, ownProps) {
 
 function dispatchToProps(dispatch) {
   return {
+    ...simpleDispatchToProps(dispatch),
     onDetrominoReachedHighlightedArea: () => {
       dispatch(Actions.nextTutorial());
     }
   }
 }
 
-const connected = connect(stateToProps, dispatchToProps)(PanelContainer);
+const connected = connect(stateToProps,
+  dispatchToProps,
+  mergePropsFromKey("control"))
+(PanelContainer);
 
 export default connected;

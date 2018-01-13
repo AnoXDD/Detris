@@ -23,7 +23,7 @@ import EndGameView from "../components/fullscreenOverlay/EndGameView";
 import TutorialWelcomeContainer from "./TutorialWelcomeContainer";
 import TutorialGuideView from "../components/fullscreenOverlay/TutorialGuideView";
 import {connect} from "react-redux";
-import {dispatchToProps, mergePropsFromKey} from "../util/callbackToProps";
+import {simpleDispatchToProps, mergePropsFromKey} from "../util/callbackToProps";
 
 class GameContainer extends Component {
 
@@ -125,7 +125,7 @@ function stateToProps(state) {
 }
 
 const connected = connect(stateToProps,
-  dispatchToProps,
+  simpleDispatchToProps,
   mergePropsFromKey("overlay"))(GameContainer);
 
 export default connected;

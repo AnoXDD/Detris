@@ -4,7 +4,7 @@
  * Merge callback props to an actual dispatch event
  */
 
-export function dispatchToProps(dispatch) {
+export function simpleDispatchToProps(dispatch) {
   return {dispatch,};
 }
 
@@ -13,26 +13,32 @@ export function dispatchToProps(dispatch) {
  * @param key
  */
 export function mergePropsFromKey(key) {
-  return (stateProps, dispatch) => {
-    dispatch = dispatch.dispatch;
+  return (stateProps, dispatchProps) => {
+
+    let {dispatch} = dispatchProps;
     let callback = stateProps[key];
 
     let keys = Object.keys(callback);
 
     for (let key of keys) {
       let action = callback[key];
-      callback[key] = () => {
-        dispatch(action());
-      };
+      if (typeof action === "function") {
+        callback[key] = (...args) => {
+          dispatch(action(...args));
+        };
+      }
     }
 
     stateProps.callback = callback;
 
-    return stateProps;
+    // This is to avoid delete dispatch from the original props
+    let newDispatchProps = {...dispatchProps};
+    delete newDispatchProps.dispatch;
+    return {...stateProps, ...newDispatchProps};
   }
 }
 
 export default {
-  dispatchToProps,
+  simpleDispatchToProps,
   mergePropsFromKey
 };
