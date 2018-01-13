@@ -21,7 +21,6 @@ import OverlayType from "../enum/OverlayTypes";
 import NotificationContainer from "./NotificationContainer";
 import EndGameView from "../components/fullscreenOverlay/EndGameView";
 import TutorialWelcomeContainer from "./TutorialWelcomeContainer";
-import TutorialGridContainer from "./TutorialGridContainer";
 import TutorialGuideView from "../components/fullscreenOverlay/TutorialGuideView";
 import {connect} from "react-redux";
 import {dispatchToProps, mergePropsFromKey} from "../util/callbackToProps";
@@ -45,9 +44,6 @@ class GameContainer extends Component {
       case GameUiState.TUTORIAL_WELCOME:
         container = <TutorialWelcomeContainer/>;
         break;
-      case GameUiState.TUTORIAL:
-        container = <TutorialGridContainer/>;
-        break;
       case GameUiState.WELCOME:
         container = <WelcomeContainer/>;
         break;
@@ -56,6 +52,7 @@ class GameContainer extends Component {
         break;
       case GameUiState.IN_GAME:
       case GameUiState.LEVEL_EDITOR_STARTED:
+      case GameUiState.TUTORIAL:
         container = <PanelContainer/>;
         break;
       default:
@@ -105,7 +102,7 @@ class GameContainer extends Component {
                   <TutorialGuideView
                     key="tutorial-guide"
                     {...this.props.overlay}
-                    tutorial={this.props.tutorial}/>);
+                    {...this.props.tutorial}/>);
               default:
                 return null;
             }
