@@ -24,14 +24,37 @@ function stateToProps(state, ownProps) {
   return {
     gameState : state.game,
     levelState: {
-      prevPage     : Actions.levelPagePrev(),
-      nextPage     : Actions.levelPageNext(),
-      startNewLevel: Actions.startNewLevel(),
       ...state.level.toJS()
     },
   };
 }
 
-const connected = connect(stateToProps)(LevelContainer);
+function dispatchToProps(dispatch) {
+  return {
+    prevPage     : () => {
+      dispatch(Actions.levelPagePrev());
+    },
+    nextPage     : () => {
+      dispatch(Actions.levelPageNext());
+    },
+    startNewLevel: () => {
+      dispatch(Actions.startNewLevel());
+    },
+  };
+}
+
+function mergeProps(stateProps, dispatchProps) {
+  stateProps.levelState = {
+    ...stateProps.levelState,
+    ...dispatchProps,
+  };
+
+  return stateProps;
+}
+
+const connected = connect(stateToProps,
+  dispatchToProps,
+  mergeProps)(
+  LevelContainer);
 
 export default connected;

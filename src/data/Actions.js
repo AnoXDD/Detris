@@ -134,13 +134,13 @@ const Actions = {
   },
 
   setNextTutorialProgress() {
-    let progress = store.tutorial.next();
+    let progress = store.getState().tutorial.next();
 
     return Actions.setTutorialProgress(progress);
   },
 
   setPreviousTutorialProgress() {
-    let progress = store.tutorial.prev();
+    let progress = store.getState().tutorial.prev();
 
     return Actions.setTutorialProgress(progress);
   },
@@ -169,7 +169,7 @@ const Actions = {
   },
 
   completeTutorial() {
-    if (store.game.get("tutorialCompleted")) {
+    if (store.getState().game.get("tutorialCompleted")) {
       // The player has completed the tutorial before, or they have skipped
       // the tutorial the first time the game is launched
       return createBatchActions(
@@ -311,12 +311,11 @@ const Actions = {
   },
 
   restartCurrentLevel() {
-    return Actions.startNewLevel(store.level.getState()
-      .get("currentLevelId"));
+    return Actions.startNewLevel(store.getState().level.get("currentLevelId"));
   },
 
   nextLevel() {
-    let currentLevelId = store.level.getState().get("currentLevelId");
+    let currentLevelId = store.getState().level.get("currentLevelId");
     let nextLevelId = LevelViewData.nextLevel(currentLevelId);
     return Actions.startNewLevel(nextLevelId);
   },
@@ -339,7 +338,7 @@ const Actions = {
   },
 
   nextDetromino() {
-    let detrominoType = store.queue.get("queue").last();
+    let detrominoType = store.getState().queue.get("queue").last();
 
     return createBatchActions(
       createSpecialAction({
@@ -365,7 +364,7 @@ const Actions = {
   },
 
   nextDetrominoInEditor() {
-    let detrominoType = store.levelEditorGrid
+    let detrominoType = store.getState().levelEditorGrid
       .get("detrominoIterator")
       .value();
 
@@ -418,9 +417,9 @@ const Actions = {
     return Actions.moveDetrominoInGame(direction);
 
     // todo use componentWillReceiveProps for this in TutorialGrid
-    // if (TutorialHelper.isDetrominoReachedHighlightArea(store.gameGrid)) {
-    //   return Actions.nextTutorial();
-    // }
+    // if
+    // (TutorialHelper.isDetrominoReachedHighlightArea(store.getState().gameGrid))
+    // { return Actions.nextTutorial(); }
   },
 
   moveDetrominoInGame(direction) {
@@ -584,7 +583,7 @@ const Actions = {
   },
 
   enableBlockEditing() {
-    let block = Algorithm.getInitialValidEditableBlock(store.levelEditorGrid);
+    let block = Algorithm.getInitialValidEditableBlock(store.getState().levelEditorGrid);
 
     if (!block) {
       return Actions.displayError("No blocks are currently editable");
@@ -597,7 +596,7 @@ const Actions = {
   },
 
   disableBlockEditing() {
-    let grid = store.levelEditorGrid.grid();
+    let grid = store.getState().levelEditorGrid.grid();
 
     if (!Algorithm.isTargetDetrominosValid(grid.get("matrix"),
         grid.get("detromino"))) {

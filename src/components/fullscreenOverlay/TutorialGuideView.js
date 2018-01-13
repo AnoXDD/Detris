@@ -13,11 +13,11 @@ import store from "../../store/store";
 export default class TutorialGuideView extends Component {
 
   render() {
-    let {progress} = this.props.tutorial;
+    let {progress} = this.props;
     return (
       <FullscreenOverlayView
         title=""
-        className={`tutorial-guide-view ${this.props.tutorial.position}`}
+        className={`tutorial-guide-view ${this.props.position}`}
         onBackgroundClick={this.props.onDismiss}
         update={true}
       >

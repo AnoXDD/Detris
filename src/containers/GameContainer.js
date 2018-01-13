@@ -79,7 +79,9 @@ class GameContainer extends Component {
           {this.props.activeOverlay.map(type => {
             switch (type) {
               case OverlayType.PAUSE_GAME:
-                return (<PauseMenuView key="pause" {...this.props.callback}/>);
+                return (<PauseMenuView
+                  key="pause"
+                  {...this.props.callback}/>);
               case OverlayType.NEXT_LEVEL:
                 return (
                   <EndGameView key="next-level" {...this.props.callback}/>);
@@ -98,7 +100,9 @@ class GameContainer extends Component {
               case OverlayType.TUTORIAL_GUIDE:
                 return (
                   <TutorialGuideView
-                    key="tutorial-guide" {...this.props.callback}/>);
+                    key="tutorial-guide"
+                    {...this.props.callback}
+                    {...this.props.tutorial}/>);
               default:
                 return null;
             }
@@ -133,8 +137,10 @@ function mergeProps(stateProps, dispatch) {
   let keys = Object.keys(callback);
 
   for (let key of keys) {
-    let action = callback[key]();
-    callback[key] = () => dispatch(action);
+    let action = callback[key];
+    callback[key] = () => {
+      dispatch(action());
+    };
   }
 
   stateProps.callback = callback;
