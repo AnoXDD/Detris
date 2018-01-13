@@ -19,13 +19,13 @@ export default class TopBarView extends Component {
         case TopBarType.TOP_BACK:
           return (
             <Button key="back"
-                    onClick={this.props.callback.onQuit}
+                    onClick={this.props.overlay.onQuit}
             >arrow_back</Button>
           );
         case TopBarType.TOP_PAUSE:
           return (
             <Button key="pause"
-                    onClick={this.props.callback.onBack}
+                    onClick={this.props.overlay.onBack}
                     className="right"
             >pause</Button>
           );
@@ -39,7 +39,7 @@ export default class TopBarView extends Component {
         case TopBarType.TOP_TUTORIAL_INFO:
           return (
             <Button key="tutorial_info"
-                    onClick={this.props.callback.onShowGuide}
+                    onClick={this.props.overlay.onShowGuide}
                     className="right"
             >info</Button>
           );

@@ -56,10 +56,7 @@ function stateToProps(state, ownProps) {
       isShowingLevelEditor,
       queue: state.queue.get("queue"),
     },
-    control: {
-      isShowingLevelEditor,
-      ...state.control.toJS(),
-    }
+    control: state.control.toJS(),
   };
 }
 

@@ -24,6 +24,7 @@ import TutorialWelcomeContainer from "./TutorialWelcomeContainer";
 import TutorialGridContainer from "./TutorialGridContainer";
 import TutorialGuideView from "../components/fullscreenOverlay/TutorialGuideView";
 import {connect} from "react-redux";
+import {dispatchToProps, mergePropsFromKey} from "../util/callbackToProps";
 
 class GameContainer extends Component {
 
@@ -81,10 +82,10 @@ class GameContainer extends Component {
               case OverlayType.PAUSE_GAME:
                 return (<PauseMenuView
                   key="pause"
-                  {...this.props.callback}/>);
+                  {...this.props.overlay}/>);
               case OverlayType.NEXT_LEVEL:
                 return (
-                  <EndGameView key="next-level" {...this.props.callback}/>);
+                  <EndGameView key="next-level" {...this.props.overlay}/>);
               case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
                 return (<LevelEditorImportExportView
                   levelEditorExportString={this.props.levelEditorExportString}
@@ -96,12 +97,12 @@ class GameContainer extends Component {
               case OverlayType.DIALOG:
                 return (<DialogView key="dialog"
                                     dialogTitle={this.props.dialogTitle}
-                                    {...this.props.callback}/>);
+                                    {...this.props.overlay}/>);
               case OverlayType.TUTORIAL_GUIDE:
                 return (
                   <TutorialGuideView
                     key="tutorial-guide"
-                    {...this.props.callback}
+                    {...this.props.overlay}
                     {...this.props.tutorial}/>);
               default:
                 return null;
@@ -116,42 +117,16 @@ class GameContainer extends Component {
 
 function stateToProps(state) {
   return {
-    callback               : {
-      ...state.callback.toJS(),
-    },
+    overlay                : state.overlay.toJS(),
     ...state.game.toJS(),
     levelEditorExportString: state.levelEditorGrid.get("detokenized"),
-    tutorial               : {
-      ...state.tutorial.toJS(),
-    },
-    levelState             : {
-      ...state.level.toJS(),
-    },
+    tutorial               : state.tutorial.toJS(),
+    levelState             : state.level.toJS(),
   };
 }
 
-function mergeProps(stateProps, dispatch) {
-  dispatch = dispatch.dispatch;
-  let {callback} = stateProps;
-
-  let keys = Object.keys(callback);
-
-  for (let key of keys) {
-    let action = callback[key];
-    callback[key] = () => {
-      dispatch(action());
-    };
-  }
-
-  stateProps.callback = callback;
-
-  return stateProps;
-}
-
 const connected = connect(stateToProps,
-  dispatch => {
-    return {dispatch,};
-  },
-  mergeProps)(GameContainer);
+  dispatchToProps,
+  mergePropsFromKey("overlay"))(GameContainer);
 
 export default connected;
