@@ -11,7 +11,7 @@ import GameStateTokenizer from "../tokenizer/GameStateTokenizer";
 
 test("GameState", () => {
   let gameState = new GameState({
-    uiState                : GameUiState.GAME_STARTED,
+    uiState                : GameUiState.IN_GAME,
     topBar                 : Immutable.Set([TopBarType.TOP_BACK, TopBarType.TOP_PAUSE]),
     dialogTitle            : "Dialog title",
     activeOverlay          : Immutable.Set([]),

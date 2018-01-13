@@ -6,7 +6,7 @@
 
 import React, {Component} from "react";
 import {CSSTransitionGroup} from "react-transition-group";
-import GridContainer from "./GridContainer";
+import PanelContainer from "./PanelContainer";
 import LevelContainer from "./LevelContainer";
 import GameUiState from "../enum/GameUiState";
 import TopBarView from "../components/TopBarView";
@@ -54,9 +54,9 @@ class GameContainer extends Component {
       case GameUiState.SELECT_LEVEL:
         container = <LevelContainer/>;
         break;
-      case GameUiState.GAME_STARTED:
+      case GameUiState.IN_GAME:
       case GameUiState.LEVEL_EDITOR_STARTED:
-        container = <GridContainer/>;
+        container = <PanelContainer/>;
         break;
       default:
         container = null;

@@ -9,7 +9,7 @@ import GridView from "../components/GridView";
 import QueueView from "../components/QueueView";
 import GridControlView from "../components/GridControlView";
 
-class GridContainer extends Component {
+class PanelContainer extends Component {
   render() {
     return (
       <div className="container grid-container">
@@ -51,6 +51,7 @@ function stateToProps(state, ownProps) {
   }
 
   return {
+    panelType: state.game.get("panelType"),
     ...grid,
     queue  : {
       isShowingLevelEditor,
@@ -60,6 +61,6 @@ function stateToProps(state, ownProps) {
   };
 }
 
-const connected = connect(stateToProps)(GridContainer);
+const connected = connect(stateToProps)(PanelContainer);
 
 export default connected;

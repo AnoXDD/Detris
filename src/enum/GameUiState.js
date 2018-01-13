@@ -10,7 +10,7 @@ const GameUiState = {
   TUTORIAL_WELCOME    : "TUTORIAL_WELCOME",
   TUTORIAL            : "TUTORIAL",
   WELCOME             : "WELCOME",
-  GAME_STARTED        : "GAME_STARTED",
+  IN_GAME             : "IN_GAME",
   SELECT_LEVEL        : "SELECT_LEVEL",
   LEVEL_EDITOR_STARTED: "LEVEL_EDITOR_STARTED",
 };
