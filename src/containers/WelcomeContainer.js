@@ -65,7 +65,7 @@ function stateToDispatch(dispatch) {
       dispatch(Actions.showSettingsUi());
     },
     onInfo    : () => {
-      dispatch(Actions.showCreditUi);
+      dispatch(Actions.showCreditUi());
     }
   };
 }
