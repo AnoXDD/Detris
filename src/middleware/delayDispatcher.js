@@ -4,6 +4,7 @@
  * A middleware for delayed dispatch
  */
 
+import DispatchType from "./DispatchType";
 const BATCH_ACTION_TYPE = "isBatchAction";
 const TIME_OUT = "timeout";
 const DELAY_TYPE = "delayType";
@@ -13,27 +14,18 @@ delayDispatch._payloadQueue = {};
 delayDispatch._callbackQueue = [];
 delayDispatch._id = 0;
 
-const DispatchType = {
-  // A regular dispatch, can be instant or delayed
-  REGULAR      : "REGULAR",
-  ON_CLEAR     : "ON_CLEAR",
-  ONLY_IF_CLEAR: "ONLY_IF_CLEAR",
-  // Overwrite future payloads and dispatch instantly
-  OVERWRITE    : "OVERWRITE",
-};
-
 /**
  * Creates batch actions to be consumed by delayDispatch
  * @param actions
  */
-export function createBatchActions(actions) {
+export function createBatchActions(...actions) {
   return {
     [BATCH_ACTION_TYPE]: true,
     actions,
   };
 }
 
-export function createDelayedAction(action,
+export function createSpecialAction(action,
                                     type = DispatchType.REGULAR,
                                     timeout = 0) {
   return {
@@ -46,13 +38,13 @@ export function createDelayedAction(action,
 export function delayDispatch({dispatch, getState}) {
   function dispatch(next, payload, delay = 0) {
     if (delay === 0) {
-      next.dispatch(payload);
+      next(payload);
       return;
     }
 
     let id = `${new Date().getTime()}-${delayDispatch._id++}`;
     let token = setTimeout(() => {
-      delayDispatch._dispatchOnTimeout(id);
+      delayDispatch._dispatchOnTimeout(next, id);
     }, delay);
 
     delayDispatch._payloadQueue[id] = {
@@ -67,7 +59,7 @@ export function delayDispatch({dispatch, getState}) {
    */
   function dispatchOnClear(next, payload) {
     if (!delayDispatch.willBeDispatching()) {
-      next.dispatch(payload);
+      next(payload);
       return;
     }
 
@@ -84,10 +76,10 @@ export function delayDispatch({dispatch, getState}) {
   /**
    * Dispatches all the payloads in the queue
    */
-  function dispatchDelayedPayload() {
+  function dispatchDelayedPayload(next) {
     for (let id in delayDispatch._payloadQueue) {
       if (delayDispatch._payloadQueue.hasOwnProperty(id)) {
-        delayDispatch._dispatchOnTimeout(id);
+        delayDispatch._dispatchOnTimeout(next, id);
       }
     }
   }
@@ -95,21 +87,21 @@ export function delayDispatch({dispatch, getState}) {
   /**
    * Dispatch only if no payloads are scheduled to be dispatched
    */
-  function dispatchOnlyIfClear(next, payload) {
+  function dispatchOnlyIfClear(next, payload, delay) {
     if (delayDispatch.willBeDispatching()) {
       return;
     }
 
-    next.dispatch(payload);
+    dispatch(next, payload, delay);
   }
 
   /**
    * Skips all the payloads in the queue and executes payloads originally
    * scheduled after those delayed payloads are dispatched
    */
-  function clearAllDelayedPayloads() {
+  function clearAllDelayedPayloads(next) {
     delayDispatch._resetPayloadQueue();
-    delayDispatch._dispatchQueue();
+    delayDispatch._dispatchQueue(next);
   }
 
   /**
@@ -139,24 +131,24 @@ export function delayDispatch({dispatch, getState}) {
     delayDispatch._payloadQueue = {};
   }
 
-  function _dispatchOnTimeout(id) {
+  function _dispatchOnTimeout(next, id) {
     let {payload} = delayDispatch._payloadQueue[id];
     delete delayDispatch._payloadQueue[id];
 
     if (!delayDispatch.willBeDispatching()) {
-      delayDispatch._dispatchQueue();
+      delayDispatch._dispatchQueue(next);
     }
 
-    next.dispatch(payload);
+    next(payload);
   }
 
   /**
    * Dispatches all the payloads
    * @private
    */
-  function _dispatchQueue() {
+  function _dispatchQueue(next) {
     for (let payload of delayDispatch._callbackQueue) {
-      next.dispatch(payload);
+      next(payload);
     }
 
     delayDispatch._callbackQueue = [];
@@ -194,14 +186,14 @@ export function delayDispatch({dispatch, getState}) {
         dispatchOnClear(next, action);
         break;
       case DispatchType.ONLY_IF_CLEAR:
-        dispatchOnlyIfClear(next, action);
+        dispatchOnlyIfClear(next, action, timeout);
         break;
       case DispatchType.OVERWRITE:
         clearAllFuturePayloads();
         dispatch(next, action, timeout);
         break;
       default:
-        // No action
+
     }
   }
 
@@ -216,8 +208,7 @@ export function delayDispatch({dispatch, getState}) {
 }
 
 export default {
-  DispatchType,
   createBatchActions,
-  createDelayedAction,
-  delayDispatch,
+  createSpecialAction,
+  delayDispatch
 };

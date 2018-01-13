@@ -5,10 +5,10 @@
  * to wait, etc.
  */
 
+
 const DispatchType = {
-  // A regular dispatch
-  INSTANT      : "INSTANT",
-  DELAYED      : "DELAYED",
+  // A regular dispatch, can be instant or delayed
+  REGULAR      : "REGULAR",
   ON_CLEAR     : "ON_CLEAR",
   ONLY_IF_CLEAR: "ONLY_IF_CLEAR",
   // Overwrite future payloads and dispatch instantly

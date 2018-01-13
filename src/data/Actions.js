@@ -6,236 +6,243 @@
 
 import ActionTypes from "../enum/ActionTypes";
 import Algorithm from "../util/Algorithm";
-import Dispatcher from "./Dispatcher";
-import QueueStore from "../reducer/queue";
 import Direction from "../enum/Direction";
 import LevelData from "./game/static/LevelData";
 import GameUiState from "../enum/GameUiState";
-import LevelEditorGridStore from "./grid/levelEditor/LevelEditorGridStore";
 import OverlayType from "../enum/OverlayTypes";
-import LevelStateStore from "../reducer/level";
 import LevelViewData from "./game/static/LevelViewData";
-import TutorialStore from "../reducer/tutorial";
 import TutorialProgress from "../enum/TutorialProgress";
-import GameGridStore from "../reducer/gameGrid";
-import TutorialHelper from "../util/TutorialHelper";
-import GameStateStore from "../reducer/game";
+import {
+  createBatchActions,
+  createSpecialAction
+} from "../middleware/delayDispatcher";
+import DispatchType from "../middleware/DispatchType";
+import store from "../store/store";
 
 const DELAY = 500;
 
 const Actions = {
   //region game
   init(width, height) {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.INIT_GRID,
       width,
       height,
-    });
+    };
   },
 
   resetGrid() {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.RESET_GRID,
-    });
+    };
   },
 
   setUiState(uiState) {
-    Dispatcher.clearAllFuturePayloads();
-
-    Dispatcher.dispatch({
+    return createSpecialAction({
       type: ActionTypes.SET_GAME_UI_STATE,
       uiState,
-    });
+    }, DispatchType.OVERWRITE);
   },
 
   showWelcomePage() {
-    Actions.setUiState(GameUiState.WELCOME);
+    return setUiState(GameUiState.WELCOME);
   },
 
   showSelectLevel() {
-    Actions.setUiState(GameUiState.SELECT_LEVEL);
+    return Actions.setUiState(GameUiState.SELECT_LEVEL);
   },
 
   startTutorial() {
-    Actions.resetGrid();
-    Actions.showTutorialUi();
+    return createBatchActions(
+      Actions.resetGrid(),
+      Actions.showTutorialUi()
+    );
   },
 
-  // todo set initProgress to be the actual progress
   showTutorialUi(initProgress = TutorialProgress.BEGIN) {
-    Actions.setUiState(GameUiState.TUTORIAL);
-    Actions.setTutorialProgress(initProgress);
+    return createBatchActions(
+      Actions.setUiState(GameUiState.TUTORIAL),
+      Actions.setTutorialProgress(initProgress)
+    );
   },
 
   showGridEditorUi() {
-    Actions.setUiState(GameUiState.LEVEL_EDITOR_STARTED);
+    return Actions.setUiState(GameUiState.LEVEL_EDITOR_STARTED);
   },
 
   showCreditUi() {
-    Dispatcher.dispatch({
+    return {
       type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.ABOUT,
-    });
+    };
   },
 
   hideCreditUi() {
-    Dispatcher.dispatch({
+    return {
       type       : ActionTypes.HIDE_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.ABOUT,
-    });
+    };
   },
 
   showSettingsUi() {
-    Dispatcher.dispatch({
+    return {
       type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.SETTINGS,
-    })
+    };
   },
 
   hideSettingsUi() {
-    Dispatcher.dispatch({
+    return {
       type       : ActionTypes.HIDE_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.SETTINGS,
-    });
+    };
   },
 
   showLevelEditorImportExport() {
-    Dispatcher.dispatch({
+    return {
       type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.LEVEL_EDITOR_IMPORT_EXPORT,
-    });
+    };
   },
 
   hideLevelEditorImportExport() {
-    Dispatcher.dispatch({
+    return {
       type       : ActionTypes.HIDE_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.LEVEL_EDITOR_IMPORT_EXPORT,
-    });
+    };
   },
 
   showTutorialGuide() {
-    Dispatcher.dispatch({
+    return {
       type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.TUTORIAL_GUIDE,
-    });
+    };
   },
 
   hideTutorialGuide() {
-    Dispatcher.dispatch({
+    return {
       type       : ActionTypes.HIDE_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.TUTORIAL_GUIDE,
-    });
+    };
   },
 
   setTutorialProgress(progress) {
-    Dispatcher.dispatch({
+    return {
       progress,
       type: ActionTypes.SET_TUTORIAL_PROGRESS,
-    });
+    };
   },
 
   setNextTutorialProgress() {
-    let progress = TutorialStore.getState().next();
+    let progress = store.tutorial.next();
 
-    Actions.setTutorialProgress(progress);
+    return Actions.setTutorialProgress(progress);
   },
 
   setPreviousTutorialProgress() {
-    let progress = TutorialStore.getState().prev();
+    let progress = store.tutorial.prev();
 
-    Actions.setTutorialProgress(progress);
+    return Actions.setTutorialProgress(progress);
   },
 
   nextTutorial() {
-    Actions.setNextTutorialProgress();
-    Actions.showTutorialGuide();
+    return createBatchActions(
+      Actions.setNextTutorialProgress(),
+      Actions.showTutorialGuide()
+    );
   },
 
   previousTutorial() {
-    Actions.setPreviousTutorialProgress();
-    Actions.showTutorialGuide();
+    return createBatchActions(
+      Actions.setPreviousTutorialProgress(),
+      Actions.showTutorialGuide()
+    );
   },
 
   /**
    * Simply set the game state of tutorial to be finished
    */
   setTutorialCompleted() {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.SET_TUTORIAL_COMPLETED,
-    });
+    };
   },
 
   completeTutorial() {
-    if (GameStateStore.getState().get("tutorialCompleted")) {
-      // The player has completed the tutorial before, or they have skipped the
-      // tutorial the first time the game is launched
-      Actions.hideTutorialGuide();
-      Actions.showWelcomePage();
+    if (store.game.get("tutorialCompleted")) {
+      // The player has completed the tutorial before, or they have skipped
+      // the tutorial the first time the game is launched
+      return createBatchActions(
+        Actions.hideTutorialGuide(),
+        Actions.showWelcomePage()
+      );
     } else {
       // The player starts the tutorial from the tutorial welcome page
-      Actions.setTutorialCompleted();
-      Actions.hideTutorialGuide();
-      Actions.startNewLevel();
+      return createBatchActions(
+        Actions.setTutorialCompleted(),
+        Actions.hideTutorialGuide(),
+        Actions.startNewLevel()
+      );
     }
   },
 
   pause() {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.PAUSE,
-    });
+    };
   },
 
   resume() {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.RESUME,
-    });
+    };
   },
 
   showDialogForStartTutorial() {
-    Actions.showDialog(
+    return Actions.showDialog(
       "Do you want to start the tutorial?",
-      () => {
-        Actions.startTutorial();
-        Actions.showTutorialGuide();
-      }
+      createBatchActions(
+        Actions.startTutorial(),
+        Actions.showTutorialGuide()
+      )
     );
   },
 
   showDialogForGameRestart() {
-    Actions.showDialog(
+    return Actions.showDialog(
       "Do you want to restart this level?",
-      Actions.restartCurrentLevel,
+      Actions.restartCurrentLevel
     );
   },
 
   showDialogForResetLevelEditor() {
-    Actions.showDialog(
+    return Actions.showDialog(
       "Do you want to reset the level editor?",
       Actions.resetGrid
     );
   },
 
   showDialogForQuitToLevelSelect() {
-    Actions.showDialog(
+    return Actions.showDialog(
       "Do you want to return to previous menu? Any changes will be lost.",
       Actions.showSelectLevel
     );
   },
 
   showDialogForQuitToWelcome() {
-    Actions.showDialog(
+    return Actions.showDialog(
       "Do you want to return to home page? Any changes will be lost.",
       Actions.showWelcomePage
     );
   },
 
   showDialogForSkipTutorial() {
-    Actions.showDialog(
+    return Actions.showDialog(
       "Do you want to skip tutorial? You can come back later from the main menu.",
-      () => {
-        Actions.setTutorialCompleted();
-        Actions.showSelectLevel();
-      }
+      createBatchActions(
+        Actions.setTutorialCompleted(),
+        Actions.showSelectLevel()
+      )
     );
   },
 
@@ -243,83 +250,75 @@ const Actions = {
    * Called when the player decides to prematurely end the tutorial
    */
   showDialogForEndTutorial() {
-    Actions.showDialog(
+    return Actions.showDialog(
       "Do you want to end tutorial now? You can come back later from the main menu.",
-      () => {
-        Actions.setTutorialCompleted();
-        Actions.showWelcomePage();
-      }
+      createBatchActions(
+        Actions.setTutorialCompleted(),
+        Actions.showWelcomePage()
+      )
     );
   },
 
   showDialog(title, onYes, onNo) {
-    Dispatcher.dispatch({
+    return {
       type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.DIALOG,
       title,
       onYes,
       onNo,
-    });
+    };
   },
 
   hideDialog() {
-    Dispatcher.dispatch({
+    return {
       type       : ActionTypes.HIDE_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.DIALOG,
-    });
+    };
   },
 
   hideAllFullscreenOverlay() {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.HIDE_ALL_FULLSCREEN_OVERLAY,
-    });
+    };
   },
 
-  // endregion
+// endregion
 
-  // region level navigation
+// region level navigation
 
   levelPageNext() {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.LEVEL_NEXT_PAGE,
-    });
+    };
   },
 
   levelPagePrev() {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.LEVEL_PREV_PAGE,
-    });
+    };
   },
 
-  // endregion
+// endregion
 
   startNewLevel(currentLevelId = LevelData.firstLevel()) {
-    Dispatcher.clearAllFuturePayloads();
-
-    Dispatcher.dispatch({
-      type: ActionTypes.START_LEVEL,
-      currentLevelId,
-    });
-
-    Actions.apply(LevelData.getLevelById(currentLevelId));
-  },
-
-  markCurrentLevelAsCompleted(currentLevelId = LevelStateStore.getState()
-    .get("currentLevelId")) {
-    Dispatcher.dispatch({
-      type: ActionTypes.MARK_LEVEL_AS_COMPLETED,
-      currentLevelId,
-    });
+    return createBatchActions(
+      createSpecialAction({
+        type: ActionTypes.START_LEVEL,
+        currentLevelId,
+      }, DispatchType.OVERWRITE),
+      Actions.apply(LevelData.getLevelById(currentLevelId))
+    );
   },
 
   restartCurrentLevel() {
-    Actions.startNewLevel(LevelStateStore.getState().get("currentLevelId"));
+    return Actions.startNewLevel(store.level.getState()
+      .get("currentLevelId"));
   },
 
   nextLevel() {
-    let currentLevelId = LevelStateStore.getState().get("currentLevelId");
+    let currentLevelId = store.level.getState().get("currentLevelId");
     let nextLevelId = LevelViewData.nextLevel(currentLevelId);
-    Actions.startNewLevel(nextLevelId);
+    return Actions.startNewLevel(nextLevelId);
   },
 
   /**
@@ -327,89 +326,87 @@ const Actions = {
    * @param {Immutable.Map<string, any>|LevelDataUnit} levelDataUnit
    */
   apply(levelDataUnit) {
-    Dispatcher.clearAllFuturePayloads();
-
-    Actions.init(levelDataUnit.get("width"), levelDataUnit.get("height"));
-
-    Dispatcher.dispatch({
-      type: ActionTypes.APPLY_DATA,
-      levelDataUnit,
-    });
+    return createBatchActions(
+      createSpecialAction(
+        Actions.init(levelDataUnit.get("width"),
+          levelDataUnit.get("height")),
+        DispatchType.OVERWRITE
+      ), {
+        type: ActionTypes.APPLY_DATA,
+        levelDataUnit,
+      }
+    );
   },
 
   nextDetromino() {
-    if (Dispatcher.willBeDispatching()) {
-      return;
-    }
+    let detrominoType = store.queue.get("queue").last();
 
-    let detrominoType = QueueStore.getState().get("queue").last();
-    // todo optimization: just drop it if it won't break anything
-    Dispatcher.dispatch({
-      type: ActionTypes.APPLY_DETROMINO_BLOCKS,
-    });
-    Dispatcher.dispatch({
-      type: ActionTypes.SINK_TARGET_BLOCKS,
-    }, DELAY);
-
-    Dispatcher.dispatch({
-      type: ActionTypes.NEXT_DETROMINO_IN_GAME,
-      detrominoType,
-    }, DELAY * 2);
+    return createBatchActions(
+      createSpecialAction({
+        type: ActionTypes.APPLY_DETROMINO_BLOCKS,
+      }, DispatchType.ONLY_IF_CLEAR),
+      createSpecialAction({
+        type: ActionTypes.SINK_TARGET_BLOCKS,
+      }, DispatchType.ONLY_IF_CLEAR, DELAY),
+      createSpecialAction({
+        type: ActionTypes.NEXT_DETROMINO_IN_GAME,
+        detrominoType,
+      }, DispatchType.ONLY_IF_CLEAR, DELAY * 2),
+    );
   },
 
   nextDetrominoInGame() {
-    Actions.nextDetromino();
-
-    Dispatcher.dispatchOnClear({
-      type: ActionTypes.MAYBE_END_GAME,
-    });
+    return createBatchActions(
+      Actions.nextDetromino(),
+      createSpecialAction({
+        type: ActionTypes.MAYBE_END_GAME,
+      }, DispatchType.ON_CLEAR)
+    );
   },
 
   nextDetrominoInEditor() {
-    if (Dispatcher.willBeDispatching()) {
-      return;
-    }
-
-    let detrominoType = LevelEditorGridStore.getState()
+    let detrominoType = store.levelEditorGrid
       .get("detrominoIterator")
       .value();
 
-    Dispatcher.dispatch({
+    return createSpecialAction({
       type: ActionTypes.NEXT_DETROMINO_IN_EDITOR,
       detrominoType,
-    });
+    }, DispatchType.ONLY_IF_CLEAR);
   },
 
   nextDetrominoShape() {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.NEXT_DETROMINO_SHAPE,
-    });
+    };
   },
 
   prevDetrominoShape() {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.PREV_DETROMINO_SHAPE,
-    });
+    };
   },
 
-  // Debug only
+// Debug only
   debug__newRandomDetromino() {
-    Actions.applyDetrominoBlocks();
-    Actions.removeStaleAndSinkTargetBlocks();
-
     let detrominoType = Algorithm.generateRandomDetrominoType();
 
-    Dispatcher.dispatch({
-      type: ActionTypes.NEXT_DETROMINO_IN_GAME,
-      detrominoType,
-    })
+    return createBatchActions(
+      Actions.applyDetrominoBlocks(),
+      Actions.removeStaleAndSinkTargetBlocks(),
+      {
+        type: ActionTypes.NEXT_DETROMINO_IN_GAME,
+        detrominoType,
+      }
+    );
   },
 
-  debug__addDetrominoToQueue(detrominoType = Algorithm.generateRandomDetrominoType()) {
-    Dispatcher.dispatch({
+  debug__addDetrominoToQueue
+    (detrominoType = Algorithm.generateRandomDetrominoType()) {
+    return {
       type: ActionTypes.ADD_DETROMINO_TO_QUEUE,
       detrominoType,
-    });
+    };
   },
 
   /**
@@ -418,11 +415,12 @@ const Actions = {
    * @param direction
    */
   moveDetrominoInTutorial(direction) {
-    Actions.moveDetrominoInGame(direction);
+    return Actions.moveDetrominoInGame(direction);
 
-    if (TutorialHelper.isDetrominoReachedHighlightArea(GameGridStore.getState())) {
-      Actions.nextTutorial();
-    }
+    // todo use componentWillReceiveProps for this in TutorialGrid
+    // if (TutorialHelper.isDetrominoReachedHighlightArea(store.gameGrid)) {
+    //   return Actions.nextTutorial();
+    // }
   },
 
   moveDetrominoInGame(direction) {
@@ -449,21 +447,21 @@ const Actions = {
       return;
     }
 
-    Dispatcher.dispatchOnlyIfClear({
+    return createSpecialAction({
       type,
-    });
+    }, DispatchType.ONLY_IF_CLEAR);
   },
 
   undoInGame() {
-    Dispatcher.dispatchOnlyIfClear({
+    return createSpecialAction({
       type: ActionTypes.UNDO_IN_GAME,
-    });
+    }, DispatchType.ONLY_IF_CLEAR);
   },
 
   redoInGame() {
-    Dispatcher.dispatchOnlyIfClear({
+    return createSpecialAction({
       type: ActionTypes.REDO_IN_GAME,
-    });
+    }, DispatchType.ONLY_IF_CLEAR);
   },
 
   moveDetrominoInEditor(direction) {
@@ -490,9 +488,9 @@ const Actions = {
       return;
     }
 
-    Dispatcher.dispatchOnlyIfClear({
+    return createSpecialAction({
       type,
-    });
+    }, DispatchType.ONLY_IF_CLEAR);
   },
 
   /**
@@ -523,34 +521,34 @@ const Actions = {
       return;
     }
 
-    Dispatcher.dispatchOnlyIfClear({
+    return createSpecialAction({
       type,
-    });
+    }, DispatchType.ONLY_IF_CLEAR);
   },
 
   redoInEditor() {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.REDO_IN_EDITOR,
-    });
+    };
   },
 
   undoInEditor() {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.UNDO_IN_EDITOR,
-    });
+    };
   },
 
   setBlockType(blockType) {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.SET_BLOCKTYPE,
       blockType,
-    });
+    };
   },
 
   rotate() {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.ROTATE,
-    });
+    };
   },
 
   /**
@@ -558,79 +556,79 @@ const Actions = {
    * grid meets the tutorial goal
    */
   rotateInTutorial() {
-    Actions.rotate();
+    return Actions.rotate();
 
-    if (TutorialHelper.isDetrominoReachedHighlightArea(GameGridStore.getState())) {
-      Actions.nextTutorial();
-    }
+    // todo use componentWillReceiveProps in TutorialGrid
+    // if
+    // (TutorialHelper.isDetrominoReachedHighlightArea(GameGridStore.getState()))
+    // { return Actions.nextTutorial(); }
   },
 
   // Remove the current detromino block from the grid
   removeDetromino() {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.REMOVE_DETROMINO,
-    });
+    };
   },
 
   applyDetrominoBlocks() {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.APPLY_DETROMINO_BLOCKS,
-    });
+    };
   },
 
   sinkTargetBlocks() {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.SINK_TARGET_BLOCKS,
-    });
+    };
   },
 
   enableBlockEditing() {
-    let block = Algorithm.getInitialValidEditableBlock(LevelEditorGridStore.getState());
+    let block = Algorithm.getInitialValidEditableBlock(store.levelEditorGrid);
 
     if (!block) {
-      Actions.displayError("No blocks are currently editable");
-      return;
+      return Actions.displayError("No blocks are currently editable");
     }
 
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.ENABLE_BLOCK_EDITING,
       block,
-    });
+    };
   },
 
   disableBlockEditing() {
-    let grid = LevelEditorGridStore.getState().grid();
+    let grid = store.levelEditorGrid.grid();
 
     if (!Algorithm.isTargetDetrominosValid(grid.get("matrix"),
         grid.get("detromino"))) {
-      Actions.displayError("You can't set the target detrominos like this");
-      return;
+      return Actions.displayError(
+        "You can't set the target detrominos like this");
     }
 
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.DISABLE_BLOCK_EDITING,
-    });
+    };
   },
 
   displayInfo(message) {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.DISPLAY_INFO,
       message,
-    });
+    };
   },
 
   displaySuccess(message) {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.DISPLAY_SUCCESS,
       message,
-    });
+    };
   },
 
   displayError(message) {
-    Dispatcher.dispatch({
+    return {
       type: ActionTypes.DISPLAY_ERROR,
       message,
-    });
+    };
   },
 };
 

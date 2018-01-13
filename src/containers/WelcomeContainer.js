@@ -10,6 +10,8 @@ import Button from "../lib/Button";
 
 class WelcomeContainer extends Component {
   render() {
+    let {dispatch} = this.props;
+
     return (
       <div className="container welcome-container flex-center">
         <div className="welcome-title">Detris</div>
