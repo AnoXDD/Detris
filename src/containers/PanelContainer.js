@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import GridView from "../components/GridView";
 import QueueView from "../components/QueueView";
 import GridControlView from "../components/GridControlView";
+import PanelType from "../enum/PanelType";
 
 class PanelContainer extends Component {
   render() {
@@ -17,11 +18,12 @@ class PanelContainer extends Component {
           <GridView
             grid={this.props.grid}
             editorState={this.props.editorState}/>
-          <QueueView {...this.props.queue}/>
+          <QueueView
+            panelType={this.props.panelType}
+            queue={this.props.queue}/>
         </div>
         <GridControlView
           {...this.props.control}
-
           blockList={this.props.editorState.blockList}
           isEditingBlock={this.props.editorState.isEditingBlock}/>
       </div>
@@ -30,33 +32,31 @@ class PanelContainer extends Component {
 }
 
 function stateToProps(state, ownProps) {
-  let grid = null;
-  let isShowingLevelEditor = state.game.isShowingLevelEditor();
-  if (isShowingLevelEditor) {
-    let {levelEditorGrid} = state;
-    let levelEditorState = levelEditorGrid.get("editorState").toJS();
+  let grid = [];
+  let editorState = {};
+  let panelType = state.game.get("panelType");
 
-    grid = {
-      grid       : levelEditorGrid.get("data").get("grid").valueSeq(),
-      editorState: levelEditorState,
-    };
-  } else {
-    grid = {
-      grid       : state.game
-        .get("grid")
-        .get("grid")
-        .valueSeq(),
-      editorState: {},
-    };
+  switch (panelType) {
+    case PanelType.LEVEL_EDITOR:
+      let {levelEditorGrid} = state;
+
+      grid = levelEditorGrid.get("data").get("grid").valueSeq().toArray();
+      editorState = levelEditorGrid.get("editorState").toJS();
+      break;
+
+    case PanelType.IN_GAME:
+    case PanelType.TUTORIAL:
+      grid = state.gameGrid.get("grid").get("grid").valueSeq().toArray();
+      break;
+    default:
+
   }
 
   return {
-    panelType: state.game.get("panelType"),
-    ...grid,
-    queue  : {
-      isShowingLevelEditor,
-      queue: state.queue.get("queue"),
-    },
+    panelType,
+    grid,
+    editorState,
+    queue  : state.queue.get("queue").toJS(),
     control: state.control.toJS(),
   };
 }

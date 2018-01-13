@@ -7,12 +7,14 @@ import {CSSTransitionGroup} from 'react-transition-group';
 
 import DetrominoView from "./DetrominoView";
 import TitleBoxView from "./TitleBoxView";
+import PanelType from "../enum/PanelType";
 
 export default class QueueView extends Component {
 
   shouldComponentUpdate(nextProps) {
-    return (this.props.queue && this.props.queue !== nextProps.queue) ||
-      this.props.isShowingLevelEditor !== nextProps.isShowingLevelEditor;
+    // todo fix this
+    return (this.props.queue && this.props.queue.join() !== nextProps.queue.join()) ||
+      this.props.panelType !== nextProps.panelType;
   }
 
   render() {
@@ -21,12 +23,13 @@ export default class QueueView extends Component {
     }
 
     const size = this.props.queue.size;
+    const title = this.props.panelType === PanelType.LEVEL_EDITOR ? "previous" : "next";
 
     return (
       <div className="queue-view">
         <div className="next">
           <TitleBoxView
-            title={this.props.isShowingLevelEditor ? "previous" : "next"}>
+            title={title}>
             <div className="next-inner">
               <CSSTransitionGroup
                 transitionName="detromino-animation"
@@ -35,7 +38,7 @@ export default class QueueView extends Component {
               >
                 <div key={new Date().getTime()}
                      className="detromino-view-wrapper">
-                  <DetrominoView type={this.props.queue.last()}/>
+                  <DetrominoView type={this.props.queue.slice(-1)[0]}/>
                 </div>
               </CSSTransitionGroup>
             </div>

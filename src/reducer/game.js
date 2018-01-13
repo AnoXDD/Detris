@@ -77,8 +77,10 @@ function applyPanelType(state) {
 export default function reduce(state = getInitialState(), action) {
   switch (action.type) {
     case ActionTypes.START_LEVEL:
-      return applyTopBarState(state.set("uiState",
-        GameUiState.IN_GAME));
+      return applyTopBarState(state
+        .set("uiState", GameUiState.IN_GAME)
+        .set("panelType", PanelType.IN_GAME)
+      );
 
     case ActionTypes.SET_GAME_UI_STATE:
       let {uiState} = action;

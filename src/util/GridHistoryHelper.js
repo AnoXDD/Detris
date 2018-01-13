@@ -4,21 +4,21 @@
  * A helper file to determine the state of history in grid store
  */
 
-import GameGridStore from "../reducer/gameGrid";
+import store from "../store/store";
 
 const GridHistoryHelper = {
   /**
    * Returns if the grid can be undone in the actual game
    */
   canUndoInGame() {
-    return !GameGridStore.getState().get("history").isPastChangesEmpty();
+    return !store.getState().gameGrid.get("history").isPastChangesEmpty();
   },
 
   /**
    * See comments in canUndoInGame
    */
   canRedoInGame() {
-    return !GameGridStore.getState().get("history").isFutureChangesEmpty();
+    return !store.getState().gameGrid.get("history").isFutureChangesEmpty();
   },
 };
 

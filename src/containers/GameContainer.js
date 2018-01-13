@@ -85,7 +85,9 @@ class GameContainer extends Component {
                   {...this.props.overlay}/>);
               case OverlayType.NEXT_LEVEL:
                 return (
-                  <EndGameView key="next-level" {...this.props.overlay}/>);
+                  <EndGameView
+                    key="next-level"
+                    {...this.props.overlay}/>);
               case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
                 return (<LevelEditorImportExportView
                   levelEditorExportString={this.props.levelEditorExportString}
@@ -103,7 +105,7 @@ class GameContainer extends Component {
                   <TutorialGuideView
                     key="tutorial-guide"
                     {...this.props.overlay}
-                    {...this.props.tutorial}/>);
+                    tutorial={this.props.tutorial}/>);
               default:
                 return null;
             }
