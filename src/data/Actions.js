@@ -45,7 +45,7 @@ const Actions = {
   },
 
   showWelcomePage() {
-    return setUiState(GameUiState.WELCOME);
+    return Actions.setUiState(GameUiState.WELCOME);
   },
 
   showSelectLevel() {

@@ -83,8 +83,7 @@ class ControlContainer extends Component {
 }
 
 function stateToProps(state, ownProps) {
-  let state = state.levelEditorGrid;
-  let levelEditorState = state.get("editorState").toJS();
+  let levelEditorState = state.levelEditorGrid.get("editorState").toJS();
   let {blockList} = levelEditorState;
 
   return {

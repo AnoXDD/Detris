@@ -12,11 +12,8 @@ import "./App.css";
 import store from "./store/store";
 import GameContainer from "./containers/GameContainer";
 
-
-let createdStore = createStore(store);
-
 ReactDOM.render(
-  <Provider store={createdStore}>
+  <Provider store={store}>
     <GameContainer/>
   </Provider>,
   document.getElementById('root'));

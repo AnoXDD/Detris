@@ -5,8 +5,8 @@
 import {applyMiddleware, createStore} from "redux";
 
 import reducer from "../reducer/reducer";
-import delayDispatcher from "../middleware/delayDispatcher";
+import {delayDispatch} from "../middleware/delayDispatcher";
 
-const store = createStore(reducer, undefined, applyMiddleware(delayDispatcher));
+const store = createStore(reducer, undefined, applyMiddleware(delayDispatch));
 
 export default store;

@@ -26,6 +26,6 @@ function onGameStateChanged() {
   localStorage["gameState"] = JSON.stringify(store.toJS());
 }
 
-QueueStore.addListener(onQueueStoreChanged);
-GameGridStore.addListener(onGridStoreChanged);
+// QueueStore.addListener(onQueueStoreChanged);
+// GameGridStore.addListener(onGridStoreChanged);
 // GameStateStore.addListener(onGameStateChanged);
