@@ -5,10 +5,12 @@
  */
 
 import {Component} from "react";
+import {connect} from "react-redux";
 
 import Direction from "../enum/Direction";
 import Actions from "../data/Actions";
-import {connect} from "react-redux";
+import store from "../store/store";
+
 
 const keyMap = {
   "Delete": Actions.removeDetromino,
@@ -37,10 +39,10 @@ class ControlContainer extends Component {
 
   componentDidUpdate() {
     // Process keyMap
-    keyMap.ArrowLeft = () => this.props.move(Direction.LEFT);
-    keyMap.ArrowUp = () => this.props.move(Direction.UP);
-    keyMap.ArrowRight = () => this.props.move(Direction.RIGHT);
-    keyMap.ArrowDown = () => this.props.move(Direction.DOWN);
+    keyMap.ArrowLeft =  this.props.move(Direction.LEFT);
+    keyMap.ArrowUp =  this.props.move(Direction.UP);
+    keyMap.ArrowRight =  this.props.move(Direction.RIGHT);
+    keyMap.ArrowDown = this.props.move(Direction.DOWN);
     keyMap.Shift = this.props.rotate;
     keyMap.q = this.props.prevDetromino;
     keyMap.a = this.props.nextDetromino;
@@ -53,7 +55,7 @@ class ControlContainer extends Component {
     keyMap[" "] = this.props.done;
 
     for (let i = 1; i <= this.props.blockList.length; ++i) {
-      keyMap[`${i}`] = () => this.props.chooseEditBlock(this.props.blockList[i - 1]);
+      keyMap[`${i}`] = this.props.chooseEditBlock(this.props.blockList[i - 1]);
     }
   }
 
@@ -72,7 +74,7 @@ class ControlContainer extends Component {
       return;
     }
 
-    keyMap[key]();
+    store.dispatch(keyMap[key]);
   }
 
   render() {
@@ -80,7 +82,7 @@ class ControlContainer extends Component {
   }
 }
 
-function calculateProps(state, ownProps) {
+function stateToProps(state, ownProps) {
   let state = state.levelEditorGrid;
   let levelEditorState = state.get("editorState").toJS();
   let {blockList} = levelEditorState;
@@ -92,6 +94,6 @@ function calculateProps(state, ownProps) {
   };
 }
 
-const connected = connect(calculateProps)(ControlContainer);
+const connected = connect(stateToProps)(ControlContainer);
 
 export default connected;

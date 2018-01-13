@@ -113,7 +113,7 @@ class GameContainer extends Component {
   }
 }
 
-function calculateProps(state, ownProps) {
+function stateToProps(state, ownProps) {
   return {
     ...state.callback.toJS(),
     ...state.game.toJS(),
@@ -127,6 +127,6 @@ function calculateProps(state, ownProps) {
   };
 }
 
-const connected = connect(calculateProps)(GameContainer);
+const connected = connect(stateToProps)(GameContainer);
 
 export default connected;

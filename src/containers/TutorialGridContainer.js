@@ -29,7 +29,7 @@ class TutorialGridContainer extends Component {
   }
 }
 
-function calculateProps(state, ownProps) {
+function stateToProps(state, ownProps) {
   let grid = {
     grid       : state.gameGrid
       .get("grid")
@@ -49,6 +49,6 @@ function calculateProps(state, ownProps) {
   };
 }
 
-const connected = connect(calculateProps)(TutorialGridContainer);
+const connected = connect(stateToProps)(TutorialGridContainer);
 
 export default connected;

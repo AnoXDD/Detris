@@ -42,10 +42,10 @@ class NotificationContainer extends Component {
 }
 
 
-function calculateProps(state, ownProps) {
+function stateToProps(state, ownProps) {
   return state.notification;
 }
 
-const connected = connect(calculateProps)(NotificationContainer);
+const connected = connect(stateToProps)(NotificationContainer);
 
 export default connected;

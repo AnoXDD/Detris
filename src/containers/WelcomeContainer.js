@@ -17,13 +17,13 @@ class WelcomeContainer extends Component {
         <div className="welcome-title">Detris</div>
         <div className="btns play-btns">
           <div className="btns">
-            <Button onClick={Actions.showSelectLevel}
+            <Button onClick={this.props.onPlay}
                     text="play"
                     className="accent"
             >play_arrow</Button>
           </div>
           <div className="btns">
-            <Button onClick={Actions.showGridEditorUi}
+            <Button onClick={this.props.onEdit}
                     text="level editor"
                     className="border"
             >edit</Button>
@@ -31,13 +31,13 @@ class WelcomeContainer extends Component {
         </div>
         <div className="btns other-btns">
           <Button
-            onClick={Actions.showDialogForStartTutorial}>
+            onClick={this.props.onHelp}>
             help
           </Button>
-          <Button onClick={Actions.showSettingsUi}>
+          <Button onClick={this.props.onSettings}>
             settings
           </Button>
-          <Button onClick={Actions.showCreditUi}>
+          <Button onClick={this.props.onInfo}>
             info
           </Button>
         </div>
@@ -46,12 +46,32 @@ class WelcomeContainer extends Component {
   }
 }
 
-function calculateProps(state, ownProps) {
+function stateToProps(state, ownProps) {
   return {
     gameState: state.game,
   };
 }
 
-const connected = connect(calculateProps)(WelcomeContainer);
+function stateToDispatch(dispatch) {
+  return {
+    onPlay    : () => {
+      dispatch(Actions.showSelectLevel)
+    },
+    onEdit    : () => {
+      dispatch(Actions.showGridEditorUi);
+    },
+    onHelp    : () => {
+      dispatch(Actions.showDialogForStartTutorial);
+    },
+    onSettings: () => {
+      dispatch(Actions.showSettingsUi);
+    },
+    onInfo    : () => {
+      dispatch(Actions.showCreditUi);
+    }
+  };
+}
+
+const connected = connect(stateToProps, stateToDispatch)(WelcomeContainer);
 
 export default connected;

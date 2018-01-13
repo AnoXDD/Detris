@@ -20,7 +20,7 @@ class LevelContainer extends Component {
   }
 }
 
-function calculateProps(state, ownProps) {
+function stateToProps(state, ownProps) {
   return {
     gameState : state.game,
     levelState: {
@@ -32,6 +32,6 @@ function calculateProps(state, ownProps) {
   };
 }
 
-const connected = connect(calculateProps)(LevelContainer);
+const connected = connect(stateToProps)(LevelContainer);
 
 export default connected;

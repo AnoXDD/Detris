@@ -29,7 +29,7 @@ class GridContainer extends Component {
   }
 }
 
-function calculateProps(state, ownProps) {
+function stateToProps(state, ownProps) {
   let grid = null;
   let isShowingLevelEditor = state.game.isShowingLevelEditor();
   if (isShowingLevelEditor) {
@@ -63,6 +63,6 @@ function calculateProps(state, ownProps) {
   };
 }
 
-const connected = connect(calculateProps)(GridContainer);
+const connected = connect(stateToProps)(GridContainer);
 
 export default connected;
