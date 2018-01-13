@@ -6,6 +6,7 @@ import React, {Component} from "react";
 import Button from "../../lib/Button";
 import Actions from "../../data/Actions";
 import FullscreenOverlayView from "./FullscreenOverlayView";
+import store from "../../store/store";
 
 export default class PauseMenuView extends Component {
   render() {
@@ -22,7 +23,7 @@ export default class PauseMenuView extends Component {
             onClick={this.props.onRestart}
           >replay</Button>
           <Button
-            onClick={Actions.showSettingsUi}
+            onClick={() => store.dispatch(Actions.showSettingsUi)}
           >settings</Button>
         </div>
         <div className="btns">

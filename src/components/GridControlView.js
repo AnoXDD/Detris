@@ -8,6 +8,7 @@ import Toggle from "../lib/Toggle";
 import Direction from "../enum/Direction";
 import Actions from "../data/Actions";
 import ControlTypes from "../enum/ControlTypes";
+import store from "../store/store";
 
 export default class GridControlView extends Component {
 
@@ -64,8 +65,9 @@ export default class GridControlView extends Component {
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
-  //   return this.props.update || this.props.isEditingBlock !== nextProps.isEditingBlock || this.props.isShowingLevelEditor !== nextProps.isShowingLevelEditor;
-  // }
+  //   return this.props.update || this.props.isEditingBlock !==
+  // nextProps.isEditingBlock || this.props.isShowingLevelEditor !==
+  // nextProps.isShowingLevelEditor; }
 
   render() {
     let hidden = controlType => this.props.enabled.indexOf(controlType) === -1;
@@ -150,14 +152,14 @@ export default class GridControlView extends Component {
                 hidden={hidden(ControlTypes.CONTROL_BLOCK_SELECTOR)}
                 className="grid-cell-btn narrow"
                 key={block}
-                onClick={() => Actions.setBlockType(block)}
+                onClick={() => store.dispatch(Actions.setBlockType(block))}
                 text={<span className={`grid-cell demo ${block}`}/>}/>
             ) : null}
           </div>
           <Button
             hidden={hidden(ControlTypes.CONTROL_DONE)}
             className={`accent wider ${this.state.pressed === ControlTypes.DONE ? "grid-control-animation" : ""}`}
-            onClick={() => this.handleClick(ControlTypes.CONTROL_DONE)}
+            onClick={() => store.dispatch(this.handleClick(ControlTypes.CONTROL_DONE))}
           >
             done
           </Button>

@@ -8,6 +8,7 @@ import FullscreenOverlayView from "./FullscreenOverlayView";
 import TutorialText from "../../enum/TutorialText";
 import Actions from "../../data/Actions";
 import TutorialProgress from "../../enum/TutorialProgress";
+import store from "../../store/store";
 
 export default class TutorialGuideView extends Component {
 
@@ -26,16 +27,15 @@ export default class TutorialGuideView extends Component {
         <div className="btns">
           {progress !== TutorialProgress.BEGIN ?
             <Button
-              onClick={Actions.previousTutorial}
+              onClick={() => store.dispatch(Actions.previousTutorial)}
             >skip_previous</Button> : null}
           <Button
-            // text="dismiss"
             className="blue"
             onClick={this.props.onDismiss}
           >play_arrow</Button>
           {progress !== TutorialProgress.BEGIN && progress !== TutorialProgress.END ?
             <Button
-              onClick={Actions.nextTutorial}
+              onClick={() => store.dispatch(Actions.nextTutorial)}
             >skip_next</Button> : null}
         </div>
       </FullscreenOverlayView>

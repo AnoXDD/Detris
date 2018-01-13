@@ -6,22 +6,23 @@ import React, {Component} from "react";
 import Button from "../../lib/Button";
 import Actions from "../../data/Actions";
 import FullscreenOverlayView from "./FullscreenOverlayView";
+import store from "../../store/store";
 
 export default class EndGameView extends Component {
 
   onBack() {
-    Actions.hideAllFullscreenOverlay();
-    Actions.showSelectLevel();
+    store.dispatch(Actions.hideAllFullscreenOverlay());
+    store.dispatch(Actions.showSelectLevel());
   }
 
   onRestart() {
-    Actions.hideAllFullscreenOverlay();
-    Actions.restartCurrentLevel();
+    store.dispatch(Actions.hideAllFullscreenOverlay());
+    store.dispatch(Actions.restartCurrentLevel());
   }
 
   onNextLevel() {
-    Actions.hideAllFullscreenOverlay();
-    Actions.nextLevel();
+    store.dispatch(Actions.hideAllFullscreenOverlay());
+    store.dispatch(Actions.nextLevel());
   }
 
   render() {

@@ -7,6 +7,7 @@ import Button from "../lib/Button";
 import {CSSTransitionGroup} from "react-transition-group";
 import TopBarType from "../enum/TopBarTypes";
 import Actions from "../data/Actions";
+import store from "../store/store";
 
 export default class TopBarView extends Component {
 
@@ -31,7 +32,7 @@ export default class TopBarView extends Component {
         case TopBarType.TOP_IMPORT_EXPORT:
           return (
             <Button key="import"
-                    onClick={Actions.showLevelEditorImportExport}
+                    onClick={() => store.dispatch(Actions.showLevelEditorImportExport)}
                     className="right"
             >save</Button>
           );

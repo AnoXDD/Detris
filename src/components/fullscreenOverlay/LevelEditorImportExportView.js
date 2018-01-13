@@ -6,6 +6,7 @@ import React, {Component} from "react";
 import Button from "../../lib/Button";
 import Actions from "../../data/Actions";
 import FullscreenOverlayView from "./FullscreenOverlayView";
+import store from "../../store/store";
 
 export default class LevelEditorImportExportView extends Component {
 
@@ -20,20 +21,20 @@ export default class LevelEditorImportExportView extends Component {
 
   handleCopy() {
     if (!this.refCopy) {
-      Actions.displayError(
-        "The data is not copied. Try to move some blocks around and try again.");
+      store.dispatch(Actions.displayError(
+        "The data is not copied. Try to move some blocks around and try again."));
       return;
     }
 
     this.refCopy.select();
     document.execCommand("copy");
-    Actions.displaySuccess("Copied to clipboard");
+    store.dispatch(Actions.displaySuccess("Copied to clipboard"));
   }
 
   render() {
     return (
       <FullscreenOverlayView
-        onBackgroundClick={Actions.hideLevelEditorImportExport}
+        onBackgroundClick={() => store.dispatch(Actions.hideLevelEditorImportExport)}
         title="import/export"
       >
         <input
@@ -54,7 +55,7 @@ export default class LevelEditorImportExportView extends Component {
         <div className="btns">
           <Button
             text="resume"
-            onClick={Actions.hideLevelEditorImportExport}
+            onClick={() => store.dispatch(Actions.hideLevelEditorImportExport)}
           >play_arrow</Button>
         </div>
       </FullscreenOverlayView>
