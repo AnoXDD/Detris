@@ -53,7 +53,7 @@ export default class QueueView extends Component {
                     transitionEnterTimeout={500}
                     transitionLeaveTimeout={500}
                   >
-                    {this.props.queue.reverse().map((detromino, i) =>
+                    {[...this.props.queue].reverse().map((detromino, i) =>
                       i > 0 ?
                         <div key={size - i} className="detromino-view-wrapper">
                           <DetrominoView type={detromino}/>

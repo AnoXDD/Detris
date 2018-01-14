@@ -68,7 +68,6 @@ function stateToProps(state, ownProps) {
     case PanelType.LEVEL_EDITOR:
       let levelEditorPanel = state.levelEditorPanel.present;
 
-
       grid = levelEditorPanel.get("grid").get("grid").valueSeq().toArray();
       editorState = levelEditorPanel.get("editorState").toJS();
       queue = levelEditorPanel.get("queue").toArray();
@@ -111,7 +110,6 @@ function dispatchToProps(dispatch) {
 
 const connected = connect(stateToProps,
   dispatchToProps,
-  mergePropsFromKey("control"))
-(PanelContainer);
+  mergePropsFromKey("control"))(PanelContainer);
 
 export default connected;
