@@ -261,14 +261,6 @@ function setCurrentBlock(state, action) {
     gridState));
 }
 
-function redo(state) {
-  // return state.get("history").redo() || state;
-}
-
-function undo(state) {
-  // return state.get("history").undo() || state;
-}
-
 /**
  * A wrapper for calling the base class' syncData
  * @param state
@@ -342,10 +334,6 @@ export default function reduce(state = reset(), action) {
       return moveEditingBlock(state, Direction.UP);
     case ActionTypes.EDITOR_BLOCK_MOVE_DOWN:
       return moveEditingBlock(state, Direction.DOWN);
-    case ActionTypes.UNDO_IN_EDITOR:
-      return undo(state);
-    case ActionTypes.REDO_IN_EDITOR:
-      return redo(state);
     default:
       return state;
   }

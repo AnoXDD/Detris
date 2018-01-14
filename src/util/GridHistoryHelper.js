@@ -1,7 +1,7 @@
 /**
  * Created by Anoxic on 1/10/2018.
  *
- * A helper file to determine the state of history in grid store
+ * A helper file to determine the state of history
  */
 
 import store from "../store/store";

@@ -151,16 +151,6 @@ function sinkTargetBlocks(state) {
   return state.set("grid", grid);
 }
 
-function redo(state) {
-  return state;
-  // return state.get("history").redo() || state;
-}
-
-function undo(state) {
-  return state;
-  // return state.get("history").undo() || state;
-}
-
 function setTutorialGrid(state, progress) {
   let emptyState = reset();
   let baseGrid = null;
@@ -257,10 +247,6 @@ function applyGrid(state, action) {
       return applyDetrominoBlocks(state);
     case ActionTypes.SINK_TARGET_BLOCKS:
       return sinkTargetBlocks(state);
-    case ActionTypes.UNDO_IN_GAME:
-      return undo(state);
-    case ActionTypes.REDO_IN_GAME:
-      return redo(state);
     case ActionTypes.SET_TUTORIAL_PROGRESS:
       return setTutorialGrid(state, action.progress);
     default:

@@ -40,16 +40,6 @@ function push(state, type) {
   return state.push(type);
 }
 
-function redo(state) {
-  return state;
-  // return state.get("history").redo() || state;
-}
-
-function undo(state) {
-  return state;
-//  return state.get("history").undo() || state;
-}
-
 function applyData(action) {
   // let {levelDataUnit} = action;
   // return levelDataUnit.get("queue");
@@ -66,12 +56,6 @@ export function reduceQueue(state = getInitialState(), action) {
     case ActionTypes.NEXT_DETROMINO_IN_EDITOR:
     case ActionTypes.ADD_DETROMINO_TO_QUEUE:
       return push(state, action.detrominoType);
-    case ActionTypes.REDO_IN_EDITOR:
-    case ActionTypes.REDO_IN_GAME:
-      return redo(state);
-    case ActionTypes.UNDO_IN_EDITOR:
-    case ActionTypes.UNDO_IN_GAME:
-      return undo(state);
     case ActionTypes.SET_TUTORIAL_PROGRESS:
       switch (action.progress) {
         case TutorialProgress.TUTORIAL_INTRO:

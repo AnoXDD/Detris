@@ -1,7 +1,7 @@
 /**
  * Created by Anoxic on 11/26/2017.
  *
- * A store to store the grid (and history) during a game
+ * A store to store the grid during a game
  */
 
 import Immutable from "immutable";
