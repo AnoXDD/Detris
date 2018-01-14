@@ -362,14 +362,15 @@ html, body, #root {
 .control {
   display: grid;
   flex-wrap: wrap;
-  margin: 0 auto;
-  width: 320px;
+  box-sizing: border-box;
+  padding: 0 20px;
+  width: 100vw;
   height: 200px;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(2, $button-width) auto repeat(3, $button-width);
   grid-template-rows: repeat(3, 1fr);
   justify-items: center;
   align-items: center;
-  grid-template-areas: "grid-toggle prev-detromino block-selector block-selector block-selector" "rotate next-detromino undo up redo" "done done left down right";
+  grid-template-areas: "grid-toggle prev-detromino block-selector block-selector block-selector block-selector" "rotate next-detromino . undo up redo" "done done . left down right";
 
   $areas: (grid-toggle, rotate, prev-detromino, next-detromino, undo, redo, up, left, right, down, done, block-selector);
 
