@@ -415,11 +415,6 @@ const Actions = {
    */
   moveDetrominoInTutorial(direction) {
     return Actions.moveDetrominoInGame(direction);
-
-    // todo use componentWillReceiveProps for this in TutorialGrid
-    // if
-    // (TutorialHelper.isDetrominoReachedHighlightArea(store.getState().gameGrid))
-    // { return Actions.nextTutorial(); }
   },
 
   moveDetrominoInGame(direction) {
@@ -556,11 +551,6 @@ const Actions = {
    */
   rotateInTutorial() {
     return Actions.rotate();
-
-    // todo use componentWillReceiveProps in TutorialGrid
-    // if
-    // (TutorialHelper.isDetrominoReachedHighlightArea(GameGridStore.getState()))
-    // { return Actions.nextTutorial(); }
   },
 
   // Remove the current detromino block from the grid

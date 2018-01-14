@@ -218,6 +218,8 @@ function _syncData(state,
 
 export default function reduce(state = getInitialState(), action) {
   switch (action.type) {
+    case ActionTypes.RESET_GRID:
+      return reset();
     case ActionTypes.APPLY_DATA:
       return applyData(action);
     case ActionTypes.START_LEVEL:
