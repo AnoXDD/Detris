@@ -649,7 +649,7 @@ html, body, #root {
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
-  width: 250px;
+  width: 320px;
   height: 200px; }
   .control .rotate-wrapper, .control .shape-cycle-wrapper {
     flex-grow: 1;
@@ -667,6 +667,8 @@ html, body, #root {
   .control .control-inner-wrapper {
     display: flex;
     flex-direction: row; }
+    .control .control-inner-wrapper.column {
+      flex-direction: column; }
     .control .control-inner-wrapper .control-arrow-row {
       flex-direction: column;
       justify-content: flex-end;

@@ -363,7 +363,7 @@ html, body, #root {
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
-  width: 250px;
+  width: 320px;
   height: 200px;
 
   .rotate-wrapper, .shape-cycle-wrapper {
@@ -390,6 +390,10 @@ html, body, #root {
   .control-inner-wrapper {
     display: flex;
     flex-direction: row;
+
+    &.column {
+      flex-direction: column;
+    }
 
     .control-arrow-row {
       flex-direction: column;

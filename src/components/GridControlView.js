@@ -75,7 +75,7 @@ export default class GridControlView extends Component {
     return (
       <div className="control">
         <div className="rotate-wrapper flex-center">
-          <div className="flex-inner-extend control-inner-wrapper flex-center">
+          <div className="flex-inner-extend control-inner-wrapper column flex-center">
             <Toggle
               hidden={hidden(ControlTypes.CONTROL_TOGGLE_EDIT)}
               firstIcon="grid_on"
@@ -94,7 +94,7 @@ export default class GridControlView extends Component {
           className={`shape-cycle-wrapper flex-center ${hidden(ControlTypes.CONTROL_PREV_DETROMINO) && hidden(
             ControlTypes.CONTROL_NEXT_DETROMINO) ? "hidden" : ""}`}>
           <div
-            className="flex-inner-extend control-inner-wrapper flex-center">
+            className="flex-inner-extend control-inner-wrapper column flex-center">
             <Button
               hidden={hidden(ControlTypes.CONTROL_PREV_DETROMINO)}
               onClick={() => this.handleClick(ControlTypes.CONTROL_PREV_DETROMINO)}>arrow_drop_up</Button>
