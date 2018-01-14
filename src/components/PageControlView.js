@@ -5,7 +5,7 @@
 import React, {Component} from "react";
 import Button from "../lib/Button";
 
-import LevelViewData from "../data/game/static/LevelViewData";
+import LevelViewData from "../data/static/LevelViewData";
 
 const PAGE_SIZE = LevelViewData.views().size;
 

@@ -5,8 +5,8 @@
  */
 
 import Immutable from "immutable";
-import LevelDataUnit from "../level/LevelDataUnit";
-import LevelDataUnitTokenizer from "../../../tokenizer/LevelDataUnitTokenizer";
+import LevelDataUnit from "../../state/LevelDataUnit";
+import LevelDataUnitTokenizer from "../../tokenizer/LevelDataUnitTokenizer";
 
 const FIRST_LEVEL_ID = "1";
 
@@ -38,7 +38,7 @@ const LevelData = {
     return LevelDataUnitTokenizer.tokenizeLevelDataUnit(rawData);
   },
 
-  firstLevel() {
+  firstLevelId() {
     return FIRST_LEVEL_ID;
   }
 };

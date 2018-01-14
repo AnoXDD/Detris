@@ -30,7 +30,7 @@ export default class LevelView extends Component {
             return (<div key={level.id}
                          className={`level-view-unit-wrapper ${isCompleted ? "completed" : ""}`}>
               <TitleBoxView
-                onClick={() => this.props.startNewLevel(level.levelNumber)}
+                onClick={() => this.props.startNewLevelById(level.id)}
               >
                 <div
                   className="level-view-unit">

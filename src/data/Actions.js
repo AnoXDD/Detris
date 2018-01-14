@@ -7,10 +7,10 @@
 import ActionTypes from "../enum/ActionTypes";
 import Algorithm from "../util/Algorithm";
 import Direction from "../enum/Direction";
-import LevelData from "./game/static/LevelData";
+import LevelData from "./static/LevelData";
 import GameUiState from "../enum/GameUiState";
 import OverlayType from "../enum/OverlayTypes";
-import LevelViewData from "./game/static/LevelViewData";
+import LevelViewData from "./static/LevelViewData";
 import TutorialProgress from "../enum/TutorialProgress";
 import {
   createBatchActions,
@@ -181,7 +181,7 @@ const Actions = {
       return createBatchActions(
         Actions.setTutorialCompleted(),
         Actions.hideTutorialGuide(),
-        Actions.startNewLevel()
+        Actions.startNewLevelById()
       );
     }
   },
@@ -300,7 +300,7 @@ const Actions = {
 
 // endregion
 
-  startNewLevel(currentLevelId = LevelData.firstLevel()) {
+  startNewLevelById(currentLevelId = LevelData.firstLevelId()) {
     return createBatchActions(
       createSpecialAction({
         type: ActionTypes.START_LEVEL,
@@ -311,13 +311,13 @@ const Actions = {
   },
 
   restartCurrentLevel() {
-    return Actions.startNewLevel(store.getState().level.get("currentLevelId"));
+    return Actions.startNewLevelById(store.getState().level.get("currentLevelId"));
   },
 
   nextLevel() {
     let currentLevelId = store.getState().level.get("currentLevelId");
-    let nextLevelId = LevelViewData.nextLevel(currentLevelId);
-    return Actions.startNewLevel(nextLevelId);
+    let nextLevelId = LevelViewData.nextLevelId(currentLevelId);
+    return Actions.startNewLevelById(nextLevelId);
   },
 
   /**

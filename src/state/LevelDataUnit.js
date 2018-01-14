@@ -1,14 +1,14 @@
 /**
  * Created by Anoxic on 10/25/2017.
  *
- * A class to pack info about a level
+ * A class to pack info about a general level data
  */
 
 import Immutable from "immutable";
 
-import Queue from "../../../state/Queue";
-import Grid from "../../../state/BaseGrid";
-import GridSize from "../../../enum/GridSize";
+import Queue from "./Queue";
+import Grid from "./BaseGrid";
+import GridSize from "../enum/GridSize";
 
 const LevelDataUnitRecord = Immutable.Record({
   width : GridSize.WIDTH,

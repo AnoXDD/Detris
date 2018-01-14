@@ -6,13 +6,13 @@
  */
 
 import Immutable from "immutable";
-import LevelViewData from "../static/LevelViewData";
+import LevelViewData from "../data/static/LevelViewData";
 
 const DEFAULT_PAGE = 0;
 
 const LevelStateRecord = Immutable.Record({
   currentLevelId: -1,
-  // Keep `view` synced with `currentPage`
+  // !! Keep `view` synced with `currentPage`
   currentPage   : DEFAULT_PAGE,
   // LevelViewData.components().get(this.currentPage)
   view          : LevelViewData.views().get(DEFAULT_PAGE),
@@ -20,7 +20,7 @@ const LevelStateRecord = Immutable.Record({
   isFirstPage: true,
   isLastPage : false,
 
-  // Map<id {String}, CompletedLevel>
+  // Map<id {String}, LevelCompletion>
   completedLevels: Immutable.Map(),
   // If the user has ever used "undo"
   noUndo         : true,

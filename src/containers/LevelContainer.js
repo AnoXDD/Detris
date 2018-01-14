@@ -31,14 +31,14 @@ function stateToProps(state, ownProps) {
 
 function dispatchToProps(dispatch) {
   return {
-    prevPage     : () => {
+    prevPage         : () => {
       dispatch(Actions.levelPagePrev());
     },
-    nextPage     : () => {
+    nextPage         : () => {
       dispatch(Actions.levelPageNext());
     },
-    startNewLevel: () => {
-      dispatch(Actions.startNewLevel());
+    startNewLevelById: () => {
+      dispatch(Actions.startNewLevelById());
     },
   };
 }

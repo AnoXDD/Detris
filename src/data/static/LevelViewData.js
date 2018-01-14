@@ -5,7 +5,7 @@
  */
 
 import Immutable from "immutable";
-import LevelViewUnit from "../../../components/LevelViewUnit";
+import LevelViewUnit from "../../state/LevelViewUnit";
 
 const LEVEL_PER_PAGE = 12;
 
@@ -22,7 +22,7 @@ const LevelPage = Immutable.Record({
  */
 
   // The array should be sorted by levelNumber. If it has to be changed, also
-  // change the algorithm to find nextLevel in the class at the bottom of the
+  // change the algorithm to find nextLevelId in the class at the bottom of the
   // file
 const LevelViewUnits = [
     new LevelViewUnit({levelNumber: 1, id: 1}),
@@ -73,7 +73,7 @@ const LevelViewData = {
    * (e.g. the end), return null
    * @param {Number} currentLevelId
    */
-  nextLevel(currentLevelId) {
+  nextLevelId(currentLevelId) {
     let currentIndex = LevelViewUnits.findIndex(
       u => u.get("id") === currentLevelId);
 

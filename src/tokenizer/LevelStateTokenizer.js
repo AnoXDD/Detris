@@ -5,9 +5,9 @@
 import Immutable from "immutable";
 
 import GeneralTokenizer from "./GeneralTokenizer";
-import LevelViewData from "../data/game/static/LevelViewData";
-import CompletedLevel from "../data/game/level/CompletedLevel";
-import LevelState from "../data/game/level/LevelState";
+import LevelViewData from "../data/static/LevelViewData";
+import CompletedLevel from "../state/LevelCompletion";
+import LevelState from "../state/Level";
 
 export default class LevelStateTokenizer {
   static tokenizeLevelState(str) {
@@ -29,7 +29,7 @@ export default class LevelStateTokenizer {
 
   /**
    * Detokenizes level state (throwing away `view` because it's synced with
-   * `currentPage` - see LevelState.js for more detail)
+   * `currentPage` - see Level.js for more detail)
    * @param {Immutable.Map|LevelState} levelState
    */
   static detokenizeLevelState(levelState) {

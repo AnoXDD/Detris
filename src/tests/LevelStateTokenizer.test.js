@@ -4,9 +4,9 @@
 
 import Immutable from "immutable";
 
-import LevelState from "../data/game/level/LevelState";
-import LevelViewData from "../data/game/static/LevelViewData";
-import CompletedLevel from "../data/game/level/CompletedLevel";
+import LevelState from "../state/Level";
+import LevelViewData from "../data/static/LevelViewData";
+import CompletedLevel from "../state/LevelCompletion";
 import LevelStateTokenizer from "../tokenizer/LevelStateTokenizer";
 
 test("LevelState", () => {

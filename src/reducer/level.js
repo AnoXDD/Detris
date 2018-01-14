@@ -5,11 +5,11 @@
  * level data and available data to be selected (from view)
  */
 
-import LevelViewData from "../data/game/static/LevelViewData";
+import LevelViewData from "../data/static/LevelViewData";
 import ActionTypes from "../enum/ActionTypes";
 import EndGameManager from "../util/EndGameHelper";
-import CompletedLevel from "../data/game/level/CompletedLevel";
-import LevelState from "../data/game/level/LevelState";
+import CompletedLevel from "../state/LevelCompletion";
+import LevelState from "../state/Level";
 
 function nextPage(state) {
   if (state.get("isLastPage")) {

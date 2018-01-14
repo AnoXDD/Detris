@@ -9,7 +9,7 @@ import BlockType from "../enum/BlockType";
 import Grid from "./BaseGrid";
 import DetrominoIterator from "../util/DetrominoIterator";
 import History from "../data/History";
-import LevelDataUnit from "../data/game/level/LevelDataUnit";
+import LevelDataUnit from "./LevelDataUnit";
 import Algorithm from "../util/Algorithm";
 
 const LevelEditorState = Immutable.Record({

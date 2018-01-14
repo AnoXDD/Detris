@@ -5,7 +5,7 @@
 import Immutable from "immutable";
 
 import GeneralTokenizer from "./GeneralTokenizer";
-import LevelDataUnit from "../data/game/level/LevelDataUnit";
+import LevelDataUnit from "../state/LevelDataUnit";
 import QueueTokenizer from "./QueueTokenizer";
 import GridTokenizer from "./GridTokenizer";
 import DetrominoTokenizer from "./DetrominoTokenizer";

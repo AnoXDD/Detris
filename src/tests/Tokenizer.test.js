@@ -14,7 +14,7 @@ import Rotation from "../enum/Rotation";
 import Detromino from "../state/Detromino";
 import Grid from "../state/BaseGrid";
 import Queue from "../state/Queue";
-import LevelDataUnit from "../data/game/level/LevelDataUnit";
+import LevelDataUnit from "../state/LevelDataUnit";
 import GeneralTokenizer from "../tokenizer/GeneralTokenizer";
 import BlockTokenizer from "../tokenizer/BlockTokenizer";
 import DetrominoTokenizer from "../tokenizer/DetrominoTokenizer";
