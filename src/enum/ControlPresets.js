@@ -90,11 +90,13 @@ const ControlPresets = {
 
   ARROW_AND_ROTATE_ONLY: new ControlState({
     move   : Actions.moveDetrominoInTutorial,
+    rotate : Actions.rotateInTutorial,
     enabled: Immutable.Set([
       ControlTypes.CONTROL_UP,
       ControlTypes.CONTROL_DOWN,
       ControlTypes.CONTROL_LEFT,
       ControlTypes.CONTROL_RIGHT,
+      ControlTypes.CONTROL_ROTATE,
     ]),
   }),
 
