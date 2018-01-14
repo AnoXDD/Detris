@@ -6,7 +6,7 @@
  */
 
 import Immutable from "immutable";
-import LevelViewData from "../data/static/LevelViewData";
+import LevelViewData from "../static/LevelViewData";
 
 const DEFAULT_PAGE = 0;
 

@@ -10,7 +10,7 @@ import Rotation from "../enum/Rotation";
 import GridSize from "../enum/GridSize";
 import BlockType from "../enum/BlockType";
 import ActionTypes from "../enum/ActionTypes";
-import LocalStorageLoader from "../data/storeListener/LocalStorageLoader";
+import LocalStorageLoader from "../store/LocalStorageLoader";
 import Detromino from "../state/Detromino";
 import DetrominoType from "../enum/DetrominoType";
 import BaseGridHelper from "../util/BaseGridHelper";

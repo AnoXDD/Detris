@@ -4,7 +4,7 @@ import registerServiceWorker from "./registerServiceWorker";
 import {Provider} from "react-redux";
 
 // Global js
-import "./data/storeListener/LocalStorageSaver";
+import "./store/LocalStorageSaver";
 import "./data/DispatchRegister";
 import "./App.css";
 

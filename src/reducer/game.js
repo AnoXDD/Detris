@@ -4,7 +4,7 @@
  */
 
 import Immutable from "immutable";
-import LocalStorageLoader from "../data/storeListener/LocalStorageLoader";
+import LocalStorageLoader from "../store/LocalStorageLoader";
 
 import ActionTypes from "../enum/ActionTypes";
 import GameUiState from "../enum/GameUiState";

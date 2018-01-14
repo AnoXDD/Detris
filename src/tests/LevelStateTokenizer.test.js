@@ -5,7 +5,7 @@
 import Immutable from "immutable";
 
 import LevelState from "../state/Level";
-import LevelViewData from "../data/static/LevelViewData";
+import LevelViewData from "../static/LevelViewData";
 import CompletedLevel from "../state/LevelCompletion";
 import LevelStateTokenizer from "../tokenizer/LevelStateTokenizer";
 

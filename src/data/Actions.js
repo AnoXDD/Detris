@@ -7,10 +7,10 @@
 import ActionTypes from "../enum/ActionTypes";
 import Algorithm from "../util/Algorithm";
 import Direction from "../enum/Direction";
-import LevelData from "./static/LevelData";
+import LevelData from "../static/LevelData";
 import GameUiState from "../enum/GameUiState";
 import OverlayType from "../enum/OverlayTypes";
-import LevelViewData from "./static/LevelViewData";
+import LevelViewData from "../static/LevelViewData";
 import TutorialProgress from "../enum/TutorialProgress";
 import {
   createBatchActions,
