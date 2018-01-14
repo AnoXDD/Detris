@@ -7,7 +7,7 @@
 import Immutable from "immutable";
 import BaseGrid from "./BaseGrid";
 
-const GameGridRecord = Immutable.Record({
+const GamePanelRecord = Immutable.Record({
   grid   : new BaseGrid(),
   queue  : Immutable.List(),
 
@@ -15,10 +15,10 @@ const GameGridRecord = Immutable.Record({
   busy: false,
 });
 
-class GameGrid extends GameGridRecord {
+class GamePanel extends GamePanelRecord {
   isEmpty() {
     return this.get("grid").isEmpty();
   }
 }
 
-export default GameGrid;
+export default GamePanel;

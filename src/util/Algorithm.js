@@ -132,7 +132,7 @@ const Algorithm = {
 
   /**
    * Sinks target blocks in a 2d matrix
-   * @param {GameGrid} grid
+   * @param {GamePanel} grid
    */
   sinkTargetBlocks(grid) {
     let matrix = gridMapToArray(grid);
@@ -342,9 +342,9 @@ const Algorithm = {
    * @return {Block} a valid editing block. `null` if no valid block
    */
   getInitialValidEditableBlock(state) {
-    let detromino = state.get("data").get("detromino");
+    let detromino = state.get("grid").get("detromino");
     let initialX = detromino.get("x");
-    let matrix = state.get("data").get("matrix");
+    let matrix = state.get("grid").get("matrix");
     let width = detromino.width();
 
     for (let x = initialX; x < initialX + width; ++x) {

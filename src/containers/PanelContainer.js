@@ -68,14 +68,14 @@ function stateToProps(state, ownProps) {
     case PanelType.LEVEL_EDITOR:
       let {levelEditorGrid} = state;
 
-      grid = levelEditorGrid.get("data").get("grid").valueSeq().toArray();
+      grid = levelEditorGrid.get("grid").get("grid").valueSeq().toArray();
       editorState = levelEditorGrid.get("editorState").toJS();
       break;
 
     case PanelType.IN_GAME:
     case PanelType.TUTORIAL:
-      grid = state.gameGrid.present.get("grid").get("grid").valueSeq().toArray();
-      queue = state.gameGrid.present.get("queue").toArray();
+      grid = state.gamePanel.present.get("grid").get("grid").valueSeq().toArray();
+      queue = state.gamePanel.present.get("queue").toArray();
       break;
     default:
 
@@ -86,7 +86,7 @@ function stateToProps(state, ownProps) {
     grid,
     editorState,
     queue,
-    busy   : state.gameGrid.present.get("busy"),
+    busy   : state.gamePanel.present.get("busy"),
     control: state.control.toJS(),
   };
 }

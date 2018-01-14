@@ -11,14 +11,14 @@ const GridHistoryHelper = {
    * Returns if the grid can be undone in the actual game
    */
   canUndoInGame() {
-    return true || !store.getState().gameGrid.get("history").isPastChangesEmpty();
+    return true || !store.getState().gamePanel.get("history").isPastChangesEmpty();
   },
 
   /**
    * See comments in canUndoInGame
    */
   canRedoInGame() {
-    return true || !store.getState().gameGrid.get("history").isFutureChangesEmpty();
+    return true || !store.getState().gamePanel.get("history").isFutureChangesEmpty();
   },
 };
 

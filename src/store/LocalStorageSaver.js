@@ -5,7 +5,7 @@
  */
 
 import QueueStore from "../reducer/queue";
-import GameGridStore from "../reducer/gameGrid";
+import GamePanelStore from "../reducer/gamePanel";
 import GameStateStore from "../reducer/game";
 
 function onQueueStoreChanged() {
@@ -15,7 +15,7 @@ function onQueueStoreChanged() {
 }
 
 function onGridStoreChanged() {
-  // let store = GameGridStore.getState();
+  // let store = GamePanelStore.getState();
   //
   // localStorage["grid"] = Grid.toCompressed(store);
 }
@@ -27,5 +27,5 @@ function onGameStateChanged() {
 }
 
 // QueueStore.addListener(onQueueStoreChanged);
-// GameGridStore.addListener(onGridStoreChanged);
+// GamePanelStore.addListener(onGridStoreChanged);
 // GameStateStore.addListener(onGameStateChanged);

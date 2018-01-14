@@ -44,7 +44,7 @@ function toMatrix(s) {
  * string represents a row
  * @param {grid} grid
  */
-function gameGridToMatrixString(grid) {
+function gamePanelToMatrixString(grid) {
   return Algorithm.convertGridToArray(grid)
     .map(r => r.map(b => b ? (typeToChar[b.get("type")] || "0") : "0").join(""))
     .join("\n");
@@ -802,8 +802,8 @@ describe("Test sinkTargetBlocks", () => {
   }
 
   const f = (before, after) => {
-    let gameGrid = toGrid(before);
-    let result = gameGridToMatrixString(Algorithm.sinkTargetBlocks(gameGrid));
+    let gamePanel = toGrid(before);
+    let result = gamePanelToMatrixString(Algorithm.sinkTargetBlocks(gamePanel));
     expect(result).toBe(after.trim());
   };
 
@@ -1373,8 +1373,8 @@ describe("Test applyDetrominoBlocks (original only)", () => {
   }
 
   const f = (before, after) => {
-    let gameGrid = toGrid(before);
-    let result = gameGridToMatrixString(Algorithm.applyDetrominoBlocks(gameGrid));
+    let gamePanel = toGrid(before);
+    let result = gamePanelToMatrixString(Algorithm.applyDetrominoBlocks(gamePanel));
     expect(result).toBe(after.trim());
   };
 

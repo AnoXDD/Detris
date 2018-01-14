@@ -14,14 +14,14 @@ import LocalStorageLoader from "../store/LocalStorageLoader";
 import Detromino from "../state/Detromino";
 import DetrominoType from "../enum/DetrominoType";
 import BaseGridHelper from "../util/BaseGridHelper";
-import GameGrid from "../state/GameGrid";
+import GamePanel from "../state/GamePanel";
 import TutorialProgress from "../enum/TutorialProgress";
 import TutorialGrid from "../state/TutorialGrid";
 import {reduceQueue} from "./queue";
 
 
 function reset() {
-  return new GameGrid();
+  return new GamePanel();
 }
 
 function getInitialState() {
@@ -35,7 +35,7 @@ function getInitialState() {
 
 function applyData(action) {
   let {levelDataUnit} = action;
-  return new GameGrid({
+  return new GamePanel({
     grid : BaseGridHelper.syncData(levelDataUnit.get("grid")),
     queue: levelDataUnit.get("queue"),
   });

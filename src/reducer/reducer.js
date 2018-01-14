@@ -9,7 +9,7 @@ import undoable, {includeAction} from "redux-undo";
 
 import control from "./control";
 import game from "./game";
-import gameGrid from "./gameGrid";
+import gamePanel from "./gamePanel";
 import level from "./level";
 import levelEditorGrid from "./levelEditorGrid";
 import notification from "./notification";
@@ -26,7 +26,7 @@ const undoableConfig = {
 export default combineReducers({
   control,
   game,
-  gameGrid: undoable(gameGrid, undoableConfig),
+  gamePanel: undoable(gamePanel, undoableConfig),
   level,
   levelEditorGrid,
   notification,

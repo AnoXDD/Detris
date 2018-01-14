@@ -6,7 +6,7 @@
 
 import Immutable from "immutable";
 import BlockType from "../enum/BlockType";
-import Grid from "./BaseGrid";
+import BaseGrid from "./BaseGrid";
 import DetrominoIterator from "../util/DetrominoIterator";
 import LevelDataUnit from "./LevelDataUnit";
 import Algorithm from "../util/Algorithm";
@@ -24,11 +24,12 @@ const LevelEditorState = Immutable.Record({
 });
 
 const LevelEditorGridRecord = Immutable.Record({
-  editorState     : new LevelEditorState(),
-  data            : new Grid(),
-  // A set of ID's of blocks whose types are detromino targets
-  detrominoTargets: Immutable.Set(),
+  editorState: new LevelEditorState(),
+  grid       : new BaseGrid(),
+  queue      : Immutable.List(),
 
+  // A set of ID's of blocks whose types are detromino targets
+  detrominoTargets : Immutable.Set(),
   // The index of detromino block, should be positive numbers because 0 index
   // is DEFAULT
   detrominoIterator: new DetrominoIterator(),
@@ -43,7 +44,7 @@ const LevelEditorGridRecord = Immutable.Record({
 
 export default class LevelEditorGrid extends LevelEditorGridRecord {
   grid() {
-    return this.get("data");
+    return this.get("grid");
   }
 
   editorState() {
@@ -74,7 +75,7 @@ export default class LevelEditorGrid extends LevelEditorGridRecord {
 
     return new LevelDataUnit({
       key,
-      grid : this.get("data").set("detromino", null),
+      grid : this.get("grid").set("detromino", null),
       queue: Algorithm.convertKeyToQueue(key),
     });
   }

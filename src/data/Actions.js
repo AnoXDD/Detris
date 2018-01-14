@@ -350,7 +350,7 @@ const Actions = {
   },
 
   nextDetromino() {
-    let detrominoType = store.getState().gameGrid.present.get("queue").last();
+    let detrominoType = store.getState().gamePanel.present.get("queue").last();
 
     return createBatchActions(
       createSpecialAction({

@@ -22,7 +22,7 @@ function reset() {
 
 function nextDetromino(state) {
   // Store the detromino into the key
-  let detromino = state.get("data").get("detromino");
+  let detromino = state.get("grid").get("detromino");
   if (detromino) {
     state = state.set("key", state.get("key").push(detromino));
   }
@@ -31,7 +31,7 @@ function nextDetromino(state) {
   state = _syncData(state, true, BlockType.ORIGINAL);
 
   // Remove (detromino) target blocks
-  let grid = state.get("data");
+  let grid = state.get("grid");
   detromino = grid.get("detromino") || new Detromino({
       type: DetrominoType.O, // default value
     });
@@ -57,7 +57,7 @@ function nextDetromino(state) {
   // Update export token
   state = _updateDetokenizedString(state);
 
-return  _syncData(state.set("data", grid));
+return  _syncData(state.set("grid", grid));
 }
 
 /**
@@ -133,7 +133,7 @@ function rotate(state) {
  * @param delta {Number} the delta of x
  */
 function moveX(state, delta) {
-  let data = state.get("data");
+  let data = state.get("grid");
   let detromino = data.get("detromino");
   let width = detromino.width();
 
@@ -143,7 +143,7 @@ function moveX(state, delta) {
       detromino.set("x", targetX));
 
     if (target) {
-      return _syncData(state.set("data",
+      return _syncData(state.set("grid",
         data.set("detromino", target)));
     }
 
@@ -160,7 +160,7 @@ function moveX(state, delta) {
  * @param {Number} delta - the delta of y
  */
 function moveY(state, delta) {
-  let data = state.get("data");
+  let data = state.get("grid");
   let detromino = data.get("detromino");
   let matrix = data.get("matrix");
 
@@ -170,7 +170,7 @@ function moveY(state, delta) {
   while (targetY >= 0 && targetY + height <= GridSize.HEIGHT) {
     detromino = detromino.set("y", targetY);
     if (Algorithm.isFitForNewDetrominoInEditor(matrix, detromino)) {
-      return _syncData(state.set("data",
+      return _syncData(state.set("grid",
         data.set("detromino", detromino)));
     }
 
@@ -252,7 +252,7 @@ function setCurrentBlock(state, action) {
     block = block.set("type", blockType);
 
     let grid = state.grid().get("grid").set(block.get("id"), block);
-    state = state.set("data", state.grid().set("grid", grid));
+    state = state.set("grid", state.grid().set("grid", grid));
   }
   // Update editor state
   let gridState = state.get("editorState").set("blockType", action.blockType);
@@ -282,8 +282,8 @@ function _syncData(state,
                    blockType = BlockType.DETROMINO) {
   state = _syncDetrominoIndex(state);
 
-  return state.set("data",
-    BaseGridHelper.syncData(state.get("data"),
+  return state.set("grid",
+    BaseGridHelper.syncData(state.get("grid"),
       updateMatrix,
       blockType,
       state.get("detrominoTargets")));
@@ -296,14 +296,14 @@ function _syncData(state,
  */
 function _syncDetrominoIndex(state) {
   let iterator = state.get("detrominoIterator");
-  let detromino = state.get("data").get("detromino");
+  let detromino = state.get("grid").get("detromino");
 
   if (!detromino) {
     return state;
   }
 
-  return state.set("data",
-    state.get("data")
+  return state.set("grid",
+    state.get("grid")
       .set("detromino", detromino.set("type", iterator.value())));
 }
 
