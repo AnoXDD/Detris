@@ -7,8 +7,8 @@ import GameUiState from "../enum/GameUiState";
 import PanelType from "../enum/PanelType";
 
 const GameStateRecord = Immutable.Record({
-  uiState  : GameUiState.DEFAULT_STATE,
-  panelType: PanelType.NONE,
+  uiState   : GameUiState.DEFAULT_STATE,
+  panelType : PanelType.NONE,
 
   topBar       : Immutable.Set(),
   dialogTitle  : "",

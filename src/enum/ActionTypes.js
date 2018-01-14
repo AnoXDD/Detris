@@ -18,7 +18,8 @@ const ActionTypes = {
   START_LEVEL      : "START_LEVEL",
   PAUSE            : "PAUSE",
   RESUME           : "RESUME",
-  MAYBE_END_GAME   : "MAYBE_END_GAME",
+  LEVEL_SUCCESS    : "LEVEL_SUCCESS",
+  LEVEL_FAIL       : "LEVEL_FAIL",
 
   // UI change
   HIDE_ALL_FULLSCREEN_OVERLAY: "HIDE_ALL_FULLSCREEN_OVERLAY",

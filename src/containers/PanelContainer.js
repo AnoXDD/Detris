@@ -15,6 +15,7 @@ import {
   mergePropsFromKey,
   simpleDispatchToProps
 } from "../util/callbackToProps";
+import BlockType from "../enum/BlockType";
 
 class PanelContainer extends Component {
 
@@ -22,6 +23,17 @@ class PanelContainer extends Component {
     if (nextProps.panelType === PanelType.TUTORIAL) {
       if (TutorialHelper.isDetrominoReachedHighlightArea(nextProps.grid)) {
         nextProps.onDetrominoReachedHighlightedArea();
+      }
+    } else if (nextProps.panelType === PanelType.IN_GAME) {
+      if (!nextProps.busy &&
+        !nextProps.queue.length &&
+        !nextProps.grid.some(
+          cell => cell.get("type") === BlockType.DETROMINO)) {
+        if (nextProps.grid.length) {
+          nextProps.onLevelFail();
+        } else {
+          nextProps.onLevelSuccess();
+        }
       }
     }
   }
@@ -71,6 +83,7 @@ function stateToProps(state, ownProps) {
     panelType,
     grid,
     editorState,
+    busy   : state.gameGrid.get("busy"),
     queue  : state.queue.get("queue").toJS(),
     control: state.control.toJS(),
   };
@@ -82,7 +95,13 @@ function dispatchToProps(dispatch) {
     ...simpleDispatchToProps(dispatch),
     onDetrominoReachedHighlightedArea: () => {
       dispatch(Actions.nextTutorial());
-    }
+    },
+    onLevelSuccess                   : () => {
+      dispatch(Actions.levelSuccess());
+    },
+    onLevelFail                      : () => {
+      dispatch(Actions.levelFail());
+    },
   }
 }
 

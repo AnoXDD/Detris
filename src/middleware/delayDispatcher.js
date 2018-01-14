@@ -149,6 +149,20 @@ export function delayDispatch({dispatch, getState}) {
    * @param actions
    */
   function resolveBatchActions(next, actions) {
+    // Handle action type ONLY_IF_CLEAR
+    if (willBeDispatching()) {
+      actions = actions.filter(
+        a => a[DELAY_TYPE] !== DispatchType.ONLY_IF_CLEAR);
+    } else {
+      actions = actions.map(a => {
+        if (a[DELAY_TYPE] === DispatchType.ONLY_IF_CLEAR) {
+          a[DELAY_TYPE] = DispatchType.REGULAR;
+        }
+
+        return a;
+      });
+    }
+
     for (let action of actions) {
       resolveObject(next, action);
     }

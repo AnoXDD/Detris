@@ -11,6 +11,9 @@ import History from "../data/History";
 const GameGridRecord = Immutable.Record({
   grid   : new BaseGrid(),
   history: new History(),
+
+  // When the blocks are being eliminated, for example, it's considered busy
+  busy: false,
 });
 
 class GameGrid extends GameGridRecord {

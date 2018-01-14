@@ -84,6 +84,7 @@ class GameContainer extends Component {
                 return (
                   <EndGameView
                     key="next-level"
+                    levelState={this.props.levelState}
                     {...this.props.overlay}/>);
               case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
                 return (<LevelEditorImportExportView

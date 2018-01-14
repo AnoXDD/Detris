@@ -7,7 +7,6 @@
 
 import LevelViewData from "../static/LevelViewData";
 import ActionTypes from "../enum/ActionTypes";
-import EndGameManager from "../util/EndGameHelper";
 import CompletedLevel from "../state/LevelCompletion";
 import LevelState from "../state/Level";
 
@@ -53,8 +52,7 @@ export default function reduce(state = new LevelState(), action) {
         .set("noUndo", true);
     case ActionTypes.UNDO_IN_GAME:
       return state.set("noUndo", false);
-    case ActionTypes.MAYBE_END_GAME:
-      if (EndGameManager.isLevelSolved()) {
+    case ActionTypes.LEVEL_SUCCESS:
         let id = state.get("currentLevelId");
         let completedLevels = state.get("completedLevels");
         let prevNoUndo = completedLevels.get(id) ? completedLevels.get(id)
@@ -66,9 +64,6 @@ export default function reduce(state = new LevelState(), action) {
             noUndo: prevNoUndo || state.get("noUndo"),
           }))
         );
-      }
-
-      return state;
     default:
       return state;
   }

@@ -11,7 +11,6 @@ import GameUiState from "../enum/GameUiState";
 import GameState from "../state/Game";
 import OverlayType from "../enum/OverlayTypes";
 import TopBarType from "../enum/TopBarTypes";
-import EndGameHelper from "../util/EndGameHelper";
 import PanelType from "../enum/PanelType";
 
 function reset() {
@@ -102,12 +101,9 @@ export default function reduce(state = getInitialState(), action) {
       return state.set("activeOverlay",
         state.get("activeOverlay").add(OverlayType.PAUSE_GAME));
 
-    case ActionTypes.MAYBE_END_GAME:
-      if (EndGameHelper.isLevelSolved()) {
-        return state.set("activeOverlay",
-          state.get("activeOverlay").add(OverlayType.NEXT_LEVEL));
-      }
-      return state;
+    case ActionTypes.LEVEL_SUCCESS:
+      return state.set("activeOverlay",
+        state.get("activeOverlay").add(OverlayType.NEXT_LEVEL));
 
     case ActionTypes.SHOW_FULLSCREEN_OVERLAY:
       switch (action.overlayType) {

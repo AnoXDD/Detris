@@ -216,7 +216,22 @@ function _syncData(state,
       detrominoTargets));
 }
 
+/**
+ * Applies whether the grid is busy
+ * @param state
+ * @param type - the action type
+ */
+function applyBusy(state, type) {
+  if (type === ActionTypes.NEXT_DETROMINO_IN_GAME) {
+    return state.set("busy", false);
+  }
+
+  return state.set("busy", true);
+}
+
 export default function reduce(state = getInitialState(), action) {
+  state = applyBusy(state, action.type);
+
   switch (action.type) {
     case ActionTypes.RESET_GRID:
       return reset();

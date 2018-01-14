@@ -5,7 +5,6 @@ import {Provider} from "react-redux";
 
 // Global js
 import "./store/LocalStorageSaver";
-import "./data/DispatchRegister";
 import "./App.css";
 
 import store from "./store/store";

@@ -198,6 +198,18 @@ const Actions = {
     };
   },
 
+  levelSuccess() {
+    return {
+      type: ActionTypes.LEVEL_SUCCESS,
+    };
+  },
+
+  levelFail() {
+    return {
+      type: ActionTypes.LEVEL_FAIL,
+    };
+  },
+
   showDialogForStartTutorial() {
     return Actions.showDialog(
       "Do you want to start the tutorial?",
@@ -355,12 +367,7 @@ const Actions = {
   },
 
   nextDetrominoInGame() {
-    return createBatchActions(
-      Actions.nextDetromino(),
-      createSpecialAction({
-        type: ActionTypes.MAYBE_END_GAME,
-      }, DispatchType.ON_CLEAR)
-    );
+    return Actions.nextDetromino();
   },
 
   nextDetrominoInEditor() {

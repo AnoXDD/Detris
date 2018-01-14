@@ -5,7 +5,6 @@
 import NotificationState from "../state/Notification";
 import ActionTypes from "../enum/ActionTypes";
 import NotificationLevel from "../enum/NotificationLevel";
-import EndGameHelper from "../util/EndGameHelper";
 
 function getInitialState() {
   return new NotificationState();
@@ -45,12 +44,8 @@ export default function reduce(state = getInitialState(), action) {
     case ActionTypes.HIDE_FULLSCREEN_OVERLAY:
     case ActionTypes.SET_GAME_UI_STATE:
       return hide(state);
-    case ActionTypes.MAYBE_END_GAME:
-      if (EndGameHelper.isLevelFailed()) {
-        return displayLevelFailed(state);
-      }
-
-      return state;
+    case ActionTypes.LEVEL_FAIL:
+      return displayLevelFailed(state);
     default:
       return state;
   }
