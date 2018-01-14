@@ -23,7 +23,7 @@ const LevelEditorState = Immutable.Record({
   blockList: new Immutable.List([BlockType.DETROMINO, BlockType.DETROMINO_TARGET]),
 });
 
-const LevelEditorGridRecord = Immutable.Record({
+const LevelEditorPanelRecord = Immutable.Record({
   editorState: new LevelEditorState(),
   grid       : new BaseGrid(),
   queue      : Immutable.List(),
@@ -42,7 +42,7 @@ const LevelEditorGridRecord = Immutable.Record({
   detokenized: "",
 });
 
-export default class LevelEditorGrid extends LevelEditorGridRecord {
+export default class LevelEditorPanel extends LevelEditorPanelRecord {
   grid() {
     return this.get("grid");
   }

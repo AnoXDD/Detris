@@ -11,13 +11,14 @@ import BlockType from "../enum/BlockType";
 import ActionTypes from "../enum/ActionTypes";
 import Detromino from "../state/Detromino";
 import DetrominoType from "../enum/DetrominoType";
-import LevelEditorGrid from "../state/LevelEditorGrid";
+import LevelEditorPanel from "../state/LevelEditorPanel";
 import Direction from "../enum/Direction";
 import BaseGridHelper from "../util/BaseGridHelper";
 import LevelDataUnitTokenizer from "../tokenizer/LevelDataUnitTokenizer";
+import {applyQueue} from "./queue";
 
 function reset() {
-  return nextDetromino(new LevelEditorGrid());
+  return nextDetromino(new LevelEditorPanel());
 }
 
 function nextDetromino(state) {
@@ -129,7 +130,7 @@ function rotate(state) {
 /**
  * Moves the block horizontally. If the operation is not doable, return the
  * original state
- * @param state {LevelEditorGrid} current state of detromino
+ * @param state {LevelEditorPanel} current state of detromino
  * @param delta {Number} the delta of x
  */
 function moveX(state, delta) {
@@ -182,7 +183,7 @@ function moveY(state, delta) {
 
 /**
  * Moves the grid of the block target whose type is to be changed
- * @param {LevelEditorGrid} state
+ * @param {LevelEditorPanel} state
  * @param {string|Direction} direction
  */
 function moveEditingBlock(state, direction) {
@@ -299,7 +300,7 @@ function _syncDetrominoIndex(state) {
       .set("detromino", detromino.set("type", iterator.value())));
 }
 
-export default function reduce(state = reset(), action) {
+function applyGrid(state,action) {
   switch (action.type) {
     case ActionTypes.INIT_GRID:
     case ActionTypes.RESET_GRID:
@@ -337,4 +338,10 @@ export default function reduce(state = reset(), action) {
     default:
       return state;
   }
+}
+
+export default function reduce(state = reset(), action) {
+  state = applyQueue(state, action);
+
+  return applyGrid(state, action);
 }

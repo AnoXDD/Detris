@@ -77,6 +77,11 @@ export function reduceQueue(state = getInitialState(), action) {
   }
 }
 
+export function applyQueue(state, action) {
+  return state.set("queue", reduceQueue(state.get("queue"), action));
+}
+
 export default {
+  applyQueue,
   reduceQueue,
 };

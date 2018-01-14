@@ -371,7 +371,7 @@ const Actions = {
   },
 
   nextDetrominoInEditor() {
-    let detrominoType = store.getState().levelEditorGrid
+    let detrominoType = store.getState().levelEditorPanel.present
       .get("detrominoIterator")
       .value();
 
@@ -580,7 +580,7 @@ const Actions = {
   },
 
   enableBlockEditing() {
-    let block = Algorithm.getInitialValidEditableBlock(store.getState().levelEditorGrid);
+    let block = Algorithm.getInitialValidEditableBlock(store.getState().levelEditorPanel.present);
 
     if (!block) {
       return Actions.displayError("No blocks are currently editable");
@@ -593,7 +593,7 @@ const Actions = {
   },
 
   disableBlockEditing() {
-    let grid = store.getState().levelEditorGrid.grid();
+    let grid = store.getState().levelEditorPanel.present.grid();
 
     if (!Algorithm.isTargetDetrominosValid(grid.get("matrix"),
         grid.get("detromino"))) {

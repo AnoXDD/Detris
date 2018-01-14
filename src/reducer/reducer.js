@@ -11,24 +11,30 @@ import control from "./control";
 import game from "./game";
 import gamePanel from "./gamePanel";
 import level from "./level";
-import levelEditorGrid from "./levelEditorGrid";
+import levelEditorPanel from "./levelEditorPanel";
 import notification from "./notification";
 import overlay from "./overlay";
 import tutorial from "./tutorial";
 import ActionTypes from "../enum/ActionTypes";
 
-const undoableConfig = {
+const undoableGameConfig = {
   undoType: ActionTypes.UNDO_IN_GAME,
   redoType: ActionTypes.REDO_IN_GAME,
   filter  : includeAction(ActionTypes.NEXT_DETROMINO_IN_GAME),
 };
 
+const undoableLevelEditorConfig = {
+  undoType: ActionTypes.UNDO_IN_EDITOR,
+  redoType: ActionTypes.REDO_IN_EDITOR,
+  filter  : includeAction(ActionTypes.NEXT_DETROMINO_IN_EDITOR),
+};
+
 export default combineReducers({
   control,
   game,
-  gamePanel: undoable(gamePanel, undoableConfig),
+  gamePanel      : undoable(gamePanel, undoableGameConfig),
   level,
-  levelEditorGrid,
+  levelEditorPanel: undoable(levelEditorPanel, undoableLevelEditorConfig),
   notification,
   overlay,
   tutorial,

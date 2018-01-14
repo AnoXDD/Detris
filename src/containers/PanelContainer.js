@@ -66,10 +66,12 @@ function stateToProps(state, ownProps) {
 
   switch (panelType) {
     case PanelType.LEVEL_EDITOR:
-      let {levelEditorGrid} = state;
+      let levelEditorPanel = state.levelEditorPanel.present;
 
-      grid = levelEditorGrid.get("grid").get("grid").valueSeq().toArray();
-      editorState = levelEditorGrid.get("editorState").toJS();
+
+      grid = levelEditorPanel.get("grid").get("grid").valueSeq().toArray();
+      editorState = levelEditorPanel.get("editorState").toJS();
+      queue = levelEditorPanel.get("queue").toArray();
       break;
 
     case PanelType.IN_GAME:

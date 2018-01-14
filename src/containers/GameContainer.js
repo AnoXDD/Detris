@@ -119,7 +119,7 @@ function stateToProps(state) {
   return {
     overlay                : state.overlay.toJS(),
     ...state.game.toJS(),
-    levelEditorExportString: state.levelEditorGrid.get("detokenized"),
+    levelEditorExportString: state.levelEditorPanel.present.get("detokenized"),
     tutorial               : state.tutorial.toJS(),
     levelState             : state.level.toJS(),
   };

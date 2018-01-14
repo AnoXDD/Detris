@@ -17,7 +17,7 @@ import BaseGridHelper from "../util/BaseGridHelper";
 import GamePanel from "../state/GamePanel";
 import TutorialProgress from "../enum/TutorialProgress";
 import TutorialGrid from "../state/TutorialGrid";
-import {reduceQueue} from "./queue";
+import {applyQueue} from "./queue";
 
 
 function reset() {
@@ -217,10 +217,6 @@ function applyBusy(state, type) {
   return state.set("busy", true);
 }
 
-function applyQueue(state, action) {
-  return state.set("queue", reduceQueue(state.get("queue"), action));
-}
-
 function applyGrid(state, action) {
   switch (action.type) {
     case ActionTypes.RESET_GRID:
@@ -229,6 +225,7 @@ function applyGrid(state, action) {
       return applyData(action);
     case ActionTypes.START_LEVEL:
       // todo Reset history
+      return state;
     case ActionTypes.NEXT_DETROMINO_IN_GAME:
       return nextDetromino(state, action);
     case ActionTypes.ROTATE:

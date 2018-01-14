@@ -338,7 +338,7 @@ const Algorithm = {
   /**
    * Returns the initial valid block that can be edited. This method was called
    * when the player switches to block editing mode in the level editor.
-   * @param {LevelEditorGrid} state
+   * @param {LevelEditorPanel} state
    * @return {Block} a valid editing block. `null` if no valid block
    */
   getInitialValidEditableBlock(state) {
