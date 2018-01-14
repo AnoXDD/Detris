@@ -18,6 +18,7 @@ import GameGrid from "../state/GameGrid";
 import TutorialProgress from "../enum/TutorialProgress";
 import TutorialGrid from "../state/TutorialGrid";
 import History from "../data/History";
+import {reduceQueue} from "./queue";
 
 
 function reset() {
@@ -37,6 +38,7 @@ function applyData(action) {
   let {levelDataUnit} = action;
   return new GameGrid({
     grid: BaseGridHelper.syncData(levelDataUnit.get("grid")),
+    queue: levelDataUnit.get("queue"),
   });
 }
 
@@ -156,11 +158,13 @@ function sinkTargetBlocks(state) {
 }
 
 function redo(state) {
-  return state.get("history").redo() || state;
+  return state;
+  // return state.get("history").redo() || state;
 }
 
 function undo(state) {
-  return state.get("history").undo() || state;
+  return state;
+  // return state.get("history").undo() || state;
 }
 
 function setTutorialGrid(state, progress) {
@@ -229,9 +233,11 @@ function applyBusy(state, type) {
   return state.set("busy", true);
 }
 
-export default function reduce(state = getInitialState(), action) {
-  state = applyBusy(state, action.type);
+function applyQueue(state, action) {
+  return state.set("queue", reduceQueue(state.get("queue"), action));
+}
 
+function applyGrid(state, action) {
   switch (action.type) {
     case ActionTypes.RESET_GRID:
       return reset();
@@ -267,4 +273,12 @@ export default function reduce(state = getInitialState(), action) {
     default:
       return state;
   }
+}
+
+export default function reduce(state = getInitialState(), action) {
+  state = applyBusy(state, action.type);
+
+  state = applyQueue(state, action);
+
+  return applyGrid(state, action);
 }

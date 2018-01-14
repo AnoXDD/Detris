@@ -5,6 +5,7 @@
  */
 
 import {combineReducers} from "redux";
+import undoable, {includeAction} from "redux-undo";
 
 import control from "./control";
 import game from "./game";
@@ -15,15 +16,21 @@ import notification from "./notification";
 import overlay from "./overlay";
 import queue from "./queue";
 import tutorial from "./tutorial";
+import ActionTypes from "../enum/ActionTypes";
+
+const undoableConfig = {
+  undoType: ActionTypes.UNDO_IN_GAME,
+  redoType: ActionTypes.REDO_IN_GAME,
+  filter  : includeAction(ActionTypes.NEXT_DETROMINO_IN_GAME),
+};
 
 export default combineReducers({
   control,
   game,
-  gameGrid,
+  gameGrid: undoable(gameGrid, undoableConfig),
   level,
   levelEditorGrid,
   notification,
   overlay,
-  queue,
   tutorial,
 });

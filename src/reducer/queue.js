@@ -50,19 +50,21 @@ function push(state, type) {
 }
 
 function redo(state) {
-  return state.get("history").redo() || state;
+  return state;
+  // return state.get("history").redo() || state;
 }
 
 function undo(state) {
-  return state.get("history").undo() || state;
+  return state;
+//  return state.get("history").undo() || state;
 }
 
 function applyData(action) {
-  let {levelDataUnit} = action;
-  return levelDataUnit.get("queue");
+  // let {levelDataUnit} = action;
+  // return levelDataUnit.get("queue");
 }
 
-export default function reduce(state = getInitialState(), action) {
+export function reduceQueue(state = getInitialState(), action) {
   switch (action.type) {
     case ActionTypes.RESET_GRID:
       return reset();
@@ -102,3 +104,7 @@ export default function reduce(state = getInitialState(), action) {
       return state;
   }
 }
+
+export default {
+  reduceQueue,
+};

@@ -61,6 +61,7 @@ class PanelContainer extends Component {
 function stateToProps(state, ownProps) {
   let grid = [];
   let editorState = {};
+  let queue = [];
   let panelType = state.game.get("panelType");
 
   switch (panelType) {
@@ -73,7 +74,8 @@ function stateToProps(state, ownProps) {
 
     case PanelType.IN_GAME:
     case PanelType.TUTORIAL:
-      grid = state.gameGrid.get("grid").get("grid").valueSeq().toArray();
+      grid = state.gameGrid.present.get("grid").get("grid").valueSeq().toArray();
+      queue = state.gameGrid.present.get("queue").get("queue").toArray();
       break;
     default:
 
@@ -83,8 +85,8 @@ function stateToProps(state, ownProps) {
     panelType,
     grid,
     editorState,
-    busy   : state.gameGrid.get("busy"),
-    queue  : state.queue.get("queue").toJS(),
+    queue,
+    busy   : state.gameGrid.present.get("busy"),
     control: state.control.toJS(),
   };
 }
