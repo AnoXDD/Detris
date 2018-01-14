@@ -7,7 +7,7 @@
 import Immutable from "immutable";
 
 const LevelViewUnitRecord = Immutable.Record({
-  id         : -1,
+  id         : "-1",
   levelNumber: -1,
 });
 

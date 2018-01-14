@@ -181,7 +181,7 @@ const Actions = {
       return createBatchActions(
         Actions.setTutorialCompleted(),
         Actions.hideTutorialGuide(),
-        Actions.startNewLevelById()
+        Actions.startNewLevelById(),
       );
     }
   },
@@ -318,7 +318,8 @@ const Actions = {
         type: ActionTypes.START_LEVEL,
         currentLevelId,
       }, DispatchType.OVERWRITE),
-      Actions.apply(LevelData.getLevelById(currentLevelId))
+      Actions.apply(LevelData.getLevelById(currentLevelId)),
+      Actions.clearHistoryInGame(),
     );
   },
 
@@ -453,6 +454,12 @@ const Actions = {
     }, DispatchType.ONLY_IF_CLEAR);
   },
 
+  clearHistoryInGame() {
+    return {
+      type: ActionTypes.CLEAR_HISTORY_IN_GAME,
+    };
+  },
+
   undoInGame() {
     return createSpecialAction({
       type: ActionTypes.UNDO_IN_GAME,
@@ -525,6 +532,12 @@ const Actions = {
     return createSpecialAction({
       type,
     }, DispatchType.ONLY_IF_CLEAR);
+  },
+
+  clearHistoryInEditor() {
+    return {
+      type: ActionTypes.CLEAR_HISTORY_IN_EDITOR,
+    };
   },
 
   redoInEditor() {

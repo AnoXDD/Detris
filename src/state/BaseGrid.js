@@ -19,15 +19,4 @@ const GridDataRecord = Immutable.Record({
   matrix: [],
 });
 
-class Grid extends GridDataRecord {
-
-  /**
-   * Return if the grid is empty
-   * @return {*|boolean}
-   */
-  isEmpty() {
-    return this.get("grid").isEmpty();
-  }
-}
-
-export default Grid;
+export default GridDataRecord;

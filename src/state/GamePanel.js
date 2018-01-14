@@ -15,10 +15,4 @@ const GamePanelRecord = Immutable.Record({
   busy: false,
 });
 
-class GamePanel extends GamePanelRecord {
-  isEmpty() {
-    return this.get("grid").isEmpty();
-  }
-}
-
-export default GamePanel;
+export default GamePanelRecord;

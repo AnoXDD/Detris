@@ -43,6 +43,7 @@ const ActionTypes = {
   DETROMINO_MOVE_DOWN     : "DETROMINO_MOVE_DOWN",
   UNDO_IN_GAME            : "UNDO_IN_GAME",
   REDO_IN_GAME            : "REDO_IN_GAME",
+  CLEAR_HISTORY_IN_GAME   : "CLEAR_HISTORY_IN_GAME",
 
   // Grid editor
   ENABLE_BLOCK_EDITING       : "ENABLE_BLOCK_EDITING",
@@ -60,6 +61,7 @@ const ActionTypes = {
   PREV_DETROMINO_SHAPE       : "PREV_DETROMINO_SHAPE",
   UNDO_IN_EDITOR             : "UNDO_IN_EDITOR",
   REDO_IN_EDITOR             : "REDO_IN_EDITOR",
+  CLEAR_HISTORY_IN_EDITOR    : "CLEAR_HISTORY_IN_EDITOR",
 
   // Block manipulation
   REMOVE_DETROMINO      : "REMOVE_DETROMINO",
