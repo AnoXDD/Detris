@@ -646,35 +646,42 @@ html, body, #root {
     width: 30px; }
 
 .control {
-  display: flex;
+  display: grid;
   flex-wrap: wrap;
   margin: 0 auto;
   width: 320px;
-  height: 200px; }
-  .control .rotate-wrapper, .control .shape-cycle-wrapper {
-    flex-grow: 1;
-    width: 10%;
-    position: relative; }
-  .control .arrow-wrapper {
-    flex-grow: 3;
-    width: 30%;
-    position: relative;
-    min-height: 100px; }
-    .control .arrow-wrapper .arrow-up-wrapper {
-      width: 100%; }
-    .control .arrow-wrapper .arrow-non-up-wrapper {
-      width: 100%; }
-  .control .control-inner-wrapper {
-    display: flex;
-    flex-direction: row; }
-    .control .control-inner-wrapper.column {
-      flex-direction: column; }
-    .control .control-inner-wrapper .control-arrow-row {
-      flex-direction: column;
-      justify-content: flex-end;
-      height: 100px; }
-  .control .action-wrapper {
-    width: 100%; }
+  height: 200px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+  grid-template-areas: "grid-toggle prev-detromino block-selector block-selector block-selector" "rotate next-detromino undo up redo" "done done left down right"; }
+  .control .grid-toggle {
+    grid-area: grid-toggle; }
+  .control .rotate {
+    grid-area: rotate; }
+  .control .prev-detromino {
+    grid-area: prev-detromino; }
+  .control .next-detromino {
+    grid-area: next-detromino; }
+  .control .undo {
+    grid-area: undo; }
+  .control .redo {
+    grid-area: redo; }
+  .control .up {
+    grid-area: up; }
+  .control .left {
+    grid-area: left; }
+  .control .right {
+    grid-area: right; }
+  .control .down {
+    grid-area: down; }
+  .control .done {
+    grid-area: done; }
+  .control .block-selector {
+    grid-area: block-selector; }
+  .control .done {
+    width: 120px; }
 
 .level-container {
   height: 100%;

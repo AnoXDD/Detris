@@ -360,50 +360,27 @@ html, body, #root {
 }
 
 .control {
-  display: flex;
+  display: grid;
   flex-wrap: wrap;
   margin: 0 auto;
   width: 320px;
   height: 200px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+  grid-template-areas: "grid-toggle prev-detromino block-selector block-selector block-selector" "rotate next-detromino undo up redo" "done done left down right";
 
-  .rotate-wrapper, .shape-cycle-wrapper {
-    flex-grow: 1;
-    width: 10%;
-    position: relative;
-  }
+  $areas: (grid-toggle, rotate, prev-detromino, next-detromino, undo, redo, up, left, right, down, done, block-selector);
 
-  .arrow-wrapper {
-    flex-grow: 3;
-    width: 30%;
-    position: relative;
-    min-height: 100px;
-
-    .arrow-up-wrapper {
-      width: 100%;
-    }
-
-    .arrow-non-up-wrapper {
-      width: 100%;
+  @each $area in $areas {
+    .#{$area} {
+      grid-area: $area;
     }
   }
 
-  .control-inner-wrapper {
-    display: flex;
-    flex-direction: row;
-
-    &.column {
-      flex-direction: column;
-    }
-
-    .control-arrow-row {
-      flex-direction: column;
-      justify-content: flex-end;
-      height: 2 * $button-height;
-    }
-  }
-
-  .action-wrapper {
-    width: 100%;
+  .done {
+    width: 2 * $button-width;
   }
 }
 
