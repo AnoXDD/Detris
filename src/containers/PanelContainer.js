@@ -75,7 +75,7 @@ function stateToProps(state, ownProps) {
     case PanelType.IN_GAME:
     case PanelType.TUTORIAL:
       grid = state.gameGrid.present.get("grid").get("grid").valueSeq().toArray();
-      queue = state.gameGrid.present.get("queue").get("queue").toArray();
+      queue = state.gameGrid.present.get("queue").toArray();
       break;
     default:
 

@@ -8,12 +8,11 @@ import Immutable from "immutable";
 import LocalStorageLoader from "../store/LocalStorageLoader";
 
 import ActionTypes from "../enum/ActionTypes";
-import Queue from "../state/Queue";
 import TutorialProgress from "../enum/TutorialProgress";
 import DetrominoType from "../enum/DetrominoType";
 
 function reset() {
-  return new Queue();
+  return Immutable.List();
 }
 
 function getInitialState() {
@@ -21,18 +20,14 @@ function getInitialState() {
 
   let localQueue = LocalStorageLoader.loadQueueFromLocalStorage();
   if (localQueue) {
-    return state.set("queue", localQueue);
+    return localQueue;
   }
 
   return state;
 }
 
 function pop(state) {
-  state = state.set("queue", state.get("queue").pop());
-
-  state.get("history").record(state);
-
-  return state;
+  return state.pop();
 }
 
 /**
@@ -42,11 +37,7 @@ function pop(state) {
  * @return {*}
  */
 function push(state, type) {
-  state = state.set("queue", state.get("queue").push(type));
-
-  state.get("history").record(state);
-
-  return state;
+  return state.push(type);
 }
 
 function redo(state) {
@@ -86,17 +77,14 @@ export function reduceQueue(state = getInitialState(), action) {
         case TutorialProgress.TUTORIAL_INTRO:
           return reset();
         case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_INTRO:
-          return reset()
-            .set("queue",
-              Immutable.List([
-                DetrominoType.O,
-                DetrominoType.T,
-                DetrominoType.I,
-                DetrominoType.J,
-                DetrominoType.S,
-                DetrominoType.L,
-                DetrominoType.Z])
-            );
+          return Immutable.List([
+            DetrominoType.O,
+            DetrominoType.T,
+            DetrominoType.I,
+            DetrominoType.J,
+            DetrominoType.S,
+            DetrominoType.L,
+            DetrominoType.Z]);
         default:
           return state;
       }

@@ -14,7 +14,6 @@ import level from "./level";
 import levelEditorGrid from "./levelEditorGrid";
 import notification from "./notification";
 import overlay from "./overlay";
-import queue from "./queue";
 import tutorial from "./tutorial";
 import ActionTypes from "../enum/ActionTypes";
 

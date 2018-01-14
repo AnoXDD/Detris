@@ -17,7 +17,6 @@ import BaseGridHelper from "../util/BaseGridHelper";
 import GameGrid from "../state/GameGrid";
 import TutorialProgress from "../enum/TutorialProgress";
 import TutorialGrid from "../state/TutorialGrid";
-import History from "../data/History";
 import {reduceQueue} from "./queue";
 
 
@@ -37,7 +36,7 @@ function getInitialState() {
 function applyData(action) {
   let {levelDataUnit} = action;
   return new GameGrid({
-    grid: BaseGridHelper.syncData(levelDataUnit.get("grid")),
+    grid : BaseGridHelper.syncData(levelDataUnit.get("grid")),
     queue: levelDataUnit.get("queue"),
   });
 }
@@ -55,12 +54,7 @@ function nextDetromino(state, action) {
   grid = grid.set("detromino",
     detromino.set("x", detromino.getMiddleXPos()));
 
-  state = _syncData(state.set("grid", grid));
-
-  // Record history
-  state.get("history").record(state);
-
-  return state;
+  return _syncData(state.set("grid", grid));
 }
 
 function rotate(state) {
@@ -244,8 +238,7 @@ function applyGrid(state, action) {
     case ActionTypes.APPLY_DATA:
       return applyData(action);
     case ActionTypes.START_LEVEL:
-      // Reset history
-      return state.set("history", new History());
+      // todo Reset history
     case ActionTypes.NEXT_DETROMINO_IN_GAME:
       return nextDetromino(state, action);
     case ActionTypes.ROTATE:

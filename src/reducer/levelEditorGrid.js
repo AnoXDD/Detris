@@ -57,12 +57,7 @@ function nextDetromino(state) {
   // Update export token
   state = _updateDetokenizedString(state);
 
-  state = _syncData(state.set("data", grid));
-
-  // Record history
-  state.get("history").record(state);
-
-  return state;
+return  _syncData(state.set("data", grid));
 }
 
 /**
@@ -267,11 +262,11 @@ function setCurrentBlock(state, action) {
 }
 
 function redo(state) {
-  return state.get("history").redo() || state;
+  // return state.get("history").redo() || state;
 }
 
 function undo(state) {
-  return state.get("history").undo() || state;
+  // return state.get("history").undo() || state;
 }
 
 /**

@@ -6,13 +6,10 @@
 
 import Immutable from "immutable";
 import BaseGrid from "./BaseGrid";
-import History from "../data/History";
-import Queue from "./Queue";
 
 const GameGridRecord = Immutable.Record({
   grid   : new BaseGrid(),
-  queue  : new Queue(),
-  history: new History(),
+  queue  : Immutable.List(),
 
   // When the blocks are being eliminated, for example, it's considered busy
   busy: false,

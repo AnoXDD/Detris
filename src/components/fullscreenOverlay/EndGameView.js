@@ -22,7 +22,7 @@ export default class EndGameView extends Component {
 
   onNextLevel() {
     store.dispatch(Actions.hideAllFullscreenOverlay());
-    store.dispatch(Actions.nextLevelId());
+    store.dispatch(Actions.nextLevel());
   }
 
   render() {

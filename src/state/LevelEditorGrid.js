@@ -8,7 +8,6 @@ import Immutable from "immutable";
 import BlockType from "../enum/BlockType";
 import Grid from "./BaseGrid";
 import DetrominoIterator from "../util/DetrominoIterator";
-import History from "../data/History";
 import LevelDataUnit from "./LevelDataUnit";
 import Algorithm from "../util/Algorithm";
 
@@ -27,7 +26,6 @@ const LevelEditorState = Immutable.Record({
 const LevelEditorGridRecord = Immutable.Record({
   editorState     : new LevelEditorState(),
   data            : new Grid(),
-  history         : new History(),
   // A set of ID's of blocks whose types are detromino targets
   detrominoTargets: Immutable.Set(),
 

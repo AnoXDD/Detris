@@ -4,13 +4,14 @@
  * The list of actions that can be dispatched
  */
 
+import Immutable from "immutable";
+
 import GridSize from "../enum/GridSize";
 import BlockType from "../enum/BlockType";
 import DetrominoType from "../enum/DetrominoType";
 import Block from "../state/Block";
 import Direction from "../enum/Direction";
 import Rotation from "../enum/Rotation";
-import Queue from "../state/Queue";
 import Color from "../enum/Color";
 
 /**
@@ -41,9 +42,7 @@ const Algorithm = {
    * @param key
    */
   convertKeyToQueue(key) {
-    return new Queue({
-      queue: key.map(detromino => detromino.get("type")),
-    });
+    return Immutable.List(key.map(detromino => detromino.get("type")));
   },
 
   /**

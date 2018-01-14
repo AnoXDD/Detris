@@ -9,9 +9,9 @@ import GameGridStore from "../reducer/gameGrid";
 import GameStateStore from "../reducer/game";
 
 function onQueueStoreChanged() {
-  let store = QueueStore.getState().get("queue");
-
-  localStorage["queue"] = JSON.stringify(store.toJS());
+  // let store = QueueStore.getState().get("queue");
+  //
+  // localStorage["queue"] = JSON.stringify(store.toJS());
 }
 
 function onGridStoreChanged() {

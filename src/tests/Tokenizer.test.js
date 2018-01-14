@@ -13,7 +13,6 @@ import DetrominoType from "../enum/DetrominoShape";
 import Rotation from "../enum/Rotation";
 import Detromino from "../state/Detromino";
 import Grid from "../state/BaseGrid";
-import Queue from "../state/Queue";
 import LevelDataUnit from "../state/LevelDataUnit";
 import GeneralTokenizer from "../tokenizer/GeneralTokenizer";
 import BlockTokenizer from "../tokenizer/BlockTokenizer";
@@ -145,9 +144,7 @@ test("Grid (class)", () => {
 test("Queue", () => {
   const queue = [DetrominoType.T, DetrominoType.O, DetrominoType.I, DetrominoType.J, DetrominoType.S, DetrominoType.L, DetrominoType.O, DetrominoType.I, DetrominoType.S, DetrominoType.L, DetrominoType.O, DetrominoType.I, DetrominoType.J, DetrominoType.L, DetrominoType.O, DetrominoType.I, DetrominoType.J, DetrominoType.L, DetrominoType.O, DetrominoType.I, DetrominoType.J, DetrominoType.S, DetrominoType.L, DetrominoType.I, DetrominoType.J, DetrominoType.S, DetrominoType.L, DetrominoType.Z,];
 
-  let q = new Queue({
-    queue: Immutable.List(queue),
-  });
+  let q = Immutable.List(queue);
 
   let q2 = QueueTokenizer.tokenizeQueue(QueueTokenizer.detokenizeQueue(q));
 
@@ -157,9 +154,7 @@ test("Queue", () => {
 test("LevelDataUnit", () => {
   const queue = [DetrominoType.T, DetrominoType.O, DetrominoType.I, DetrominoType.J, DetrominoType.S, DetrominoType.L, DetrominoType.O, DetrominoType.I, DetrominoType.S, DetrominoType.L, DetrominoType.O, DetrominoType.I, DetrominoType.J, DetrominoType.L, DetrominoType.O, DetrominoType.I, DetrominoType.J, DetrominoType.L, DetrominoType.O, DetrominoType.I, DetrominoType.J, DetrominoType.S, DetrominoType.L, DetrominoType.I, DetrominoType.J, DetrominoType.S, DetrominoType.L, DetrominoType.Z,];
 
-  let q = new Queue({
-    queue: Immutable.List(queue),
-  });
+  let q = Immutable.List(queue);
 
   let d = new Detromino({
     type    : DetrominoType.T,
