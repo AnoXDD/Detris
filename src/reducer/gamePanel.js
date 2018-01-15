@@ -10,7 +10,6 @@ import Rotation from "../enum/Rotation";
 import GridSize from "../enum/GridSize";
 import BlockType from "../enum/BlockType";
 import ActionTypes from "../enum/ActionTypes";
-import LocalStorageLoader from "../store/LocalStorageLoader";
 import Detromino from "../state/Detromino";
 import DetrominoType from "../enum/DetrominoType";
 import BaseGridHelper from "../util/BaseGridHelper";
@@ -30,11 +29,6 @@ function reset() {
 }
 
 function getInitialState() {
-  let savedState = LocalStorageLoader.loadGridFromLocalStorage();
-  if (savedState) {
-    return _syncData(savedState);
-  }
-
   return _syncData(reset());
 }
 

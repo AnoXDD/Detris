@@ -6,6 +6,10 @@ import {createTransform} from "redux-persist";
 import ControlPresets from "../enum/ControlPresets";
 import Control from "../state/Control";
 import LevelViewData from "../static/LevelViewData";
+import ButtonCallbacks from "../state/ButtonCallbacks";
+import {reduceButton} from "../reducer/button";
+import {restoreState} from "../util/actionStepRecord";
+import Level from "../state/Level";
 
 // Will be called before the state is serialized to string, i.e. state is
 // Immutable
@@ -15,6 +19,8 @@ function serialize(state, key) {
       return state.get("controlRecordId");
     case "level":
       return state.set("view", null);
+    case "button":
+      return state.get("history");
     default:
       return state;
   }
@@ -27,8 +33,15 @@ function deserialize(state, key) {
     case "control":
       return ControlPresets[state] || new Control();
     case "level":
-      return state.set("view",
-        LevelViewData.views().get(state.get("currentPage")));
+      return state ? state.set("view",
+        LevelViewData.views().get(state.get("currentPage"))) : new Level();
+    case "button":
+      let buttonCallbacks = new ButtonCallbacks({
+        history: state,
+      });
+
+      return restoreState(
+        buttonCallbacks, "history", reduceButton);
     default:
       return state;
   }

@@ -5,14 +5,16 @@
 
 import ActionTypes from "../enum/ActionTypes";
 import Actions from "../data/Actions";
-import CallbackState from "../state/OverlayCallbacks";
+import ButtonCallbacks from "../state/ButtonCallbacks";
 import GameUiState from "../enum/GameUiState";
 import OverlayType from "../enum/OverlayTypes";
 import TutorialProgress from "../enum/TutorialProgress";
 import {createBatchActions} from "../middleware/delayDispatcher";
+import DialogType from "../enum/DialogType";
+import {saveSteps} from "../util/actionStepRecord";
 
 function reset() {
-  return new CallbackState();
+  return new ButtonCallbacks();
 }
 
 function hideAllFloatingWindows(state) {
@@ -86,12 +88,64 @@ function applyTutorialProgress(state, progress) {
   }
 }
 
- function reduceByAction(state = reset(), action) {
+function reduceDialog(action, state) {
+  let onYes = null;
+  let onNo = null;
+
+  switch (action.dialogType) {
+    case DialogType.START_TUTORIAL:
+      onYes = createBatchActions(
+        Actions.startTutorial(),
+        Actions.showTutorialGuide()
+      );
+      break;
+
+    case DialogType.GAME_RESTART:
+      onYes = Actions.restartCurrentLevel();
+      break;
+
+    case DialogType.RESET_LEVEL_EDITOR:
+      onYes = Actions.resetGrid();
+      break;
+
+    case DialogType.QUIT_TO_SELECT_LEVEL:
+      onYes = Actions.showSelectLevel();
+      break;
+
+    case DialogType.QUIT_TO_WELCOME:
+      onYes = Actions.showWelcomePage();
+      break;
+
+    case DialogType.SKIP_TUTORIAL:
+      onYes = createBatchActions(
+        Actions.setTutorialCompleted(),
+        Actions.showSelectLevel()
+      );
+      break;
+
+    case DialogType.END_TUTORIAL:
+      onYes = createBatchActions(
+        Actions.setTutorialCompleted(),
+        Actions.showWelcomePage()
+      );
+      break;
+  }
+
+  return state.set("onDialogYes", () => createBatchActions(
+    Actions.hideAllFullscreenOverlay(),
+    onYes
+  )).set("onDialogNo", () => createBatchActions(
+    Actions.hideDialog(),
+    onNo
+  ));
+}
+
+export function reduceButton(state = reset(), action) {
   switch (action.type) {
     case ActionTypes.START_LEVEL:
       return hidePauseMenu(
         state.set("onQuit",
-          Actions.showDialogForQuitToLevelSelect))
+          Actions.showDialogForQuitToSelectLevel))
         .set("onRestart",
           Actions.showDialogForGameRestart);
     case ActionTypes.RESUME:
@@ -112,18 +166,7 @@ function applyTutorialProgress(state, progress) {
     case ActionTypes.SHOW_FULLSCREEN_OVERLAY:
       switch (action.overlayType) {
         case OverlayType.DIALOG:
-          let {
-            onYes = null,
-            onNo = null
-          } = action;
-
-          return state.set("onDialogYes", () => createBatchActions(
-            Actions.hideAllFullscreenOverlay(),
-            onYes
-          )).set("onDialogNo", () => createBatchActions(
-            Actions.hideDialog(),
-            onNo
-          ));
+          return reduceDialog(action, state);
         default:
           return state;
       }
@@ -136,15 +179,6 @@ function applyTutorialProgress(state, progress) {
   }
 }
 
-/**
- * Maps the constants in the
- * @param state
- */
-export function mapPresets(state) {
-  // todo
-  return state;
-}
-
 export default function reduce(state, action) {
-  return mapPresets(reduceByAction(state, action));
+  return saveSteps(reduceButton(state, action), "history", action);
 }

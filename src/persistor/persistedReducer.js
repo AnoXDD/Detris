@@ -13,6 +13,8 @@ import GamePanel from "../state/GamePanel";
 import BaseGrid from "../state/BaseGrid";
 import LevelEditorPanel from "../state/LevelEditorPanel";
 import Detromino from "../state/Detromino";
+import {stateReconciler} from "./persistConfig";
+import autoMergeLevel1 from "redux-persist/es/stateReconciler/autoMergeLevel1";
 
 const persistConfig = {
   transforms: [transforms, immutableTransform({
@@ -21,6 +23,7 @@ const persistConfig = {
   key       : 'root',
   // whitelist : ["game"],
   storage,
+  stateReconciler: autoMergeLevel1,
   // stateReconciler,
 };
 

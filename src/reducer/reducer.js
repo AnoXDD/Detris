@@ -13,7 +13,7 @@ import gamePanel from "./gamePanel";
 import level from "./level";
 import levelEditorPanel from "./levelEditorPanel";
 import notification from "./notification";
-import overlay from "./overlay";
+import button from "./button";
 import tutorial from "./tutorial";
 import {
   undoableGameConfig,
@@ -27,6 +27,6 @@ export default combineReducers({
   level,
   levelEditorPanel: undoable(levelEditorPanel, undoableLevelEditorConfig), // yes,
   notification,
-  overlay, // yes, conversion
+  button, // yes, conversion
   tutorial,
 });

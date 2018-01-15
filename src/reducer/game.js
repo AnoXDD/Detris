@@ -4,7 +4,6 @@
  */
 
 import Immutable from "immutable";
-import LocalStorageLoader from "../store/LocalStorageLoader";
 
 import ActionTypes from "../enum/ActionTypes";
 import GameUiState from "../enum/GameUiState";
@@ -12,14 +11,14 @@ import GameState from "../state/Game";
 import OverlayType from "../enum/OverlayTypes";
 import TopBarType from "../enum/TopBarTypes";
 import PanelType from "../enum/PanelType";
+import DialogTitle from "../enum/DialogTitle";
 
 function reset() {
   return new GameState();
 }
 
 function getInitialState() {
-  let state = LocalStorageLoader.loadGameStateFromLocalStorage();
-  return applyTopBarState(state || reset());
+  return applyTopBarState( reset());
 }
 
 function hideAllFloatingWindows(state) {
@@ -108,9 +107,9 @@ export default function reduce(state = getInitialState(), action) {
     case ActionTypes.SHOW_FULLSCREEN_OVERLAY:
       switch (action.overlayType) {
         case OverlayType.DIALOG:
-          let {title = ""} = action;
+          let {dialogType} = action;
 
-          return state.set("dialogTitle", title)
+          return state.set("dialogTitle", DialogTitle[dialogType])
             .set("activeOverlay",
               state.get("activeOverlay").add(OverlayType.DIALOG));
         case OverlayType.ABOUT:

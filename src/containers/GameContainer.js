@@ -79,13 +79,13 @@ class GameContainer extends Component {
               case OverlayType.PAUSE_GAME:
                 return (<PauseMenuView
                   key="pause"
-                  {...this.props.overlay}/>);
+                  {...this.props.button}/>);
               case OverlayType.NEXT_LEVEL:
                 return (
                   <EndGameView
                     key="next-level"
                     levelState={this.props.levelState}
-                    {...this.props.overlay}/>);
+                    {...this.props.button}/>);
               case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
                 return (<LevelEditorImportExportView
                   levelEditorExportString={this.props.levelEditorExportString}
@@ -97,12 +97,12 @@ class GameContainer extends Component {
               case OverlayType.DIALOG:
                 return (<DialogView key="dialog"
                                     dialogTitle={this.props.dialogTitle}
-                                    {...this.props.overlay}/>);
+                                    {...this.props.button}/>);
               case OverlayType.TUTORIAL_GUIDE:
                 return (
                   <TutorialGuideView
                     key="tutorial-guide"
-                    {...this.props.overlay}
+                    {...this.props.button}
                     {...this.props.tutorial}/>);
               default:
                 return null;
@@ -117,7 +117,7 @@ class GameContainer extends Component {
 
 function stateToProps(state) {
   return {
-    overlay                : state.overlay.toJS(),
+    button                : state.button.toJS(),
     ...state.game.toJS(),
     levelEditorExportString: state.levelEditorPanel.present.get("detokenized"),
     tutorial               : state.tutorial.toJS(),
@@ -127,6 +127,6 @@ function stateToProps(state) {
 
 const connected = connect(stateToProps,
   simpleDispatchToProps,
-  mergePropsFromKey("overlay"))(GameContainer);
+  mergePropsFromKey("button"))(GameContainer);
 
 export default connected;

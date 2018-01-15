@@ -5,7 +5,6 @@
  */
 
 import Immutable from "immutable";
-import LocalStorageLoader from "../store/LocalStorageLoader";
 
 import ActionTypes from "../enum/ActionTypes";
 import TutorialProgress from "../enum/TutorialProgress";
@@ -16,14 +15,7 @@ function reset() {
 }
 
 function getInitialState() {
-  let state = reset();
-
-  let localQueue = LocalStorageLoader.loadQueueFromLocalStorage();
-  if (localQueue) {
-    return localQueue;
-  }
-
-  return state;
+  return reset();
 }
 
 function pop(state) {

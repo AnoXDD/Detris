@@ -18,6 +18,8 @@ import {
 } from "../middleware/delayDispatcher";
 import DispatchType from "../middleware/DispatchType";
 import store from "../store/store";
+import DialogType from "../enum/DialogType";
+import {nextTutorial, prevTutorial} from "../util/tutorialHelper";
 
 const DELAY = 500;
 
@@ -134,13 +136,13 @@ const Actions = {
   },
 
   setNextTutorialProgress() {
-    let progress = store.getState().tutorial.next();
+    let progress = nextTutorial(store.getState().tutorial);
 
     return Actions.setTutorialProgress(progress);
   },
 
   setPreviousTutorialProgress() {
-    let progress = store.getState().tutorial.prev();
+    let progress = prevTutorial(store.getState().tutorial);
 
     return Actions.setTutorialProgress(progress);
   },
@@ -211,73 +213,41 @@ const Actions = {
   },
 
   showDialogForStartTutorial() {
-    return Actions.showDialog(
-      "Do you want to start the tutorial?",
-      createBatchActions(
-        Actions.startTutorial(),
-        Actions.showTutorialGuide()
-      )
-    );
+    return Actions.showDialog(DialogType.START_TUTORIAL);
   },
 
   showDialogForGameRestart() {
-    return Actions.showDialog(
-      "Do you want to restart this level?",
-      Actions.restartCurrentLevel()
-    );
+    return Actions.showDialog(DialogType.GAME_RESTART);
   },
 
   showDialogForResetLevelEditor() {
-    return Actions.showDialog(
-      "Do you want to reset the level editor?",
-      Actions.resetGrid()
-    );
+    return Actions.showDialog(DialogType.RESET_LEVEL_EDITOR);
   },
 
-  showDialogForQuitToLevelSelect() {
-    return Actions.showDialog(
-      "Do you want to return to previous menu? Any changes will be lost.",
-      Actions.showSelectLevel()
-    );
+  showDialogForQuitToSelectLevel() {
+    return Actions.showDialog(DialogType.QUIT_TO_SELECT_LEVEL);
   },
 
   showDialogForQuitToWelcome() {
-    return Actions.showDialog(
-      "Do you want to return to home page? Any changes will be lost.",
-      Actions.showWelcomePage()
-    );
+    return Actions.showDialog(DialogType.QUIT_TO_WELCOME);
   },
 
   showDialogForSkipTutorial() {
-    return Actions.showDialog(
-      "Do you want to skip tutorial? You can come back later from the main menu.",
-      createBatchActions(
-        Actions.setTutorialCompleted(),
-        Actions.showSelectLevel()
-      )
-    );
+    return Actions.showDialog(DialogType.SKIP_TUTORIAL);
   },
 
   /**
    * Called when the player decides to prematurely end the tutorial
    */
   showDialogForEndTutorial() {
-    return Actions.showDialog(
-      "Do you want to end tutorial now? You can come back later from the main menu.",
-      createBatchActions(
-        Actions.setTutorialCompleted(),
-        Actions.showWelcomePage()
-      )
-    );
+    return Actions.showDialog(DialogType.END_TUTORIAL);
   },
 
-  showDialog(title, onYes, onNo) {
+  showDialog(dialogType) {
     return {
       type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.DIALOG,
-      title,
-      onYes,
-      onNo,
+      dialogType,
     };
   },
 
@@ -324,7 +294,9 @@ const Actions = {
   },
 
   restartCurrentLevel() {
-    return Actions.startNewLevelById(store.getState().level.get("currentLevelId"));
+    return Actions.startNewLevelById(store.getState()
+      .level
+      .get("currentLevelId"));
   },
 
   nextLevel() {

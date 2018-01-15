@@ -9,7 +9,7 @@ import GridView from "../components/GridView";
 import QueueView from "../components/QueueView";
 import GridControlView from "../components/GridControlView";
 import PanelType from "../enum/PanelType";
-import TutorialHelper from "../util/TutorialHelper";
+import TutorialHelper, {isDetrominoReachedHighlightArea} from "../util/tutorialHelper";
 import Actions from "../data/Actions";
 import {
   mergePropsFromKey,
@@ -21,7 +21,7 @@ class PanelContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.panelType === PanelType.TUTORIAL) {
-      if (TutorialHelper.isDetrominoReachedHighlightArea(nextProps.grid)) {
+      if (isDetrominoReachedHighlightArea(nextProps.grid)) {
         nextProps.onDetrominoReachedHighlightedArea();
       }
     } else if (nextProps.panelType === PanelType.IN_GAME) {

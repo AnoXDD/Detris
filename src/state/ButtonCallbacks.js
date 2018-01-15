@@ -17,8 +17,8 @@ const CallbackRecord = Immutable.Record({
   onDismiss  : NoOp, // tutorial
   onShowGuide: NoOp, // tutorial
 
-  // <id{string}, string>, use mapPresets from overlay to process the content
-  overlayCallbackRecordId: Immutable.Map(),
+  // Keep track of the action type passed
+  history: Immutable.OrderedSet(),
 });
 
 export default CallbackRecord;

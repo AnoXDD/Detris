@@ -4,8 +4,6 @@ import registerServiceWorker from "./registerServiceWorker";
 import {Provider} from "react-redux";
 import {PersistGate} from "redux-persist/es/integration/react";
 
-// Global js
-import "./store/LocalStorageSaver";
 import "./App.css";
 
 import store from "./store/store";
