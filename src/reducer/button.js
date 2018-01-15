@@ -129,6 +129,8 @@ function reduceDialog(action, state) {
         Actions.showWelcomePage()
       );
       break;
+
+    default:
   }
 
   return state.set("onDialogYes", () => createBatchActions(

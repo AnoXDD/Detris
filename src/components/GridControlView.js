@@ -2,7 +2,7 @@
  * Created by Anoxic on 10/3/2017.
  */
 
-import React, {Component} from "react";
+import React from "react";
 import Button from "../lib/Button";
 import Toggle from "../lib/Toggle";
 import Direction from "../enum/Direction";

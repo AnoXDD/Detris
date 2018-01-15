@@ -7,8 +7,6 @@
 import Immutable from "immutable";
 import BlockType from "../enum/BlockType";
 import BaseGrid from "./BaseGrid";
-import LevelDataUnit from "./LevelDataUnit";
-import Algorithm from "../util/Algorithm";
 
 const LevelEditorState = Immutable.Record({
   isEditingBlock: false,

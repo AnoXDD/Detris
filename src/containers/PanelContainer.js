@@ -9,7 +9,7 @@ import GridView from "../components/GridView";
 import QueueView from "../components/QueueView";
 import GridControlView from "../components/GridControlView";
 import PanelType from "../enum/PanelType";
-import TutorialHelper, {isDetrominoReachedHighlightArea} from "../util/tutorialHelper";
+import {isDetrominoReachedHighlightArea} from "../util/tutorialHelper";
 import Actions from "../data/Actions";
 import {
   mergePropsFromKey,

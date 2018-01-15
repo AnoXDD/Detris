@@ -21,7 +21,7 @@ import {toLevelDataUnit, x, y} from "../util/levelEditorPanelHelper";
 import {
   detrominoHeight,
   detrominoWidth,
-  getMiddleXPos,
+  getMiddleXPos
 } from "../util/detrominoHelper";
 
 function reset() {
