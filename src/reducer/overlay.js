@@ -86,7 +86,7 @@ function applyTutorialProgress(state, progress) {
   }
 }
 
-export default function reduce(state = reset(), action) {
+ function reduceByAction(state = reset(), action) {
   switch (action.type) {
     case ActionTypes.START_LEVEL:
       return hidePauseMenu(
@@ -134,4 +134,17 @@ export default function reduce(state = reset(), action) {
     default:
       return state;
   }
+}
+
+/**
+ * Maps the constants in the
+ * @param state
+ */
+export function mapPresets(state) {
+  // todo
+  return state;
+}
+
+export default function reduce(state, action) {
+  return mapPresets(reduceByAction(state, action));
 }

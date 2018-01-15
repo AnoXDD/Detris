@@ -15,24 +15,6 @@ const BlockRecord = Immutable.Record({
   color   : Color.TRANSPARENT,
   x       : 0,
   y       : 0,
-});
+}, "Block");
 
-class Block extends BlockRecord {
-  x() {
-    return this.get("x");
-  }
-
-  y() {
-    return this.get("y");
-  }
-
-  toggleOccupied() {
-    return this.set("occupied", !this.get("occupied"));
-  }
-
-  isOccupied() {
-    return this.get("occupied");
-  }
-}
-
-export default Block;
+export default BlockRecord;

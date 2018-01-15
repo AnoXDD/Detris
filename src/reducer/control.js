@@ -97,7 +97,7 @@ function fullGameControlWithHistory() {
   return ControlPresets.FULL_GAME_CONTROL;
 }
 
-export default function control(state = ControlPresets.EMPTY, action) {
+export function control(state = ControlPresets.EMPTY, action) {
   switch (action.type) {
     case ActionTypes.START_LEVEL:
       return onGameStarted();
@@ -122,3 +122,5 @@ export default function control(state = ControlPresets.EMPTY, action) {
       return state;
   }
 }
+
+export default control;

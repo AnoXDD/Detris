@@ -16,10 +16,10 @@ export default class GridView extends Component {
             transitionLeaveTimeout={1000}
           >
             {this.props.grid.map(block => {
-              let selected = this.props.editorState && this.props.editorState.isEditingBlock && this.props.editorState.x === block.x() && this.props.editorState.y === block.y() ? "selected" : "";
+              let selected = this.props.editorState && this.props.editorState.isEditingBlock && this.props.editorState.x === block.x && this.props.editorState.y === block.y ? "selected" : "";
               return (
                 <span key={block.id}
-                      className={`grid-cell grid-cell-x-${block.x()} grid-cell-y-${block.y()} ${block.type} ${block.occupied ? "occupied" : ""} grid-cell-color-${block.color} ${selected}`}
+                      className={`grid-cell grid-cell-x-${block.x} grid-cell-y-${block.y} ${block.type} ${block.occupied ? "occupied" : ""} grid-cell-color-${block.color} ${selected}`}
                 />
               );
             })}

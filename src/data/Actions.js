@@ -373,8 +373,7 @@ const Actions = {
 
   nextDetrominoInEditor() {
     let detrominoType = store.getState().levelEditorPanel.present
-      .get("detrominoIterator")
-      .value();
+      .get("detromino");
 
     return createSpecialAction({
       type: ActionTypes.NEXT_DETROMINO_IN_EDITOR,

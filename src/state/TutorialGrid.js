@@ -11,6 +11,7 @@ import DetrominoType from "../enum/DetrominoType";
 import Block from "./Block";
 import BlockType from "../enum/BlockType";
 import BaseGrid from "./BaseGrid";
+import {getMiddleXPos} from "../util/detrominoHelper";
 
 /**
  * Converts a map of {x,y} to grid map for BaseGrid
@@ -57,7 +58,7 @@ grid = {
 };
 
 const MOVE_DETROMINO_INTRO = new BaseGrid({
-  detromino: detromino.set("x", detromino.getMiddleXPos()),
+  detromino: detromino.set("x", getMiddleXPos(detromino)),
   grid     : Immutable.Map(grid),
 });
 

@@ -17,6 +17,6 @@ const GridDataRecord = Immutable.Record({
    * Read only matrix. Should be kept synced with `grid` by calling Algorithm.
    */
   matrix: [],
-});
+}, "BaseGrid");
 
 export default GridDataRecord;

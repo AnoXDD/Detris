@@ -5,6 +5,7 @@
  */
 
 import BlockType from "../enum/BlockType";
+import {x, y} from "./blockHelper";
 const TutorialHelper = {
   /**
    * Returns if the user has finished this part of tutorial
@@ -22,7 +23,7 @@ const TutorialHelper = {
 
     // Compare if they overlap
     for (let d of detrominos) {
-      if (highlights.findIndex(b => b.x() === d.x() && b.y() === d.y()) === -1) {
+      if (highlights.findIndex(b => x(b) === x(d) && y(b) === y(d)) === -1) {
         // Not found, so they are not overlapping
         return false;
       }

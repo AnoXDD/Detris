@@ -13,6 +13,6 @@ const GamePanelRecord = Immutable.Record({
 
   // When the blocks are being eliminated, for example, it's considered busy
   busy: false,
-});
+}, "GamePanel");
 
 export default GamePanelRecord;

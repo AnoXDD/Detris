@@ -13,6 +13,11 @@ import Block from "../state/Block";
 import Direction from "../enum/Direction";
 import Rotation from "../enum/Rotation";
 import Color from "../enum/Color";
+import {
+  detrominoHeight,
+  detrominoWidth,
+  getRotatedBlocks,
+} from "./detrominoHelper";
 
 /**
  * Converts a grid to an 2d array. Note the matrix is first indexed by y-axis,
@@ -193,7 +198,7 @@ const Algorithm = {
    * @param {Immutable.Map<string, number>|Detromino} detromino
    */
   isOverlapping(matrix, detromino) {
-    let detrominoArray = detromino.getRotatedBlocks().valueSeq().toArray();
+    let detrominoArray = getRotatedBlocks(detromino).valueSeq().toArray();
 
     for (let cell of detrominoArray) {
       let gridCell = matrix[cell.get("y")][cell.get("x")];
@@ -280,7 +285,8 @@ const Algorithm = {
      */
 
       // Use the lines below to merge the detromino shape and the grid
-    let shape = detromino.getRotatedBlocks(blockType,
+    let shape = getRotatedBlocks(detromino,
+      blockType,
       Color.SOLID,
       detrominoTargets);
 
@@ -304,7 +310,7 @@ const Algorithm = {
    *   on the grid
    */
   getLowestValidPositionInEditor(matrix, detromino) {
-    for (let y = GridSize.HEIGHT - detromino.height(); y >= 0; --y) {
+    for (let y = GridSize.HEIGHT - detrominoHeight(detromino); y >= 0; --y) {
       if (Algorithm.isFitForNewDetrominoInEditor(matrix,
           detromino.set("y", y))) {
         return detromino.set("y", y);
@@ -323,7 +329,7 @@ const Algorithm = {
    * @param {Immutable.Map<string, number>|Detromino} detromino
    */
   isFitForNewDetrominoInEditor(matrix, detromino) {
-    let height = detromino.height();
+    let height = detrominoHeight(detromino);
     let y = detromino.get("y");
 
     while (y >= 0 && height-- >= 0) {
@@ -345,7 +351,7 @@ const Algorithm = {
     let detromino = state.get("grid").get("detromino");
     let initialX = detromino.get("x");
     let matrix = state.get("grid").get("matrix");
-    let width = detromino.width();
+    let width = detrominoWidth(detromino);
 
     for (let x = initialX; x < initialX + width; ++x) {
       for (let y = detromino.get("y"); y < GridSize.HEIGHT; ++y) {
@@ -385,7 +391,7 @@ const Algorithm = {
   findNextEditableBlock(matrix, detromino, x, y, direction) {
     let detrominoX = detromino.get("x");
     let detrominoY = detromino.get("y");
-    let width = detromino.width();
+    let width = detrominoWidth(detromino);
 
     /**
      * Returns if a given x is in valid range
@@ -483,8 +489,8 @@ const Algorithm = {
       return grid;
     }
 
-    let width = detromino.width();
-    let height = detromino.height();
+    let width = detrominoWidth(detromino);
+    let height = detrominoHeight(detromino);
     let detrominoX = detromino.get("x");
     let detrominoY = detromino.get("y");
 
@@ -534,8 +540,8 @@ const Algorithm = {
       return false;
     }
 
-    let width = detromino.width();
-    let height = detromino.height();
+    let width = detrominoWidth(detromino);
+    let height = detrominoHeight(detromino);
     let detrominoX = detromino.get("x");
     let detrominoY = detromino.get("y");
     let isAllTargets = true;

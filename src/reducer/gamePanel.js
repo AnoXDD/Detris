@@ -18,6 +18,11 @@ import GamePanel from "../state/GamePanel";
 import TutorialProgress from "../enum/TutorialProgress";
 import TutorialGrid from "../state/TutorialGrid";
 import {applyQueue} from "./queue";
+import {
+  detrominoHeight,
+  detrominoWidth,
+  getMiddleXPos,
+} from "../util/detrominoHelper";
 
 
 function reset() {
@@ -52,7 +57,7 @@ function nextDetromino(state, action) {
 
   let grid = state.get("grid");
   grid = grid.set("detromino",
-    detromino.set("x", detromino.getMiddleXPos()));
+    detromino.set("x", getMiddleXPos(detromino)));
 
   return _syncData(state.set("grid", grid));
 }
@@ -108,8 +113,8 @@ function move(state, delta) {
     return state;
   }
 
-  let width = detromino.width();
-  let height = detromino.height();
+  let width = detrominoWidth(detromino);
+  let height = detrominoHeight(detromino);
 
   // Tests if it hits the lower or right edge
   if (targetX + width > GridSize.WIDTH || targetY + height > GridSize.HEIGHT) {

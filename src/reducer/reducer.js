@@ -5,7 +5,7 @@
  */
 
 import {combineReducers} from "redux";
-import undoable, {includeAction} from "redux-undo";
+import undoable from "redux-undo";
 
 import control from "./control";
 import game from "./game";
@@ -15,29 +15,18 @@ import levelEditorPanel from "./levelEditorPanel";
 import notification from "./notification";
 import overlay from "./overlay";
 import tutorial from "./tutorial";
-import ActionTypes from "../enum/ActionTypes";
-
-const undoableGameConfig = {
-  undoType        : ActionTypes.UNDO_IN_GAME,
-  redoType        : ActionTypes.REDO_IN_GAME,
-  clearHistoryType: ActionTypes.CLEAR_HISTORY_IN_GAME,
-  filter          : includeAction(ActionTypes.NEXT_DETROMINO_IN_GAME),
-};
-
-const undoableLevelEditorConfig = {
-  undoType        : ActionTypes.UNDO_IN_EDITOR,
-  redoType        : ActionTypes.REDO_IN_EDITOR,
-  clearHistoryType: ActionTypes.CLEAR_HISTORY_IN_EDITOR,
-  filter          : includeAction(ActionTypes.NEXT_DETROMINO_IN_EDITOR),
-};
+import {
+  undoableGameConfig,
+  undoableLevelEditorConfig
+} from "../undoable/undoableConfig";
 
 export default combineReducers({
   control,
   game,
-  gamePanel       : undoable(gamePanel, undoableGameConfig),
+  gamePanel       : undoable(gamePanel, undoableGameConfig), //yes
   level,
-  levelEditorPanel: undoable(levelEditorPanel, undoableLevelEditorConfig),
+  levelEditorPanel: undoable(levelEditorPanel, undoableLevelEditorConfig), // yes,
   notification,
-  overlay,
+  overlay, // yes, conversion
   tutorial,
 });

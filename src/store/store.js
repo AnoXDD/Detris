@@ -3,14 +3,12 @@
  */
 
 import {applyMiddleware, compose, createStore} from "redux";
-
-import reducer from "../reducer/reducer";
 import {delayDispatch} from "../middleware/delayDispatcher";
+import persistedReducer from "../persistor/persistedReducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-
-const store = createStore(reducer,
+const store = createStore(persistedReducer,
   undefined,
   composeEnhancers(applyMiddleware(delayDispatch)));
 

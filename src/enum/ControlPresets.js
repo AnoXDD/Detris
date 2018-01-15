@@ -10,6 +10,7 @@ import Immutable from "immutable";
 import ControlTypes from "./ControlTypes";
 import Actions from "../data/Actions";
 import ControlState from "../state/Control";
+import {addIdToImmutable} from "../util/addIdToData";
 
 const FULL_GAME_CONTROL = new ControlState({
   rotate : Actions.rotateInTutorial,
@@ -131,13 +132,4 @@ const ControlPresets = {
     ),
 };
 
-// add id to each control
-(() => {
-  let ids = Object.keys(ControlPresets);
-
-  for (let id of ids) {
-    ControlPresets[id].set("controlRecordId", id);
-  }
-})();
-
-export default ControlPresets;
+export default addIdToImmutable(ControlPresets, "controlRecordId");

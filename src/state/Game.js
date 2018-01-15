@@ -20,10 +20,4 @@ const GameStateRecord = Immutable.Record({
   levelEditorExportString: "",
 });
 
-class GameState extends GameStateRecord {
-  isShowingLevelEditor() {
-    return this.get("uiState") === GameUiState.LEVEL_EDITOR_STARTED;
-  }
-}
-
-export default GameState;
+export default GameStateRecord;

@@ -7,37 +7,38 @@
 import DetrominoType from "../enum/DetrominoType";
 
 const detrominoTypes = Object.values(DetrominoType).slice(1);
+const length = detrominoTypes.length;
 
-export default class DetrominoIterator {
+function findIndex(type) {
+  let index = detrominoTypes.indexOf(type);
 
-  length = detrominoTypes.length;
-  index = 0;
+  if (index === -1) {
+    index = 0;
+  }
+  return index;
+}
 
-  constructor(type) {
-    if (!type) {
-      return;
-    }
+export function prevDetrominoType(type) {
+  let index = findIndex(type);
 
-    this.index = detrominoTypes.findIndex(type);
-
-    if (this.index === -1) {
-      this.index = 0;
-    }
+  if (--index < 0) {
+    index = length - 1;
   }
 
-  prev() {
-    if (--this.index < 0) {
-      this.index = this.length - 1;
-    }
+  return detrominoTypes[index];
+}
+
+export function nextDetrominoType(type) {
+  let index = findIndex(type);
+
+  if (++index >= length) {
+    index = 0;
   }
 
-  next() {
-    if (++this.index >= this.length) {
-      this.index = 0;
-    }
-  }
+  return detrominoTypes[index];
+}
 
-  value() {
-    return detrominoTypes[this.index];
-  }
-};
+export default {
+  prevDetrominoType,
+  nextDetrominoType,
+}
