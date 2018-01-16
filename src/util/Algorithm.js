@@ -252,16 +252,20 @@ const Algorithm = {
 
   /**
    * Repositions detromino if it's not placed correctly
-   * @param {Immutable.Map|BaseGrid} grid - the base grid whose .get("matrix")
+   * @param {Immutable.Map} gridMap - the base grid whose .get("matrix")
    *   that might have NOT been updated yet
    * @param {Detromino} detromino - detromino on the grid
-   * @param {string|BlockType} blockType - the block type that the detromino is
+   * @param {string|BlockType} blockType? - the block type that the detromino
+   *   is
    *   converting to
-   * @param {Immutable.Set} detrominoTargets - optional targets from level
-   * @return updated grid with detromino whose position is fixed; null if the
+   * @param {Immutable.Set} detrominoTargets? - optional targets from level
+   * @return Updated detromino whose position is fixed; null if the
    *   position can't be fixed
    */
-  maybeRepositionDetromino(grid, detromino, blockType, detrominoTargets) {
+  repositionDetrominoIfNecessary(detromino,
+                                 gridMap,
+                                 blockType,
+                                 detrominoTargets) {
     /**
      * todo: place detromino if it's out of bounds or overlapped
      *
@@ -291,7 +295,7 @@ const Algorithm = {
       detrominoTargets);
 
     // Apply the processed detromino to the grid
-    return grid.merge(shape);
+    return detromino;
   },
 
   generateRandomDetrominoType() {

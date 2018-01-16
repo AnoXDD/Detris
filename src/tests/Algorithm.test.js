@@ -10,6 +10,8 @@ import BlockType from "../enum/BlockType";
 import Detromino from "../state/Detromino";
 import DetrominoType from "../enum/DetrominoType";
 import Direction from "../enum/Direction";
+import {x, y} from "../util/blockHelper";
+import Rotation from "../enum/Rotation";
 
 const charToType = {
   "1": BlockType.ORIGINAL,
@@ -52,9 +54,9 @@ function gamePanelToMatrixString(grid) {
 
 describe("Test findNextEditableBlock", () => {
 
-  function exp(block, x, y) {
-    expect(block.x()).toBe(x);
-    expect(block.y()).toBe(y);
+  function exp(block, xCoord, yCoord) {
+    expect(x(block)).toBe(xCoord);
+    expect(y(block)).toBe(yCoord);
   }
 
   const matrix = toMatrix(
@@ -1374,7 +1376,8 @@ describe("Test applyDetrominoBlocks (original only)", () => {
 
   const f = (before, after) => {
     let gamePanel = toGrid(before);
-    let result = gamePanelToMatrixString(Algorithm.applyDetrominoBlocks(gamePanel));
+    let result = gamePanelToMatrixString(Algorithm.applyDetrominoBlocks(
+      gamePanel));
     expect(result).toBe(after.trim());
   };
 
@@ -3956,4 +3959,674 @@ describe("Test applyDetrominoBlocks (original only)", () => {
     })
   })
 
+});
+
+describe("Test repositionDetorminoIfNecessary", () => {
+  // This function will probably only work for this test suite only
+  function toGrid(matrix) {
+    let grid = {};
+    for (let blocks of matrix) {
+      for (let block of blocks) {
+        if (!block) {
+          continue;
+        }
+
+        let id = `${block.get("x")}-${block.get("y")}`;
+        grid[id] = block.set("id", id);
+      }
+    }
+
+    return Immutable.Map(grid);
+  }
+
+  const d = (x, y, type, rotation) => new Detromino({x, y, type, rotation});
+
+  const f = (grid, detromino, expected) => {
+    grid = toGrid(grid);
+    detromino = Algorithm.repositionDetrominoIfNecessary(
+      detromino,
+      grid);
+
+    expect(detromino.get("x")).toBe(expected.get("x"));
+    expect(detromino.get("y")).toBe(expected.get("y"));
+    expect(detromino.get("type")).toBe(expected.get("type"));
+    expect(detromino.get("rotation")).toBe(expected.get("rotation"));
+  };
+
+  describe("Blank grid", () => {
+    test("Detromino in the center of grid", () => {
+      const grid = toMatrix(
+        // 0123456789
+        "  0000000000\n" //0
+        + "0000000000\n" //1
+        + "0000000000\n" //2
+        + "0000000000\n" //3
+        + "0000000000\n" //4
+        + "0000000000\n" //5
+        + "0000000000\n" //6
+        + "0000000000\n" //7
+        + "0000000000\n" //8
+        + "0000000000\n" //9
+        + "0000000000\n" //10
+        + "0000000000\n" //11
+        + "0000000000\n" //12
+        + "0000000000\n" //13
+        + "0000000000\n" //14
+        + "0000000000\n" //15
+        + "0000000000\n" //16
+        + "0000000000\n" //17
+        + "0000000000\n" //18
+        + "0000000000\n" //19
+        // 0123456789
+      );
+
+      const detromino = d(3, 14, DetrominoType.T);
+
+      f(grid, detromino, detromino);
+    });
+
+    test("Detromino on the edge of grid", () => {
+      const grid = toMatrix(
+        // 0123456789
+        "  0000000000\n" //0
+        + "0000000000\n" //1
+        + "0000000000\n" //2
+        + "0000000000\n" //3
+        + "0000000000\n" //4
+        + "0000000000\n" //5
+        + "0000000000\n" //6
+        + "0000000000\n" //7
+        + "0000000000\n" //8
+        + "0000000000\n" //9
+        + "0000000000\n" //10
+        + "0000000000\n" //11
+        + "0000000000\n" //12
+        + "0000000000\n" //13
+        + "0000000000\n" //14
+        + "0000000000\n" //15
+        + "0000000000\n" //16
+        + "0000000000\n" //17
+        + "0000000000\n" //18
+        + "0000000000\n" //19
+        // 0123456789
+      );
+
+      const detromino = d(0, 19, DetrominoType.I);
+
+      f(grid, detromino, detromino);
+    });
+
+    test("Detromino on the edge of grid (2)", () => {
+      const grid = toMatrix(
+        // 0123456789
+        "  0000000000\n" //0
+        + "0000000000\n" //1
+        + "0000000000\n" //2
+        + "0000000000\n" //3
+        + "0000000000\n" //4
+        + "0000000000\n" //5
+        + "0000000000\n" //6
+        + "0000000000\n" //7
+        + "0000000000\n" //8
+        + "0000000000\n" //9
+        + "0000000000\n" //10
+        + "0000000000\n" //11
+        + "0000000000\n" //12
+        + "0000000000\n" //13
+        + "0000000000\n" //14
+        + "0000000000\n" //15
+        + "0000000000\n" //16
+        + "0000000000\n" //17
+        + "0000000000\n" //18
+        + "0000000000\n" //19
+        // 0123456789
+      );
+
+      const detromino = d(8, 18, DetrominoType.O);
+
+      f(grid, detromino, detromino);
+    });
+
+    test("Detromino on the edge of grid (3)", () => {
+      const grid = toMatrix(
+        // 0123456789
+        "  0000000000\n" //0
+        + "0000000000\n" //1
+        + "0000000000\n" //2
+        + "0000000000\n" //3
+        + "0000000000\n" //4
+        + "0000000000\n" //5
+        + "0000000000\n" //6
+        + "0000000000\n" //7
+        + "0000000000\n" //8
+        + "0000000000\n" //9
+        + "0000000000\n" //10
+        + "0000000000\n" //11
+        + "0000000000\n" //12
+        + "0000000000\n" //13
+        + "0000000000\n" //14
+        + "0000000000\n" //15
+        + "0000000000\n" //16
+        + "0000000000\n" //17
+        + "0000000000\n" //18
+        + "0000000000\n" //19
+        // 0123456789
+      );
+
+      const detromino = d(0, 0, DetrominoType.L);
+
+      f(grid, detromino, detromino);
+    });
+
+    test("Detromino out of grid: T at lower right", () => {
+      const grid = toMatrix(
+        // 0123456789
+        "  0000000000\n" //0
+        + "0000000000\n" //1
+        + "0000000000\n" //2
+        + "0000000000\n" //3
+        + "0000000000\n" //4
+        + "0000000000\n" //5
+        + "0000000000\n" //6
+        + "0000000000\n" //7
+        + "0000000000\n" //8
+        + "0000000000\n" //9
+        + "0000000000\n" //10
+        + "0000000000\n" //11
+        + "0000000000\n" //12
+        + "0000000000\n" //13
+        + "0000000000\n" //14
+        + "0000000000\n" //15
+        + "0000000000\n" //16
+        + "0000000000\n" //17
+        + "0000000000\n" //18
+        + "0000000000\n" //19
+        // 0123456789
+      );
+
+      const detromino = d(8, 18, DetrominoType.T);
+      const detromino2 = d(7, 18, DetrominoType.T);
+
+      f(grid, detromino, detromino2);
+    });
+
+    test("Detromino out of grid: L at upper right", () => {
+      const grid = toMatrix(
+        // 0123456789
+        "  0000000000\n" //0
+        + "0000000000\n" //1
+        + "0000000000\n" //2
+        + "0000000000\n" //3
+        + "0000000000\n" //4
+        + "0000000000\n" //5
+        + "0000000000\n" //6
+        + "0000000000\n" //7
+        + "0000000000\n" //8
+        + "0000000000\n" //9
+        + "0000000000\n" //10
+        + "0000000000\n" //11
+        + "0000000000\n" //12
+        + "0000000000\n" //13
+        + "0000000000\n" //14
+        + "0000000000\n" //15
+        + "0000000000\n" //16
+        + "0000000000\n" //17
+        + "0000000000\n" //18
+        + "0000000000\n" //19
+        // 0123456789
+      );
+
+      const detromino = d(8, 0, DetrominoType.L);
+      const detromino2 = d(7, 0, DetrominoType.L);
+
+      f(grid, detromino, detromino2);
+    });
+
+    test("Detromino out of grid: vertical I at lower left", () => {
+      const grid = toMatrix(
+        // 0123456789
+        "  0000000000\n" //0
+        + "0000000000\n" //1
+        + "0000000000\n" //2
+        + "0000000000\n" //3
+        + "0000000000\n" //4
+        + "0000000000\n" //5
+        + "0000000000\n" //6
+        + "0000000000\n" //7
+        + "0000000000\n" //8
+        + "0000000000\n" //9
+        + "0000000000\n" //10
+        + "0000000000\n" //11
+        + "0000000000\n" //12
+        + "0000000000\n" //13
+        + "0000000000\n" //14
+        + "0000000000\n" //15
+        + "0000000000\n" //16
+        + "0000000000\n" //17
+        + "0000000000\n" //18
+        + "0000000000\n" //19
+        // 0123456789
+      );
+
+      const detromino = d(0, 19, DetrominoType.I, Rotation.DEG_90);
+      const detromino2 = d(0, 16, DetrominoType.I, Rotation.DEG_90);
+
+      f(grid, detromino, detromino2);
+    });
+
+    test("Detromino out of grid: vertical T (facing left) on right edge",
+      () => {
+        const grid = toMatrix(
+          // 0123456789
+          "  0000000000\n" //0
+          + "0000000000\n" //1
+          + "0000000000\n" //2
+          + "0000000000\n" //3
+          + "0000000000\n" //4
+          + "0000000000\n" //5
+          + "0000000000\n" //6
+          + "0000000000\n" //7
+          + "0000000000\n" //8
+          + "0000000000\n" //9
+          + "0000000000\n" //10
+          + "0000000000\n" //11
+          + "0000000000\n" //12
+          + "0000000000\n" //13
+          + "0000000000\n" //14
+          + "0000000000\n" //15
+          + "0000000000\n" //16
+          + "0000000000\n" //17
+          + "0000000000\n" //18
+          + "0000000000\n" //19
+          // 0123456789
+        );
+
+        const detromino = d(9, 7, DetrominoType.T, Rotation.DEG_270);
+        const detromino2 = d(8, 7, DetrominoType.T, Rotation.DEG_270);
+
+        f(grid, detromino, detromino2);
+      });
+  });
+
+  describe("Grid with blocks", () => {
+    describe("Detromino get stuck", () => {
+      test("Case 1", () => {
+        const grid = toMatrix(
+          // 0123456789
+          "  0000000000\n" //0
+          + "0000000000\n" //1
+          + "0000000000\n" //2
+          + "0000000000\n" //3
+          + "0000000000\n" //4
+          + "0000000000\n" //5
+          + "0000000000\n" //6
+          + "0000000000\n" //7
+          + "0000000000\n" //8
+          + "0011100000\n" //9
+          + "0011000000\n" //10
+          + "0011000000\n" //11
+          + "0011000000\n" //12
+          + "0011011000\n" //13
+          + "0011111000\n" //14
+          + "0000000000\n" //15
+          + "0000000000\n" //16
+          + "0000000000\n" //17
+          + "0000000000\n" //18
+          + "0000000000\n" //19
+          // 0123456789
+        );
+
+        const detromino = d(2, 10, DetrominoType.I, Rotation.DEG_90);
+
+        f(grid, detromino, null);
+      });
+
+      test("Case 2", () => {
+        const grid = toMatrix(
+          // 0123456789
+          "  0000000000\n" //0
+          + "0000000000\n" //1
+          + "0000000000\n" //2
+          + "0000000000\n" //3
+          + "0000000000\n" //4
+          + "0000000000\n" //5
+          + "0000000000\n" //6
+          + "0000000000\n" //7
+          + "0000000000\n" //8
+          + "0011100000\n" //9
+          + "0011000000\n" //10
+          + "0011000000\n" //11
+          + "0011000000\n" //12
+          + "0011011000\n" //13
+          + "0011111000\n" //14
+          + "0000000000\n" //15
+          + "0000000000\n" //16
+          + "0000000000\n" //17
+          + "0000000000\n" //18
+          + "0000000000\n" //19
+          // 0123456789
+        );
+
+        const detromino = d(4, 13, DetrominoType.I, Rotation.DEG_90);
+
+        f(grid, detromino, null);
+      });
+
+      test("Case 3", () => {
+        const grid = toMatrix(
+          // 0123456789
+          "  0000000000\n" //0
+          + "0000000000\n" //1
+          + "0000000000\n" //2
+          + "0000000000\n" //3
+          + "0000000000\n" //4
+          + "0000000000\n" //5
+          + "0000000000\n" //6
+          + "0000000000\n" //7
+          + "0000000000\n" //8
+          + "0011100000\n" //9
+          + "0011000000\n" //10
+          + "0011000000\n" //11
+          + "0011000000\n" //12
+          + "0011011000\n" //13
+          + "0011111000\n" //14
+          + "0000000000\n" //15
+          + "0000000000\n" //16
+          + "0000000000\n" //17
+          + "0000000000\n" //18
+          + "0000000000\n" //19
+          // 0123456789
+        );
+
+        const detromino = d(2, 12, DetrominoType.I);
+
+        f(grid, detromino, null);
+      });
+
+      test("Stuck on the upper edge", () => {
+        const grid = toMatrix(
+          // 0123456789
+          "  0000001000\n" //0
+          + "0000000000\n" //1
+          + "0011110000\n" //2
+          + "0000111100\n" //3
+          + "0000000000\n" //4
+          + "0000000000\n" //5
+          + "0000000000\n" //6
+          + "0000000000\n" //7
+          + "0000000000\n" //8
+          + "0011100000\n" //9
+          + "0011000000\n" //10
+          + "0011000000\n" //11
+          + "0011000000\n" //12
+          + "0011011000\n" //13
+          + "0011111000\n" //14
+          + "0000000000\n" //15
+          + "0000000000\n" //16
+          + "0000000000\n" //17
+          + "0000000000\n" //18
+          + "0000000000\n" //19
+          // 0123456789
+        );
+
+        const detromino = d(6, 2, DetrominoType.L, Rotation.DEG_90);
+
+        f(grid, detromino, null);
+      });
+
+      test("Stuck on the left edge", () => {
+        const grid = toMatrix(
+          // 0123456789
+          "  0000000000\n" //0
+          + "0000000000\n" //1
+          + "0000000000\n" //2
+          + "0000000000\n" //3
+          + "0000000000\n" //4
+          + "0000000000\n" //5
+          + "0000000000\n" //6
+          + "0000000000\n" //7
+          + "0000000000\n" //8
+          + "0011100000\n" //9
+          + "0011000000\n" //10
+          + "0011000000\n" //11
+          + "0011000000\n" //12
+          + "0011011000\n" //13
+          + "0011111000\n" //14
+          + "0000000000\n" //15
+          + "0000000000\n" //16
+          + "0000000000\n" //17
+          + "0000000000\n" //18
+          + "0000000000\n" //19
+          // 0123456789
+        );
+
+        const detromino = d(1, 14, DetrominoType.Z, Rotation.DEG_90);
+
+        f(grid, detromino, null);
+      });
+    });
+
+    test("Detromino no need to move", () => {
+      const grid = toMatrix(
+        // 0123456789
+        "  0000000000\n" //0
+        + "0000000000\n" //1
+        + "0000000000\n" //2
+        + "0000000000\n" //3
+        + "0000000000\n" //4
+        + "0000000000\n" //5
+        + "0000000000\n" //6
+        + "0000000000\n" //7
+        + "0000000000\n" //8
+        + "0011100000\n" //9
+        + "0011000000\n" //10
+        + "0011000000\n" //11
+        + "0011000000\n" //12
+        + "0011011000\n" //13
+        + "0011111000\n" //14
+        + "0000000000\n" //15
+        + "0000000000\n" //16
+        + "0000000000\n" //17
+        + "0000000000\n" //18
+        + "0000000000\n" //19
+        // 0123456789
+      );
+
+      const detromino = d(4, 10, DetrominoType.I, Rotation.DEG_90);
+
+      f(grid, detromino, detromino);
+    });
+
+    test("Detromino move up", () => {
+      const grid = toMatrix(
+        // 0123456789
+        "  0000000000\n" //0
+        + "0000000000\n" //1
+        + "0000000000\n" //2
+        + "0000000000\n" //3
+        + "0000000000\n" //4
+        + "0000000000\n" //5
+        + "0000000000\n" //6
+        + "0000000000\n" //7
+        + "0000000000\n" //8
+        + "0011100000\n" //9
+        + "0011000000\n" //10
+        + "0011000000\n" //11
+        + "0011000000\n" //12
+        + "0011011000\n" //13
+        + "0011111000\n" //14
+        + "0000000000\n" //15
+        + "0000000000\n" //16
+        + "0000000000\n" //17
+        + "0000000000\n" //18
+        + "0000000000\n" //19
+        // 0123456789
+      );
+
+      const detromino = d(4, 8, DetrominoType.T);
+      const detromino2 = d(4, 7, DetrominoType.T);
+
+      f(grid, detromino, detromino2);
+    });
+
+    test("Detromino move up (2)", () => {
+      const grid = toMatrix(
+        // 0123456789
+        "  0000000000\n" //0
+        + "0000000000\n" //1
+        + "0000000000\n" //2
+        + "0000000000\n" //3
+        + "0000000000\n" //4
+        + "0000000000\n" //5
+        + "0000000000\n" //6
+        + "0000000000\n" //7
+        + "0000000000\n" //8
+        + "0011100000\n" //9
+        + "0011000000\n" //10
+        + "0011000000\n" //11
+        + "0011000000\n" //12
+        + "0011011000\n" //13
+        + "0011111000\n" //14
+        + "0000000000\n" //15
+        + "0000000000\n" //16
+        + "0000000000\n" //17
+        + "0000000000\n" //18
+        + "0000000000\n" //19
+        // 0123456789
+      );
+
+      const detromino = d(1, 8, DetrominoType.S);
+      const detromino2 = d(1, 7, DetrominoType.S);
+
+      f(grid, detromino, detromino2);
+    });
+
+    test("Detromino move up (3)", () => {
+      const grid = toMatrix(
+        // 0123456789
+        "  0000000000\n" //0
+        + "0000000000\n" //1
+        + "0000000000\n" //2
+        + "0000000000\n" //3
+        + "0000000000\n" //4
+        + "0000000000\n" //5
+        + "0000000000\n" //6
+        + "0000000000\n" //7
+        + "0000000000\n" //8
+        + "0011100000\n" //9
+        + "0011000000\n" //10
+        + "0011000000\n" //11
+        + "0011000000\n" //12
+        + "0011011000\n" //13
+        + "0011111000\n" //14
+        + "0000000000\n" //15
+        + "0000000000\n" //16
+        + "0000000000\n" //17
+        + "0000000000\n" //18
+        + "0000000000\n" //19
+        // 0123456789
+      );
+
+      const detromino = d(4, 12, DetrominoType.Z, Rotation.DEG_90);
+      const detromino2 = d(4, 11, DetrominoType.Z, Rotation.DEG_90);
+
+      f(grid, detromino, detromino2);
+    });
+
+    test("Detromino move left", () => {
+      const grid = toMatrix(
+        // 0123456789
+        "  0000000000\n" //0
+        + "0000000000\n" //1
+        + "0000000000\n" //2
+        + "0000000000\n" //3
+        + "0000000000\n" //4
+        + "0000000000\n" //5
+        + "0000000000\n" //6
+        + "0000000000\n" //7
+        + "0000000000\n" //8
+        + "0011100000\n" //9
+        + "0011000000\n" //10
+        + "0011000000\n" //11
+        + "0011000000\n" //12
+        + "0011011000\n" //13
+        + "0011111000\n" //14
+        + "0000000000\n" //15
+        + "0000000000\n" //16
+        + "0000000000\n" //17
+        + "0000000000\n" //18
+        + "0000000000\n" //19
+        // 0123456789
+      );
+
+      const detromino = d(2, 14, DetrominoType.T, Rotation.DEG_90);
+      const detromino2 = d(1, 14, DetrominoType.T, Rotation.DEG_90);
+
+      f(grid, detromino, detromino2);
+    });
+
+    test("Detromino move left (2)", () => {
+      const grid = toMatrix(
+        // 0123456789
+        "  0000000000\n" //0
+        + "0000000000\n" //1
+        + "0000000000\n" //2
+        + "0000000000\n" //3
+        + "0000000000\n" //4
+        + "0000000000\n" //5
+        + "0000000000\n" //6
+        + "0000000000\n" //7
+        + "0000000000\n" //8
+        + "0011100000\n" //9
+        + "0011000000\n" //10
+        + "0011000000\n" //11
+        + "0011000000\n" //12
+        + "0011011000\n" //13
+        + "0011111000\n" //14
+        + "0000000000\n" //15
+        + "0000000000\n" //16
+        + "0000000000\n" //17
+        + "0000000000\n" //18
+        + "0000000000\n" //19
+        // 0123456789
+      );
+
+      const detromino = d(5, 11, DetrominoType.Z, Rotation.DEG_270);
+      const detromino2 = d(4, 11, DetrominoType.Z, Rotation.DEG_270);
+
+      f(grid, detromino, detromino2);
+    });
+
+    test("Detromino move left (3)", () => {
+      const grid = toMatrix(
+        // 0123456789
+        "  0000000000\n" //0
+        + "0000000000\n" //1
+        + "0000000000\n" //2
+        + "0000000000\n" //3
+        + "0000000000\n" //4
+        + "0000000000\n" //5
+        + "0000000000\n" //6
+        + "0000000000\n" //7
+        + "0000000000\n" //8
+        + "0011100000\n" //9
+        + "0011000000\n" //10
+        + "0011000000\n" //11
+        + "0011000000\n" //12
+        + "0011011000\n" //13
+        + "0011111000\n" //14
+        + "0000000000\n" //15
+        + "0000000000\n" //16
+        + "0000000000\n" //17
+        + "0000000000\n" //18
+        + "0000000000\n" //19
+        // 0123456789
+      );
+
+      const detromino = d(2, 8, DetrominoType.L, Rotation.DEG_90);
+      const detromino2 = d(1, 8, DetrominoType.L, Rotation.DEG_90);
+
+      f(grid, detromino, detromino2);
+    });
+  });
 });

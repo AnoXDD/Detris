@@ -54,7 +54,7 @@ const BaseGridHelper = {
    * if it's not placed correctly (e.g. caused by rotation)
    *
    * This function must be called every time the detromino is changed.
-   * @param state
+   * @param {BaseGrid} state
    * @param {string|BlockType} blockType - the block type that the detromino is
    *   converting to
    * @param {Immutable.Set} detrominoTargets - optional targets from level
@@ -70,13 +70,18 @@ const BaseGridHelper = {
       return state;
     }
 
-    let newGrid = Algorithm.maybeRepositionDetromino(state.get("grid"), detromino, blockType, detrominoTargets);
-    if (!newGrid) {
+    let gridMap = state.get("grid");
+    detromino = Algorithm.repositionDetrominoIfNecessary(detromino,
+      gridMap,
+      blockType,
+      detrominoTargets);
+    if (!detromino) {
       return state;
     }
 
     // Apply the processed detromino to the grid
-    return state.set("grid", newGrid);
+    return state.set("grid", gridMap.merge(detromino))
+      .set("detromino", detromino);
   },
 };
 
