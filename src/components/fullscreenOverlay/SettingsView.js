@@ -22,8 +22,14 @@ export default class SettingsView extends Component {
         <div className="btns">
           <Button
             onClick={() => store.dispatch(Actions.hideSettingsUi())}
-            text="done"
-            className="accent">done</Button>
+            text="reset"
+            className="red">delete_forever</Button>
+        </div>
+        <hr/>
+        <div className="btns">
+          <Button
+            onClick={() => store.dispatch(Actions.hideSettingsUi())}
+            className="wide accent">done</Button>
         </div>
       </FullscreenOverlayView>
     );
