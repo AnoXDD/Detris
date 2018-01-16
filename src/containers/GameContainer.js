@@ -23,7 +23,10 @@ import EndGameView from "../components/fullscreenOverlay/EndGameView";
 import TutorialWelcomeContainer from "./TutorialWelcomeContainer";
 import TutorialGuideView from "../components/fullscreenOverlay/TutorialGuideView";
 import {connect} from "react-redux";
-import {simpleDispatchToProps, mergePropsFromKey} from "../util/callbackToProps";
+import {
+  simpleDispatchToProps,
+  mergePropsFromKey
+} from "../util/callbackToProps";
 
 class GameContainer extends Component {
 
@@ -93,7 +96,9 @@ class GameContainer extends Component {
               case OverlayType.ABOUT:
                 return (<AboutView key="credit"/>);
               case OverlayType.SETTINGS:
-                return (<SettingsView key="settings"/>);
+                return (<SettingsView
+                  key="settings"
+                  uiState={this.props.uiState}/>);
               case OverlayType.DIALOG:
                 return (<DialogView key="dialog"
                                     dialogTitle={this.props.dialogTitle}
@@ -117,11 +122,11 @@ class GameContainer extends Component {
 
 function stateToProps(state) {
   return {
-    button                : state.button.toJS(),
+    button: state.button.toJS(),
     ...state.game.toJS(),
     levelEditorExportString: state.levelEditorPanel.present.get("detokenized"),
-    tutorial               : state.tutorial.toJS(),
-    levelState             : state.level.toJS(),
+    tutorial: state.tutorial.toJS(),
+    levelState: state.level.toJS(),
   };
 }
 

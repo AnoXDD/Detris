@@ -8,6 +8,7 @@ import Toggle from "../../lib/Toggle";
 import Actions from "../../data/Actions";
 import Button from "../../lib/Button";
 import store from "../../store/store";
+import GameUiState from "../../enum/GameUiState";
 
 export default class SettingsView extends Component {
   render() {
@@ -21,7 +22,8 @@ export default class SettingsView extends Component {
         </div>
         <div className="btns">
           <Button
-            onClick={() => store.dispatch(Actions.hideSettingsUi())}
+            hidden={this.props.uiState !== GameUiState.WELCOME}
+            onClick={() => store.dispatch(Actions.showDialogForResetGame())}
             text="reset"
             className="red">delete_forever</Button>
         </div>

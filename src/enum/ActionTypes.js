@@ -20,6 +20,7 @@ const ActionTypes = {
   RESUME           : "RESUME",
   LEVEL_SUCCESS    : "LEVEL_SUCCESS",
   LEVEL_FAIL       : "LEVEL_FAIL",
+  RESET            : "RESET",
 
   // UI change
   HIDE_ALL_FULLSCREEN_OVERLAY: "HIDE_ALL_FULLSCREEN_OVERLAY",

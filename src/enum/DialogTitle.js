@@ -10,6 +10,7 @@ const DialogTitle = {
   QUIT_TO_WELCOME     : "Do you want to return to home page? Any changes will be lost.",
   SKIP_TUTORIAL       : "Do you want to skip tutorial? You can come back later from the main menu.",
   END_TUTORIAL        : "Do you want to end tutorial now? You can come back later from the main menu.",
+  RESET_GAME          : "Are you really sure? This will reset EVERYTHING in the game, including the process of the game so far. This action cannot be undone."
 };
 
 export default DialogTitle;

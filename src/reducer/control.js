@@ -99,6 +99,8 @@ function fullGameControlWithHistory() {
 
 export function control(state = ControlPresets.EMPTY, action) {
   switch (action.type) {
+    case ActionTypes.RESET:
+      return ControlPresets.EMPTY;
     case ActionTypes.START_LEVEL:
       return onGameStarted();
     case ActionTypes.NEXT_DETROMINO_IN_GAME:

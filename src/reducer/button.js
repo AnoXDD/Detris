@@ -13,7 +13,7 @@ import {createBatchActions} from "../middleware/delayDispatcher";
 import DialogType from "../enum/DialogType";
 import {saveSteps} from "../util/actionStepRecord";
 
-function reset() {
+function getInitialState() {
   return new ButtonCallbacks();
 }
 
@@ -130,6 +130,10 @@ function reduceDialog(action, state) {
       );
       break;
 
+    case DialogType.RESET_GAME:
+      onYes = Actions.reset();
+      break;
+
     default:
   }
 
@@ -142,7 +146,7 @@ function reduceDialog(action, state) {
   ));
 }
 
-export function reduceButton(state = reset(), action) {
+export function reduceButton(state = getInitialState(), action) {
   switch (action.type) {
     case ActionTypes.START_LEVEL:
       return hidePauseMenu(
@@ -182,5 +186,9 @@ export function reduceButton(state = reset(), action) {
 }
 
 export default function reduce(state, action) {
+  if (action.type === ActionTypes.RESET) {
+    return getInitialState();
+  }
+
   return saveSteps(reduceButton(state, action), "history", action);
 }

@@ -14,7 +14,7 @@ const NotificationStateRecord = new Immutable.Record({
   // Default position is top center
   position: "tc",
   // Set to true to hide current notification
-  hidden  : false,
+  hidden  : true,
 
   id: 0,
 });

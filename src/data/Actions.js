@@ -24,8 +24,19 @@ import {nextTutorial, prevTutorial} from "../util/tutorialHelper";
 const DELAY = 500;
 
 const Actions = {
+  /**
+   * Reset EVERYTHING!
+   */
+  reset() {
+    return createBatchActions(
+      Actions.clearHistoryInEditor(),
+      Actions.clearHistoryInGame(),
+      {type: ActionTypes.RESET,}
+    );
+  },
+
   //region game
-  init(width, height) {
+  initGrid(width, height) {
     return {
       type: ActionTypes.INIT_GRID,
       width,
@@ -236,6 +247,10 @@ const Actions = {
     return Actions.showDialog(DialogType.SKIP_TUTORIAL);
   },
 
+  showDialogForResetGame() {
+    return Actions.showDialog(DialogType.RESET_GAME);
+  },
+
   /**
    * Called when the player decides to prematurely end the tutorial
    */
@@ -312,7 +327,7 @@ const Actions = {
   apply(levelDataUnit) {
     return createBatchActions(
       createSpecialAction(
-        Actions.init(levelDataUnit.get("width"),
+        Actions.initGrid(levelDataUnit.get("width"),
           levelDataUnit.get("height")),
         DispatchType.OVERWRITE
       ), {

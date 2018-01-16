@@ -96,6 +96,8 @@ function applyTutorialProgress(state, progress) {
 
 export default function reduce(state = getInitialState(), action) {
   switch (action.type) {
+    case ActionTypes.RESET:
+      return getInitialState();
     case ActionTypes.SET_TUTORIAL_PROGRESS:
       state = applyTutorialPosition(state, action.progress);
       return applyTutorialProgress(state, action.progress);

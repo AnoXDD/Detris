@@ -24,7 +24,7 @@ import {
   getMiddleXPos
 } from "../util/detrominoHelper";
 
-function reset() {
+function getInitialState() {
   return nextDetromino(new LevelEditorPanel());
 }
 
@@ -293,7 +293,7 @@ function applyGrid(state, action) {
   switch (action.type) {
     case ActionTypes.INIT_GRID:
     case ActionTypes.RESET_GRID:
-      return reset();
+      return getInitialState();
     case ActionTypes.NEXT_DETROMINO_IN_EDITOR:
       return nextDetromino(state);
     case ActionTypes.NEXT_DETROMINO_SHAPE:
@@ -329,7 +329,11 @@ function applyGrid(state, action) {
   }
 }
 
-export default function reduce(state = reset(), action) {
+export default function reduce(state = getInitialState(), action) {
+  if (action.type === ActionTypes.RESET) {
+    return getInitialState();
+  }
+
   state = applyQueue(state, action);
 
   return applyGrid(state, action);

@@ -251,6 +251,10 @@ function applyGrid(state, action) {
 }
 
 export default function reduce(state = getInitialState(), action) {
+  if (action.type === ActionTypes.RESET) {
+    return getInitialState();
+  }
+
   state = applyBusy(state, action.type);
 
   state = applyQueue(state, action);

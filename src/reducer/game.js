@@ -18,7 +18,7 @@ function reset() {
 }
 
 function getInitialState() {
-  return applyTopBarState( reset());
+  return applyTopBarState(reset());
 }
 
 function hideAllFloatingWindows(state) {
@@ -74,6 +74,9 @@ function applyPanelType(state) {
 
 export default function reduce(state = getInitialState(), action) {
   switch (action.type) {
+    case ActionTypes.RESET:
+      return getInitialState();
+
     case ActionTypes.START_LEVEL:
       return applyTopBarState(state
         .set("uiState", GameUiState.IN_GAME)

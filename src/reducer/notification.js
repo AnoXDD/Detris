@@ -30,6 +30,8 @@ function displayLevelFailed(state) {
 
 export default function reduce(state = getInitialState(), action) {
   switch (action.type) {
+    case ActionTypes.RESET:
+      return getInitialState();
     case ActionTypes.DISPLAY_INFO:
       return display(state, NotificationLevel.INFO,
         action.message);

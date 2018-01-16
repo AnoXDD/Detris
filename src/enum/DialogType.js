@@ -10,6 +10,7 @@ const DialogType = {
   QUIT_TO_WELCOME     : "QUIT_TO_WELCOME",
   SKIP_TUTORIAL       : "SKIP_TUTORIAL",
   END_TUTORIAL        : "END_TUTORIAL",
+  RESET_GAME          : "RESET_GAME",
 };
 
 export default DialogType;

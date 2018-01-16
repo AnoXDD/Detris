@@ -10,6 +10,10 @@ import ActionTypes from "../enum/ActionTypes";
 import CompletedLevel from "../state/LevelCompletion";
 import LevelState from "../state/Level";
 
+function getInitialState() {
+  return new LevelState();
+}
+
 function nextPage(state) {
   if (state.get("isLastPage")) {
     return state;
@@ -40,8 +44,10 @@ function setPage(state, newPage) {
     .set("isLastPage", newPage === LevelViewData.views().size - 1);
 }
 
-export default function reduce(state = new LevelState(), action) {
+export default function reduce(state = getInitialState(), action) {
   switch (action.type) {
+    case ActionTypes.RESET:
+      return getInitialState();
     case ActionTypes.LEVEL_NEXT_PAGE:
       return nextPage(state);
     case ActionTypes.LEVEL_PREV_PAGE:
