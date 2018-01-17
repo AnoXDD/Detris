@@ -57,9 +57,13 @@ function nextDetromino(state, action) {
 }
 
 function rotate(state) {
-  // todo check if detromino exists
   let grid = state.get("grid");
   let detromino = grid.get("detromino");
+
+  if (!detromino) {
+    return state;
+  }
+
   let rotation = detromino.get("rotation");
 
   switch (rotation) {
