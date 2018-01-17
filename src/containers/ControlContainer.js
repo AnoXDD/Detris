@@ -55,7 +55,7 @@ class ControlContainer extends Component {
     keyMap[" "] = this.props.done;
 
     for (let i = 1; i <= this.props.blockList.length; ++i) {
-      keyMap[`${i}`] = this.props.chooseEditBlock(this.props.blockList[i - 1]);
+      keyMap[`${i}`] = () => this.props.chooseEditBlock(this.props.blockList[i - 1]);
     }
   }
 

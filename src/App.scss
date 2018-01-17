@@ -370,9 +370,9 @@ html, body, #root {
   grid-template-rows: repeat(3, 1fr);
   justify-items: center;
   align-items: center;
-  grid-template-areas: "grid-toggle prev-detromino block-selector block-selector block-selector block-selector" "rotate next-detromino . undo up redo" "done done . left down right";
+  grid-template-areas: "grid-toggle prev-detromino . block-selectors block-selectors block-selectors" "rotate next-detromino . undo up redo" "done done . left down right";
 
-  $areas: (grid-toggle, rotate, prev-detromino, next-detromino, undo, redo, up, left, right, down, done, block-selector);
+  $areas: (grid-toggle, rotate, prev-detromino, next-detromino, undo, redo, up, left, right, down, done, block-selectors);
 
   @each $area in $areas {
     .#{$area} {
@@ -382,6 +382,14 @@ html, body, #root {
 
   .done {
     width: 2 * $button-width;
+  }
+
+  .block-selector {
+    display: inline-block;
+  }
+
+  .block-selectors {
+    grid-area: done;
   }
 }
 

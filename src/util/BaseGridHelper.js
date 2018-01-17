@@ -8,6 +8,7 @@
 import BlockType from "../enum/BlockType";
 import Algorithm from "./Algorithm";
 import {getRotatedBlocks} from "./detrominoHelper";
+import Color from "../enum/Color";
 
 const BaseGridHelper = {
   /**
@@ -81,7 +82,11 @@ const BaseGridHelper = {
     }
 
     // Apply the processed detromino to the grid
-    return state.set("grid", gridMap.merge(getRotatedBlocks(detromino,blockType)))
+    return state.set("grid",
+      gridMap.merge(getRotatedBlocks(detromino,
+        blockType,
+        Color.SOLID,
+        detrominoTargets)))
       .set("detromino", detromino);
   },
 };

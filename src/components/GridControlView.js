@@ -133,14 +133,17 @@ export default class GridControlView extends Component {
     let down =
       this.generateButton(ControlTypes.CONTROL_DOWN)("arrow_downward", "down");
 
-    let blockSelector = this.props.blockList ? this.props.blockList.map(block =>
-      <Button
-        hidden={this.hidden(ControlTypes.CONTROL_BLOCK_SELECTOR)}
-        className="grid-cell-btn narrow block-selector"
-        key={block}
-        onClick={() => store.dispatch(Actions.setBlockType(block))}
-        text={<span className={`grid-cell demo ${block}`}/>}/>
-    ) : null;
+    let blockSelector = this.props.blockList ?
+      <div className="block-selectors">
+        {this.props.blockList.map(block =>
+          <Button
+            hidden={this.hidden(ControlTypes.CONTROL_BLOCK_SELECTOR)}
+            className="grid-cell-btn narrow block-selector"
+            key={block}
+            onClick={() => store.dispatch(Actions.setBlockType(block))}
+            text={<span className={`grid-cell demo ${block}`}/>}/>
+        )}
+      </div> : null;
     let done = <Button
       hidden={this.hidden(ControlTypes.CONTROL_DONE)}
       className="accent done"
