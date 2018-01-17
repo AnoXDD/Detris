@@ -825,6 +825,8 @@ html, body, #root {
 .btn.blue {
   background: #448AFF;
   color: white !important; }
+.btn[disabled], .btn.disabled {
+  opacity: .1; }
 
 .dialog-view {
   z-index: 1000; }

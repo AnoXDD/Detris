@@ -12,7 +12,7 @@ import GridHistoryHelper from "../util/GridHistoryHelper";
  * Called when an actual game has started
  */
 function onGameStarted() {
-  return fullGameControlWithHistory();
+  return ControlPresets.FULL_GAME_CONTROL;
 }
 
 /**
@@ -82,19 +82,6 @@ function onTutorialProgress(progress) {
  * @return {Map<string, any>}
  */
 function fullGameControlWithHistory() {
-  if (GridHistoryHelper.canUndoInGame()) {
-    if (GridHistoryHelper.canRedoInGame()) {
-      return ControlPresets.FULL_GAME_CONTROL_WITH_UNDO_REDO;
-    }
-
-    return ControlPresets.FULL_GAME_CONTROL_WITH_UNDO;
-  }
-
-  if (GridHistoryHelper.canRedoInGame()) {
-    return ControlPresets.FULL_GAME_CONTROL_WITH_REDO;
-  }
-
-  return ControlPresets.FULL_GAME_CONTROL;
 }
 
 export function control(state = ControlPresets.EMPTY, action) {
@@ -106,7 +93,7 @@ export function control(state = ControlPresets.EMPTY, action) {
     case ActionTypes.NEXT_DETROMINO_IN_GAME:
     case ActionTypes.UNDO_IN_GAME:
     case ActionTypes.REDO_IN_GAME:
-      return fullGameControlWithHistory();
+      return ControlPresets.FULL_GAME_CONTROL;
     case ActionTypes.SET_GAME_UI_STATE:
       switch (action.uiState) {
         case GameUiState.LEVEL_EDITOR_STARTED:

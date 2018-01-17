@@ -6,20 +6,37 @@
 
 import store from "../store/store";
 
-const GridHistoryHelper = {
-  /**
-   * Returns if the grid can be undone in the actual game
-   */
-  canUndoInGame() {
-    return true || !store.getState().gamePanel.get("history").isPastChangesEmpty();
-  },
+/**
+ * Returns if the grid can be undone in the actual game
+ */
+export function canUndoInGame() {
+  return store.getState().gamePanel.past.length;
+}
 
-  /**
-   * See comments in canUndoInGame
-   */
-  canRedoInGame() {
-    return true || !store.getState().gamePanel.get("history").isFutureChangesEmpty();
-  },
+/**
+ * See comments in canUndoInGame
+ */
+export function canRedoInGame() {
+  return store.getState().gamePanel.future.length;
+}
+
+/**
+ * Returns if the grid can be undone in the actual level editor
+ */
+export function canUndoInEditor() {
+  return store.getState().levelEditorPanel.past.length;
+}
+
+/**
+ * See comments in canUndoInEditor
+ */
+export function canRedoInEditor() {
+  return store.getState().levelEditorPanel.future.length;
+}
+
+export default {
+  canRedoInGame,
+  canUndoInGame,
+  canRedoInEditor,
+  canUndoInEditor,
 };
-
-export default GridHistoryHelper;

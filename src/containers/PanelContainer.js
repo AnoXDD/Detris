@@ -51,6 +51,7 @@ class PanelContainer extends Component {
         </div>
         <GridControlView
           {...this.props.control}
+          panelType={this.props.panelType}
           blockList={this.props.editorState.blockList}
           isEditingBlock={this.props.editorState.isEditingBlock}/>
       </div>

@@ -25,6 +25,8 @@ const FULL_GAME_CONTROL = new ControlState({
     ControlTypes.CONTROL_LEFT,
     ControlTypes.CONTROL_RIGHT,
     ControlTypes.CONTROL_DONE,
+    ControlTypes.CONTROL_UNDO,
+    ControlTypes.CONTROL_REDO,
   ]),
 });
 
@@ -110,26 +112,7 @@ const ControlPresets = {
 
   TUTORIAL_TRY_OUT: FULL_GAME_CONTROL.set("done", Actions.nextDetromino),
 
-  FULL_GAME_CONTROL               : FULL_GAME_CONTROL,
-  FULL_GAME_CONTROL_WITH_UNDO     : FULL_GAME_CONTROL
-    .set("enabled",
-      FULL_GAME_CONTROL
-        .get("enabled")
-        .add(ControlTypes.CONTROL_UNDO)
-    ),
-  FULL_GAME_CONTROL_WITH_REDO     : FULL_GAME_CONTROL
-    .set("enabled",
-      FULL_GAME_CONTROL
-        .get("enabled")
-        .add(ControlTypes.CONTROL_REDO)
-    ),
-  FULL_GAME_CONTROL_WITH_UNDO_REDO: FULL_GAME_CONTROL
-    .set("enabled",
-      FULL_GAME_CONTROL
-        .get("enabled")
-        .add(ControlTypes.CONTROL_REDO)
-        .add(ControlTypes.CONTROL_UNDO)
-    ),
+  FULL_GAME_CONTROL: FULL_GAME_CONTROL,
 };
 
 export default addIdToImmutable(ControlPresets, "controlRecordId");

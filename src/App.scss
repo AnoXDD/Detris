@@ -604,6 +604,10 @@ html, body, #root {
     background: $blue;
     color: white !important;
   }
+
+  &[disabled], &.disabled {
+    opacity: .1;
+  }
 }
 
 .dialog-view {
