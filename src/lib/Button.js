@@ -22,6 +22,10 @@ export default class Button extends Component {
       <a
         className={`btn ${this.props.loading ? "loading" : ""} ${this.props.text ? "text" : ""} ${this.props.className || ""}`}
         onClick={this.props.onClick}
+        onMouseDown={this.props.onMouseDown}
+        onMouseUp={this.props.onMouseUp}
+        onTouchStart={this.props.onTouchStart}
+        onTouchEnd={this.props.onTouchEnd}
         {...disabled}>
         <div
           className={`flex-center icon-wrapper ${!this.props.loading ? "" : "transparent"}`}>

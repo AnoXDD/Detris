@@ -15,6 +15,7 @@ import {
   canRedoInGame, canUndoInEditor,
   canUndoInGame
 } from "../util/GridHistoryHelper";
+import {generateRepeaterEvent} from "../util/buttonRepeater";
 
 export default class GridControlView extends Component {
 
@@ -94,6 +95,14 @@ export default class GridControlView extends Component {
     >{icon}</Button>;
   }
 
+  generateRepeaterButton(type) {
+    return (icon, className) => <Button
+      hidden={this.hidden(type)}
+      className={className || icon}
+      {...generateRepeaterEvent(() => this.handleClick(type))}
+    >{icon}</Button>;
+  }
+
   render() {
     let gridToggle = <Toggle
       hidden={this.hidden(ControlTypes.CONTROL_TOGGLE_EDIT)}
@@ -125,13 +134,21 @@ export default class GridControlView extends Component {
     >redo</Button>;
 
     let left =
-      this.generateButton(ControlTypes.CONTROL_LEFT)("arrow_back", "left");
+      this.generateRepeaterButton(ControlTypes.CONTROL_LEFT)(
+        "arrow_back",
+        "left");
     let right =
-      this.generateButton(ControlTypes.CONTROL_RIGHT)("arrow_forward", "right");
+      this.generateRepeaterButton(ControlTypes.CONTROL_RIGHT)(
+        "arrow_forward",
+        "right");
     let up =
-      this.generateButton(ControlTypes.CONTROL_UP)("arrow_upward", "up");
+      this.generateRepeaterButton(ControlTypes.CONTROL_UP)(
+        "arrow_upward",
+        "up");
     let down =
-      this.generateButton(ControlTypes.CONTROL_DOWN)("arrow_downward", "down");
+      this.generateRepeaterButton(ControlTypes.CONTROL_DOWN)(
+        "arrow_downward",
+        "down");
 
     let blockSelector = this.props.blockList ?
       <div className="block-selectors">
