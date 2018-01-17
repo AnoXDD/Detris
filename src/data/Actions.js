@@ -360,7 +360,7 @@ const Actions = {
 
   nextDetrominoInEditor() {
     let detrominoType = store.getState().levelEditorPanel.present
-      .get("detromino");
+      .get("grid").get("detromino").get("type");
 
     return createSpecialAction({
       type: ActionTypes.NEXT_DETROMINO_IN_EDITOR,
@@ -592,7 +592,7 @@ const Actions = {
   },
 
   disableBlockEditing() {
-    let grid = store.getState().levelEditorPanel.present.grid();
+    let grid = store.getState().levelEditorPanel.present.get("grid");
 
     if (!Algorithm.isTargetDetrominosValid(grid.get("matrix"),
         grid.get("detromino"))) {

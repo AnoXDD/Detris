@@ -81,7 +81,7 @@ const BaseGridHelper = {
     }
 
     // Apply the processed detromino to the grid
-    return state.set("grid", gridMap.merge(getRotatedBlocks(detromino)))
+    return state.set("grid", gridMap.merge(getRotatedBlocks(detromino,blockType)))
       .set("detromino", detromino);
   },
 };

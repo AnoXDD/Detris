@@ -17,9 +17,6 @@ export default class PauseMenuView extends Component {
       >
         <div className="btns">
           <Button
-            onClick={this.props.onQuit}
-          >list</Button>
-          <Button
             onClick={this.props.onRestart}
           >replay</Button>
           <Button
