@@ -10,6 +10,10 @@ import Actions from "../data/Actions";
 import store from "../store/store";
 
 export default class TopBarView extends Component {
+  shouldComponentUpdate(nextProps) {
+    return nextProps.topBar.join() !== this.props.topBar.join();
+  }
+
   render() {
     let {topBar = []} = this.props;
 

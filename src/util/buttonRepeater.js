@@ -19,14 +19,38 @@ const INTERVAL = 100;
  * @return {function()}
  */
 function createMouseDown(action) {
+  let isTouched = false,
+    /**
+     * Returns true if another touch event is taking place
+     * @returns {boolean}
+     */
+    isBeingTouched = () => {
+      if (!isTouched) {
+        isTouched = true;
+        setTimeout(() => {
+          isTouched = false;
+        }, 200);
+        return false;
+      }
+
+      return true;
+    };
+
   return {
-    onMouseDown: () => {
+    onMouseDown: e => {
+      if (isBeingTouched()) {
+        return false;
+      }
+
       store.dispatch(action());
 
       createMouseDown.timeoutId = setTimeout(() => {
         createMouseDown.intervalId = setInterval(() => {
           store.dispatch(action());
         }, INTERVAL);
+
+        console.log("interval", createMouseDown.intervalId);
+        console.log("timeout", createMouseDown.timeoutId);
       }, FIRST_TIMEOUT);
     },
     getTimeout : () => {
@@ -34,7 +58,7 @@ function createMouseDown(action) {
     },
     getInterval: () => {
       return createMouseDown.intervalId;
-    },
+    }
   };
 }
 
