@@ -49,8 +49,8 @@ function createMouseDown(action) {
           store.dispatch(action());
         }, INTERVAL);
 
-        console.log("interval", createMouseDown.intervalId);
-        console.log("timeout", createMouseDown.timeoutId);
+        // console.log("interval", createMouseDown.intervalId);
+        // console.log("timeout", createMouseDown.timeoutId);
       }, FIRST_TIMEOUT);
     },
     getTimeout : () => {

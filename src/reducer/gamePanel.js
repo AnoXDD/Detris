@@ -204,13 +204,24 @@ function setTutorialGrid(state, progress) {
  */
 function _syncData(state,
                    updateMatrix = true,
-                   blockType = BlockType.DETROMINO,
-                   detrominoTargets) {
+                   blockType = BlockType.DETROMINO) {
+  // Just in case (not in rotate), we make sure detromino is placed at the
+  // right position
+  let baseGrid = state.get("grid");
+  let detromino = baseGrid.get("detromino");
+  let gridMap = baseGrid.get("grid");
+
+  detromino = Algorithm.repositionDetrominoIfNecessary(detromino,
+    gridMap,
+    blockType);
+  if (!detromino) {
+    return state;
+  }
+
   return state.set("grid",
-    BaseGridHelper.syncData(state.get("grid"),
+    BaseGridHelper.syncData(baseGrid.set("detromino", detromino),
       updateMatrix,
-      blockType,
-      detrominoTargets));
+      blockType));
 }
 
 /**

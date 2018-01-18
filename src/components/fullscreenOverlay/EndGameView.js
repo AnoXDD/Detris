@@ -44,7 +44,7 @@ export default class EndGameView extends Component {
         <div className="btns">
           <Button
             onClick={this.onBack}
-          >arrow_back</Button>
+          >view_list</Button>
           <Button
             text="next level"
             className="green"

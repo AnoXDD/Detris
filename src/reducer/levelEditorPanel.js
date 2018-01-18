@@ -281,6 +281,32 @@ function setCurrentBlock(state, action) {
 function _syncData(state,
                    updateMatrix = true,
                    blockType = BlockType.DETROMINO) {
+  // Just in case (not in rotate), we make sure detromino is placed at the
+  // right position
+  let baseGrid = state.get("grid");
+  let detromino = baseGrid.get("detromino");
+  let gridMap = baseGrid.get("grid");
+
+  let newDetromino = Algorithm.repositionDetrominoIfNecessary(detromino,
+    gridMap,
+    blockType);
+  if (!newDetromino) {
+    return state;
+  }
+
+  // Check if the new detromino has a new location
+  if (newDetromino.get("x") !== detromino.get("x") ||
+    newDetromino.get("y") !== detromino.get("y")) {
+    // If so, reset the location
+    detromino = Algorithm
+      .getLowestValidPositionInEditor(baseGrid.get("matrix"), newDetromino);
+
+    if (!detromino) {
+      return state;
+    }
+  }
+
+
   return state.set("grid",
     BaseGridHelper.syncData(state.get("grid"),
       updateMatrix,

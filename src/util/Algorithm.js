@@ -252,20 +252,17 @@ const Algorithm = {
 
   /**
    * Repositions detromino if it's not placed correctly
+   * @param {Detromino} detromino - detromino on the grid is converting to
    * @param {Immutable.Map} gridMap - the base grid whose .get("matrix")
    *   that might have NOT been updated yet
-   * @param {Detromino} detromino - detromino on the grid
-   * @param {string|BlockType} blockType? - the block type that the detromino
-   *   is
-   *   converting to
-   * @param {Immutable.Set} detrominoTargets? - optional targets from level
    * @return Updated detromino whose position is fixed; null if the
    *   position can't be fixed
    */
-  repositionDetrominoIfNecessary(detromino,
-                                 gridMap,
-                                 blockType,
-                                 detrominoTargets) {
+  repositionDetrominoIfNecessary(detromino, gridMap) {
+    if (!detromino) {
+      return detromino;
+    }
+
     /**
      * todo: place detromino if it's out of bounds or overlapped
      *
@@ -288,11 +285,6 @@ const Algorithm = {
      * left boundary of original detromino. In that case, return null
      */
 
-      // Use the lines below to merge the detromino shape and the grid
-    let shape = getRotatedBlocks(detromino,
-      blockType,
-      Color.SOLID,
-      detrominoTargets);
 
     // Apply the processed detromino to the grid
     return detromino;
@@ -489,7 +481,7 @@ const Algorithm = {
    * @return {Immutable.Map<K, V>|Grid} resulting grid
    */
   applyDetrominoInEditor(grid, matrix, detromino) {
-    if (!grid || !matrix || !detromino) {
+    if (!grid || !matrix || !matrix.length || !detromino) {
       return grid;
     }
 
