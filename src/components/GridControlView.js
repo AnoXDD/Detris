@@ -19,6 +19,10 @@ import {generateRepeaterEvent} from "../util/buttonRepeater";
 
 export default class GridControlView extends Component {
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.enabled.join() !== this.props.enabled.join();
+  }
+
   canUndo() {
     switch (this.props.panelType) {
       case PanelType.IN_GAME:
@@ -124,11 +128,13 @@ export default class GridControlView extends Component {
 
     let undo = <Button
       disabled={!this.canUndo()}
+      hidden={this.hidden(ControlTypes.CONTROL_REDO)}
       className="undo"
       onClick={() => this.handleClick(ControlTypes.CONTROL_UNDO)}
     >undo</Button>;
     let redo = <Button
       disabled={!this.canRedo()}
+      hidden={this.hidden(ControlTypes.CONTROL_REDO)}
       className="redo"
       onClick={() => this.handleClick(ControlTypes.CONTROL_REDO)}
     >redo</Button>;

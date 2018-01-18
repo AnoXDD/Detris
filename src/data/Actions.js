@@ -45,9 +45,11 @@ const Actions = {
   },
 
   resetGrid() {
-    return {
-      type: ActionTypes.RESET_GRID,
-    };
+    return createBatchActions(
+      Actions.clearHistoryInEditor(),
+      Actions.clearHistoryInGame(),
+      {type: ActionTypes.RESET_GRID,}
+    );
   },
 
   setUiState(uiState) {
@@ -140,6 +142,16 @@ const Actions = {
   },
 
   setTutorialProgress(progress) {
+    if (progress === TutorialProgress.MECHANISM_DEMO_FREE_PLAY_INTRO) {
+      return createBatchActions(
+        Actions.clearHistoryInGame(),
+        {
+          progress,
+          type: ActionTypes.SET_TUTORIAL_PROGRESS,
+        },
+      )
+    }
+
     return {
       progress,
       type: ActionTypes.SET_TUTORIAL_PROGRESS,

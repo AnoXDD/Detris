@@ -5,6 +5,8 @@
  * grids.
  */
 
+import Immutable from "immutable";
+
 import Algorithm from "../util/Algorithm";
 import Rotation from "../enum/Rotation";
 import GridSize from "../enum/GridSize";
@@ -157,6 +159,7 @@ function sinkTargetBlocks(state) {
 function setTutorialGrid(state, progress) {
   let emptyState = reset();
   let baseGrid = null;
+  let queue = Immutable.List();
 
   switch (progress) {
     // A list of all the progresses that require change in grid
@@ -175,15 +178,18 @@ function setTutorialGrid(state, progress) {
     case TutorialProgress.MECHANISM_DEMO_T_TARGET_BLOCKS:
     case TutorialProgress.MECHANISM_DEMO_FLOOR_INTRO:
     case TutorialProgress.MECHANISM_DEMO_FLOOR_RESULT:
+      baseGrid = TutorialGrid[progress];
+      break;
     case TutorialProgress.MECHANISM_DEMO_FREE_PLAY_INTRO:
       baseGrid = TutorialGrid[progress];
+      queue = state.get("queue");
       break;
 
     default:
       return state;
   }
 
-  return _syncData(emptyState.set("grid", baseGrid));
+  return _syncData(emptyState.set("grid", baseGrid).set("queue", queue));
 }
 
 /**

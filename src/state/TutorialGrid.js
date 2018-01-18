@@ -487,7 +487,7 @@ originalBlocks = [
 ];
 
 grid = {
-  ...blocksToGridMap(originalBlocks, BlockType.ORIGINAL),
+  ...blocksToGridMap(originalBlocks, BlockType.TARGET),
 };
 
 const MECHANISM_DEMO_FLOOR_RESULT = new BaseGrid({
@@ -520,6 +520,14 @@ grid = {
 
 const MECHANISM_DEMO_FREE_PLAY_INTRO = new BaseGrid({
   grid: Immutable.Map(grid),
+  queue: Immutable.List([
+    DetrominoType.O,
+    DetrominoType.T,
+    DetrominoType.I,
+    DetrominoType.J,
+    DetrominoType.S,
+    DetrominoType.L,
+    DetrominoType.Z]),
 });
 
 // endregion

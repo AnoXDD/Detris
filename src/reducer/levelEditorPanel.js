@@ -334,7 +334,9 @@ export default function reduce(state = getInitialState(), action) {
     return getInitialState();
   }
 
-  state = applyQueue(state, action);
+  if (action.type !== ActionTypes.SET_TUTORIAL_PROGRESS) {
+    state = applyQueue(state, action);
+  }
 
   return applyGrid(state, action);
 }

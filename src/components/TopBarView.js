@@ -10,7 +10,6 @@ import Actions from "../data/Actions";
 import store from "../store/store";
 
 export default class TopBarView extends Component {
-
   render() {
     let {topBar = []} = this.props;
 
