@@ -23,6 +23,17 @@ export default class LevelEditorImportExportView extends Component {
     this.handlePaste = this.handlePaste.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    // Display error info if necessary
+    let {invalidImportId} = nextProps;
+
+    if (invalidImportId > this.invalidImportId) {
+      this.invalidImportId = invalidImportId;
+      store.dispatch(Actions.displayError(
+        "Unable to parse pasted data. Contact the game author if you have questions :)"));
+    }
+  }
+
   handlePaste(e) {
     let clipboardData = e.clipboardData || window.clipboardData;
     let pastedData = clipboardData.getData('Text');

@@ -91,6 +91,7 @@ class GameContainer extends Component {
                     {...this.props.button}/>);
               case OverlayType.LEVEL_EDITOR_IMPORT_EXPORT:
                 return (<LevelEditorImportExportView
+                  invalidImportId={this.props.invalidImportId}
                   levelEditorExportString={this.props.levelEditorExportString}
                   key="import-export"/>);
               case OverlayType.ABOUT:
@@ -122,12 +123,13 @@ class GameContainer extends Component {
 
 function stateToProps(state) {
   return {
-    button: state.button.toJS(),
+    button                 : state.button.toJS(),
     ...state.game.toJS(),
     levelEditorExportString: state.levelEditorPanel.present.get("detokenized"),
-    invalidImportId:state.levelEditorPanel.present.get("invalidImportId"),
-    tutorial: state.tutorial.toJS(),
-    levelState: state.level.toJS(),
+    invalidImportId        : state.levelEditorPanel.present.get(
+      "invalidImportId"),
+    tutorial               : state.tutorial.toJS(),
+    levelState             : state.level.toJS(),
   };
 }
 
