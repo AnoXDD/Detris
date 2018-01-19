@@ -624,6 +624,18 @@ const Actions = {
     };
   },
 
+  importLevelEditorDataSuccess() {
+    return createBatchActions(
+      Actions.hideLevelEditorImportExport(),
+      Actions.displaySuccess("Data successfully imported")
+    );
+  },
+
+  importLevelEditorDataFail() {
+    return Actions.displayError(
+      "Unable to parse pasted data. Contact the game author if you have questions :)");
+  },
+
   displayInfo(message) {
     return {
       type: ActionTypes.DISPLAY_INFO,

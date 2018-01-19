@@ -278,6 +278,7 @@ function processImportedLevelEditorData(state, action) {
     let dataUnit = LevelDataUnitTokenizer.tokenizeLevelDataUnit(text);
 
     state = _syncData(state
+      .set("detokenized", text)
       .set("queue", dataUnit.get("queue"))
       .set("grid", dataUnit.get("grid").set("detromino", detromino)));
 

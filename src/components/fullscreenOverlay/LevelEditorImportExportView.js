@@ -29,8 +29,13 @@ export default class LevelEditorImportExportView extends Component {
 
     if (invalidImportId > this.invalidImportId) {
       this.invalidImportId = invalidImportId;
-      store.dispatch(Actions.displayError(
-        "Unable to parse pasted data. Contact the game author if you have questions :)"));
+      store.dispatch(Actions.importLevelEditorDataFail());
+    }
+
+    let {levelEditorExportString} = nextProps;
+    if (levelEditorExportString !== this.props.levelEditorExportString) {
+      // New information received
+      store.dispatch(Actions.importLevelEditorDataSuccess());
     }
   }
 
