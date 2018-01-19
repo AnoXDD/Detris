@@ -18,18 +18,50 @@ import {
 import {generateRepeaterEvent} from "../util/buttonRepeater";
 
 export default class GridControlView extends Component {
+  undoInGame = false;
+  redoInGame = false;
+  undoInEditor = false;
+  redoInEditor = false;
+
+  constructor(props) {
+    super(props);
+
+    this.undoInGame = canUndoInGame();
+    this.redoInGame = canRedoInGame();
+    this.undoInEditor = canUndoInEditor();
+    this.redoInEditor = canRedoInEditor();
+  }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.enabled.join() !== this.props.enabled.join();
+    if (nextProps.enabled.join() !== this.props.enabled.join()) {
+      return true;
+    }
+
+    let undoInGame = canUndoInGame();
+    let redoInGame = canRedoInGame();
+    let undoInEditor = canUndoInEditor();
+    let redoInEditor = canRedoInEditor();
+
+    if (undoInGame !== this.undoInGame || redoInGame !== this.redoInGame ||
+      undoInEditor !== this.undoInEditor || redoInEditor !== this.redoInEditor) {
+      this.undoInGame = undoInGame;
+      this.redoInGame = redoInGame;
+      this.undoInEditor = undoInEditor;
+      this.redoInEditor = redoInEditor;
+
+      return true;
+    }
+
+    return false;
   }
 
   canUndo() {
     switch (this.props.panelType) {
       case PanelType.IN_GAME:
       case PanelType.TUTORIAL:
-        return canUndoInGame();
+        return this.undoInGame;
       case PanelType.LEVEL_EDITOR:
-        return canUndoInEditor();
+        return this.undoInEditor;
       default:
         return false;
     }
@@ -39,9 +71,9 @@ export default class GridControlView extends Component {
     switch (this.props.panelType) {
       case PanelType.IN_GAME:
       case PanelType.TUTORIAL:
-        return canRedoInGame();
+        return this.redoInGame;
       case PanelType.LEVEL_EDITOR:
-        return canRedoInEditor();
+        return this.redoInEditor;
       default:
         return false;
     }

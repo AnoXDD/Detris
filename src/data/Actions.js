@@ -29,9 +29,9 @@ const Actions = {
    */
   reset() {
     return createBatchActions(
+      {type: ActionTypes.RESET,},
       Actions.clearHistoryInEditor(),
-      Actions.clearHistoryInGame(),
-      {type: ActionTypes.RESET,}
+      Actions.clearHistoryInGame()
     );
   },
 
@@ -46,9 +46,9 @@ const Actions = {
 
   resetGrid() {
     return createBatchActions(
+      {type: ActionTypes.RESET_GRID,},
       Actions.clearHistoryInEditor(),
-      Actions.clearHistoryInGame(),
-      {type: ActionTypes.RESET_GRID,}
+      Actions.clearHistoryInGame()
     );
   },
 
@@ -144,11 +144,11 @@ const Actions = {
   setTutorialProgress(progress) {
     if (progress === TutorialProgress.MECHANISM_DEMO_FREE_PLAY_INTRO) {
       return createBatchActions(
-        Actions.clearHistoryInGame(),
         {
           progress,
           type: ActionTypes.SET_TUTORIAL_PROGRESS,
         },
+        Actions.clearHistoryInGame()
       )
     }
 
