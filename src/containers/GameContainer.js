@@ -125,6 +125,7 @@ function stateToProps(state) {
     button: state.button.toJS(),
     ...state.game.toJS(),
     levelEditorExportString: state.levelEditorPanel.present.get("detokenized"),
+    invalidImportId:state.levelEditorPanel.present.get("invalidImportId"),
     tutorial: state.tutorial.toJS(),
     levelState: state.level.toJS(),
   };

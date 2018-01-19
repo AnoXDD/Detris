@@ -26,7 +26,7 @@ const LevelEditorPanelRecord = Immutable.Record({
   queue      : Immutable.List(),
 
   // A set of ID's of blocks whose types are detromino targets
-  detrominoTargets : Immutable.Set(),
+  detrominoTargets: Immutable.Set(),
 
   // A list of detrominos to represent how to solve this puzzle
   key: Immutable.List(),
@@ -34,6 +34,11 @@ const LevelEditorPanelRecord = Immutable.Record({
   // A detokenized string to be used for export, updated every time a new
   // detromino is placed
   detokenized: "",
+
+  // An id to tell the import-export view if the has just imported by the
+  // player is invalid. This field will be used to summon a notification to
+  // tell the player that it is invalid
+  invalidImportId: 0,
 }, "LevelEditorPanel");
 
 export default LevelEditorPanelRecord;

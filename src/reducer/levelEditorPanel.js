@@ -270,6 +270,29 @@ function setCurrentBlock(state, action) {
     gridState));
 }
 
+function processImportedLevelEditorData(state, action) {
+  let {text} = action;
+
+  try {
+    let detromino = state.get("grid").get("detromino");
+    let dataUnit = LevelDataUnitTokenizer.tokenizeLevelDataUnit(text);
+
+    state = _syncData(state
+      .set("queue", dataUnit.get("queue"))
+      .set("grid", dataUnit.get("grid").set("detromino", detromino)));
+
+    // Reposition detromino if necessary
+    let grid = state.get("grid");
+    return _syncData(state.set("grid", grid.set("detromino",
+      Algorithm.getLowestValidPositionInEditor(grid.get("matrix"), detromino)
+    )));
+  } catch (e) {
+    console.error("Unable to parse string, with error\n", e);
+  }
+
+  return state.set("invalidImportId", Date.now());
+}
+
 /**
  * A wrapper for calling the base class' syncData
  * @param state
@@ -350,6 +373,8 @@ function applyGrid(state, action) {
       return moveEditingBlock(state, Direction.UP);
     case ActionTypes.EDITOR_BLOCK_MOVE_DOWN:
       return moveEditingBlock(state, Direction.DOWN);
+    case ActionTypes.IMPORT_LEVEL_EDITOR_DATA:
+      return processImportedLevelEditorData(state, action);
     default:
       return state;
   }

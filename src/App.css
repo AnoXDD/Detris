@@ -882,6 +882,17 @@ html, body, #root {
   display: inline-block;
   padding: 5px; }
 
+.import-text {
+  font-size: 13px;
+  width: 250px;
+  text-align: center;
+  background: #448AFF;
+  vertical-align: middle;
+  margin: 10px 20px;
+  padding: 10px;
+  display: inline-block;
+  color: white; }
+
 .btn.grid-cell-btn.selected {
   background: #eeeced; }
 .btn.grid-cell-btn .icon-wrapper {

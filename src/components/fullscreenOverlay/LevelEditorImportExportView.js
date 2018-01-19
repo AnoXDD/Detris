@@ -12,17 +12,28 @@ export default class LevelEditorImportExportView extends Component {
 
   refCopy = null;
   refCopyLink = null;
+  invalidImportId = 0;
 
   constructor(props) {
     super(props);
 
+    this.invalidImportId = props.invalidImportId;
+
     this.handleCopy = this.handleCopy.bind(this);
+    this.handlePaste = this.handlePaste.bind(this);
+  }
+
+  handlePaste(e) {
+    let clipboardData = e.clipboardData || window.clipboardData;
+    let pastedData = clipboardData.getData('Text');
+
+    store.dispatch(Actions.importLevelEditorData(pastedData));
   }
 
   handleCopy() {
     if (!this.refCopy) {
       store.dispatch(Actions.displayError(
-        "The data is not copied. Try to move some blocks around and try again."));
+        "The data is not copied. Try to move some blocks around and try again. If it still doesn't work, try using a modern browser."));
       return;
     }
 
@@ -52,6 +63,16 @@ export default class LevelEditorImportExportView extends Component {
             onClick={this.props.onCopyLink}
           >link</Button>
         </div>
+        <hr/>
+        <textarea
+          rows="1"
+          type="text"
+          className="import-text"
+          onPaste={this.handlePaste}
+          onChange={() => void(0)}
+          value="To import: click and paste the code here"
+        />
+        <hr/>
         <div className="btns">
           <Button
             text="resume"

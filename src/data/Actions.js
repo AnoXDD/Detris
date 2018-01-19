@@ -617,6 +617,13 @@ const Actions = {
     };
   },
 
+  importLevelEditorData(text) {
+    return {
+      type: ActionTypes.IMPORT_LEVEL_EDITOR_DATA,
+      text,
+    };
+  },
+
   displayInfo(message) {
     return {
       type: ActionTypes.DISPLAY_INFO,
