@@ -3959,6 +3959,11 @@ describe("Test applyDetrominoBlocks (original only)", () => {
     })
   })
 
+  // todo test when detromino is inserted between two levels
+  // i.e.
+  // ooooooo
+  // dddd
+  // ooooooo
 });
 
 describe("Test repositionDetorminoIfNecessary", () => {

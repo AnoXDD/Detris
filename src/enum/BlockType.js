@@ -10,7 +10,6 @@ const BlockType = {
                                         // be dropped from the detromino being
                                         // placed
 
-  // FLOATING : "floating", // The blocks just released by the player
   TARGET  : "target", // The blocks to be eliminated, introduced by detromino
   STALE   : "stale", // The blocks to be disappeared
   ORIGINAL: "original", // The original blocks to be eliminated

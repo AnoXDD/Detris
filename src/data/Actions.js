@@ -30,7 +30,7 @@ const Actions = {
   reset() {
     return createBatchActions(
       {type: ActionTypes.RESET,},
-      Actions.clearHistoryInEditor(),
+    Actions.clearHistoryInEditor(),
       Actions.clearHistoryInGame()
     );
   },

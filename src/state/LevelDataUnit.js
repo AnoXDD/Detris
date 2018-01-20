@@ -6,14 +6,14 @@
 
 import Immutable from "immutable";
 
-import Grid from "./BaseGrid";
+import BaseGrid from "./BaseGrid";
 import GridSize from "../enum/GridSize";
 
 const LevelDataUnitRecord = Immutable.Record({
   width : GridSize.WIDTH,
   height: GridSize.HEIGHT,
   queue : Immutable.List(),
-  grid  : new Grid(),
+  grid  : new BaseGrid(),
   /** A list of detrominos */
   key   : Immutable.List(),
 });

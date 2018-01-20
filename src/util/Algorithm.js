@@ -62,17 +62,22 @@ const Algorithm = {
   /**
    * Applies detromino blocks to interact with existing blocks (e.g original or
    * target blocks). After this function is called, all detromino blocks should
-   * either be eliminated or converted to target blocks)
-   * @param {Immutable.Map<K, V>|Grid} grid Immutable map of blocks
+   * either converted to either target or stale blocks).
+   *
+   * Use `removeStaleAndSinkTargetBlocks` to process the returned value from
+   * this function
+   * @param {Immutable.Map<K, V>} gridMap Immutable map of blocks
+   * @return {Immutable.Map} gridMap
    */
-  applyDetrominoBlocks(grid) {
-    let matrix = gridMapToArray(grid);
+  applyDetrominoBlocks(gridMap) {
+    let matrix = gridMapToArray(gridMap);
     // todo implement this
 
     // Dummy implementation: remove the following snippet after this function
     // is actually implemented
     // General idea: from where the detromino is placed, keep moving it down
-    // one block at a time, until some non-DETROMINO block is above it
+    // one block at a time, until some non-DETROMINO block is IMMEDIATELY above
+    // it
     const b = GridSize.HEIGHT - 1;
     for (let x = 0; x < GridSize.WIDTH; ++x) {
       for (let y = 0; y < GridSize.HEIGHT; ++y) {
@@ -82,14 +87,14 @@ const Algorithm = {
 
         if (matrix[b][x]) {
           // Mark the block as stale
-          grid = grid.set(matrix[y][x].id,
+          gridMap = gridMap.set(matrix[y][x].id,
             matrix[y][x] = matrix[y][x]
               .set("y", b)
               .set("type", BlockType.STALE));
 
           // Remove the block
           let id = matrix[b][x].get("id");
-          grid = grid.delete(id);
+          gridMap = gridMap.delete(id);
           matrix[b][x] = null;
         }
         break;
@@ -100,47 +105,53 @@ const Algorithm = {
     for (let x = 0; x < GridSize.WIDTH; ++x) {
       for (let y = 0; y < GridSize.HEIGHT; ++y) {
         if (matrix[y][x] && matrix[y][x].get("type") === BlockType.DETROMINO) {
-          grid = grid.set(matrix[y][x].id,
+          gridMap = gridMap.set(matrix[y][x].id,
             matrix[y][x] = matrix[y][x].set("type", BlockType.TARGET));
         }
       }
     }
 
-    return grid;
-  },
-
-  /**
-   * Removes stale blocks
-   * @param {Grid} grid Immutable map of blocks
-   */
-  removeStaleBlocks(grid) {
-    let blocks = grid.valueSeq().toArray();
-
-    for (let block of blocks) {
-      if (block.type === BlockType.STALE) {
-        grid = grid.delete(block.get("id"));
-      }
-    }
-
-    return grid;
+    return gridMap;
   },
 
   /**
    * Removes stale blocks and sinks target blocks to eliminate the gaps between
-   * them
-   * @param {Immutable.Map<K, V>|grid} grid Immutable map of blocks
+   * them.
+   *
+   * This function should be called right after `applyDetrominoBlocks`
+   *
+   * @param {Immutable.Map} gridMap Immutable map of blocks
+   * @return {Immutable.Map} gridMap
    */
-  removeStaleAndSinkTargetBlocks(grid) {
-    grid = Algorithm.removeStaleBlocks(grid);
-    return Algorithm.sinkTargetBlocks(grid);
+  removeStaleAndSinkTargetBlocks(gridMap) {
+    gridMap = Algorithm.removeStaleBlocks(gridMap);
+    return Algorithm.sinkTargetBlocks(gridMap);
+  },
+
+  /**
+   * Removes stale blocks
+   * @param {Immutable.Map} gridMap Immutable map of blocks
+   * @return {Immutable.Map} gridMap
+   */
+  removeStaleBlocks(gridMap) {
+    let blocks = gridMap.valueSeq().toArray();
+
+    for (let block of blocks) {
+      if (block.type === BlockType.STALE) {
+        gridMap = gridMap.delete(block.get("id"));
+      }
+    }
+
+    return gridMap;
   },
 
   /**
    * Sinks target blocks in a 2d matrix
-   * @param {GamePanel} grid
+   * @param {Immutable.Map} gridMap
+   * @return {Immutable.Map} gridMap
    */
-  sinkTargetBlocks(grid) {
-    let matrix = gridMapToArray(grid);
+  sinkTargetBlocks(gridMap) {
+    let matrix = gridMapToArray(gridMap);
 
     for (let x = 0; x < GridSize.WIDTH; ++x) {
       let u = GridSize.HEIGHT - 1, d = u;
@@ -162,14 +173,41 @@ const Algorithm = {
           // Update block information and swap
           matrix[u][x] = matrix[u][x].set("y", d);
 
-          grid = grid.set(matrix[u][x].get("id"), matrix[u][x]);
+          gridMap = gridMap.set(matrix[u][x].get("id"), matrix[u][x]);
 
           [matrix[u][x], matrix[d][x]] = [matrix[d][x], matrix[u][x]];
         }
       }
     }
 
-    return grid;
+    return gridMap;
+  },
+
+  /**
+   * Instantly applies detromino on a basegrid. This function skips all
+   * animation and is a nonstop call to eliminate blocks with basegrid
+   * @param {Immutable.Map} gridMap
+   * @param {boolean} convertTargetToOriginal - if the target blocks from the
+   *   detromino should be converted to original
+   */
+  applyDetrominoInGameInstantly(gridMap, convertTargetToOriginal = false) {
+    gridMap = Algorithm.applyDetrominoBlocks(gridMap);
+    gridMap = Algorithm.removeStaleAndSinkTargetBlocks(gridMap);
+
+    if (!convertTargetToOriginal) {
+      return gridMap;
+    }
+
+    // Convert target blocks to original blocks
+    let ids = gridMap.keySeq().toArray();
+    for (let id of ids) {
+      if (gridMap.get(id).get("type") === BlockType.TARGET) {
+        gridMap = gridMap.set(id,
+          gridMap.get(id).set("type", BlockType.ORIGINAL));
+      }
+    }
+
+    return gridMap;
   },
 
   /**
