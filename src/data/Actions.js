@@ -633,16 +633,21 @@ const Actions = {
   },
 
   importLevelEditorDataSuccess(gamePanels) {
+    let actions = gamePanels.map(
+      gamePanel =>
+        Actions.applyLevelEditorGrid(
+          gamePanel.get("grid"),
+          gamePanel.get("queue")));
+
+    // Clear the history after the first action is placed. This will help keep
+    // a clean history after the first step
+    actions.splice(1, 0, Actions.clearHistoryInEditor());
+
     return createBatchActions(
       Actions.hideLevelEditorImportExport(),
       Actions.displaySuccess("Data successfully imported"),
       Actions.resetGrid(),
-      ...gamePanels.map(
-        gamePanel =>
-          Actions.applyLevelEditorGrid(
-            gamePanel.get("grid"),
-            gamePanel.get("queue"))
-      )
+      ...actions
     );
   },
 
