@@ -17,7 +17,10 @@ export const undoableLevelEditorConfig = {
   undoType        : ActionTypes.UNDO_IN_EDITOR,
   redoType        : ActionTypes.REDO_IN_EDITOR,
   clearHistoryType: ActionTypes.CLEAR_HISTORY_IN_EDITOR,
-  filter          : includeAction(ActionTypes.NEXT_DETROMINO_IN_EDITOR),
+  filter          : includeAction([
+    ActionTypes.NEXT_DETROMINO_IN_EDITOR,
+    ActionTypes.APPLY_LEVEL_EDITOR_GRID
+  ]),
 };
 
 export default {

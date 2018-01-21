@@ -295,6 +295,17 @@ function processImportedLevelEditorData(state, action) {
 }
 
 /**
+ * Overwrite current state grid and queue
+ * @param state
+ * @param action
+ */
+function applyLevelEditorGrid(state, action) {
+  let {grid, queue} = action;
+
+  return _syncData(state.set("grid", grid).set("queue", queue));
+}
+
+/**
  * A wrapper for calling the base class' syncData
  * @param state
  * @param {boolean} updateMatrix - should the matrix be updated. Set to false
@@ -338,7 +349,6 @@ function _syncData(state,
       state.get("detrominoTargets")));
 }
 
-
 function applyGrid(state, action) {
   switch (action.type) {
     case ActionTypes.INIT_GRID:
@@ -376,6 +386,8 @@ function applyGrid(state, action) {
       return moveEditingBlock(state, Direction.DOWN);
     case ActionTypes.IMPORT_LEVEL_EDITOR_DATA:
       return processImportedLevelEditorData(state, action);
+    case ActionTypes.APPLY_LEVEL_EDITOR_GRID:
+      return applyLevelEditorGrid(state, action);
     default:
       return state;
   }

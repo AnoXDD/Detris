@@ -7,6 +7,7 @@ import Button from "../../lib/Button";
 import Actions from "../../data/Actions";
 import FullscreenOverlayView from "./FullscreenOverlayView";
 import store from "../../store/store";
+import {generatePastGamePanelsFromToken} from "../../util/levelEditorPanelHelper";
 
 export default class LevelEditorImportExportView extends Component {
 
@@ -35,7 +36,9 @@ export default class LevelEditorImportExportView extends Component {
     let {levelEditorExportString} = nextProps;
     if (levelEditorExportString !== this.props.levelEditorExportString) {
       // New information received
-      store.dispatch(Actions.importLevelEditorDataSuccess());
+      let gamePanels = generatePastGamePanelsFromToken(levelEditorExportString);
+
+      store.dispatch(Actions.importLevelEditorDataSuccess(gamePanels.reverse()));
     }
   }
 

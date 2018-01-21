@@ -30,7 +30,7 @@ const Actions = {
   reset() {
     return createBatchActions(
       {type: ActionTypes.RESET,},
-    Actions.clearHistoryInEditor(),
+      Actions.clearHistoryInEditor(),
       Actions.clearHistoryInGame()
     );
   },
@@ -624,10 +624,25 @@ const Actions = {
     };
   },
 
-  importLevelEditorDataSuccess() {
+  applyLevelEditorGrid(grid, queue) {
+    return {
+      type: ActionTypes.APPLY_LEVEL_EDITOR_GRID,
+      grid,
+      queue,
+    };
+  },
+
+  importLevelEditorDataSuccess(gamePanels) {
     return createBatchActions(
       Actions.hideLevelEditorImportExport(),
-      Actions.displaySuccess("Data successfully imported")
+      Actions.displaySuccess("Data successfully imported"),
+      Actions.resetGrid(),
+      ...gamePanels.map(
+        gamePanel =>
+          Actions.applyLevelEditorGrid(
+            gamePanel.get("grid"),
+            gamePanel.get("queue"))
+      )
     );
   },
 
