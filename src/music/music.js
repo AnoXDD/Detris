@@ -18,17 +18,19 @@ const AudioContext = (
 );
 
 let hasWebAudioAPI =
-  !!AudioContext && location.protocol.indexOf('http') !== -1;
+  !!AudioContext && window.location.protocol.indexOf('http') !== -1;
 
 // The initial state of the function to play music
-let playSound = type => {
+export let playSound = type => {
+  console.log("no");
 };
 
 (() => {
-  if (!hasWebAudioAPI.data) {
+  if (!hasWebAudioAPI) {
     return;
   }
-  const url = './music.mp3';
+
+  const url = '/music.mp3';
   const context = new AudioContext();
   const req = new XMLHttpRequest();
   req.open('GET', url, true);
@@ -50,13 +52,14 @@ let playSound = type => {
           }
 
           let {start, duration} = data[type];
-          getSource().start(0, start, duration);
+          // Converting from ms to s
+          getSource().start(0, start / 1000, duration / 1000);
 
           return true;
         };
       },
       error => {
-        console.error(`Unable to read ${url}`, error);
+        console.error(`Unable to read ${url}\n`, error);
         hasWebAudioAPI = false;
       });
   };
