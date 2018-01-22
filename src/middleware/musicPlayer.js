@@ -8,14 +8,23 @@ import ActionType from "../enum/ActionType";
 import MusicType from "../enum/MusicType";
 import {playSound} from "../music/music";
 
-const typeMap = {
-  [ActionType.SHOW_FULLSCREEN_OVERLAY]: MusicType.DIALOG_OPEN,
-  [ActionType.HIDE_FULLSCREEN_OVERLAY]: MusicType.DIALOG_CLOSE,
-};
-
 export default function musicPlayer(store) {
   return next => action => {
-    let musicType = typeMap[action.type];
+    let musicType = null;
+
+    switch (action.type) {
+      case ActionType.SHOW_FULLSCREEN_OVERLAY:
+      case ActionType.PAUSE:
+        musicType = MusicType.DIALOG_OPEN;
+        break;
+
+      case ActionType.HIDE_FULLSCREEN_OVERLAY:
+      case ActionType.RESUME:
+        musicType = MusicType.DIALOG_CLOSE;
+        break;
+
+      default:
+    }
 
     if (musicType) {
       playSound(musicType);
