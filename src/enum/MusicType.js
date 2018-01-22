@@ -1,0 +1,18 @@
+/**
+ * Created by Anoxic on 1/21/2018.
+ */
+
+// Keep the value equal to key
+const MusicType = {
+  BUTTON_CLICK        : "BUTTON_CLICK",
+  CONTROL_CLICK       : "CONTROL_CLICK",
+  DIALOG_OPEN         : "DIALOG_OPEN",
+  DIALOG_CLOSE        : "DIALOG_CLOSE",
+  LEVEL_SUCCESS       : "LEVEL_SUCCESS",
+  NOTIFICATION_SUCCESS: "NOTIFICATION_SUCCESS",
+  NOTIFICATION_ERROR  : "NOTIFICATION_ERROR",
+  DETROMINO_FALLING   : "DETROMINO_FALLING",
+  DETROMINO_APPLYING  : "DETROMINO_APPLYING",
+};
+
+export default MusicType;

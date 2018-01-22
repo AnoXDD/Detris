@@ -16,7 +16,7 @@ import {
   createBatchActions,
   createSpecialAction
 } from "../middleware/delayDispatcher";
-import DispatchType from "../middleware/DispatchType";
+import DispatchType from "../enum/DispatchType";
 import store from "../store/store";
 import DialogType from "../enum/DialogType";
 import {nextTutorial, prevTutorial} from "../util/tutorialHelper";

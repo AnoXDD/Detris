@@ -4,7 +4,7 @@
  * A middleware for delayed dispatch
  */
 
-import DispatchType from "./DispatchType";
+import DispatchType from "../enum/DispatchType";
 const BATCH_ACTION_TYPE = "isBatchAction";
 const TIME_OUT = "timeout";
 const DELAY_TYPE = "delayType";
