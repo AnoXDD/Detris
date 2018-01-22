@@ -10,6 +10,9 @@ const ORDER = Object.keys(MusicType).sort();
 /**
  * A list of data.
  *
+ * Offset is a plus/minus milliseconds to determine when to play of that
+ * specific sfx
+ *
  * Duration is the effective length of the file, i.e. how long the sound effect
  * will play. It's shorter than length because there can be silence after the
  * actual sfx. (in milliseconds)
@@ -22,59 +25,75 @@ const ORDER = Object.keys(MusicType).sort();
 const MusicData = {
   [MusicType.BUTTON_CLICK]        : {
     type    : MusicType.BUTTON_CLICK,
-    start   : 0,
-    duration: 601,
-    length  : 601,
+    offset  : 0,
+    duration: 300,
+    length  : 500,
   },
   [MusicType.CONTROL_CLICK]       : {
     type    : MusicType.CONTROL_CLICK,
-    start   : 0,
-    duration: 1332,
-    length  : 1332,
+    offset  : 0,
+    duration: 300,
+    length  : 500,
   },
   [MusicType.DIALOG_OPEN]         : {
     type    : MusicType.DIALOG_OPEN,
-    start   : 0,
-    duration: 575,
-    length  : 575,
+    offset  : 0,
+    duration: 100,
+    length  : 300,
   },
   [MusicType.DIALOG_CLOSE]        : {
     type    : MusicType.DIALOG_CLOSE,
-    start   : 0,
-    duration: 575,
-    length  : 575,
+    offset  : 0,
+    duration: 150,
+    length  : 300,
   },
   [MusicType.LEVEL_SUCCESS]       : {
     type    : MusicType.LEVEL_SUCCESS,
-    start   : 0,
-    duration: 1384,
-    length  : 1384,
+    offset  : 0,
+    duration: 1000,
+    length  : 1000,
   },
   [MusicType.NOTIFICATION_SUCCESS]: {
     type    : MusicType.NOTIFICATION_SUCCESS,
-    start   : 0,
-    duration: 2090,
-    length  : 2090,
+    offset  : 0,
+    duration: 500,
+    length  : 500,
   },
   [MusicType.NOTIFICATION_ERROR]  : {
     type    : MusicType.NOTIFICATION_ERROR,
-    start   : 0,
-    duration: 1384,
-    length  : 1384,
+    offset  : 0,
+    duration: 300,
+    length  : 500,
   },
   [MusicType.DETROMINO_FALLING]   : {
     type    : MusicType.DETROMINO_FALLING,
-    start   : 0,
+    offset  : 0,
     duration: 0,
+    length  : 0,
   },
   [MusicType.DETROMINO_APPLYING]  : {
     type    : MusicType.DETROMINO_APPLYING,
-    start   : 0,
+    offset  : 0,
     duration: 0,
+    length  : 0,
   },
 };
 
-// todo Process where the music starts in the music file
+// Process where the music starts in the music file
+(() => {
+  let start = 0;
 
+  for (let type of ORDER) {
+    MusicData[type].start = start;
+
+    let {length, offset = 0} = MusicData[type];
+    if (!length) {
+      console.warn(`music/data.js: attribute \`length\` for music type ${type} is not specified`);
+      length = MusicData[type].duration || 0;
+    }
+
+    start += (length + offset);
+  }
+})();
 
 export default MusicData;
