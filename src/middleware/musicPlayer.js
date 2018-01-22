@@ -4,13 +4,13 @@
  * A middleware to play music on certain type of music
  */
 
-import ActionTypes from "../enum/ActionTypes";
+import ActionType from "../enum/ActionType";
 import MusicType from "../enum/MusicType";
 import {playSound} from "../music/music";
 
 const typeMap = {
-  [ActionTypes.SHOW_FULLSCREEN_OVERLAY]: MusicType.DIALOG_OPEN,
-  [ActionTypes.HIDE_FULLSCREEN_OVERLAY]: MusicType.DIALOG_CLOSE,
+  [ActionType.SHOW_FULLSCREEN_OVERLAY]: MusicType.DIALOG_OPEN,
+  [ActionType.HIDE_FULLSCREEN_OVERLAY]: MusicType.DIALOG_CLOSE,
 };
 
 export default function musicPlayer(store) {

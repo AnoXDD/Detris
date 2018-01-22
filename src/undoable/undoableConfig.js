@@ -4,22 +4,22 @@
 
 import {includeAction} from "redux-undo";
 
-import ActionTypes from "../enum/ActionTypes";
+import ActionType from "../enum/ActionType";
 
 export const undoableGameConfig = {
-  undoType        : ActionTypes.UNDO_IN_GAME,
-  redoType        : ActionTypes.REDO_IN_GAME,
-  clearHistoryType: ActionTypes.CLEAR_HISTORY_IN_GAME,
-  filter          : includeAction(ActionTypes.NEXT_DETROMINO_IN_GAME),
+  undoType        : ActionType.UNDO_IN_GAME,
+  redoType        : ActionType.REDO_IN_GAME,
+  clearHistoryType: ActionType.CLEAR_HISTORY_IN_GAME,
+  filter          : includeAction(ActionType.NEXT_DETROMINO_IN_GAME),
 };
 
 export const undoableLevelEditorConfig = {
-  undoType        : ActionTypes.UNDO_IN_EDITOR,
-  redoType        : ActionTypes.REDO_IN_EDITOR,
-  clearHistoryType: ActionTypes.CLEAR_HISTORY_IN_EDITOR,
+  undoType        : ActionType.UNDO_IN_EDITOR,
+  redoType        : ActionType.REDO_IN_EDITOR,
+  clearHistoryType: ActionType.CLEAR_HISTORY_IN_EDITOR,
   filter          : includeAction([
-    ActionTypes.NEXT_DETROMINO_IN_EDITOR,
-    ActionTypes.APPLY_LEVEL_EDITOR_GRID
+    ActionType.NEXT_DETROMINO_IN_EDITOR,
+    ActionType.APPLY_LEVEL_EDITOR_GRID
   ]),
 };
 

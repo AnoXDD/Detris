@@ -3,7 +3,7 @@
  */
 
 import NotificationState from "../state/Notification";
-import ActionTypes from "../enum/ActionTypes";
+import ActionType from "../enum/ActionType";
 import NotificationLevel from "../enum/NotificationLevel";
 
 function getInitialState() {
@@ -30,23 +30,23 @@ function displayLevelFailed(state) {
 
 export default function reduce(state = getInitialState(), action) {
   switch (action.type) {
-    case ActionTypes.RESET:
+    case ActionType.RESET:
       return getInitialState();
-    case ActionTypes.DISPLAY_INFO:
+    case ActionType.DISPLAY_INFO:
       return display(state, NotificationLevel.INFO,
         action.message);
-    case ActionTypes.DISPLAY_SUCCESS:
+    case ActionType.DISPLAY_SUCCESS:
       return display(state, NotificationLevel.SUCCESS,
         action.message);
-    case ActionTypes.DISPLAY_ERROR:
+    case ActionType.DISPLAY_ERROR:
       return display(state, NotificationLevel.ERROR,
         action.message);
-    case ActionTypes.UNDO_IN_GAME:
-    case ActionTypes.SHOW_FULLSCREEN_OVERLAY:
-    case ActionTypes.HIDE_FULLSCREEN_OVERLAY:
-    case ActionTypes.SET_GAME_UI_STATE:
+    case ActionType.UNDO_IN_GAME:
+    case ActionType.SHOW_FULLSCREEN_OVERLAY:
+    case ActionType.HIDE_FULLSCREEN_OVERLAY:
+    case ActionType.SET_GAME_UI_STATE:
       return hide(state);
-    case ActionTypes.LEVEL_FAIL:
+    case ActionType.LEVEL_FAIL:
       return displayLevelFailed(state);
     default:
       return state;

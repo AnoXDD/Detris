@@ -3,7 +3,7 @@
  */
 
 import {createTransform} from "redux-persist";
-import ControlPresets from "../enum/ControlPresets";
+import ControlPresets from "../enum/ControlPreset";
 import Control from "../state/Control";
 import LevelViewData from "../static/LevelViewData";
 import ButtonCallbacks from "../state/ButtonCallbacks";

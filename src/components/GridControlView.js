@@ -7,7 +7,7 @@ import Button from "../lib/Button";
 import Toggle from "../lib/Toggle";
 import Direction from "../enum/Direction";
 import Actions from "../data/Actions";
-import ControlTypes from "../enum/ControlTypes";
+import ControlType from "../enum/ControlType";
 import store from "../store/store";
 import PanelType from "../enum/PanelType";
 import {
@@ -81,37 +81,37 @@ export default class GridControlView extends Component {
 
   handleClick(pressed) {
     switch (pressed) {
-      case ControlTypes.CONTROL_ROTATE:
+      case ControlType.CONTROL_ROTATE:
         this.props.rotate();
         break;
-      case ControlTypes.CONTROL_DONE:
+      case ControlType.CONTROL_DONE:
         this.props.done();
         break;
-      case ControlTypes.CONTROL_UP:
+      case ControlType.CONTROL_UP:
         this.props.move(Direction.UP);
         break;
-      case ControlTypes.CONTROL_DOWN:
+      case ControlType.CONTROL_DOWN:
         this.props.move(Direction.DOWN);
         break;
-      case ControlTypes.CONTROL_LEFT:
+      case ControlType.CONTROL_LEFT:
         this.props.move(Direction.LEFT);
         break;
-      case ControlTypes.CONTROL_RIGHT:
+      case ControlType.CONTROL_RIGHT:
         this.props.move(Direction.RIGHT);
         break;
-      case ControlTypes.CONTROL_TOGGLE_EDIT:
+      case ControlType.CONTROL_TOGGLE_EDIT:
         this.props.toggleEditBlock();
         break;
-      case ControlTypes.CONTROL_PREV_DETROMINO:
+      case ControlType.CONTROL_PREV_DETROMINO:
         this.props.prevDetromino();
         break;
-      case ControlTypes.CONTROL_NEXT_DETROMINO:
+      case ControlType.CONTROL_NEXT_DETROMINO:
         this.props.nextDetromino();
         break;
-      case ControlTypes.CONTROL_UNDO:
+      case ControlType.CONTROL_UNDO:
         this.props.undo();
         break;
-      case ControlTypes.CONTROL_REDO:
+      case ControlType.CONTROL_REDO:
         this.props.redo();
         break;
       default:
@@ -141,50 +141,50 @@ export default class GridControlView extends Component {
 
   render() {
     let gridToggle = <Toggle
-      hidden={this.hidden(ControlTypes.CONTROL_TOGGLE_EDIT)}
+      hidden={this.hidden(ControlType.CONTROL_TOGGLE_EDIT)}
       firstIcon="grid_on"
       secondIcon="grid_off"
       isChanging={this.props.isEditingBlock}
       className="grid-toggle"
-      onClick={() => this.handleClick(ControlTypes.CONTROL_TOGGLE_EDIT)}
+      onClick={() => this.handleClick(ControlType.CONTROL_TOGGLE_EDIT)}
     />;
-    let rotate = this.generateButton(ControlTypes.CONTROL_ROTATE)(
+    let rotate = this.generateButton(ControlType.CONTROL_ROTATE)(
       "rotate_right",
       "rotate");
-    let prevDetromino = this.generateButton(ControlTypes.CONTROL_PREV_DETROMINO)(
+    let prevDetromino = this.generateButton(ControlType.CONTROL_PREV_DETROMINO)(
       "arrow_drop_up",
       "prev-detrominio");
-    let nextDetromino = this.generateButton(ControlTypes.CONTROL_NEXT_DETROMINO)(
+    let nextDetromino = this.generateButton(ControlType.CONTROL_NEXT_DETROMINO)(
       "arrow_drop_down",
       "next-detromino");
 
     let undo = <Button
       disabled={!this.canUndo()}
-      hidden={this.hidden(ControlTypes.CONTROL_REDO)}
+      hidden={this.hidden(ControlType.CONTROL_REDO)}
       className="undo"
-      onClick={() => this.handleClick(ControlTypes.CONTROL_UNDO)}
+      onClick={() => this.handleClick(ControlType.CONTROL_UNDO)}
     >undo</Button>;
     let redo = <Button
       disabled={!this.canRedo()}
-      hidden={this.hidden(ControlTypes.CONTROL_REDO)}
+      hidden={this.hidden(ControlType.CONTROL_REDO)}
       className="redo"
-      onClick={() => this.handleClick(ControlTypes.CONTROL_REDO)}
+      onClick={() => this.handleClick(ControlType.CONTROL_REDO)}
     >redo</Button>;
 
     let left =
-      this.generateRepeaterButton(ControlTypes.CONTROL_LEFT)(
+      this.generateRepeaterButton(ControlType.CONTROL_LEFT)(
         "arrow_back",
         "left");
     let right =
-      this.generateRepeaterButton(ControlTypes.CONTROL_RIGHT)(
+      this.generateRepeaterButton(ControlType.CONTROL_RIGHT)(
         "arrow_forward",
         "right");
     let up =
-      this.generateRepeaterButton(ControlTypes.CONTROL_UP)(
+      this.generateRepeaterButton(ControlType.CONTROL_UP)(
         "arrow_upward",
         "up");
     let down =
-      this.generateRepeaterButton(ControlTypes.CONTROL_DOWN)(
+      this.generateRepeaterButton(ControlType.CONTROL_DOWN)(
         "arrow_downward",
         "down");
 
@@ -192,7 +192,7 @@ export default class GridControlView extends Component {
       <div className="block-selectors">
         {this.props.blockList.map(block =>
           <Button
-            hidden={this.hidden(ControlTypes.CONTROL_BLOCK_SELECTOR)}
+            hidden={this.hidden(ControlType.CONTROL_BLOCK_SELECTOR)}
             className="grid-cell-btn narrow block-selector"
             key={block}
             onClick={() => store.dispatch(Actions.setBlockType(block))}
@@ -200,9 +200,9 @@ export default class GridControlView extends Component {
         )}
       </div> : null;
     let done = <Button
-      hidden={this.hidden(ControlTypes.CONTROL_DONE)}
+      hidden={this.hidden(ControlType.CONTROL_DONE)}
       className="accent done"
-      onClick={() => store.dispatch(this.handleClick(ControlTypes.CONTROL_DONE))}
+      onClick={() => store.dispatch(this.handleClick(ControlType.CONTROL_DONE))}
     >done</Button>;
 
     return (

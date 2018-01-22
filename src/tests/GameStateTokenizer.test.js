@@ -6,7 +6,7 @@ import Immutable from "immutable";
 
 import GameState from "../state/Game";
 import GameUiState from "../enum/GameUiState";
-import TopBarType from "../enum/TopBarTypes";
+import TopBarType from "../enum/TopBarType";
 import GameStateTokenizer from "../tokenizer/GameStateTokenizer";
 
 test("GameState", () => {

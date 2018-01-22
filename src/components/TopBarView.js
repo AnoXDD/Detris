@@ -5,7 +5,7 @@
 import React, {Component} from "react";
 import Button from "../lib/Button";
 import {CSSTransitionGroup} from "react-transition-group";
-import TopBarType from "../enum/TopBarTypes";
+import TopBarType from "../enum/TopBarType";
 import Actions from "../data/Actions";
 import store from "../store/store";
 

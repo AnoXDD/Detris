@@ -3,11 +3,11 @@
  * A store for the queue holding detrominos
  */
 
-import ActionTypes from "../enum/ActionTypes";
+import ActionType from "../enum/ActionType";
 import Actions from "../data/Actions";
 import ButtonCallbacks from "../state/ButtonCallbacks";
 import GameUiState from "../enum/GameUiState";
-import OverlayType from "../enum/OverlayTypes";
+import OverlayType from "../enum/OverlayType";
 import TutorialProgress from "../enum/TutorialProgress";
 import {createBatchActions} from "../middleware/delayDispatcher";
 import DialogType from "../enum/DialogType";
@@ -148,17 +148,17 @@ function reduceDialog(action, state) {
 
 export function reduceButton(state = getInitialState(), action) {
   switch (action.type) {
-    case ActionTypes.START_LEVEL:
+    case ActionType.START_LEVEL:
       return hidePauseMenu(
         state.set("onQuit",
           Actions.showDialogForQuitToSelectLevel))
         .set("onRestart",
           Actions.showDialogForGameRestart);
-    case ActionTypes.RESUME:
+    case ActionType.RESUME:
       return hidePauseMenu(state);
-    case ActionTypes.PAUSE:
+    case ActionType.PAUSE:
       return state.set("onBack", Actions.resume);
-    case ActionTypes.SET_GAME_UI_STATE:
+    case ActionType.SET_GAME_UI_STATE:
       switch (action.uiState) {
         case GameUiState.SELECT_LEVEL:
           return state.set("onQuit", Actions.showWelcomePage);
@@ -169,16 +169,16 @@ export function reduceButton(state = getInitialState(), action) {
         default:
           return state;
       }
-    case ActionTypes.SHOW_FULLSCREEN_OVERLAY:
+    case ActionType.SHOW_FULLSCREEN_OVERLAY:
       switch (action.overlayType) {
         case OverlayType.DIALOG:
           return reduceDialog(action, state);
         default:
           return state;
       }
-    case ActionTypes.HIDE_ALL_FULLSCREEN_OVERLAY:
+    case ActionType.HIDE_ALL_FULLSCREEN_OVERLAY:
       return hideAllFloatingWindows(state);
-    case ActionTypes.SET_TUTORIAL_PROGRESS:
+    case ActionType.SET_TUTORIAL_PROGRESS:
       return applyTutorialProgress(state, action.progress);
     default:
       return state;
@@ -186,7 +186,7 @@ export function reduceButton(state = getInitialState(), action) {
 }
 
 export default function reduce(state, action) {
-  if (action.type === ActionTypes.RESET) {
+  if (action.type === ActionType.RESET) {
     return getInitialState();
   }
 

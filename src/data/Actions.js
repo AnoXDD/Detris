@@ -4,12 +4,12 @@
  * The list of actions that can be dispatched
  */
 
-import ActionTypes from "../enum/ActionTypes";
+import ActionType from "../enum/ActionType";
 import Algorithm from "../util/Algorithm";
 import Direction from "../enum/Direction";
 import LevelData from "../static/LevelData";
 import GameUiState from "../enum/GameUiState";
-import OverlayType from "../enum/OverlayTypes";
+import OverlayType from "../enum/OverlayType";
 import LevelViewData from "../static/LevelViewData";
 import TutorialProgress from "../enum/TutorialProgress";
 import {
@@ -29,7 +29,7 @@ const Actions = {
    */
   reset() {
     return createBatchActions(
-      {type: ActionTypes.RESET,},
+      {type: ActionType.RESET,},
       Actions.clearHistoryInEditor(),
       Actions.clearHistoryInGame()
     );
@@ -38,7 +38,7 @@ const Actions = {
   //region game
   initGrid(width, height) {
     return {
-      type: ActionTypes.INIT_GRID,
+      type: ActionType.INIT_GRID,
       width,
       height,
     };
@@ -46,7 +46,7 @@ const Actions = {
 
   resetGrid() {
     return createBatchActions(
-      {type: ActionTypes.RESET_GRID,},
+      {type: ActionType.RESET_GRID,},
       Actions.clearHistoryInEditor(),
       Actions.clearHistoryInGame()
     );
@@ -54,7 +54,7 @@ const Actions = {
 
   setUiState(uiState) {
     return createSpecialAction({
-      type: ActionTypes.SET_GAME_UI_STATE,
+      type: ActionType.SET_GAME_UI_STATE,
       uiState,
     }, DispatchType.OVERWRITE);
   },
@@ -87,56 +87,56 @@ const Actions = {
 
   showCreditUi() {
     return {
-      type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
+      type       : ActionType.SHOW_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.ABOUT,
     };
   },
 
   hideCreditUi() {
     return {
-      type       : ActionTypes.HIDE_FULLSCREEN_OVERLAY,
+      type       : ActionType.HIDE_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.ABOUT,
     };
   },
 
   showSettingsUi() {
     return {
-      type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
+      type       : ActionType.SHOW_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.SETTINGS,
     };
   },
 
   hideSettingsUi() {
     return {
-      type       : ActionTypes.HIDE_FULLSCREEN_OVERLAY,
+      type       : ActionType.HIDE_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.SETTINGS,
     };
   },
 
   showLevelEditorImportExport() {
     return {
-      type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
+      type       : ActionType.SHOW_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.LEVEL_EDITOR_IMPORT_EXPORT,
     };
   },
 
   hideLevelEditorImportExport() {
     return {
-      type       : ActionTypes.HIDE_FULLSCREEN_OVERLAY,
+      type       : ActionType.HIDE_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.LEVEL_EDITOR_IMPORT_EXPORT,
     };
   },
 
   showTutorialGuide() {
     return {
-      type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
+      type       : ActionType.SHOW_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.TUTORIAL_GUIDE,
     };
   },
 
   hideTutorialGuide() {
     return {
-      type       : ActionTypes.HIDE_FULLSCREEN_OVERLAY,
+      type       : ActionType.HIDE_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.TUTORIAL_GUIDE,
     };
   },
@@ -146,7 +146,7 @@ const Actions = {
       return createBatchActions(
         {
           progress,
-          type: ActionTypes.SET_TUTORIAL_PROGRESS,
+          type: ActionType.SET_TUTORIAL_PROGRESS,
         },
         Actions.clearHistoryInGame()
       )
@@ -154,7 +154,7 @@ const Actions = {
 
     return {
       progress,
-      type: ActionTypes.SET_TUTORIAL_PROGRESS,
+      type: ActionType.SET_TUTORIAL_PROGRESS,
     };
   },
 
@@ -189,7 +189,7 @@ const Actions = {
    */
   setTutorialCompleted() {
     return {
-      type: ActionTypes.SET_TUTORIAL_COMPLETED,
+      type: ActionType.SET_TUTORIAL_COMPLETED,
     };
   },
 
@@ -213,25 +213,25 @@ const Actions = {
 
   pause() {
     return {
-      type: ActionTypes.PAUSE,
+      type: ActionType.PAUSE,
     };
   },
 
   resume() {
     return {
-      type: ActionTypes.RESUME,
+      type: ActionType.RESUME,
     };
   },
 
   levelSuccess() {
     return {
-      type: ActionTypes.LEVEL_SUCCESS,
+      type: ActionType.LEVEL_SUCCESS,
     };
   },
 
   levelFail() {
     return {
-      type: ActionTypes.LEVEL_FAIL,
+      type: ActionType.LEVEL_FAIL,
     };
   },
 
@@ -272,7 +272,7 @@ const Actions = {
 
   showDialog(dialogType) {
     return {
-      type       : ActionTypes.SHOW_FULLSCREEN_OVERLAY,
+      type       : ActionType.SHOW_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.DIALOG,
       dialogType,
     };
@@ -280,14 +280,14 @@ const Actions = {
 
   hideDialog() {
     return {
-      type       : ActionTypes.HIDE_FULLSCREEN_OVERLAY,
+      type       : ActionType.HIDE_FULLSCREEN_OVERLAY,
       overlayType: OverlayType.DIALOG,
     };
   },
 
   hideAllFullscreenOverlay() {
     return {
-      type: ActionTypes.HIDE_ALL_FULLSCREEN_OVERLAY,
+      type: ActionType.HIDE_ALL_FULLSCREEN_OVERLAY,
     };
   },
 
@@ -297,13 +297,13 @@ const Actions = {
 
   levelPageNext() {
     return {
-      type: ActionTypes.LEVEL_NEXT_PAGE,
+      type: ActionType.LEVEL_NEXT_PAGE,
     };
   },
 
   levelPagePrev() {
     return {
-      type: ActionTypes.LEVEL_PREV_PAGE,
+      type: ActionType.LEVEL_PREV_PAGE,
     };
   },
 
@@ -312,7 +312,7 @@ const Actions = {
   startNewLevelById(currentLevelId = LevelData.firstLevelId()) {
     return createBatchActions(
       createSpecialAction({
-        type: ActionTypes.START_LEVEL,
+        type: ActionType.START_LEVEL,
         currentLevelId,
       }, DispatchType.OVERWRITE),
       Actions.apply(LevelData.getLevelById(currentLevelId)),
@@ -343,7 +343,7 @@ const Actions = {
           levelDataUnit.get("height")),
         DispatchType.OVERWRITE
       ), {
-        type: ActionTypes.APPLY_DATA,
+        type: ActionType.APPLY_DATA,
         levelDataUnit,
       }
     );
@@ -354,13 +354,13 @@ const Actions = {
 
     return createBatchActions(
       createSpecialAction({
-        type: ActionTypes.APPLY_DETROMINO_BLOCKS,
+        type: ActionType.APPLY_DETROMINO_BLOCKS,
       }, DispatchType.ONLY_IF_CLEAR),
       createSpecialAction({
-        type: ActionTypes.SINK_TARGET_BLOCKS,
+        type: ActionType.SINK_TARGET_BLOCKS,
       }, DispatchType.ONLY_IF_CLEAR, DELAY),
       createSpecialAction({
-        type: ActionTypes.NEXT_DETROMINO_IN_GAME,
+        type: ActionType.NEXT_DETROMINO_IN_GAME,
         detrominoType,
       }, DispatchType.ONLY_IF_CLEAR, DELAY * 2),
     );
@@ -375,20 +375,20 @@ const Actions = {
       .get("grid").get("detromino").get("type");
 
     return createSpecialAction({
-      type: ActionTypes.NEXT_DETROMINO_IN_EDITOR,
+      type: ActionType.NEXT_DETROMINO_IN_EDITOR,
       detrominoType,
     }, DispatchType.ONLY_IF_CLEAR);
   },
 
   nextDetrominoShape() {
     return {
-      type: ActionTypes.NEXT_DETROMINO_SHAPE,
+      type: ActionType.NEXT_DETROMINO_SHAPE,
     };
   },
 
   prevDetrominoShape() {
     return {
-      type: ActionTypes.PREV_DETROMINO_SHAPE,
+      type: ActionType.PREV_DETROMINO_SHAPE,
     };
   },
 
@@ -400,7 +400,7 @@ const Actions = {
       Actions.applyDetrominoBlocks(),
       Actions.removeStaleAndSinkTargetBlocks(),
       {
-        type: ActionTypes.NEXT_DETROMINO_IN_GAME,
+        type: ActionType.NEXT_DETROMINO_IN_GAME,
         detrominoType,
       }
     );
@@ -409,7 +409,7 @@ const Actions = {
   debug__addDetrominoToQueue
     (detrominoType = Algorithm.generateRandomDetrominoType()) {
     return {
-      type: ActionTypes.ADD_DETROMINO_TO_QUEUE,
+      type: ActionType.ADD_DETROMINO_TO_QUEUE,
       detrominoType,
     };
   },
@@ -428,16 +428,16 @@ const Actions = {
 
     switch (direction) {
       case Direction.UP:
-        type = ActionTypes.DETROMINO_MOVE_UP;
+        type = ActionType.DETROMINO_MOVE_UP;
         break;
       case Direction.DOWN:
-        type = ActionTypes.DETROMINO_MOVE_DOWN;
+        type = ActionType.DETROMINO_MOVE_DOWN;
         break;
       case Direction.LEFT:
-        type = ActionTypes.DETROMINO_MOVE_LEFT;
+        type = ActionType.DETROMINO_MOVE_LEFT;
         break;
       case Direction.RIGHT:
-        type = ActionTypes.DETROMINO_MOVE_RIGHT;
+        type = ActionType.DETROMINO_MOVE_RIGHT;
         break;
       default:
     }
@@ -454,19 +454,19 @@ const Actions = {
 
   clearHistoryInGame() {
     return {
-      type: ActionTypes.CLEAR_HISTORY_IN_GAME,
+      type: ActionType.CLEAR_HISTORY_IN_GAME,
     };
   },
 
   undoInGame() {
     return createSpecialAction({
-      type: ActionTypes.UNDO_IN_GAME,
+      type: ActionType.UNDO_IN_GAME,
     }, DispatchType.ONLY_IF_CLEAR);
   },
 
   redoInGame() {
     return createSpecialAction({
-      type: ActionTypes.REDO_IN_GAME,
+      type: ActionType.REDO_IN_GAME,
     }, DispatchType.ONLY_IF_CLEAR);
   },
 
@@ -475,16 +475,16 @@ const Actions = {
 
     switch (direction) {
       case Direction.UP:
-        type = ActionTypes.EDITOR_DETROMINO_MOVE_UP;
+        type = ActionType.EDITOR_DETROMINO_MOVE_UP;
         break;
       case Direction.DOWN:
-        type = ActionTypes.EDITOR_DETROMINO_MOVE_DOWN;
+        type = ActionType.EDITOR_DETROMINO_MOVE_DOWN;
         break;
       case Direction.LEFT:
-        type = ActionTypes.EDITOR_DETROMINO_MOVE_LEFT;
+        type = ActionType.EDITOR_DETROMINO_MOVE_LEFT;
         break;
       case Direction.RIGHT:
-        type = ActionTypes.EDITOR_DETROMINO_MOVE_RIGHT;
+        type = ActionType.EDITOR_DETROMINO_MOVE_RIGHT;
         break;
       default:
     }
@@ -508,16 +508,16 @@ const Actions = {
 
     switch (direction) {
       case Direction.UP:
-        type = ActionTypes.EDITOR_BLOCK_MOVE_UP;
+        type = ActionType.EDITOR_BLOCK_MOVE_UP;
         break;
       case Direction.DOWN:
-        type = ActionTypes.EDITOR_BLOCK_MOVE_DOWN;
+        type = ActionType.EDITOR_BLOCK_MOVE_DOWN;
         break;
       case Direction.LEFT:
-        type = ActionTypes.EDITOR_BLOCK_MOVE_LEFT;
+        type = ActionType.EDITOR_BLOCK_MOVE_LEFT;
         break;
       case Direction.RIGHT:
-        type = ActionTypes.EDITOR_BLOCK_MOVE_RIGHT;
+        type = ActionType.EDITOR_BLOCK_MOVE_RIGHT;
         break;
       default:
     }
@@ -534,32 +534,32 @@ const Actions = {
 
   clearHistoryInEditor() {
     return {
-      type: ActionTypes.CLEAR_HISTORY_IN_EDITOR,
+      type: ActionType.CLEAR_HISTORY_IN_EDITOR,
     };
   },
 
   redoInEditor() {
     return {
-      type: ActionTypes.REDO_IN_EDITOR,
+      type: ActionType.REDO_IN_EDITOR,
     };
   },
 
   undoInEditor() {
     return {
-      type: ActionTypes.UNDO_IN_EDITOR,
+      type: ActionType.UNDO_IN_EDITOR,
     };
   },
 
   setBlockType(blockType) {
     return {
-      type: ActionTypes.SET_BLOCKTYPE,
+      type: ActionType.SET_BLOCKTYPE,
       blockType,
     };
   },
 
   rotate() {
     return {
-      type: ActionTypes.ROTATE,
+      type: ActionType.ROTATE,
     };
   },
 
@@ -574,19 +574,19 @@ const Actions = {
   // Remove the current detromino block from the grid
   removeDetromino() {
     return {
-      type: ActionTypes.REMOVE_DETROMINO,
+      type: ActionType.REMOVE_DETROMINO,
     };
   },
 
   applyDetrominoBlocks() {
     return {
-      type: ActionTypes.APPLY_DETROMINO_BLOCKS,
+      type: ActionType.APPLY_DETROMINO_BLOCKS,
     };
   },
 
   sinkTargetBlocks() {
     return {
-      type: ActionTypes.SINK_TARGET_BLOCKS,
+      type: ActionType.SINK_TARGET_BLOCKS,
     };
   },
 
@@ -598,7 +598,7 @@ const Actions = {
     }
 
     return {
-      type: ActionTypes.ENABLE_BLOCK_EDITING,
+      type: ActionType.ENABLE_BLOCK_EDITING,
       block,
     };
   },
@@ -613,20 +613,20 @@ const Actions = {
     }
 
     return {
-      type: ActionTypes.DISABLE_BLOCK_EDITING,
+      type: ActionType.DISABLE_BLOCK_EDITING,
     };
   },
 
   importLevelEditorData(text) {
     return {
-      type: ActionTypes.IMPORT_LEVEL_EDITOR_DATA,
+      type: ActionType.IMPORT_LEVEL_EDITOR_DATA,
       text,
     };
   },
 
   applyLevelEditorGrid(grid, queue) {
     return {
-      type: ActionTypes.APPLY_LEVEL_EDITOR_GRID,
+      type: ActionType.APPLY_LEVEL_EDITOR_GRID,
       grid,
       queue,
     };
@@ -658,21 +658,21 @@ const Actions = {
 
   displayInfo(message) {
     return {
-      type: ActionTypes.DISPLAY_INFO,
+      type: ActionType.DISPLAY_INFO,
       message,
     };
   },
 
   displaySuccess(message) {
     return {
-      type: ActionTypes.DISPLAY_SUCCESS,
+      type: ActionType.DISPLAY_SUCCESS,
       message,
     };
   },
 
   displayError(message) {
     return {
-      type: ActionTypes.DISPLAY_ERROR,
+      type: ActionType.DISPLAY_ERROR,
       message,
     };
   },

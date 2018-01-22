@@ -8,7 +8,7 @@ import Algorithm from "../util/Algorithm";
 import Rotation from "../enum/Rotation";
 import GridSize from "../enum/GridSize";
 import BlockType from "../enum/BlockType";
-import ActionTypes from "../enum/ActionTypes";
+import ActionType from "../enum/ActionType";
 import Detromino from "../state/Detromino";
 import DetrominoType from "../enum/DetrominoType";
 import LevelEditorPanel from "../state/LevelEditorPanel";
@@ -351,42 +351,42 @@ function _syncData(state,
 
 function applyGrid(state, action) {
   switch (action.type) {
-    case ActionTypes.INIT_GRID:
-    case ActionTypes.RESET_GRID:
+    case ActionType.INIT_GRID:
+    case ActionType.RESET_GRID:
       return getInitialState();
-    case ActionTypes.NEXT_DETROMINO_IN_EDITOR:
+    case ActionType.NEXT_DETROMINO_IN_EDITOR:
       return nextDetromino(state);
-    case ActionTypes.NEXT_DETROMINO_SHAPE:
+    case ActionType.NEXT_DETROMINO_SHAPE:
       return cycleDetrominoShape(state, 1);
-    case ActionTypes.PREV_DETROMINO_SHAPE:
+    case ActionType.PREV_DETROMINO_SHAPE:
       return cycleDetrominoShape(state, -1);
-    // case ActionTypes.ROTATE:
+    // case ActionType.ROTATE:
     // return rotate(state);
-    case ActionTypes.EDITOR_DETROMINO_MOVE_LEFT:
+    case ActionType.EDITOR_DETROMINO_MOVE_LEFT:
       return moveX(state, -1);
-    case ActionTypes.EDITOR_DETROMINO_MOVE_RIGHT:
+    case ActionType.EDITOR_DETROMINO_MOVE_RIGHT:
       return moveX(state, 1);
-    case ActionTypes.EDITOR_DETROMINO_MOVE_UP:
+    case ActionType.EDITOR_DETROMINO_MOVE_UP:
       return moveY(state, -1);
-    case ActionTypes.EDITOR_DETROMINO_MOVE_DOWN:
+    case ActionType.EDITOR_DETROMINO_MOVE_DOWN:
       return moveY(state, 1);
-    case ActionTypes.ENABLE_BLOCK_EDITING:
+    case ActionType.ENABLE_BLOCK_EDITING:
       return enableBlockEditing(state, action);
-    case ActionTypes.DISABLE_BLOCK_EDITING:
+    case ActionType.DISABLE_BLOCK_EDITING:
       return disableBlockEditing(state);
-    case ActionTypes.SET_BLOCKTYPE:
+    case ActionType.SET_BLOCKTYPE:
       return setCurrentBlock(state, action);
-    case ActionTypes.EDITOR_BLOCK_MOVE_LEFT:
+    case ActionType.EDITOR_BLOCK_MOVE_LEFT:
       return moveEditingBlock(state, Direction.LEFT);
-    case ActionTypes.EDITOR_BLOCK_MOVE_RIGHT:
+    case ActionType.EDITOR_BLOCK_MOVE_RIGHT:
       return moveEditingBlock(state, Direction.RIGHT);
-    case ActionTypes.EDITOR_BLOCK_MOVE_UP:
+    case ActionType.EDITOR_BLOCK_MOVE_UP:
       return moveEditingBlock(state, Direction.UP);
-    case ActionTypes.EDITOR_BLOCK_MOVE_DOWN:
+    case ActionType.EDITOR_BLOCK_MOVE_DOWN:
       return moveEditingBlock(state, Direction.DOWN);
-    case ActionTypes.IMPORT_LEVEL_EDITOR_DATA:
+    case ActionType.IMPORT_LEVEL_EDITOR_DATA:
       return processImportedLevelEditorData(state, action);
-    case ActionTypes.APPLY_LEVEL_EDITOR_GRID:
+    case ActionType.APPLY_LEVEL_EDITOR_GRID:
       return applyLevelEditorGrid(state, action);
     default:
       return state;
@@ -394,11 +394,11 @@ function applyGrid(state, action) {
 }
 
 export default function reduce(state = getInitialState(), action) {
-  if (action.type === ActionTypes.RESET) {
+  if (action.type === ActionType.RESET) {
     return getInitialState();
   }
 
-  if (action.type !== ActionTypes.SET_TUTORIAL_PROGRESS) {
+  if (action.type !== ActionType.SET_TUTORIAL_PROGRESS) {
     state = applyQueue(state, action);
   }
 

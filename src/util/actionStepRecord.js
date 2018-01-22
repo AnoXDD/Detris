@@ -3,7 +3,7 @@
  */
 
 import Immutable from "immutable";
-import ActionTypes from "../enum/ActionTypes";
+import ActionType from "../enum/ActionType";
 
 /**
  * Saves steps to immutable, specified by a key and a type
@@ -14,7 +14,7 @@ import ActionTypes from "../enum/ActionTypes";
 export function saveSteps(immutable, key, action) {
   let {type} = action;
 
-  if (!ActionTypes[type]) {
+  if (!ActionType[type]) {
     // Not a valid type, skip
     return immutable;
   }

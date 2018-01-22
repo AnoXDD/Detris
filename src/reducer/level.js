@@ -6,7 +6,7 @@
  */
 
 import LevelViewData from "../static/LevelViewData";
-import ActionTypes from "../enum/ActionTypes";
+import ActionType from "../enum/ActionType";
 import CompletedLevel from "../state/LevelCompletion";
 import LevelState from "../state/Level";
 
@@ -46,19 +46,19 @@ function setPage(state, newPage) {
 
 export default function reduce(state = getInitialState(), action) {
   switch (action.type) {
-    case ActionTypes.RESET:
+    case ActionType.RESET:
       return getInitialState();
-    case ActionTypes.LEVEL_NEXT_PAGE:
+    case ActionType.LEVEL_NEXT_PAGE:
       return nextPage(state);
-    case ActionTypes.LEVEL_PREV_PAGE:
+    case ActionType.LEVEL_PREV_PAGE:
       return prevPage(state);
-    case ActionTypes.START_LEVEL:
+    case ActionType.START_LEVEL:
       return state
         .set("currentLevelId", action.currentLevelId)
         .set("noUndo", true);
-    case ActionTypes.UNDO_IN_GAME:
+    case ActionType.UNDO_IN_GAME:
       return state.set("noUndo", false);
-    case ActionTypes.LEVEL_SUCCESS:
+    case ActionType.LEVEL_SUCCESS:
         let id = state.get("currentLevelId");
         let completedLevels = state.get("completedLevels");
         let prevNoUndo = completedLevels.get(id) ? completedLevels.get(id)

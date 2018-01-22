@@ -4,7 +4,7 @@
 
 import MusicType from "../enum/MusicType";
 
-// todo The order of each music in music.mp3
+// The order of each music in music.mp3
 const ORDER = Object.keys(MusicType).sort();
 
 /**

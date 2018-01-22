@@ -11,7 +11,7 @@ import Algorithm from "../util/Algorithm";
 import Rotation from "../enum/Rotation";
 import GridSize from "../enum/GridSize";
 import BlockType from "../enum/BlockType";
-import ActionTypes from "../enum/ActionTypes";
+import ActionType from "../enum/ActionType";
 import Detromino from "../state/Detromino";
 import DetrominoType from "../enum/DetrominoType";
 import BaseGridHelper from "../util/BaseGridHelper";
@@ -230,7 +230,7 @@ function _syncData(state,
  * @param type - the action type
  */
 function applyBusy(state, type) {
-  if (type === ActionTypes.NEXT_DETROMINO_IN_GAME) {
+  if (type === ActionType.NEXT_DETROMINO_IN_GAME) {
     return state.set("busy", false);
   }
 
@@ -239,32 +239,31 @@ function applyBusy(state, type) {
 
 function applyGrid(state, action) {
   switch (action.type) {
-    case ActionTypes.RESET_GRID:
+    case ActionType.RESET_GRID:
       return reset();
-    case ActionTypes.APPLY_DATA:
+    case ActionType.APPLY_DATA:
       return applyData(action);
-    case ActionTypes.START_LEVEL:
-      // todo Reset history
+    case ActionType.START_LEVEL:
       return state;
-    case ActionTypes.NEXT_DETROMINO_IN_GAME:
+    case ActionType.NEXT_DETROMINO_IN_GAME:
       return nextDetromino(state, action);
-    case ActionTypes.ROTATE:
+    case ActionType.ROTATE:
       return rotate(state);
-    case ActionTypes.DETROMINO_MOVE_LEFT:
+    case ActionType.DETROMINO_MOVE_LEFT:
       return move(state, {x: -1});
-    case ActionTypes.DETROMINO_MOVE_RIGHT:
+    case ActionType.DETROMINO_MOVE_RIGHT:
       return move(state, {x: 1});
-    case ActionTypes.DETROMINO_MOVE_UP:
+    case ActionType.DETROMINO_MOVE_UP:
       return move(state, {y: -1});
-    case ActionTypes.DETROMINO_MOVE_DOWN:
+    case ActionType.DETROMINO_MOVE_DOWN:
       return move(state, {y: 1});
-    case ActionTypes.REMOVE_DETROMINO:
+    case ActionType.REMOVE_DETROMINO:
       return removeDetromino(state);
-    case ActionTypes.APPLY_DETROMINO_BLOCKS:
+    case ActionType.APPLY_DETROMINO_BLOCKS:
       return applyDetrominoBlocks(state);
-    case ActionTypes.SINK_TARGET_BLOCKS:
+    case ActionType.SINK_TARGET_BLOCKS:
       return sinkTargetBlocks(state);
-    case ActionTypes.SET_TUTORIAL_PROGRESS:
+    case ActionType.SET_TUTORIAL_PROGRESS:
       return setTutorialGrid(state, action.progress);
     default:
       return state;
@@ -272,7 +271,7 @@ function applyGrid(state, action) {
 }
 
 export default function reduce(state = getInitialState(), action) {
-  if (action.type === ActionTypes.RESET) {
+  if (action.type === ActionType.RESET) {
     return getInitialState();
   }
 

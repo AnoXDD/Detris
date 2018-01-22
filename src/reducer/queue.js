@@ -6,7 +6,7 @@
 
 import Immutable from "immutable";
 
-import ActionTypes from "../enum/ActionTypes";
+import ActionType from "../enum/ActionType";
 import TutorialProgress from "../enum/TutorialProgress";
 import DetrominoType from "../enum/DetrominoType";
 
@@ -39,16 +39,16 @@ function applyData(action) {
 
 export function reduceQueue(state = getInitialState(), action) {
   switch (action.type) {
-    case ActionTypes.RESET_GRID:
+    case ActionType.RESET_GRID:
       return reset();
-    case ActionTypes.APPLY_DATA:
+    case ActionType.APPLY_DATA:
       return applyData(action);
-    case ActionTypes.NEXT_DETROMINO_IN_GAME:
+    case ActionType.NEXT_DETROMINO_IN_GAME:
       return pop(state);
-    case ActionTypes.NEXT_DETROMINO_IN_EDITOR:
-    case ActionTypes.ADD_DETROMINO_TO_QUEUE:
+    case ActionType.NEXT_DETROMINO_IN_EDITOR:
+    case ActionType.ADD_DETROMINO_TO_QUEUE:
       return push(state, action.detrominoType);
-    case ActionTypes.SET_TUTORIAL_PROGRESS:
+    case ActionType.SET_TUTORIAL_PROGRESS:
       switch (action.progress) {
         case TutorialProgress.TUTORIAL_INTRO:
           return reset();

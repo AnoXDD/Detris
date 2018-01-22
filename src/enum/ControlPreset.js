@@ -7,7 +7,7 @@
 
 import Immutable from "immutable";
 
-import ControlTypes from "./ControlTypes";
+import ControlType from "./ControlType";
 import Actions from "../data/Actions";
 import ControlState from "../state/Control";
 import {addIdToImmutable} from "../util/addIdToData";
@@ -19,14 +19,14 @@ const FULL_GAME_CONTROL = new ControlState({
   undo   : Actions.undoInGame,
   redo   : Actions.redoInGame,
   enabled: Immutable.Set([
-    ControlTypes.CONTROL_ROTATE,
-    ControlTypes.CONTROL_UP,
-    ControlTypes.CONTROL_DOWN,
-    ControlTypes.CONTROL_LEFT,
-    ControlTypes.CONTROL_RIGHT,
-    ControlTypes.CONTROL_DONE,
-    ControlTypes.CONTROL_UNDO,
-    ControlTypes.CONTROL_REDO,
+    ControlType.CONTROL_ROTATE,
+    ControlType.CONTROL_UP,
+    ControlType.CONTROL_DOWN,
+    ControlType.CONTROL_LEFT,
+    ControlType.CONTROL_RIGHT,
+    ControlType.CONTROL_DONE,
+    ControlType.CONTROL_UNDO,
+    ControlType.CONTROL_REDO,
   ]),
 });
 
@@ -42,17 +42,17 @@ const ControlPresets = {
     redo           : Actions.redoInEditor,
     undo           : Actions.undoInEditor,
     enabled        : Immutable.Set([
-      ControlTypes.CONTROL_ROTATE,
-      ControlTypes.CONTROL_UP,
-      ControlTypes.CONTROL_DOWN,
-      ControlTypes.CONTROL_LEFT,
-      ControlTypes.CONTROL_RIGHT,
-      ControlTypes.CONTROL_UNDO,
-      ControlTypes.CONTROL_REDO,
-      ControlTypes.CONTROL_DONE,
-      ControlTypes.CONTROL_TOGGLE_EDIT,
-      ControlTypes.CONTROL_PREV_DETROMINO,
-      ControlTypes.CONTROL_NEXT_DETROMINO,
+      ControlType.CONTROL_ROTATE,
+      ControlType.CONTROL_UP,
+      ControlType.CONTROL_DOWN,
+      ControlType.CONTROL_LEFT,
+      ControlType.CONTROL_RIGHT,
+      ControlType.CONTROL_UNDO,
+      ControlType.CONTROL_REDO,
+      ControlType.CONTROL_DONE,
+      ControlType.CONTROL_TOGGLE_EDIT,
+      ControlType.CONTROL_PREV_DETROMINO,
+      ControlType.CONTROL_NEXT_DETROMINO,
     ]),
   }),
 
@@ -61,33 +61,33 @@ const ControlPresets = {
     toggleEditBlock: Actions.disableBlockEditing,
     chooseEditBlock: Actions.setBlockType,
     enabled        : Immutable.Set([
-      ControlTypes.CONTROL_UP,
-      ControlTypes.CONTROL_DOWN,
-      ControlTypes.CONTROL_LEFT,
-      ControlTypes.CONTROL_RIGHT,
-      ControlTypes.CONTROL_UNDO,
-      ControlTypes.CONTROL_REDO,
-      ControlTypes.CONTROL_TOGGLE_EDIT,
-      ControlTypes.CONTROL_BLOCK_SELECTOR,
+      ControlType.CONTROL_UP,
+      ControlType.CONTROL_DOWN,
+      ControlType.CONTROL_LEFT,
+      ControlType.CONTROL_RIGHT,
+      ControlType.CONTROL_UNDO,
+      ControlType.CONTROL_REDO,
+      ControlType.CONTROL_TOGGLE_EDIT,
+      ControlType.CONTROL_BLOCK_SELECTOR,
     ]),
   }),
 
   ARROW_ONLY_NO_FUNCTION: new ControlState({
     enabled: Immutable.Set([
-      ControlTypes.CONTROL_UP,
-      ControlTypes.CONTROL_DOWN,
-      ControlTypes.CONTROL_LEFT,
-      ControlTypes.CONTROL_RIGHT,
+      ControlType.CONTROL_UP,
+      ControlType.CONTROL_DOWN,
+      ControlType.CONTROL_LEFT,
+      ControlType.CONTROL_RIGHT,
     ]),
   }),
 
   ARROW_ONLY: new ControlState({
     move   : Actions.moveDetrominoInTutorial,
     enabled: Immutable.Set([
-      ControlTypes.CONTROL_UP,
-      ControlTypes.CONTROL_DOWN,
-      ControlTypes.CONTROL_LEFT,
-      ControlTypes.CONTROL_RIGHT,
+      ControlType.CONTROL_UP,
+      ControlType.CONTROL_DOWN,
+      ControlType.CONTROL_LEFT,
+      ControlType.CONTROL_RIGHT,
     ]),
   }),
 
@@ -95,18 +95,18 @@ const ControlPresets = {
     move   : Actions.moveDetrominoInTutorial,
     rotate : Actions.rotateInTutorial,
     enabled: Immutable.Set([
-      ControlTypes.CONTROL_UP,
-      ControlTypes.CONTROL_DOWN,
-      ControlTypes.CONTROL_LEFT,
-      ControlTypes.CONTROL_RIGHT,
-      ControlTypes.CONTROL_ROTATE,
+      ControlType.CONTROL_UP,
+      ControlType.CONTROL_DOWN,
+      ControlType.CONTROL_LEFT,
+      ControlType.CONTROL_RIGHT,
+      ControlType.CONTROL_ROTATE,
     ]),
   }),
 
   NEXT_DETROMINO_ONLY: new ControlState({
     done   : Actions.nextTutorial,
     enabled: Immutable.Set([
-      ControlTypes.CONTROL_DONE,
+      ControlType.CONTROL_DONE,
     ]),
   }),
 

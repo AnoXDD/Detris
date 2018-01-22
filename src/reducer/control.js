@@ -2,10 +2,10 @@
  * Created by Anoxic on 1/11/2018.
  */
 
-import ActionTypes from "../enum/ActionTypes";
+import ActionType from "../enum/ActionType";
 import GameUiState from "../enum/GameUiState";
 import TutorialProgress from "../enum/TutorialProgress";
-import ControlPresets from "../enum/ControlPresets";
+import ControlPresets from "../enum/ControlPreset";
 import GridHistoryHelper from "../util/GridHistoryHelper";
 
 /**
@@ -86,26 +86,26 @@ function fullGameControlWithHistory() {
 
 export function control(state = ControlPresets.EMPTY, action) {
   switch (action.type) {
-    case ActionTypes.RESET:
+    case ActionType.RESET:
       return ControlPresets.EMPTY;
-    case ActionTypes.START_LEVEL:
+    case ActionType.START_LEVEL:
       return onGameStarted();
-    case ActionTypes.NEXT_DETROMINO_IN_GAME:
-    case ActionTypes.UNDO_IN_GAME:
-    case ActionTypes.REDO_IN_GAME:
+    case ActionType.NEXT_DETROMINO_IN_GAME:
+    case ActionType.UNDO_IN_GAME:
+    case ActionType.REDO_IN_GAME:
       return ControlPresets.FULL_GAME_CONTROL;
-    case ActionTypes.SET_GAME_UI_STATE:
+    case ActionType.SET_GAME_UI_STATE:
       switch (action.uiState) {
         case GameUiState.LEVEL_EDITOR_STARTED:
           return onLevelEditorDisableBlockEditing();
         default:
           return ControlPresets.EMPTY;
       }
-    case ActionTypes.DISABLE_BLOCK_EDITING:
+    case ActionType.DISABLE_BLOCK_EDITING:
       return onLevelEditorDisableBlockEditing();
-    case ActionTypes.ENABLE_BLOCK_EDITING:
+    case ActionType.ENABLE_BLOCK_EDITING:
       return onLevelEditorEnableBlockEditing();
-    case ActionTypes.SET_TUTORIAL_PROGRESS:
+    case ActionType.SET_TUTORIAL_PROGRESS:
       return onTutorialProgress(action.progress);
     default:
       return state;

@@ -3,7 +3,7 @@
  */
 
 import GeneralTokenizer from "./GeneralTokenizer";
-import ControlPresets from "../enum/ControlPresets";
+import ControlPresets from "../enum/ControlPreset";
 
 export default class ControlStateTokenizer {
   static tokenizeControlState(str) {

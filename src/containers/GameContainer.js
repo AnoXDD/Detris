@@ -17,7 +17,7 @@ import SettingsView from "../components/fullscreenOverlay/SettingsView";
 import AboutView from "../components/fullscreenOverlay/AboutView";
 import ControlContainer from "./ControlContainer";
 import LevelEditorImportExportView from "../components/fullscreenOverlay/LevelEditorImportExportView";
-import OverlayType from "../enum/OverlayTypes";
+import OverlayType from "../enum/OverlayType";
 import NotificationContainer from "./NotificationContainer";
 import EndGameView from "../components/fullscreenOverlay/EndGameView";
 import TutorialWelcomeContainer from "./TutorialWelcomeContainer";

@@ -3,7 +3,7 @@
  * A store for the tutorial state
  */
 
-import ActionTypes from "../enum/ActionTypes";
+import ActionType from "../enum/ActionType";
 import TutorialProgress from "../enum/TutorialProgress";
 import TutorialState from "../state/Tutorial";
 import TutorialGuidePosition from "../enum/TutorialGuidePosition";
@@ -96,9 +96,9 @@ function applyTutorialProgress(state, progress) {
 
 export default function reduce(state = getInitialState(), action) {
   switch (action.type) {
-    case ActionTypes.RESET:
+    case ActionType.RESET:
       return getInitialState();
-    case ActionTypes.SET_TUTORIAL_PROGRESS:
+    case ActionType.SET_TUTORIAL_PROGRESS:
       state = applyTutorialPosition(state, action.progress);
       return applyTutorialProgress(state, action.progress);
     default:
