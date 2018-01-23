@@ -144,6 +144,9 @@ export default function reduce(state = getInitialState(), action) {
     case ActionType.SET_TUTORIAL_COMPLETED:
       return state.set("tutorialCompleted", true);
 
+    case ActionType.SET_SOUND_ENABLED:
+      return state.set("sound", action.enabled);
+
     default:
       return state;
   }

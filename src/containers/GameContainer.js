@@ -99,6 +99,7 @@ class GameContainer extends Component {
               case OverlayType.SETTINGS:
                 return (<SettingsView
                   key="settings"
+                  sound={this.props.sound}
                   uiState={this.props.uiState}/>);
               case OverlayType.DIALOG:
                 return (<DialogView key="dialog"

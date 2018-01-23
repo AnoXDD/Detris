@@ -676,6 +676,13 @@ const Actions = {
       message,
     };
   },
+
+  setSoundEnabled(enabled) {
+    return {
+      type: ActionType.SET_SOUND_ENABLED,
+      enabled,
+    };
+  }
 };
 
 export default Actions;

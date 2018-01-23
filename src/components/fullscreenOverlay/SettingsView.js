@@ -14,11 +14,14 @@ export default class SettingsView extends Component {
   render() {
     return (
       <FullscreenOverlayView
+        update="true"
         title="settings"
         onBackgroundClick={() => store.dispatch(Actions.hideSettingsUi())}
       >
         <div className="btns">
-          <Toggle firstIcon="volume_up" secondIcon="volume_off"/>
+          <Toggle firstIcon="volume_up" secondIcon="volume_off"
+                  onClick={() => store.dispatch(Actions.setSoundEnabled(!this.props.sound))}
+                  isChanging={!this.props.sound}/>
         </div>
         <div className="btns">
           <Button

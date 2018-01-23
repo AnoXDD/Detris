@@ -10,6 +10,22 @@ import {playSound} from "../music/music";
 
 export default function musicPlayer(store) {
   return next => action => {
+    // Special case when the user is toggling sound on/off
+    if (action.type === ActionType.SET_SOUND_ENABLED) {
+      if (action.enabled) {
+        playSound(MusicType.CONTROL_CLICK);
+      }
+
+      next(action);
+      return;
+    }
+
+    // Don't play sound if the settings is off
+    if (!store.getState().game.get("sound")) {
+      next(action);
+      return;
+    }
+
     let musicType = null;
 
     switch (action.type) {
