@@ -9,6 +9,7 @@
  */
 
 import store from "../store/store";
+import Actions from "../data/Actions";
 
 const FIRST_TIMEOUT = 300;
 const INTERVAL = 100;
@@ -45,6 +46,8 @@ function createMouseDown(action) {
       store.dispatch(action());
 
       createMouseDown.timeoutId = setTimeout(() => {
+        store.dispatch(Actions.setNoAnimation(true));
+
         createMouseDown.intervalId = setInterval(() => {
           store.dispatch(action());
         }, INTERVAL);
@@ -68,18 +71,17 @@ function createMouseDown(action) {
  */
 export function generateRepeaterEvent(action) {
   let {onMouseDown, getTimeout, getInterval} = createMouseDown(action);
+  let onMouseUp = () => {
+    store.dispatch(Actions.setNoAnimation(false));
+    clearTimeout(getTimeout());
+    clearInterval(getInterval());
+  };
 
   return {
     onMouseDown : onMouseDown,
     onTouchStart: onMouseDown,
-    onMouseUp   : () => {
-      clearTimeout(getTimeout());
-      clearInterval(getInterval());
-    },
-    onTouchEnd  : () => {
-      clearTimeout(getTimeout());
-      clearInterval(getInterval());
-    },
+    onMouseUp   : onMouseUp,
+    onTouchEnd  : onMouseUp,
   };
 }
 

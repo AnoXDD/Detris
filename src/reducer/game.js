@@ -147,6 +147,9 @@ export default function reduce(state = getInitialState(), action) {
     case ActionType.SET_SOUND_ENABLED:
       return state.set("sound", action.enabled);
 
+    case ActionType.SET_NO_ANIMATION:
+      return state.set("noAnimation", action.enabled);
+
     default:
       return state;
   }

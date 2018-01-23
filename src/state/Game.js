@@ -16,7 +16,10 @@ const GameStateRecord = Immutable.Record({
   activeOverlay: Immutable.Set(),
 
   tutorialCompleted: false,
+
+  // Settings
   sound            : true,
+  noAnimation      : false,
 
   levelEditorExportString: "",
 });

@@ -139,6 +139,10 @@ html, body, #root {
       border: 1px solid grey;
       overflow: hidden;
     }
+
+    &.no-animation .grid-cell {
+      transition: none;
+    }
   }
 
   .grid-cell {

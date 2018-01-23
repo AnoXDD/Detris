@@ -682,7 +682,14 @@ const Actions = {
       type: ActionType.SET_SOUND_ENABLED,
       enabled,
     };
-  }
+  },
+
+  setNoAnimation(enabled) {
+    return {
+      type: ActionType.SET_NO_ANIMATION,
+      enabled,
+    };
+  },
 };
 
 export default Actions;

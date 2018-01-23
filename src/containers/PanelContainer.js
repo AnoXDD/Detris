@@ -43,6 +43,7 @@ class PanelContainer extends Component {
       <div className="container grid-container">
         <div className="grid-queue">
           <GridView
+            noAnimation={this.props.noAnimation}
             grid={this.props.grid}
             editorState={this.props.editorState}/>
           <QueueView
@@ -76,7 +77,10 @@ function stateToProps(state, ownProps) {
 
     case PanelType.IN_GAME:
     case PanelType.TUTORIAL:
-      grid = state.gamePanel.present.get("grid").get("grid").valueSeq().toArray();
+      grid = state.gamePanel.present.get("grid")
+        .get("grid")
+        .valueSeq()
+        .toArray();
       queue = state.gamePanel.present.get("queue").toArray();
       break;
     default:
@@ -88,8 +92,9 @@ function stateToProps(state, ownProps) {
     grid,
     editorState,
     queue,
-    busy   : state.gamePanel.present.get("busy"),
-    control: state.control.toJS(),
+    busy       : state.gamePanel.present.get("busy"),
+    control    : state.control.toJS(),
+    noAnimation: state.game.get("noAnimation"),
   };
 }
 

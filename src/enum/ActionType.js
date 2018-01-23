@@ -78,6 +78,7 @@ const ActionTypes = {
 
   // Settings
   SET_SOUND_ENABLED: "SET_SOUND_ENABLED",
+  SET_NO_ANIMATION : "SET_NO_ANIMATION",
 
   // Debug actions
   NEW_RANDOM_DETROMINO  : "NEW_RANDOM_DETROMINO",

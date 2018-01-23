@@ -8,7 +8,8 @@ import {CSSTransitionGroup} from 'react-transition-group';
 export default class GridView extends Component {
   render() {
     return (
-      <div className="grid-view">
+      <div
+        className={`grid-view ${this.props.noAnimation ? "no-animation" : ""}`}>
         <div className="grid-cells">
           <CSSTransitionGroup
             transitionName="grid-cell-animation"
