@@ -226,7 +226,8 @@ highlightBlocks = [
 
 grid = {
   ...blocksToGridMap(originalBlocks, BlockType.ORIGINAL),
-  ...blocksToGridMap(highlightBlocks, BlockType.HIGHLIGHT),
+  ...blocksToGridMap(highlightBlocks, BlockType.BLINKING_BLACK),
+  ...blocksToGridMap(highlightBlocks, BlockType.DETROMINO),
 };
 
 const MECHANISM_DEMO_I_APPLYING = new BaseGrid({

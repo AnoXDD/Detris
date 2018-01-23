@@ -166,6 +166,7 @@ function setTutorialGrid(state, progress) {
     case TutorialProgress.MOVE_DETROMINO_INTRO:
     case TutorialProgress.MOVE_DETROMINO_NO_OVERLAP:
     case TutorialProgress.MOVE_DETROMINO_ROTATE:
+    case TutorialProgress.MECHANISM_INTRO:
     case TutorialProgress.MECHANISM_DEMO_I_INTRO:
     case TutorialProgress.MECHANISM_DEMO_I_FALLING:
     case TutorialProgress.MECHANISM_DEMO_I_APPLYING:
