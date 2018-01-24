@@ -7,6 +7,7 @@ import Button from "../../lib/Button";
 import Actions from "../../data/Actions";
 import FullscreenOverlayView from "./FullscreenOverlayView";
 import store from "../../store/store";
+import LevelData from "../../static/LevelData";
 
 export default class EndGameView extends Component {
 
@@ -23,6 +24,10 @@ export default class EndGameView extends Component {
   onNextLevel() {
     store.dispatch(Actions.hideAllFullscreenOverlay());
     store.dispatch(Actions.nextLevel());
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    nextState.isLastLevel = nextProps.currentLevelId === LevelData.lastLevelId();
   }
 
   render() {
@@ -48,6 +53,7 @@ export default class EndGameView extends Component {
           <Button
             text="next level"
             className="green"
+            hidden={this.state.isLastLevel}
             onClick={this.onNextLevel}
           >play_arrow</Button>
         </div>
