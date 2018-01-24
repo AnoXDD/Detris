@@ -662,8 +662,22 @@ html, body, #root {
     text-align: center;
   }
 
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .sub-title {
+    font-size: 15px;
+    margin: 5px;
+  }
+
   p {
     margin: 5px;
+  }
+
+  p, a {
+    font-size: 12px;
   }
 }
 

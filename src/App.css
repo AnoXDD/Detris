@@ -858,8 +858,16 @@ html, body, #root {
   width: 70vw;
   padding: 10px;
   text-align: center; }
+.about-view .title {
+  font-size: 20px;
+  font-weight: bold; }
+.about-view .sub-title {
+  font-size: 15px;
+  margin: 5px; }
 .about-view p {
   margin: 5px; }
+.about-view p, .about-view a {
+  font-size: 12px; }
 
 .tutorial-guide-view .guide-text {
   padding: 30px;
