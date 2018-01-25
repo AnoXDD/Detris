@@ -20,6 +20,7 @@ import DispatchType from "../enum/DispatchType";
 import store from "../store/store";
 import DialogType from "../enum/DialogType";
 import {nextTutorial, prevTutorial} from "../util/tutorialHelper";
+import PanelType from "../enum/PanelType";
 
 const DELAY = 500;
 
@@ -371,8 +372,20 @@ const Actions = {
   },
 
   nextDetrominoInEditor() {
-    let detrominoType = store.getState().levelEditorPanel.present
-      .get("grid").get("detromino").get("type");
+    let detromino = store.getState().levelEditorPanel.present
+      .get("grid").get("detromino");
+
+    if (store.getState().game.get("panelType") === PanelType.LEVEL_EDITOR) {
+      if (detromino.get("y") <= 1) {
+        // Not allowing the user to put a detromino in level editor, if it
+        // is too high
+        store.dispatch(Actions.displayError(
+          "Current position is too close to the top of the grid. Try to move the detromino a bit lower. "));
+        return;
+      }
+    }
+
+    let detrominoType = detromino.get("type");
 
     return createSpecialAction({
       type: ActionType.NEXT_DETROMINO_IN_EDITOR,
