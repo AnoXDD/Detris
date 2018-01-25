@@ -22,9 +22,8 @@ export default class AboutView extends Component {
       >
         <div className="about-section">
           <p className="title">Developer</p>
-          <p className="sub-title">Design & Programming</p>
-          <p>Runjie Guan</p>
-          <p><a href="https://anoxic.me">https://anoxic.me</a></p>
+          <p><a href="https://ggxrh.github.io">Gloria Huang</a></p>
+          <p><a href="https://anoxic.me">Runjie Guan</a></p>
         </div>
         <div className="about-section">
           <p className="title">Open source</p>
