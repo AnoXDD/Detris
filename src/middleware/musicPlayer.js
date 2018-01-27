@@ -59,6 +59,14 @@ export default function musicPlayer(store) {
         musicType = MusicType.LEVEL_SUCCESS;
         break;
 
+      case ActionType.APPLY_DETROMINO_BLOCKS:
+        musicType = MusicType.DETROMINO_FALLING;
+        break;
+
+      case ActionType.SINK_TARGET_BLOCKS:
+        // musicType = MusicType.DETROMINO_BREAKING;
+        break;
+
       case ActionType.ROTATE:
       case ActionType.DETROMINO_MOVE_LEFT:
       case ActionType.DETROMINO_MOVE_RIGHT:
