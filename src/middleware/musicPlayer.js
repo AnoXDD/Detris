@@ -87,6 +87,8 @@ export default function musicPlayer(store) {
       case ActionType.PREV_DETROMINO_SHAPE:
       case ActionType.UNDO_IN_EDITOR:
       case ActionType.REDO_IN_EDITOR:
+      case ActionType.UNDO_IN_GAME:
+      case ActionType.REDO_IN_GAME:
         musicType = MusicType.CONTROL_CLICK;
         break;
 

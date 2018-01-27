@@ -350,8 +350,20 @@ const Actions = {
     );
   },
 
-  nextDetromino() {
+  nextDetrominoInGame() {
     let detrominoType = store.getState().gamePanel.present.get("queue").last();
+
+    let currentDetromino = store.getState()
+      .gamePanel
+      .present
+      .get("grid")
+      .get("detromino");
+    if (!currentDetromino) {
+      return createSpecialAction({
+        type: ActionType.NEXT_DETROMINO_IN_GAME,
+        detrominoType,
+      }, DispatchType.ONLY_IF_CLEAR);
+    }
 
     return createBatchActions(
       createSpecialAction({
@@ -365,10 +377,6 @@ const Actions = {
         detrominoType,
       }, DispatchType.ONLY_IF_CLEAR, DELAY * 2),
     );
-  },
-
-  nextDetrominoInGame() {
-    return Actions.nextDetromino();
   },
 
   nextDetrominoInEditor() {
