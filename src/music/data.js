@@ -68,14 +68,14 @@ const MusicData = {
   [MusicType.DETROMINO_FALLING]   : {
     type    : MusicType.DETROMINO_FALLING,
     offset  : 0,
-    duration: 800,
-    length  : 800,
+    duration: 1500,
+    length  : 1500,
   },
   [MusicType.DETROMINO_BREAKING]  : {
     type    : MusicType.DETROMINO_BREAKING,
     offset  : 0,
-    duration: 500,
-    length  : 500,
+    duration: 4000,
+    length  : 4000,
   },
 };
 

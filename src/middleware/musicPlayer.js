@@ -64,7 +64,7 @@ export default function musicPlayer(store) {
         break;
 
       case ActionType.SINK_TARGET_BLOCKS:
-        // musicType = MusicType.DETROMINO_BREAKING;
+        musicType = MusicType.DETROMINO_BREAKING;
         break;
 
       case ActionType.ROTATE:
