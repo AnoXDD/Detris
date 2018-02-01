@@ -11,6 +11,12 @@ import LevelData from "../../static/LevelData";
 
 export default class EndGameView extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {isLastLevel:false};
+
+  }
+
   onBack() {
     store.dispatch(Actions.hideAllFullscreenOverlay());
     store.dispatch(Actions.showSelectLevel());
