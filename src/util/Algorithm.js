@@ -322,7 +322,6 @@ const Algorithm = {
      * the right boundary of new detromino's position is on the left of the
      * left boundary of original detromino. In that case, return null
      */
-    
 
 
     // Apply the processed detromino to the grid
